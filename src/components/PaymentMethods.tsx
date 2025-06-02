@@ -1,8 +1,9 @@
-import { CreditCard, Plus, MoreHorizontal, Shield, Smartphone, Building2, Wallet } from "lucide-react";
+import { CreditCard, Plus, MoreHorizontal, Shield, Smartphone, Building2, Wallet, Star, Trash2, Pencil, Eye, MapPin } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -43,7 +44,8 @@ export function PaymentMethods() {
       detail: "Expire 12/27",
       isDefault: true,
       icon: CreditCard,
-      color: "bg-gradient-to-r from-blue-600 to-blue-700"
+      color: "bg-gradient-to-r from-blue-600 to-blue-700",
+      address: existingAddresses[0]
     },
     {
       id: 2,
@@ -54,7 +56,8 @@ export function PaymentMethods() {
       detail: "Expire 08/26",
       isDefault: false,
       icon: CreditCard,
-      color: "bg-gradient-to-r from-red-500 to-red-600"
+      color: "bg-gradient-to-r from-red-500 to-red-600",
+      address: existingAddresses[1]
     },
     {
       id: 3,
@@ -65,7 +68,8 @@ export function PaymentMethods() {
       detail: "Vérifié",
       isDefault: false,
       icon: Smartphone,
-      color: "bg-gradient-to-r from-orange-500 to-orange-600"
+      color: "bg-gradient-to-r from-orange-500 to-orange-600",
+      address: null
     },
     {
       id: 4,
@@ -76,7 +80,8 @@ export function PaymentMethods() {
       detail: "Compte courant",
       isDefault: false,
       icon: Building2,
-      color: "bg-gradient-to-r from-green-500 to-green-600"
+      color: "bg-gradient-to-r from-green-500 to-green-600",
+      address: existingAddresses[0]
     }
   ];
 
@@ -116,6 +121,42 @@ export function PaymentMethods() {
     setIsDialogOpen(false);
     setSelectedType("");
     setSelectedAddress("");
+  };
+
+  const handleSetDefault = (methodId: number) => {
+    toast({
+      title: "Méthode par défaut",
+      description: "Cette méthode a été définie comme principale.",
+    });
+  };
+
+  const handleEdit = (methodId: number) => {
+    toast({
+      title: "Modifier",
+      description: "Fonctionnalité de modification à venir.",
+    });
+  };
+
+  const handleDelete = (methodId: number) => {
+    toast({
+      title: "Supprimer",
+      description: "Méthode supprimée avec succès.",
+      variant: "destructive",
+    });
+  };
+
+  const handleViewAddress = (address: any) => {
+    if (address) {
+      toast({
+        title: "Adresse associée",
+        description: `${address.name}: ${address.street}, ${address.city}, ${address.country}`,
+      });
+    } else {
+      toast({
+        title: "Aucune adresse",
+        description: "Aucune adresse associée à cette méthode.",
+      });
+    }
   };
 
   const renderFormFields = () => {
@@ -269,65 +310,112 @@ export function PaymentMethods() {
 
   return (
     <div className="min-h-screen bg-gray-50/30">
-      <div className="max-w-4xl mx-auto px-6 py-12">
+      <div className="max-w-6xl mx-auto px-6 py-12">
         
-        {/* Header ultra-moderne */}
-        <div className="mb-16 text-center">
-          <h1 className="text-5xl font-extralight text-gray-900 mb-4 tracking-tight">
+        {/* Header */}
+        <div className="mb-12 text-center">
+          <h1 className="text-4xl font-light text-gray-900 mb-3 tracking-tight">
             Paiements
           </h1>
-          <p className="text-gray-500 text-xl font-light max-w-2xl mx-auto">
-            Gérez vos moyens de paiement en toute simplicité
+          <p className="text-gray-500 text-lg font-light max-w-xl mx-auto">
+            Gérez vos moyens de paiement
           </p>
         </div>
 
-        {/* Aperçu rapide */}
-        <div className="grid grid-cols-3 gap-8 mb-16">
+        {/* Stats */}
+        <div className="grid grid-cols-3 gap-6 mb-12">
           <div className="text-center">
-            <div className="text-3xl font-light text-gray-900 mb-2">4</div>
-            <div className="text-sm text-gray-500 uppercase tracking-wide">Méthodes</div>
+            <div className="text-2xl font-light text-gray-900 mb-1">4</div>
+            <div className="text-xs text-gray-500 uppercase tracking-wide">Méthodes</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-light text-green-600 mb-2">100%</div>
-            <div className="text-sm text-gray-500 uppercase tracking-wide">Sécurisé</div>
+            <div className="text-2xl font-light text-green-600 mb-1">100%</div>
+            <div className="text-xs text-gray-500 uppercase tracking-wide">Sécurisé</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-light text-purple-600 mb-2">1</div>
-            <div className="text-sm text-gray-500 uppercase tracking-wide">Principal</div>
+            <div className="text-2xl font-light text-purple-600 mb-1">1</div>
+            <div className="text-xs text-gray-500 uppercase tracking-wide">Principal</div>
           </div>
         </div>
 
-        {/* Liste des méthodes ultra-minimaliste */}
-        <div className="space-y-4 mb-16">
+        {/* Liste des méthodes - taille ajustée */}
+        <div className="space-y-3 mb-12">
           {paymentMethods.map((method) => {
             const IconComponent = method.icon;
             return (
-              <Card key={method.id} className="border-0 bg-white shadow-sm hover:shadow-lg transition-all duration-500 cursor-pointer group overflow-hidden">
-                <CardContent className="p-8">
+              <Card key={method.id} className="border-0 bg-white shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer group">
+                <CardContent className="p-6">
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-6">
-                      <div className={`w-14 h-14 ${method.color} rounded-2xl flex items-center justify-center shadow-lg`}>
-                        <IconComponent className="w-6 h-6 text-white" />
+                    <div className="flex items-center gap-4">
+                      <div className={`w-12 h-12 ${method.color} rounded-xl flex items-center justify-center shadow-sm`}>
+                        <IconComponent className="w-5 h-5 text-white" />
                       </div>
                       <div className="flex-1">
-                        <div className="flex items-center gap-6 mb-3">
-                          <h3 className="font-medium text-gray-900 text-xl tracking-tight">{method.provider}</h3>
-                          <span className="text-gray-400 font-mono text-lg">{method.identifier}</span>
+                        <div className="flex items-center gap-4 mb-2">
+                          <h3 className="font-medium text-gray-900 text-lg">{method.provider}</h3>
+                          <span className="text-gray-400 font-mono">{method.identifier}</span>
                           {method.isDefault && (
-                            <Badge className="bg-green-50 text-green-700 hover:bg-green-50 px-4 py-2 rounded-full text-xs border-0 font-medium">
-                              <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
+                            <Badge className="bg-green-50 text-green-700 hover:bg-green-50 px-3 py-1 rounded-full text-xs border-0 font-medium">
+                              <Star className="w-3 h-3 mr-1 fill-current" />
                               Principal
                             </Badge>
                           )}
                         </div>
-                        <p className="text-gray-600 text-lg mb-1">{method.name}</p>
+                        <p className="text-gray-600 mb-1">{method.name}</p>
                         <p className="text-gray-400 text-sm">{method.detail}</p>
                       </div>
                     </div>
                     
-                    <Button variant="ghost" size="sm" className="w-10 h-10 p-0 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-gray-100">
-                      <MoreHorizontal className="w-5 h-5 text-gray-400" />
-                    </Button>
+                    <div className="flex items-center gap-2">
+                      {!method.isDefault && (
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="w-9 h-9 p-0 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-yellow-50"
+                          onClick={() => handleSetDefault(method.id)}
+                        >
+                          <Star className="w-4 h-4 text-yellow-500" />
+                        </Button>
+                      )}
+                      
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="w-9 h-9 p-0 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-gray-100"
+                          >
+                            <MoreHorizontal className="w-4 h-4 text-gray-400" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end" className="w-48 bg-white border shadow-lg">
+                          <DropdownMenuItem 
+                            onClick={() => handleEdit(method.id)}
+                            className="cursor-pointer"
+                          >
+                            <Pencil className="w-4 h-4 mr-2" />
+                            Modifier
+                          </DropdownMenuItem>
+                          {method.address && (
+                            <DropdownMenuItem 
+                              onClick={() => handleViewAddress(method.address)}
+                              className="cursor-pointer"
+                            >
+                              <MapPin className="w-4 h-4 mr-2" />
+                              Voir l'adresse
+                            </DropdownMenuItem>
+                          )}
+                          <DropdownMenuSeparator />
+                          <DropdownMenuItem 
+                            onClick={() => handleDelete(method.id)}
+                            className="cursor-pointer text-red-600 hover:text-red-700 hover:bg-red-50"
+                          >
+                            <Trash2 className="w-4 h-4 mr-2" />
+                            Supprimer
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
@@ -335,39 +423,39 @@ export function PaymentMethods() {
           })}
         </div>
 
-        {/* CTA principal épuré */}
-        <Card className="border-2 border-dashed border-gray-200 bg-transparent hover:border-gray-300 hover:bg-gray-50/50 transition-all duration-500 group cursor-pointer">
-          <CardContent className="p-16 text-center">
-            <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-gray-200 transition-all duration-300">
-              <Plus className="w-8 h-8 text-gray-400" />
+        {/* CTA principal */}
+        <Card className="border-2 border-dashed border-gray-200 bg-transparent hover:border-gray-300 hover:bg-gray-50/50 transition-all duration-300 group cursor-pointer">
+          <CardContent className="p-12 text-center">
+            <div className="w-14 h-14 bg-gray-100 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-gray-200 transition-all duration-300">
+              <Plus className="w-6 h-6 text-gray-400" />
             </div>
-            <h3 className="font-light text-gray-900 text-2xl mb-3 tracking-tight">Ajouter une méthode</h3>
-            <p className="text-gray-500 text-lg mb-8 max-w-md mx-auto font-light">
+            <h3 className="font-light text-gray-900 text-xl mb-2">Ajouter une méthode</h3>
+            <p className="text-gray-500 mb-6 max-w-sm mx-auto font-light">
               Carte, Mobile Money, compte bancaire ou wallet digital
             </p>
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
               <DialogTrigger asChild>
-                <Button className="bg-gray-900 hover:bg-gray-800 text-white rounded-2xl px-8 py-3 text-lg font-light shadow-lg hover:shadow-xl transition-all duration-300">
-                  <Plus className="w-5 h-5 mr-3" />
+                <Button className="bg-gray-900 hover:bg-gray-800 text-white rounded-xl px-6 py-2 font-light shadow-md hover:shadow-lg transition-all duration-300">
+                  <Plus className="w-4 h-4 mr-2" />
                   Ajouter
                 </Button>
               </DialogTrigger>
-              <DialogContent className="sm:max-w-md max-h-[90vh] overflow-y-auto rounded-3xl border-0 shadow-2xl">
-                <DialogHeader className="pb-6">
-                  <DialogTitle className="text-2xl font-light text-gray-900 tracking-tight">Nouvelle méthode</DialogTitle>
+              <DialogContent className="sm:max-w-md max-h-[90vh] overflow-y-auto rounded-2xl border-0 shadow-xl">
+                <DialogHeader className="pb-4">
+                  <DialogTitle className="text-xl font-light text-gray-900">Nouvelle méthode</DialogTitle>
                 </DialogHeader>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="space-y-3">
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div className="space-y-2">
                     <Label htmlFor="paymentType" className="text-gray-700 font-medium">Type de paiement</Label>
                     <Select value={selectedType} onValueChange={setSelectedType}>
-                      <SelectTrigger className="rounded-2xl border-gray-200 h-12">
+                      <SelectTrigger className="rounded-xl border-gray-200 h-11">
                         <SelectValue placeholder="Choisir un type" />
                       </SelectTrigger>
-                      <SelectContent className="rounded-2xl border-0 shadow-xl">
-                        <SelectItem value="card" className="rounded-xl">Carte bancaire</SelectItem>
-                        <SelectItem value="mobile" className="rounded-xl">Mobile Money</SelectItem>
-                        <SelectItem value="bank" className="rounded-xl">Compte bancaire</SelectItem>
-                        <SelectItem value="wallet" className="rounded-xl">Wallet digital</SelectItem>
+                      <SelectContent className="rounded-xl border-0 shadow-lg bg-white">
+                        <SelectItem value="card" className="rounded-lg">Carte bancaire</SelectItem>
+                        <SelectItem value="mobile" className="rounded-lg">Mobile Money</SelectItem>
+                        <SelectItem value="bank" className="rounded-lg">Compte bancaire</SelectItem>
+                        <SelectItem value="wallet" className="rounded-lg">Wallet digital</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -375,16 +463,16 @@ export function PaymentMethods() {
                   {renderFormFields()}
                   
                   {selectedType && (
-                    <div className="flex gap-4 pt-8">
+                    <div className="flex gap-3 pt-6">
                       <Button
                         type="button"
                         variant="outline"
                         onClick={() => setIsDialogOpen(false)}
-                        className="flex-1 rounded-2xl border-gray-200 h-12 font-light"
+                        className="flex-1 rounded-xl border-gray-200 h-11 font-light"
                       >
                         Annuler
                       </Button>
-                      <Button type="submit" className="flex-1 bg-gray-900 text-white hover:bg-gray-800 rounded-2xl h-12 font-light shadow-lg">
+                      <Button type="submit" className="flex-1 bg-gray-900 text-white hover:bg-gray-800 rounded-xl h-11 font-light shadow-md">
                         Ajouter
                       </Button>
                     </div>
@@ -395,15 +483,15 @@ export function PaymentMethods() {
           </CardContent>
         </Card>
 
-        {/* Notice de sécurité moderne */}
-        <div className="mt-16 bg-blue-50/50 rounded-3xl p-8 border border-blue-100">
-          <div className="flex items-start gap-4">
-            <div className="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center">
-              <Shield className="w-6 h-6 text-blue-600" />
+        {/* Notice de sécurité */}
+        <div className="mt-12 bg-blue-50/50 rounded-2xl p-6 border border-blue-100">
+          <div className="flex items-start gap-3">
+            <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
+              <Shield className="w-5 h-5 text-blue-600" />
             </div>
             <div>
-              <h3 className="font-medium text-gray-900 mb-2 text-lg">Sécurité garantie</h3>
-              <p className="text-gray-600 font-light leading-relaxed">
+              <h3 className="font-medium text-gray-900 mb-1">Sécurité garantie</h3>
+              <p className="text-gray-600 font-light text-sm leading-relaxed">
                 Vos données sont cryptées selon les standards PCI DSS et protégées par des protocoles de sécurité avancés.
               </p>
             </div>
