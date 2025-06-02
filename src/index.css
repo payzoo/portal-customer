@@ -6,79 +6,55 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 0 0% 0%;
-
+    --foreground: 0 0% 11%;
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 0%;
-
+    --card-foreground: 0 0% 11%;
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 0%;
-
-    --primary: 85 100% 43%;
+    --popover-foreground: 0 0% 11%;
+    --primary: 0 0% 11%;
     --primary-foreground: 0 0% 100%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 0 0% 0%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 85 100% 43%;
-    --accent-foreground: 0 0% 100%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 85 100% 43%;
-
-    --radius: 0.5rem;
-
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 11%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+    --accent: 0 0% 96%;
+    --accent-foreground: 0 0% 11%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 0 0% 11%;
+    --radius: 0.75rem;
     --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 0 0% 0%;
-    --sidebar-primary: 85 100% 43%;
+    --sidebar-foreground: 0 0% 11%;
+    --sidebar-primary: 0 0% 11%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 210 40% 96.1%;
-    --sidebar-accent-foreground: 0 0% 0%;
-    --sidebar-border: 214.3 31.8% 91.4%;
-    --sidebar-ring: 85 100% 43%;
-
-    /* Couleurs Payzoo unifiées */
-    --payzoo-primary: 85 100% 43%; /* #B4DE00 */
-    --payzoo-secondary: 0 0% 0%; /* #000000 */
-    --payzoo-background: 0 0% 100%; /* #FFFFFF */
-    --payzoo-muted: 0 0% 96%; /* #F5F5F5 */
+    --sidebar-accent: 0 0% 96%;
+    --sidebar-accent-foreground: 0 0% 11%;
+    --sidebar-border: 0 0% 90%;
+    --sidebar-ring: 0 0% 11%;
   }
 
   .dark {
-    --background: 0 0% 0%;
+    --background: 0 0% 11%;
     --foreground: 0 0% 100%;
-
-    --card: 0 0% 0%;
+    --card: 0 0% 11%;
     --card-foreground: 0 0% 100%;
-
-    --popover: 0 0% 0%;
+    --popover: 0 0% 11%;
     --popover-foreground: 0 0% 100%;
-
-    --primary: 85 100% 43%;
-    --primary-foreground: 0 0% 0%;
-
-    --secondary: 217.2 32.6% 17.5%;
+    --primary: 0 0% 100%;
+    --primary-foreground: 0 0% 11%;
+    --secondary: 0 0% 15%;
     --secondary-foreground: 0 0% 100%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 85 100% 43%;
-    --accent-foreground: 0 0% 0%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 85 100% 43%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 60%;
+    --accent: 0 0% 15%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 62% 31%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 0 0% 100%;
   }
 }
 
@@ -89,76 +65,174 @@
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    font-feature-settings: 'cv11', 'ss01';
+    font-variation-settings: 'opsz' 32;
   }
 }
 
-/* Styles unifiés Payzoo */
-.payzoo-primary-bg {
-  background-color: #B4DE00;
+/* Typography System */
+.payzoo-h1 {
+  @apply text-4xl font-light text-foreground tracking-tight leading-tight;
 }
 
-.payzoo-secondary-bg {
-  background-color: #000000;
+.payzoo-h2 {
+  @apply text-3xl font-light text-foreground tracking-tight leading-tight;
 }
 
-.payzoo-primary-text {
-  color: #B4DE00;
+.payzoo-h3 {
+  @apply text-2xl font-normal text-foreground tracking-tight leading-snug;
 }
 
-.payzoo-secondary-text {
-  color: #000000;
+.payzoo-h4 {
+  @apply text-xl font-normal text-foreground tracking-tight leading-snug;
 }
 
-/* Boutons CTA standardisés */
+.payzoo-body {
+  @apply text-base text-foreground leading-relaxed;
+}
+
+.payzoo-body-sm {
+  @apply text-sm text-muted-foreground leading-relaxed;
+}
+
+.payzoo-caption {
+  @apply text-xs text-muted-foreground leading-normal;
+}
+
+/* Standardized Containers */
+.payzoo-container {
+  @apply max-w-6xl mx-auto px-8 py-12;
+}
+
+.payzoo-section {
+  @apply space-y-12;
+}
+
+.payzoo-grid-2 {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-8;
+}
+
+.payzoo-grid-3 {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8;
+}
+
+.payzoo-grid-4 {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8;
+}
+
+/* CTA System - Primary (70% usage) */
 .payzoo-btn-primary {
-  @apply bg-[#B4DE00] text-black hover:bg-[#9BC500] font-medium px-6 py-2.5 rounded-lg transition-all duration-200 border-0;
+  @apply inline-flex items-center justify-center gap-2 h-12 px-8 bg-primary text-primary-foreground font-medium rounded-xl transition-all duration-200 hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 active:scale-[0.98];
 }
 
+/* CTA System - Secondary (30% usage) */
 .payzoo-btn-secondary {
-  @apply bg-black text-white hover:bg-gray-800 font-medium px-6 py-2.5 rounded-lg transition-all duration-200 border-0;
+  @apply inline-flex items-center justify-center gap-2 h-12 px-8 bg-secondary text-secondary-foreground font-medium rounded-xl border border-border transition-all duration-200 hover:bg-accent focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 active:scale-[0.98];
 }
 
-.payzoo-btn-outline {
-  @apply bg-transparent text-black border border-black hover:bg-black hover:text-white font-medium px-6 py-2.5 rounded-lg transition-all duration-200;
+/* CTA System - Accent (10% usage) */
+.payzoo-btn-accent {
+  @apply inline-flex items-center justify-center gap-2 h-12 px-8 bg-transparent text-primary font-medium rounded-xl border border-primary transition-all duration-200 hover:bg-primary hover:text-primary-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 active:scale-[0.98];
 }
 
+/* Ghost button for less important actions */
 .payzoo-btn-ghost {
-  @apply bg-transparent text-gray-600 hover:text-black hover:bg-gray-50 font-medium px-6 py-2.5 rounded-lg transition-all duration-200 border-0;
+  @apply inline-flex items-center justify-center gap-2 h-10 px-4 bg-transparent text-muted-foreground font-medium rounded-lg transition-all duration-200 hover:bg-accent hover:text-accent-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1 active:scale-[0.98];
 }
 
-/* Cards et conteneurs */
+/* Icon buttons */
+.payzoo-btn-icon {
+  @apply inline-flex items-center justify-center w-10 h-10 bg-transparent text-muted-foreground rounded-lg transition-all duration-200 hover:bg-accent hover:text-accent-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1 active:scale-[0.95];
+}
+
+/* Cards System */
 .payzoo-card {
-  @apply bg-white border border-gray-100 rounded-xl shadow-sm hover:border-gray-200 transition-all duration-200;
+  @apply bg-card border border-border rounded-2xl shadow-sm transition-all duration-200;
 }
 
-.payzoo-card-hover {
-  @apply bg-white border border-gray-100 rounded-xl shadow-sm hover:border-[#B4DE00] hover:shadow-md transition-all duration-200;
+.payzoo-card-interactive {
+  @apply bg-card border border-border rounded-2xl shadow-sm transition-all duration-200 hover:shadow-md hover:border-primary/20 cursor-pointer;
 }
 
-/* Textes standardisés */
-.payzoo-title {
-  @apply text-black font-light tracking-tight;
+.payzoo-card-content {
+  @apply p-8;
 }
 
-.payzoo-subtitle {
-  @apply text-gray-600 font-normal;
+.payzoo-card-header {
+  @apply px-8 pt-8 pb-6;
 }
 
-.payzoo-text-muted {
-  @apply text-gray-500;
+.payzoo-card-footer {
+  @apply px-8 pb-8 pt-6;
 }
 
-/* Animations */
+/* Input System */
+.payzoo-input {
+  @apply w-full h-12 px-4 bg-background border border-border rounded-xl text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary;
+}
+
+/* Animation System */
 .payzoo-fade-in {
-  animation: fadeIn 0.3s ease-in-out;
+  animation: payzooFadeIn 0.4s ease-out;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+.payzoo-slide-up {
+  animation: payzooSlideUp 0.4s ease-out;
 }
 
-/* Focus states */
-.payzoo-focus {
-  @apply focus:outline-none focus:ring-2 focus:ring-[#B4DE00] focus:ring-offset-2;
+@keyframes payzooFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes payzooSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Status indicators */
+.payzoo-status-active {
+  @apply w-2 h-2 bg-primary rounded-full;
+}
+
+.payzoo-status-inactive {
+  @apply w-2 h-2 bg-muted-foreground rounded-full;
+}
+
+.payzoo-status-warning {
+  @apply w-2 h-2 bg-yellow-500 rounded-full;
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  .payzoo-fade-in,
+  .payzoo-slide-up {
+    animation: none;
+  }
+  
+  .payzoo-btn-primary,
+  .payzoo-btn-secondary,
+  .payzoo-btn-accent,
+  .payzoo-btn-ghost,
+  .payzoo-btn-icon {
+    transition: none;
+  }
+}
+
+/* Focus improvements for better accessibility */
+.payzoo-focus-ring {
+  @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
 }

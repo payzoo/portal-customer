@@ -1,4 +1,3 @@
-
 import { TrendingUp, Send, Calendar, Target, Plus, Eye, EyeOff, PiggyBank, TrendingDown, Coffee, ShoppingBag, Car, Home, ArrowUpRight, Shield } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -13,10 +12,10 @@ export function Dashboard() {
   const spentPercentage = (currentSpent / monthlyBudget) * 100;
 
   const expenseCategories = [
-    { name: "Alimentation", amount: 487.20, percentage: 26, color: "payzoo-secondary-bg", icon: Coffee, trend: "+12%" },
-    { name: "Transport", amount: 356.80, percentage: 19, color: "bg-gray-700", icon: Car, trend: "-8%" },
-    { name: "Shopping", amount: 298.45, percentage: 16, color: "bg-gray-600", icon: ShoppingBag, trend: "+5%" },
-    { name: "Logement", amount: 705.05, percentage: 38, color: "payzoo-secondary-bg", icon: Home, trend: "0%" },
+    { name: "Alimentation", amount: 487.20, percentage: 26, color: "bg-primary", icon: Coffee, trend: "+12%" },
+    { name: "Transport", amount: 356.80, percentage: 19, color: "bg-muted-foreground", icon: Car, trend: "-8%" },
+    { name: "Shopping", amount: 298.45, percentage: 16, color: "bg-muted-foreground", icon: ShoppingBag, trend: "+5%" },
+    { name: "Logement", amount: 705.05, percentage: 38, color: "bg-primary", icon: Home, trend: "0%" },
   ];
 
   const insights = [
@@ -25,7 +24,7 @@ export function Dashboard() {
       description: "89€ d'économies possibles ce mois",
       icon: PiggyBank,
       value: "89€",
-      color: "payzoo-primary-text"
+      color: "text-primary"
     },
     {
       title: "Tendance positive",
@@ -51,16 +50,16 @@ export function Dashboard() {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="max-w-6xl mx-auto p-6 space-y-8">
+    <div className="min-h-screen bg-background">
+      <div className="payzoo-container">
         
-        {/* Header avec CTA standardisés */}
-        <div className="flex items-center justify-between">
+        {/* Header with standardized typography and CTAs */}
+        <div className="flex items-center justify-between mb-12">
           <div>
-            <h1 className="text-3xl payzoo-title">
+            <h1 className="payzoo-h1 mb-2">
               Dashboard
             </h1>
-            <p className="text-sm payzoo-subtitle mt-1 flex items-center gap-2">
+            <p className="payzoo-body-sm flex items-center gap-2">
               <Calendar className="w-4 h-4" />
               Décembre 2024
             </p>
@@ -70,26 +69,26 @@ export function Dashboard() {
               <Send className="w-4 h-4 mr-2" />
               Nouvelle transaction
             </Button>
-            <Button className="payzoo-btn-outline">
+            <Button className="payzoo-btn-secondary">
               <Plus className="w-4 h-4 mr-2" />
               Ajouter budget
             </Button>
           </div>
         </div>
 
-        {/* Budget Overview unifié */}
-        <Card className="payzoo-card">
-          <CardContent className="p-8">
+        {/* Budget Overview with standardized design */}
+        <Card className="payzoo-card mb-12">
+          <CardContent className="payzoo-card-content">
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
-                <div className="w-2 h-2 payzoo-secondary-bg rounded-full"></div>
-                <span className="text-sm payzoo-subtitle font-medium">Budget mensuel</span>
+                <div className="payzoo-status-active"></div>
+                <span className="payzoo-body-sm font-medium">Budget mensuel</span>
               </div>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => setIsAnalyticsVisible(!isAnalyticsVisible)}
-                className="payzoo-btn-ghost p-2"
+                className="payzoo-btn-ghost"
               >
                 {isAnalyticsVisible ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </Button>
@@ -99,14 +98,14 @@ export function Dashboard() {
               <div className="space-y-6">
                 <div>
                   <div className="flex items-baseline gap-3 mb-4">
-                    <span className="text-4xl font-light payzoo-secondary-text">
+                    <span className="payzoo-h1 text-foreground">
                       {currentSpent.toLocaleString('fr-FR', { minimumFractionDigits: 2 })}€
                     </span>
-                    <span className="payzoo-text-muted">/ {monthlyBudget.toLocaleString('fr-FR')}€</span>
+                    <span className="payzoo-body-sm text-muted-foreground">/ {monthlyBudget.toLocaleString('fr-FR')}€</span>
                   </div>
-                  <Progress value={spentPercentage} className="h-1.5 bg-gray-100" />
+                  <Progress value={spentPercentage} className="h-1.5 bg-secondary" />
                 </div>
-                <div className="flex items-center gap-8 text-sm payzoo-subtitle">
+                <div className="flex items-center gap-8 payzoo-body-sm text-muted-foreground">
                   <div className="flex items-center gap-2">
                     <TrendingUp className="w-4 h-4" />
                     <span>Reste {(monthlyBudget - currentSpent).toLocaleString('fr-FR', { minimumFractionDigits: 2 })}€</span>
@@ -121,45 +120,45 @@ export function Dashboard() {
           </CardContent>
         </Card>
 
-        <div className="grid grid-cols-12 gap-8">
+        <div className="payzoo-grid-3 gap-12">
           
-          {/* Section principale */}
-          <div className="col-span-8 space-y-8">
+          {/* Main section */}
+          <div className="col-span-2 payzoo-section">
             
-            {/* Catégories avec design unifié */}
+            {/* Categories with standardized design */}
             <div>
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl payzoo-title">Dépenses par catégorie</h2>
+              <div className="flex items-center justify-between mb-8">
+                <h2 className="payzoo-h2">Dépenses par catégorie</h2>
                 <Button className="payzoo-btn-ghost">
                   Voir détails
                   <ArrowUpRight className="w-4 h-4 ml-1" />
                 </Button>
               </div>
               
-              <div className="grid grid-cols-2 gap-4">
+              <div className="payzoo-grid-2">
                 {expenseCategories.map((category) => (
-                  <Card key={category.name} className="payzoo-card-hover">
-                    <CardContent className="p-6">
+                  <Card key={category.name} className="payzoo-card-interactive">
+                    <CardContent className="payzoo-card-content">
                       <div className="flex items-center justify-between mb-4">
                         <div className={`w-10 h-10 ${category.color} rounded-lg flex items-center justify-center`}>
-                          <category.icon className="w-5 h-5 text-white" />
+                          <category.icon className="w-5 h-5 text-primary-foreground" />
                         </div>
-                        <span className={`text-xs font-medium px-2 py-1 rounded-full ${
+                        <span className={`payzoo-caption font-medium px-2 py-1 rounded-full ${
                           category.trend.startsWith('+') ? 'bg-red-50 text-red-600' : 
                           category.trend.startsWith('-') ? 'bg-green-50 text-green-600' : 
-                          'bg-gray-50 text-gray-600'
+                          'bg-secondary text-secondary-foreground'
                         }`}>
                           {category.trend}
                         </span>
                       </div>
                       <div className="space-y-3">
                         <div>
-                          <p className="text-sm payzoo-text-muted">{category.name}</p>
-                          <p className="text-xl font-light payzoo-secondary-text">{category.amount.toLocaleString('fr-FR', { minimumFractionDigits: 2 })}€</p>
+                          <p className="payzoo-body-sm text-muted-foreground">{category.name}</p>
+                          <p className="payzoo-h3 text-foreground">{category.amount.toLocaleString('fr-FR', { minimumFractionDigits: 2 })}€</p>
                         </div>
                         <div className="space-y-2">
-                          <Progress value={category.percentage} className="h-1 bg-gray-100" />
-                          <p className="text-xs payzoo-text-muted">{category.percentage}% du budget</p>
+                          <Progress value={category.percentage} className="h-1 bg-secondary" />
+                          <p className="payzoo-caption text-muted-foreground">{category.percentage}% du budget</p>
                         </div>
                       </div>
                     </CardContent>
@@ -168,10 +167,10 @@ export function Dashboard() {
               </div>
             </div>
 
-            {/* Transactions récentes */}
+            {/* Recent transactions */}
             <div>
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl payzoo-title">Transactions récentes</h2>
+              <div className="flex items-center justify-between mb-8">
+                <h2 className="payzoo-h2">Transactions récentes</h2>
                 <Button className="payzoo-btn-ghost">
                   Tout voir
                   <ArrowUpRight className="w-4 h-4 ml-1" />
@@ -180,17 +179,17 @@ export function Dashboard() {
               
               <div className="space-y-1">
                 {recentTransactions.map((transaction, index) => (
-                  <div key={index} className="flex items-center justify-between p-4 hover:bg-gray-50 rounded-lg transition-colors">
+                  <div key={index} className="flex items-center justify-between p-4 hover:bg-accent rounded-lg transition-colors">
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center">
-                        <transaction.icon className="w-4 h-4 text-gray-600" />
+                      <div className="w-8 h-8 bg-secondary rounded-lg flex items-center justify-center">
+                        <transaction.icon className="w-4 h-4 text-muted-foreground" />
                       </div>
                       <div>
-                        <p className="font-medium payzoo-secondary-text text-sm">{transaction.name}</p>
-                        <p className="text-xs payzoo-text-muted">{transaction.category} • {transaction.time}</p>
+                        <p className="payzoo-body-sm font-medium text-foreground">{transaction.name}</p>
+                        <p className="payzoo-caption text-muted-foreground">{transaction.category} • {transaction.time}</p>
                       </div>
                     </div>
-                    <span className="font-medium payzoo-secondary-text text-sm">-{transaction.amount}€</span>
+                    <span className="payzoo-body-sm font-medium text-foreground">-{transaction.amount}€</span>
                   </div>
                 ))}
               </div>
@@ -198,24 +197,24 @@ export function Dashboard() {
           </div>
 
           {/* Sidebar insights */}
-          <div className="col-span-4 space-y-8">
+          <div className="col-span-1 payzoo-section">
             
             {/* Insights */}
             <div>
-              <h3 className="text-lg payzoo-title mb-6">Insights</h3>
+              <h3 className="payzoo-h3 mb-8">Insights</h3>
               <div className="space-y-4">
                 {insights.map((insight, index) => (
-                  <div key={index} className="p-4 payzoo-card-hover">
+                  <div key={index} className="payzoo-card-interactive payzoo-card-content">
                     <div className="flex items-start gap-3">
-                      <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <insight.icon className="w-4 h-4 text-gray-600" />
+                      <div className="w-8 h-8 bg-secondary rounded-lg flex items-center justify-center flex-shrink-0">
+                        <insight.icon className="w-4 h-4 text-muted-foreground" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between mb-1">
-                          <h4 className="font-medium payzoo-secondary-text text-sm">{insight.title}</h4>
-                          <span className={`text-sm font-medium ${insight.color}`}>{insight.value}</span>
+                          <h4 className="payzoo-body-sm font-medium text-foreground">{insight.title}</h4>
+                          <span className={`payzoo-body-sm font-medium ${insight.color}`}>{insight.value}</span>
                         </div>
-                        <p className="text-xs payzoo-text-muted leading-relaxed">{insight.description}</p>
+                        <p className="payzoo-caption text-muted-foreground leading-relaxed">{insight.description}</p>
                       </div>
                     </div>
                   </div>
@@ -223,40 +222,41 @@ export function Dashboard() {
               </div>
             </div>
 
-            {/* Actions rapides avec CTA unifiés */}
+            {/* Quick actions with standardized CTAs */}
             <div>
-              <h3 className="text-lg payzoo-title mb-6">Actions rapides</h3>
+              <h3 className="payzoo-h3 mb-8">Actions rapides</h3>
               <div className="space-y-2">
-                <Button className="payzoo-btn-outline w-full justify-start p-4 h-auto">
-                  <TrendingUp className="w-4 h-4 mr-3 text-gray-600" />
+                <Button className="payzoo-btn-secondary w-full justify-start payzoo-card-content h-auto">
+                  <TrendingUp className="w-4 h-4 mr-3 text-muted-foreground" />
                   <div className="text-left">
-                    <div className="font-medium payzoo-secondary-text text-sm">Analyser dépenses</div>
-                    <div className="text-xs payzoo-text-muted">Rapport détaillé</div>
+                    <div className="payzoo-body-sm font-medium text-foreground">Analyser dépenses</div>
+                    <div className="payzoo-caption text-muted-foreground">Rapport détaillé</div>
                   </div>
                 </Button>
-                <Button className="payzoo-btn-outline w-full justify-start p-4 h-auto">
-                  <Target className="w-4 h-4 mr-3 text-gray-600" />
+                <Button className="payzoo-btn-secondary w-full justify-start payzoo-card-content h-auto">
+                  <Target className="w-4 h-4 mr-3 text-muted-foreground" />
                   <div className="text-left">
-                    <div className="font-medium payzoo-secondary-text text-sm">Définir objectifs</div>
-                    <div className="text-xs payzoo-text-muted">Budget personnalisé</div>
+                    <div className="payzoo-body-sm font-medium text-foreground">Définir objectifs</div>
+                    <div className="payzoo-caption text-muted-foreground">Budget personnalisé</div>
                   </div>
+                </div>
                 </Button>
               </div>
             </div>
 
-            {/* CTA principal */}
-            <Card className="border-0 payzoo-secondary-bg text-white">
-              <CardContent className="p-6">
+            {/* Main CTA */}
+            <Card className="border-0 bg-primary text-primary-foreground">
+              <CardContent className="payzoo-card-content">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center">
+                  <div className="w-8 h-8 bg-primary-foreground/10 rounded-lg flex items-center justify-center">
                     <Shield className="w-4 h-4" />
                   </div>
-                  <span className="font-medium text-sm">Optimisation IA</span>
+                  <span className="payzoo-body-sm font-medium">Optimisation IA</span>
                 </div>
-                <p className="text-gray-300 mb-4 text-sm leading-relaxed">
+                <p className="text-primary-foreground/80 mb-4 payzoo-body-sm leading-relaxed">
                   Optimisez vos finances avec notre IA
                 </p>
-                <Button className="payzoo-btn-primary w-full">
+                <Button className="payzoo-btn-accent w-full bg-primary-foreground text-primary hover:bg-primary-foreground/90">
                   Activer l'IA
                   <ArrowUpRight className="w-4 h-4 ml-2" />
                 </Button>

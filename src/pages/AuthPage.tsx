@@ -66,11 +66,11 @@ const AuthPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-gray-50/20 to-slate-100/30 flex items-center justify-center p-4 overflow-hidden relative">
+    <div className="min-h-screen bg-background flex items-center justify-center p-4 overflow-hidden relative">
       {/* Animated background with mouse interaction */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-30">
         <div 
-          className="absolute w-96 h-96 bg-gradient-to-r from-blue-100/40 to-purple-100/30 rounded-full blur-3xl transition-all duration-1000 ease-out"
+          className="absolute w-96 h-96 bg-gradient-to-r from-muted to-accent/50 rounded-full blur-3xl transition-all duration-1000 ease-out"
           style={{
             transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)`,
             left: '10%',
@@ -78,59 +78,58 @@ const AuthPage = () => {
           }}
         ></div>
         <div 
-          className="absolute w-80 h-80 bg-gradient-to-l from-emerald-100/30 to-cyan-100/20 rounded-full blur-3xl transition-all duration-1500 ease-out"
+          className="absolute w-80 h-80 bg-gradient-to-l from-accent/30 to-muted/20 rounded-full blur-3xl transition-all duration-1500 ease-out"
           style={{
             transform: `translate(${-mousePosition.x * 0.01}px, ${-mousePosition.y * 0.01}px)`,
             right: '15%',
             bottom: '20%'
           }}
         ></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-indigo-50/10 via-transparent to-transparent rounded-full animate-pulse" style={{ animationDuration: '4s' }}></div>
       </div>
 
-      <div className={`w-full max-w-sm space-y-10 relative z-10 transform transition-all duration-1000 ease-out ${
+      <div className={`w-full max-w-sm space-y-12 relative z-10 transform transition-all duration-1000 ease-out ${
         isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
       }`}>
-        {/* Titre seulement */}
+        {/* Title section with new typography system */}
         <div className="text-center">
           <div className={`transform transition-all duration-700 ease-out ${
             isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
           }`} style={{ transitionDelay: '400ms' }}>
-            <h1 className="text-5xl font-light text-black tracking-tight mb-3">
+            <h1 className="payzoo-h1 mb-4">
               Payzoo
             </h1>
             <div className="flex items-center justify-center space-x-2 mb-2">
-              <div className="w-1 h-1 bg-black rounded-full animate-pulse"></div>
-              <p className="text-sm text-black font-medium tracking-wider">SIMPLY BETTER</p>
-              <div className="w-1 h-1 bg-black rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+              <div className="payzoo-status-active animate-pulse"></div>
+              <p className="payzoo-caption uppercase tracking-wider">SIMPLY BETTER</p>
+              <div className="payzoo-status-active animate-pulse" style={{ animationDelay: '0.5s' }}></div>
             </div>
           </div>
         </div>
 
-        {/* Dynamic form */}
+        {/* Dynamic form with new CTA system */}
         <div className={`space-y-8 transform transition-all duration-700 ease-out ${
           isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
         }`} style={{ transitionDelay: '600ms' }}>
           {!showEmailTag ? (
             <div className="space-y-8">
               <div className="relative group">
-                <div className="absolute -inset-1 bg-gradient-to-r from-black/20 via-black/20 to-black/20 rounded-3xl blur-lg opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                <div className="relative bg-white/60 backdrop-blur-md rounded-2xl border border-white/20 shadow-xl overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-focus-within:translate-x-full transition-transform duration-1000"></div>
+                <div className="absolute -inset-1 bg-gradient-to-r from-primary/10 via-primary/10 to-primary/10 rounded-2xl blur-lg opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+                <div className="relative payzoo-card overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/5 to-transparent -translate-x-full group-focus-within:translate-x-full transition-transform duration-1000"></div>
                   <div className="relative flex items-center">
-                    <Mail className="absolute left-5 text-gray-400 w-5 h-5 transition-all duration-300 group-focus-within:text-black group-focus-within:scale-110" />
+                    <Mail className="absolute left-5 text-muted-foreground w-5 h-5 transition-all duration-300 group-focus-within:text-primary group-focus-within:scale-110" />
                     <Input
                       type="email"
                       placeholder="votre@email.com"
                       value={email}
                       onChange={handleEmailChange}
-                      className="w-full h-16 pl-14 pr-14 border-0 bg-transparent text-lg placeholder:text-gray-400 focus:ring-0 focus:outline-none font-light"
+                      className="payzoo-input pl-14 pr-14 border-0 bg-transparent focus:ring-0"
                     />
                     <div className={`absolute right-5 transition-all duration-500 ${
                       isEmailValid ? 'scale-100 opacity-100 rotate-0' : 'scale-0 opacity-0 rotate-90'
                     }`}>
-                      <div className="w-6 h-6 bg-gradient-to-r from-emerald-500 to-green-500 rounded-full flex items-center justify-center shadow-lg">
-                        <Check className="w-3 h-3 text-white" />
+                      <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center shadow-lg">
+                        <Check className="w-3 h-3 text-primary-foreground" />
                       </div>
                     </div>
                   </div>
@@ -140,36 +139,33 @@ const AuthPage = () => {
               <Button
                 onClick={handleContinue}
                 disabled={!isEmailValid}
-                className={`relative w-full h-16 bg-black text-white rounded-2xl font-medium text-lg shadow-xl hover:shadow-2xl disabled:opacity-40 disabled:cursor-not-allowed group overflow-hidden transition-all duration-300 ${
-                  isEmailValid ? 'hover:scale-[1.02] hover:-translate-y-1 hover:bg-gray-800' : ''
-                }`}
+                className={`payzoo-btn-primary w-full ${!isEmailValid ? 'opacity-40 cursor-not-allowed' : ''}`}
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-                <span className="relative flex items-center justify-center font-light tracking-wide">
+                <span className="relative flex items-center justify-center">
                   Continuer
                   <ArrowRight className="w-5 h-5 ml-3 group-hover:translate-x-2 transition-transform duration-300" />
                 </span>
               </Button>
             </div>
           ) : (
-            <div className="space-y-8 animate-fade-in">
+            <div className="space-y-8 payzoo-fade-in">
               <div className="group cursor-pointer">
-                <div className="relative bg-white/60 backdrop-blur-md rounded-2xl border border-white/20 shadow-xl p-6 hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                <div className="payzoo-card-interactive payzoo-card-content overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                   <div className="relative flex items-center space-x-4">
-                    <div className="w-14 h-14 bg-black rounded-2xl flex items-center justify-center text-white font-semibold text-xl shadow-lg group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
+                    <div className="w-14 h-14 bg-primary rounded-2xl flex items-center justify-center text-primary-foreground font-semibold text-xl shadow-lg group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
                       {email.charAt(0).toUpperCase()}
                     </div>
                     <div className="flex-1 min-w-0 overflow-hidden">
-                      <p className="text-black font-medium text-base break-words leading-tight w-full overflow-wrap-anywhere">{email}</p>
+                      <p className="payzoo-body font-medium break-words leading-tight w-full overflow-wrap-anywhere">{email}</p>
                       <div className="flex items-center space-x-2 mt-2">
-                        <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
-                        <p className="text-black text-sm font-light">Prêt à se connecter</p>
+                        <div className="payzoo-status-active animate-pulse"></div>
+                        <p className="payzoo-body-sm font-light">Prêt à se connecter</p>
                       </div>
                     </div>
                     <button 
                       onClick={removeEmailTag}
-                      className="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-black hover:bg-white/60 rounded-full transition-all duration-200 hover:scale-110 hover:rotate-90 flex-shrink-0"
+                      className="payzoo-btn-icon hover:rotate-90 flex-shrink-0"
                     >
                       ×
                     </button>
@@ -179,10 +175,9 @@ const AuthPage = () => {
 
               <Button
                 onClick={handleConnection}
-                className="relative w-full h-16 bg-black text-white rounded-2xl font-medium text-lg shadow-xl hover:shadow-2xl group overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 hover:bg-gray-800"
+                className="payzoo-btn-primary w-full"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-                <span className="relative flex items-center justify-center font-light tracking-wide">
+                <span className="relative flex items-center justify-center">
                   Se connecter
                   <ArrowRight className="w-5 h-5 ml-3 group-hover:translate-x-2 transition-transform duration-300" />
                 </span>
@@ -191,16 +186,16 @@ const AuthPage = () => {
           )}
         </div>
 
-        {/* Minimalist footer */}
+        {/* Minimalist footer with new typography */}
         <div className={`text-center space-y-6 transform transition-all duration-700 ease-out ${
           isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
         }`} style={{ transitionDelay: '800ms' }}>
           <div className="text-center">
-            <p className="text-sm text-gray-600 mb-4">
+            <p className="payzoo-body-sm mb-4">
               Pas encore de compte ?{" "}
               <button
                 onClick={handleRegisterRedirect}
-                className="text-black font-medium hover:underline transition-all duration-200"
+                className="text-primary font-medium hover:underline transition-all duration-200 payzoo-focus-ring"
               >
                 S'inscrire
               </button>
@@ -210,12 +205,12 @@ const AuthPage = () => {
             {[1, 2, 3].map((i) => (
               <div 
                 key={i} 
-                className="w-1.5 h-1.5 bg-black rounded-full animate-pulse hover:scale-150 transition-all duration-300 cursor-pointer"
+                className="payzoo-status-active animate-pulse hover:scale-150 transition-all duration-300 cursor-pointer"
                 style={{ animationDelay: `${i * 0.3}s`, animationDuration: '2s' }}
               ></div>
             ))}
           </div>
-          <p className="text-xs text-gray-400 font-light tracking-wider opacity-60">© 2024 Payzoo</p>
+          <p className="payzoo-caption opacity-60">© 2024 Payzoo</p>
         </div>
       </div>
     </div>

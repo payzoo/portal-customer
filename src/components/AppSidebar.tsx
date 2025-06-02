@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { 
   LayoutDashboard, 
@@ -54,19 +53,19 @@ export function AppSidebar({ activeSection, onSectionChange }: AppSidebarProps) 
   };
 
   return (
-    <div className={`${isCollapsed ? 'w-16' : 'w-64'} bg-white border-r border-gray-100 h-screen fixed left-0 top-0 flex flex-col transition-all duration-300 ease-in-out z-40 shadow-sm`}>
-      {/* Header avec logo Payzoo */}
-      <div className="flex items-center justify-between p-4 border-b border-gray-100">
+    <div className={`${isCollapsed ? 'w-16' : 'w-64'} bg-background border-r border-border h-screen fixed left-0 top-0 flex flex-col transition-all duration-300 ease-in-out z-40 shadow-sm`}>
+      {/* Header with standardized design */}
+      <div className="flex items-center justify-between p-4 border-b border-border">
         {!isCollapsed && (
           <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 payzoo-primary-bg rounded-lg flex items-center justify-center font-bold text-sm payzoo-secondary-text">
+            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center font-bold text-sm text-primary-foreground">
               P
             </div>
-            <h1 className="font-semibold payzoo-secondary-text text-lg">Payzoo</h1>
+            <h1 className="payzoo-h4 text-foreground">Payzoo</h1>
           </div>
         )}
         {isCollapsed && (
-          <div className="w-8 h-8 payzoo-primary-bg rounded-lg flex items-center justify-center mx-auto font-bold text-sm payzoo-secondary-text">
+          <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center mx-auto font-bold text-sm text-primary-foreground">
             P
           </div>
         )}
@@ -74,32 +73,32 @@ export function AppSidebar({ activeSection, onSectionChange }: AppSidebarProps) 
           variant="ghost"
           size="icon"
           onClick={() => setIsCollapsed(!isCollapsed)}
-          className="h-8 w-8 text-gray-400 hover:text-gray-600 payzoo-focus"
+          className="payzoo-btn-icon"
         >
           {isCollapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
         </Button>
       </div>
 
-      {/* Profile section */}
+      {/* Profile section with new typography */}
       {!isCollapsed && (
-        <div className="p-4 border-b border-gray-100">
+        <div className="p-4 border-b border-border">
           <div className="flex items-center space-x-3">
             <Avatar className="w-10 h-10">
-              <AvatarFallback className="bg-gray-100 payzoo-secondary-text text-sm font-medium">
+              <AvatarFallback className="bg-secondary text-secondary-foreground text-sm font-medium">
                 {user ? getUserInitials(user.email) : 'U'}
               </AvatarFallback>
             </Avatar>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium payzoo-secondary-text truncate">
+              <p className="payzoo-body-sm font-medium text-foreground truncate">
                 {user ? getDisplayName(user.email) : 'Utilisateur'}
               </p>
-              <p className="text-xs payzoo-text-muted truncate">{user?.email}</p>
+              <p className="payzoo-caption text-muted-foreground truncate">{user?.email}</p>
             </div>
           </div>
         </div>
       )}
 
-      {/* Navigation */}
+      {/* Navigation with standardized design */}
       <nav className="flex-1 p-4">
         <ul className="space-y-1">
           {menuItems.map((item) => {
@@ -109,19 +108,19 @@ export function AppSidebar({ activeSection, onSectionChange }: AppSidebarProps) 
               <li key={item.id}>
                 <button
                   onClick={() => onSectionChange(item.id)}
-                  className={`w-full flex items-center ${isCollapsed ? 'justify-center px-3' : 'px-3'} py-2.5 rounded-lg text-left transition-all duration-200 group payzoo-focus ${
+                  className={`w-full flex items-center ${isCollapsed ? 'justify-center px-3' : 'px-3'} py-2.5 rounded-lg text-left transition-all duration-200 group payzoo-focus-ring ${
                     isActive
-                      ? "payzoo-primary-bg payzoo-secondary-text shadow-sm"
-                      : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                      ? "bg-primary text-primary-foreground shadow-sm"
+                      : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
                   }`}
                   title={isCollapsed ? item.label : undefined}
                 >
                   <Icon className={`w-5 h-5 ${isCollapsed ? '' : 'mr-3'} flex-shrink-0`} />
                   {!isCollapsed && (
-                    <span className="font-medium text-sm">{item.label}</span>
+                    <span className="payzoo-body-sm font-medium">{item.label}</span>
                   )}
                   {isActive && !isCollapsed && (
-                    <div className="ml-auto w-1.5 h-1.5 bg-black rounded-full opacity-80" />
+                    <div className="ml-auto payzoo-status-active opacity-80" />
                   )}
                 </button>
               </li>
@@ -130,24 +129,24 @@ export function AppSidebar({ activeSection, onSectionChange }: AppSidebarProps) 
         </ul>
       </nav>
 
-      {/* Footer avec déconnexion */}
-      <div className="p-4 border-t border-gray-100">
+      {/* Footer with logout */}
+      <div className="p-4 border-t border-border">
         <button
           onClick={handleLogout}
-          className={`w-full flex items-center ${isCollapsed ? 'justify-center px-3' : 'px-3'} py-2.5 rounded-lg text-gray-500 hover:bg-red-50 hover:text-red-600 transition-all duration-200 group payzoo-focus`}
+          className={`w-full flex items-center ${isCollapsed ? 'justify-center px-3' : 'px-3'} py-2.5 rounded-lg text-muted-foreground hover:bg-destructive/10 hover:text-destructive transition-all duration-200 group payzoo-focus-ring`}
           title={isCollapsed ? "Déconnexion" : undefined}
         >
           <LogOut className={`w-5 h-5 ${isCollapsed ? '' : 'mr-3'} flex-shrink-0`} />
           {!isCollapsed && (
-            <span className="font-medium text-sm">Déconnexion</span>
+            <span className="payzoo-body-sm font-medium">Déconnexion</span>
           )}
         </button>
       </div>
 
-      {/* Footer minimaliste */}
+      {/* Footer with standardized typography */}
       {!isCollapsed && (
         <div className="p-4 text-center">
-          <p className="text-xs payzoo-text-muted">
+          <p className="payzoo-caption text-muted-foreground">
             © 2024 Payzoo • Version Pro
           </p>
         </div>
