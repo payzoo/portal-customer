@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,21 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// PayZoo brand colors
+				payzoo: {
+					green: '#B4DE00',
+					black: '#000000',
+					'green-50': '#F7FDE0',
+					'green-100': '#EDFB99',
+					'green-200': '#E3F966',
+					'green-300': '#D9F733',
+					'green-400': '#CEF500',
+					'green-500': '#B4DE00',
+					'green-600': '#9BC500',
+					'green-700': '#83AC00',
+					'green-800': '#6A9300',
+					'green-900': '#527A00'
 				}
 			},
 			borderRadius: {
@@ -84,11 +100,20 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'pulse-green': {
+					'0%, 100%': {
+						opacity: '1',
+					},
+					'50%': {
+						opacity: '.8',
+					},
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'pulse-green': 'pulse-green 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
 			}
 		}
 	},
