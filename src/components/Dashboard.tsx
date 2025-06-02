@@ -1,3 +1,4 @@
+
 import { TrendingUp, Send, Calendar, Target, Plus, Eye, EyeOff, PiggyBank, TrendingDown, Coffee, ShoppingBag, Car, Home, ArrowUpRight, Shield, Zap, Activity, Sparkles, Brain, Cpu, Stars } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -344,41 +345,41 @@ export function Dashboard() {
               
               {/* Neural network pattern */}
               <div className="absolute inset-0 opacity-10">
-                <div className="absolute top-4 left-8 w-1 h-1 bg-background rounded-full animate-pulse"></div>
-                <div className="absolute top-12 left-16 w-1 h-1 bg-background rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
-                <div className="absolute top-8 left-24 w-1 h-1 bg-background rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
-                <div className="absolute bottom-8 right-12 w-1 h-1 bg-background rounded-full animate-pulse" style={{ animationDelay: '1.5s' }}></div>
-                <div className="absolute bottom-16 right-20 w-1 h-1 bg-background rounded-full animate-pulse" style={{ animationDelay: '2s' }}></div>
+                <div className="absolute top-4 left-8 w-1 h-1 bg-white rounded-full animate-pulse"></div>
+                <div className="absolute top-12 left-16 w-1 h-1 bg-white rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+                <div className="absolute top-8 left-24 w-1 h-1 bg-white rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
+                <div className="absolute bottom-8 right-12 w-1 h-1 bg-white rounded-full animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+                <div className="absolute bottom-16 right-20 w-1 h-1 bg-white rounded-full animate-pulse" style={{ animationDelay: '2s' }}></div>
                 
                 {/* Connection lines */}
                 <svg className="absolute inset-0 w-full h-full" viewBox="0 0 200 120">
-                  <line x1="32" y1="32" x2="64" y2="48" stroke="currentColor" strokeWidth="0.5" opacity="0.3" className="animate-pulse" />
-                  <line x1="64" y1="48" x2="96" y2="32" stroke="currentColor" strokeWidth="0.5" opacity="0.3" className="animate-pulse" style={{ animationDelay: '0.3s' }} />
-                  <line x1="140" y1="80" x2="160" y2="64" stroke="currentColor" strokeWidth="0.5" opacity="0.3" className="animate-pulse" style={{ animationDelay: '0.6s' }} />
+                  <line x1="32" y1="32" x2="64" y2="48" stroke="white" strokeWidth="0.5" opacity="0.3" className="animate-pulse" />
+                  <line x1="64" y1="48" x2="96" y2="32" stroke="white" strokeWidth="0.5" opacity="0.3" className="animate-pulse" style={{ animationDelay: '0.3s' }} />
+                  <line x1="140" y1="80" x2="160" y2="64" stroke="white" strokeWidth="0.5" opacity="0.3" className="animate-pulse" style={{ animationDelay: '0.6s' }} />
                 </svg>
               </div>
               
               <CardContent className="payzoo-card-content relative z-10">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="relative">
-                    <div className="w-12 h-12 bg-gradient-to-br from-background/20 via-background/15 to-background/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 backdrop-blur-sm border border-background/20">
+                    <div className="w-12 h-12 bg-gradient-to-br from-white/20 via-white/15 to-white/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 backdrop-blur-sm border border-white/20">
                       <div className="relative">
-                        <Brain className="w-6 h-6 text-background transition-transform duration-300 group-hover:rotate-12" />
+                        <Brain className="w-6 h-6 text-white transition-transform duration-300 group-hover:rotate-12" />
                         <div className="absolute -top-1 -right-1 w-3 h-3 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full animate-pulse opacity-80"></div>
                       </div>
                     </div>
                     {/* Orbital rings */}
-                    <div className="absolute inset-0 border border-background/20 rounded-2xl animate-spin" style={{ animationDuration: '8s' }}></div>
-                    <div className="absolute inset-1 border border-background/10 rounded-xl animate-spin" style={{ animationDuration: '6s', animationDirection: 'reverse' }}></div>
+                    <div className="absolute inset-0 border border-white/20 rounded-2xl animate-spin" style={{ animationDuration: '8s' }}></div>
+                    <div className="absolute inset-1 border border-white/10 rounded-xl animate-spin" style={{ animationDuration: '6s', animationDirection: 'reverse' }}></div>
                   </div>
                   
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
-                      <span className="payzoo-body-sm font-semibold text-background flex items-center gap-2">
+                      <span className="payzoo-body-sm font-semibold text-white flex items-center gap-2">
                         Optimisation IA
                         <div className="flex items-center gap-1">
-                          <Cpu className="w-3 h-3 text-background/80 animate-pulse" />
-                          <Stars className="w-3 h-3 text-background/80 animate-pulse" style={{ animationDelay: '0.5s' }} />
+                          <Cpu className="w-3 h-3 text-white/80 animate-pulse" />
+                          <Stars className="w-3 h-3 text-white/80 animate-pulse" style={{ animationDelay: '0.5s' }} />
                         </div>
                       </span>
                       
@@ -387,17 +388,17 @@ export function Dashboard() {
                         <div className="px-2 py-1 bg-gradient-to-r from-green-400/20 to-emerald-400/20 rounded-full border border-green-400/30 backdrop-blur-sm">
                           <div className="flex items-center gap-1">
                             <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></div>
-                            <span className="text-xs font-medium text-background/90">Active</span>
+                            <span className="text-xs font-medium text-white">Active</span>
                           </div>
                         </div>
                         <div className="px-2 py-1 bg-gradient-to-r from-blue-400/20 to-cyan-400/20 rounded-full border border-blue-400/30 backdrop-blur-sm">
-                          <span className="text-xs font-medium text-background/90">v2.1</span>
+                          <span className="text-xs font-medium text-white">v2.1</span>
                         </div>
                       </div>
                     </div>
                     
                     {/* AI metrics */}
-                    <div className="flex items-center gap-4 text-background/70 text-xs">
+                    <div className="flex items-center gap-4 text-white/70 text-xs">
                       <div className="flex items-center gap-1">
                         <Zap className="w-3 h-3" />
                         <span>98% précision</span>
@@ -412,25 +413,25 @@ export function Dashboard() {
                 
                 {/* Enhanced description */}
                 <div className="mb-6">
-                  <p className="text-background/90 mb-3 payzoo-body-sm leading-relaxed">
+                  <p className="text-white/90 mb-3 payzoo-body-sm leading-relaxed">
                     Notre IA avancée analyse vos habitudes financières en temps réel pour optimiser automatiquement vos économies.
                   </p>
                   
                   {/* Feature highlights */}
                   <div className="grid grid-cols-2 gap-3 mb-4">
-                    <div className="flex items-center gap-2 p-2 bg-background/5 rounded-lg border border-background/10 backdrop-blur-sm">
+                    <div className="flex items-center gap-2 p-2 bg-white/5 rounded-lg border border-white/10 backdrop-blur-sm">
                       <div className="w-2 h-2 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full animate-pulse"></div>
-                      <span className="text-xs text-background/80">Analyse prédictive</span>
+                      <span className="text-xs text-white/80">Analyse prédictive</span>
                     </div>
-                    <div className="flex items-center gap-2 p-2 bg-background/5 rounded-lg border border-background/10 backdrop-blur-sm">
+                    <div className="flex items-center gap-2 p-2 bg-white/5 rounded-lg border border-white/10 backdrop-blur-sm">
                       <div className="w-2 h-2 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
-                      <span className="text-xs text-background/80">Auto-épargne</span>
+                      <span className="text-xs text-white/80">Auto-épargne</span>
                     </div>
                   </div>
                 </div>
                 
                 {/* Enhanced CTA button */}
-                <Button className="w-full bg-gradient-to-r from-background via-background/95 to-background text-foreground hover:from-background/90 hover:via-background/85 hover:to-background/90 group/btn relative overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 h-12">
+                <Button className="w-full bg-gradient-to-r from-white via-white/95 to-white text-foreground hover:from-white/90 hover:via-white/85 hover:to-white/90 group/btn relative overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 h-12">
                   {/* Button background effects */}
                   <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-cyan-500/10 translate-x-[-100%] group-hover/btn:translate-x-0 transition-transform duration-500"></div>
                   
@@ -438,9 +439,9 @@ export function Dashboard() {
                   <div className="flex items-center justify-center gap-3 relative z-10">
                     <div className="flex items-center gap-2">
                       <div className="w-6 h-6 bg-gradient-to-br from-foreground to-foreground/80 rounded-lg flex items-center justify-center group-hover/btn:scale-110 transition-transform duration-300">
-                        <Sparkles className="w-3 h-3 text-background" />
+                        <Sparkles className="w-3 h-3 text-white" />
                       </div>
-                      <span className="font-medium">Activer l'IA</span>
+                      <span className="font-medium text-foreground">Activer l'IA</span>
                     </div>
                     
                     <div className="flex items-center gap-1 opacity-60 group-hover/btn:opacity-100 transition-opacity duration-300">
@@ -449,18 +450,18 @@ export function Dashboard() {
                   </div>
                   
                   {/* Scanning effect */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-background/20 to-transparent translate-x-[-100%] group-hover/btn:translate-x-100 transition-transform duration-1000 ease-in-out"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover/btn:translate-x-100 transition-transform duration-1000 ease-in-out"></div>
                 </Button>
                 
                 {/* Bottom info */}
-                <div className="mt-4 flex items-center justify-between text-xs text-background/60">
+                <div className="mt-4 flex items-center justify-between text-xs text-white/60">
                   <div className="flex items-center gap-2">
                     <Shield className="w-3 h-3" />
                     <span>Sécurisé & Privé</span>
                   </div>
                   <div className="flex items-center gap-1">
                     <span>Powered by</span>
-                    <span className="font-medium text-background/80">PayzooAI</span>
+                    <span className="font-medium text-white/80">PayzooAI</span>
                   </div>
                 </div>
               </CardContent>
