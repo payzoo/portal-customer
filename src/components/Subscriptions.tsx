@@ -1,4 +1,3 @@
-
 import { Building2, Plus, Clock, TrendingUp, CreditCard, Calendar, MoreVertical, Search, Filter, ArrowUpRight, Zap, AlertCircle, CheckCircle2, Pause, Play, X, Settings, Eye, BarChart3, DollarSign, Activity, Users } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -8,6 +7,7 @@ import { useState } from "react";
 export function Subscriptions() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState("all");
+  const [selectedCategory, setSelectedCategory] = useState("all");
   const [showAnalytics, setShowAnalytics] = useState(true);
 
   const subscriptions = [
@@ -107,7 +107,8 @@ export function Subscriptions() {
     const matchesSearch = sub.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
                          sub.category.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesFilter = filterStatus === "all" || sub.status === filterStatus;
-    return matchesSearch && matchesFilter;
+    const matchesCategory = selectedCategory === "all" || sub.category === selectedCategory;
+    return matchesSearch && matchesFilter && matchesCategory;
   });
 
   const totalMonthly = subscriptions
@@ -321,12 +322,17 @@ export function Subscriptions() {
           </Card>
         </div>
 
-        {/* Filtres par catégorie */}
+        {/* Filtres par catégorie - Updated with click functionality */}
         <div className="mb-8 animate-fade-in" style={{ animationDelay: '400ms' }}>
           <div className="flex flex-wrap gap-3">
             <Badge 
               variant="secondary" 
-              className="px-5 py-2.5 rounded-full text-sm font-light bg-black text-white hover:bg-gray-800 cursor-pointer transition-all duration-300 hover:scale-105 shadow-md hover:shadow-lg"
+              onClick={() => setSelectedCategory("all")}
+              className={`px-5 py-2.5 rounded-full text-sm font-light cursor-pointer transition-all duration-300 hover:scale-105 shadow-md hover:shadow-lg ${
+                selectedCategory === "all" 
+                  ? "bg-black text-white" 
+                  : "bg-white text-gray-700 border border-gray-200 hover:bg-gray-50 hover:border-gray-300"
+              }`}
             >
               Toutes les catégories
             </Badge>
@@ -334,7 +340,12 @@ export function Subscriptions() {
               <Badge 
                 key={category}
                 variant="outline" 
-                className="px-5 py-2.5 rounded-full text-sm font-light border-gray-200 hover:bg-gray-50 hover:border-gray-300 cursor-pointer transition-all duration-300 hover:scale-105 animate-fade-in"
+                onClick={() => setSelectedCategory(category)}
+                className={`px-5 py-2.5 rounded-full text-sm font-light cursor-pointer transition-all duration-300 hover:scale-105 animate-fade-in ${
+                  selectedCategory === category
+                    ? "bg-black text-white border-black"
+                    : "border-gray-200 hover:bg-gray-50 hover:border-gray-300"
+                }`}
                 style={{ animationDelay: `${500 + index * 100}ms` }}
               >
                 {category}
@@ -345,84 +356,98 @@ export function Subscriptions() {
 
         {/* Liste des abonnements */}
         <div className="space-y-4 mb-12">
-          {filteredSubscriptions.map((subscription, index) => {
-            const statusInfo = getStatusInfo(subscription.status);
-            const StatusIcon = statusInfo.icon;
-            
-            return (
-              <Card 
-                key={subscription.id} 
-                className="border-0 bg-white/90 backdrop-blur-sm hover:bg-white hover:shadow-xl transition-all duration-500 rounded-2xl overflow-hidden group cursor-pointer animate-fade-in"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                      <div className={`w-12 h-12 ${subscription.color} rounded-2xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-110`}>
-                        <span className="font-medium text-white text-lg">{subscription.logo}</span>
-                      </div>
-                      <div>
-                        <div className="flex items-center gap-3 mb-1">
-                          <h3 className="font-medium text-gray-900 text-lg">{subscription.name}</h3>
-                          <Badge variant="outline" className="px-2 py-0.5 rounded-lg text-xs font-light border-gray-200">
-                            {subscription.category}
-                          </Badge>
+          {filteredSubscriptions.length === 0 ? (
+            <Card className="border-0 bg-white/90 backdrop-blur-sm rounded-2xl overflow-hidden">
+              <CardContent className="p-12 text-center">
+                <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                  <Search className="w-6 h-6 text-gray-400" />
+                </div>
+                <h3 className="font-medium text-gray-900 text-lg mb-2">Aucun abonnement trouvé</h3>
+                <p className="text-gray-500 text-sm">
+                  Aucun service ne correspond à vos critères de recherche ou de filtrage.
+                </p>
+              </CardContent>
+            </Card>
+          ) : (
+            filteredSubscriptions.map((subscription, index) => {
+              const statusInfo = getStatusInfo(subscription.status);
+              const StatusIcon = statusInfo.icon;
+              
+              return (
+                <Card 
+                  key={subscription.id} 
+                  className="border-0 bg-white/90 backdrop-blur-sm hover:bg-white hover:shadow-xl transition-all duration-500 rounded-2xl overflow-hidden group cursor-pointer animate-fade-in"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <CardContent className="p-6">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-4">
+                        <div className={`w-12 h-12 ${subscription.color} rounded-2xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-110`}>
+                          <span className="font-medium text-white text-lg">{subscription.logo}</span>
                         </div>
-                        <div className="flex items-center gap-4">
-                          <p className="text-gray-500 font-light text-sm">{subscription.plan}</p>
-                          <span className="text-xs text-gray-400">•</span>
-                          <p className="text-gray-500 font-light text-sm">{subscription.billingCycle}</p>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-center gap-6">
-                      <div className="text-right">
-                        <div className="flex items-center gap-2 mb-1">
-                          <div className="font-light text-gray-900 text-xl">
-                            {subscription.amount} {subscription.currency}
+                        <div>
+                          <div className="flex items-center gap-3 mb-1">
+                            <h3 className="font-medium text-gray-900 text-lg">{subscription.name}</h3>
+                            <Badge variant="outline" className="px-2 py-0.5 rounded-lg text-xs font-light border-gray-200">
+                              {subscription.category}
+                            </Badge>
                           </div>
-                          <div className={`px-2 py-0.5 rounded-md text-xs font-medium ${
-                            subscription.trend.startsWith('+') ? 'bg-red-50 text-red-600' : 
-                            subscription.trend.startsWith('-') ? 'bg-green-50 text-green-600' : 
-                            'bg-gray-50 text-gray-600'
-                          }`}>
-                            {subscription.trend}
+                          <div className="flex items-center gap-4">
+                            <p className="text-gray-500 font-light text-sm">{subscription.plan}</p>
+                            <span className="text-xs text-gray-400">•</span>
+                            <p className="text-gray-500 font-light text-sm">{subscription.billingCycle}</p>
                           </div>
-                        </div>
-                        <div className="text-xs text-gray-400 flex items-center gap-1 justify-end">
-                          <Clock className="w-3 h-3" />
-                          {subscription.nextBilling}
                         </div>
                       </div>
                       
-                      <div className="flex items-center gap-4">
-                        <Badge 
-                          variant="secondary"
-                          className={`px-4 py-2 rounded-xl text-xs font-light border-0 ${statusInfo.bgColor} ${statusInfo.color}`}
-                        >
-                          <div className={`w-1.5 h-1.5 ${statusInfo.dotColor} rounded-full mr-2`}></div>
-                          {statusInfo.label}
-                        </Badge>
+                      <div className="flex items-center gap-6">
+                        <div className="text-right">
+                          <div className="flex items-center gap-2 mb-1">
+                            <div className="font-light text-gray-900 text-xl">
+                              {subscription.amount} {subscription.currency}
+                            </div>
+                            <div className={`px-2 py-0.5 rounded-md text-xs font-medium ${
+                              subscription.trend.startsWith('+') ? 'bg-red-50 text-red-600' : 
+                              subscription.trend.startsWith('-') ? 'bg-green-50 text-green-600' : 
+                              'bg-gray-50 text-gray-600'
+                            }`}>
+                              {subscription.trend}
+                            </div>
+                          </div>
+                          <div className="text-xs text-gray-400 flex items-center gap-1 justify-end">
+                            <Clock className="w-3 h-3" />
+                            {subscription.nextBilling}
+                          </div>
+                        </div>
                         
-                        <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                          <Button variant="ghost" size="sm" className="w-8 h-8 p-0 rounded-lg hover:bg-gray-50">
-                            <Settings className="w-3.5 h-3.5 text-gray-400" />
-                          </Button>
-                          <Button variant="ghost" size="sm" className="w-8 h-8 p-0 rounded-lg hover:bg-gray-50">
-                            <BarChart3 className="w-3.5 h-3.5 text-gray-400" />
-                          </Button>
-                          <Button variant="ghost" size="sm" className="w-8 h-8 p-0 rounded-lg hover:bg-gray-50">
-                            <MoreVertical className="w-3.5 h-3.5 text-gray-400" />
-                          </Button>
+                        <div className="flex items-center gap-4">
+                          <Badge 
+                            variant="secondary"
+                            className={`px-4 py-2 rounded-xl text-xs font-light border-0 ${statusInfo.bgColor} ${statusInfo.color}`}
+                          >
+                            <div className={`w-1.5 h-1.5 ${statusInfo.dotColor} rounded-full mr-2`}></div>
+                            {statusInfo.label}
+                          </Badge>
+                          
+                          <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                            <Button variant="ghost" size="sm" className="w-8 h-8 p-0 rounded-lg hover:bg-gray-50">
+                              <Settings className="w-3.5 h-3.5 text-gray-400" />
+                            </Button>
+                            <Button variant="ghost" size="sm" className="w-8 h-8 p-0 rounded-lg hover:bg-gray-50">
+                              <BarChart3 className="w-3.5 h-3.5 text-gray-400" />
+                            </Button>
+                            <Button variant="ghost" size="sm" className="w-8 h-8 p-0 rounded-lg hover:bg-gray-50">
+                              <MoreVertical className="w-3.5 h-3.5 text-gray-400" />
+                            </Button>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
-            );
-          })}
+                  </CardContent>
+                </Card>
+              );
+            })
+          )}
         </div>
 
         {/* Add subscription */}
