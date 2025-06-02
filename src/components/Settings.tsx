@@ -48,97 +48,93 @@ export function Settings() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50/50">
-      <div className="max-w-5xl mx-auto px-6 py-12">
+    <div className="min-h-screen bg-gray-50/30">
+      <div className="max-w-6xl mx-auto px-6 py-8">
         
-        {/* Header harmonisé */}
-        <div className="mb-16">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-light text-gray-900 tracking-tight">
-                Paramètres
-              </h1>
-              <p className="text-gray-500 text-base mt-2 font-light">
-                Gérez votre compte et vos préférences
-              </p>
-            </div>
-          </div>
+        {/* Header minimaliste */}
+        <div className="mb-10">
+          <h1 className="text-4xl font-light text-gray-900 mb-2 tracking-tight">
+            Paramètres
+          </h1>
+          <p className="text-gray-600 text-lg font-light">
+            Gérez votre compte et vos préférences
+          </p>
         </div>
 
-        <div className="space-y-8">
+        <div className="space-y-6">
           
           {/* Profile Section - Style harmonisé */}
-          <Card className="border-0 shadow-sm bg-white/80 backdrop-blur-sm hover:shadow-lg transition-all duration-300 rounded-3xl">
-            <CardContent className="p-8">
+          <Card className="border-0 shadow-sm bg-white">
+            <CardContent className="p-6">
               {/* User Info */}
-              <div className="flex items-center gap-6 mb-8">
-                <div className="w-20 h-20 bg-gradient-to-br from-gray-900 to-gray-700 rounded-3xl flex items-center justify-center flex-shrink-0 shadow-lg">
-                  <span className="text-white font-medium text-xl">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 bg-gray-900 rounded-xl flex items-center justify-center">
+                  <span className="text-white font-medium text-lg">
                     {currentUserData.firstName[0]}{currentUserData.lastName[0]}
                   </span>
                 </div>
-                <div className="flex-1 min-w-0">
-                  <h3 className="text-2xl font-light text-gray-900 mb-3 tracking-tight">
+                <div className="flex-1">
+                  <h3 className="text-xl font-medium text-gray-900 mb-1">
                     {currentUserData.firstName} {currentUserData.lastName}
                   </h3>
-                  <div className="space-y-2">
-                    <p className="text-base text-gray-600 flex items-center gap-3 font-light">
-                      <Mail className="w-4 h-4 text-gray-400" />
+                  <div className="space-y-1">
+                    <p className="text-sm text-gray-600 flex items-center gap-2">
+                      <Mail className="w-3 h-3 text-gray-400" />
                       {currentUserData.email}
                     </p>
-                    <p className="text-base text-gray-600 flex items-center gap-3 font-light">
-                      <Phone className="w-4 h-4 text-gray-400" />
+                    <p className="text-sm text-gray-600 flex items-center gap-2">
+                      <Phone className="w-3 h-3 text-gray-400" />
                       {currentUserData.phone}
                     </p>
                   </div>
                 </div>
               </div>
               
-              <Separator className="my-8" />
+              <Separator className="my-6" />
               
               {/* Profile Menu Items */}
-              <div className="space-y-3">
+              <div className="space-y-2">
                 <Button 
                   variant="ghost" 
-                  className="w-full h-auto justify-start text-left p-4 hover:bg-gray-50/80 rounded-2xl group transition-all duration-200"
+                  className="w-full h-auto justify-start text-left p-4 hover:bg-gray-50 rounded-xl group transition-all duration-200"
                 >
-                  <div className="flex items-center gap-4 w-full">
-                    <div className="w-12 h-12 bg-gray-100 rounded-2xl flex items-center justify-center group-hover:bg-gray-200 transition-colors duration-200">
-                      <User className="w-5 h-5 text-gray-600" />
+                  <div className="flex items-center gap-3 w-full">
+                    <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center group-hover:bg-gray-200 transition-colors duration-200">
+                      <User className="w-4 h-4 text-gray-600" />
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-medium text-gray-900 text-base">Informations personnelles</p>
-                      <p className="text-sm text-gray-500 font-light">Nom, prénom, données de profil</p>
+                    <div className="flex-1">
+                      <p className="font-medium text-gray-900 text-sm">Informations personnelles</p>
+                      <p className="text-xs text-gray-500">Nom, prénom, données de profil</p>
                     </div>
                   </div>
                 </Button>
                 
                 <Button 
                   variant="ghost" 
-                  className="w-full h-auto justify-start text-left p-4 hover:bg-gray-50/80 rounded-2xl group transition-all duration-200"
+                  className="w-full h-auto justify-start text-left p-4 hover:bg-gray-50 rounded-xl group transition-all duration-200"
                 >
-                  <div className="flex items-center gap-4 w-full">
-                    <div className="w-12 h-12 bg-gray-100 rounded-2xl flex items-center justify-center group-hover:bg-gray-200 transition-colors duration-200">
-                      <Mail className="w-5 h-5 text-gray-600" />
+                  <div className="flex items-center gap-3 w-full">
+                    <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center group-hover:bg-gray-200 transition-colors duration-200">
+                      <Mail className="w-4 h-4 text-gray-600" />
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-medium text-gray-900 text-base">Adresse e-mail</p>
-                      <p className="text-sm text-gray-500 font-light">Modifier votre e-mail principal</p>
+                    <div className="flex-1">
+                      <p className="font-medium text-gray-900 text-sm">Adresse e-mail</p>
+                      <p className="text-xs text-gray-500">Modifier votre e-mail principal</p>
                     </div>
                   </div>
                 </Button>
                 
                 <Button 
                   variant="ghost" 
-                  className="w-full h-auto justify-start text-left p-4 hover:bg-gray-50/80 rounded-2xl group transition-all duration-200"
+                  className="w-full h-auto justify-start text-left p-4 hover:bg-gray-50 rounded-xl group transition-all duration-200"
                 >
-                  <div className="flex items-center gap-4 w-full">
-                    <div className="w-12 h-12 bg-gray-100 rounded-2xl flex items-center justify-center group-hover:bg-gray-200 transition-colors duration-200">
-                      <Phone className="w-5 h-5 text-gray-600" />
+                  <div className="flex items-center gap-3 w-full">
+                    <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center group-hover:bg-gray-200 transition-colors duration-200">
+                      <Phone className="w-4 h-4 text-gray-600" />
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-medium text-gray-900 text-base">Numéro de téléphone</p>
-                      <p className="text-sm text-gray-500 font-light">Gérer votre numéro de contact</p>
+                    <div className="flex-1">
+                      <p className="font-medium text-gray-900 text-sm">Numéro de téléphone</p>
+                      <p className="text-xs text-gray-500">Gérer votre numéro de contact</p>
                     </div>
                   </div>
                 </Button>
@@ -147,32 +143,32 @@ export function Settings() {
           </Card>
 
           {/* KYC Section - Style modernisé */}
-          <Card className="border-0 shadow-sm bg-white/80 backdrop-blur-sm hover:shadow-lg transition-all duration-300 rounded-3xl overflow-hidden">
-            <div className="bg-gradient-to-r from-gray-900 to-gray-700 p-8 text-white">
+          <Card className="border-0 shadow-sm bg-white overflow-hidden">
+            <div className="bg-gray-900 p-6 text-white">
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="font-medium text-lg mb-2 tracking-tight">Vérification KYC</h3>
-                  <p className="text-gray-200 text-base font-light">Augmentez vos limites de transaction</p>
+                  <h3 className="font-medium text-base mb-1">Vérification KYC</h3>
+                  <p className="text-gray-200 text-sm">Augmentez vos limites de transaction</p>
                 </div>
-                <Button size="sm" className="bg-white/10 text-white hover:bg-white/20 border-0 px-6 py-3 rounded-2xl font-medium">
+                <Button size="sm" className="bg-white/10 text-white hover:bg-white/20 border-0 px-4 py-2 rounded-xl">
                   Continuer
                 </Button>
               </div>
             </div>
             
-            <CardContent className="p-8">
-              <div className="grid grid-cols-3 gap-6">
+            <CardContent className="p-6">
+              <div className="grid grid-cols-3 gap-4">
                 {kycSettings.map((item, index) => (
                   <div key={index} className="text-center">
-                    <div className="flex justify-center mb-4">
-                      <div className="p-4 bg-gray-50 rounded-2xl">
-                        <item.icon className="w-6 h-6 text-gray-600" />
+                    <div className="flex justify-center mb-3">
+                      <div className="p-3 bg-gray-50 rounded-xl">
+                        <item.icon className="w-5 h-5 text-gray-600" />
                       </div>
                     </div>
-                    <p className="font-medium text-gray-900 text-base mb-2">{item.title}</p>
-                    <div className="flex items-center justify-center gap-2">
+                    <p className="font-medium text-gray-900 text-sm mb-1">{item.title}</p>
+                    <div className="flex items-center justify-center gap-1">
                       {getStatusIcon(item.status)}
-                      <span className="text-sm text-gray-500 font-light">{getStatusText(item.status)}</span>
+                      <span className="text-xs text-gray-500">{getStatusText(item.status)}</span>
                     </div>
                   </div>
                 ))}
@@ -181,18 +177,18 @@ export function Settings() {
           </Card>
 
           {/* Notifications Section */}
-          <Card className="border-0 shadow-sm bg-white/80 backdrop-blur-sm hover:shadow-lg transition-all duration-300 rounded-3xl">
-            <CardContent className="p-8">
-              <h3 className="font-medium text-gray-900 mb-8 text-xl tracking-tight">Notifications</h3>
-              <div className="space-y-6">
-                <div className="flex items-center justify-between py-3">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-gray-100 rounded-2xl flex items-center justify-center">
-                      <Bell className="w-5 h-5 text-gray-600" />
+          <Card className="border-0 shadow-sm bg-white">
+            <CardContent className="p-6">
+              <h3 className="font-medium text-gray-900 mb-6 text-lg">Notifications</h3>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between py-2">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center">
+                      <Bell className="w-4 h-4 text-gray-600" />
                     </div>
                     <div>
-                      <p className="font-medium text-gray-900 text-base">Notifications push</p>
-                      <p className="text-sm text-gray-500 font-light">Alertes sur votre appareil</p>
+                      <p className="font-medium text-gray-900 text-sm">Notifications push</p>
+                      <p className="text-xs text-gray-500">Alertes sur votre appareil</p>
                     </div>
                   </div>
                   <Switch 
@@ -204,14 +200,14 @@ export function Settings() {
 
                 <Separator />
 
-                <div className="flex items-center justify-between py-3">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-gray-100 rounded-2xl flex items-center justify-center">
-                      <Mail className="w-5 h-5 text-gray-600" />
+                <div className="flex items-center justify-between py-2">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center">
+                      <Mail className="w-4 h-4 text-gray-600" />
                     </div>
                     <div>
-                      <p className="font-medium text-gray-900 text-base">Notifications e-mail</p>
-                      <p className="text-sm text-gray-500 font-light">Mises à jour par e-mail</p>
+                      <p className="font-medium text-gray-900 text-sm">Notifications e-mail</p>
+                      <p className="text-xs text-gray-500">Mises à jour par e-mail</p>
                     </div>
                   </div>
                   <Switch 
@@ -223,14 +219,14 @@ export function Settings() {
 
                 <Separator />
 
-                <div className="flex items-center justify-between py-3">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-gray-100 rounded-2xl flex items-center justify-center">
-                      <CreditCard className="w-5 h-5 text-gray-600" />
+                <div className="flex items-center justify-between py-2">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center">
+                      <CreditCard className="w-4 h-4 text-gray-600" />
                     </div>
                     <div>
-                      <p className="font-medium text-gray-900 text-base">Alertes de transaction</p>
-                      <p className="text-sm text-gray-500 font-light">Notification pour chaque transaction</p>
+                      <p className="font-medium text-gray-900 text-sm">Alertes de transaction</p>
+                      <p className="text-xs text-gray-500">Notification pour chaque transaction</p>
                     </div>
                   </div>
                   <Switch 
@@ -244,35 +240,35 @@ export function Settings() {
           </Card>
 
           {/* Security Section */}
-          <Card className="border-0 shadow-sm bg-white/80 backdrop-blur-sm hover:shadow-lg transition-all duration-300 rounded-3xl">
-            <CardContent className="p-8">
-              <h3 className="font-medium text-gray-900 mb-8 text-xl tracking-tight">Sécurité</h3>
-              <div className="space-y-6">
-                <div className="flex items-center justify-between py-3">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-gray-100 rounded-2xl flex items-center justify-center">
-                      <Key className="w-5 h-5 text-gray-600" />
+          <Card className="border-0 shadow-sm bg-white">
+            <CardContent className="p-6">
+              <h3 className="font-medium text-gray-900 mb-6 text-lg">Sécurité</h3>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between py-2">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center">
+                      <Key className="w-4 h-4 text-gray-600" />
                     </div>
                     <div>
-                      <p className="font-medium text-gray-900 text-base">Mot de passe</p>
-                      <p className="text-sm text-gray-500 font-light">Modifié il y a 3 mois</p>
+                      <p className="font-medium text-gray-900 text-sm">Mot de passe</p>
+                      <p className="text-xs text-gray-500">Modifié il y a 3 mois</p>
                     </div>
                   </div>
-                  <Button variant="outline" size="sm" className="rounded-2xl px-4 py-2 font-medium">
+                  <Button variant="outline" size="sm" className="rounded-xl px-3 py-1 text-xs">
                     Changer
                   </Button>
                 </div>
 
                 <Separator />
 
-                <div className="flex items-center justify-between py-3">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-gray-100 rounded-2xl flex items-center justify-center">
-                      <Smartphone className="w-5 h-5 text-gray-600" />
+                <div className="flex items-center justify-between py-2">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center">
+                      <Smartphone className="w-4 h-4 text-gray-600" />
                     </div>
                     <div>
-                      <p className="font-medium text-gray-900 text-base">Authentification à deux facteurs</p>
-                      <p className="text-sm text-gray-500 font-light">
+                      <p className="font-medium text-gray-900 text-sm">Authentification à deux facteurs</p>
+                      <p className="text-xs text-gray-500">
                         {twoFactorEnabled ? "Activée" : "Désactivée"}
                       </p>
                     </div>
@@ -286,17 +282,17 @@ export function Settings() {
 
                 <Separator />
 
-                <div className="flex items-center justify-between py-3">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-gray-100 rounded-2xl flex items-center justify-center">
-                      <Shield className="w-5 h-5 text-gray-600" />
+                <div className="flex items-center justify-between py-2">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center">
+                      <Shield className="w-4 h-4 text-gray-600" />
                     </div>
                     <div>
-                      <p className="font-medium text-gray-900 text-base">Sessions actives</p>
-                      <p className="text-sm text-gray-500 font-light">2 appareils connectés</p>
+                      <p className="font-medium text-gray-900 text-sm">Sessions actives</p>
+                      <p className="text-xs text-gray-500">2 appareils connectés</p>
                     </div>
                   </div>
-                  <Button variant="outline" size="sm" className="rounded-2xl px-4 py-2 font-medium">
+                  <Button variant="outline" size="sm" className="rounded-xl px-3 py-1 text-xs">
                     Gérer
                   </Button>
                 </div>
@@ -305,54 +301,54 @@ export function Settings() {
           </Card>
 
           {/* Support Section */}
-          <Card className="border-0 shadow-sm bg-white/80 backdrop-blur-sm hover:shadow-lg transition-all duration-300 rounded-3xl">
-            <CardContent className="p-8">
-              <h3 className="font-medium text-gray-900 mb-8 text-xl tracking-tight">Support</h3>
-              <div className="space-y-3">
-                <Button variant="ghost" className="w-full h-auto justify-start text-left p-4 hover:bg-gray-50/80 rounded-2xl group transition-all duration-200">
-                  <div className="flex items-center gap-4 w-full">
-                    <div className="w-12 h-12 bg-gray-100 rounded-2xl flex items-center justify-center group-hover:bg-gray-200 transition-colors duration-200">
-                      <HelpCircle className="w-5 h-5 text-gray-600" />
+          <Card className="border-0 shadow-sm bg-white">
+            <CardContent className="p-6">
+              <h3 className="font-medium text-gray-900 mb-6 text-lg">Support</h3>
+              <div className="space-y-2">
+                <Button variant="ghost" className="w-full h-auto justify-start text-left p-3 hover:bg-gray-50 rounded-xl group transition-all duration-200">
+                  <div className="flex items-center gap-3 w-full">
+                    <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center group-hover:bg-gray-200 transition-colors duration-200">
+                      <HelpCircle className="w-4 h-4 text-gray-600" />
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-medium text-gray-900 text-base">Centre d'aide</p>
-                      <p className="text-sm text-gray-500 font-light">FAQ et guides d'utilisation</p>
-                    </div>
-                  </div>
-                </Button>
-
-                <Button variant="ghost" className="w-full h-auto justify-start text-left p-4 hover:bg-gray-50/80 rounded-2xl group transition-all duration-200">
-                  <div className="flex items-center gap-4 w-full">
-                    <div className="w-12 h-12 bg-gray-100 rounded-2xl flex items-center justify-center group-hover:bg-gray-200 transition-colors duration-200">
-                      <MessageCircle className="w-5 h-5 text-gray-600" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-medium text-gray-900 text-base">Chat en direct</p>
-                      <p className="text-sm text-gray-500 font-light">Support instantané en ligne</p>
+                    <div className="flex-1">
+                      <p className="font-medium text-gray-900 text-sm">Centre d'aide</p>
+                      <p className="text-xs text-gray-500">FAQ et guides d'utilisation</p>
                     </div>
                   </div>
                 </Button>
 
-                <Button variant="ghost" className="w-full h-auto justify-start text-left p-4 hover:bg-gray-50/80 rounded-2xl group transition-all duration-200">
-                  <div className="flex items-center gap-4 w-full">
-                    <div className="w-12 h-12 bg-gray-100 rounded-2xl flex items-center justify-center group-hover:bg-gray-200 transition-colors duration-200">
-                      <Mail className="w-5 h-5 text-gray-600" />
+                <Button variant="ghost" className="w-full h-auto justify-start text-left p-3 hover:bg-gray-50 rounded-xl group transition-all duration-200">
+                  <div className="flex items-center gap-3 w-full">
+                    <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center group-hover:bg-gray-200 transition-colors duration-200">
+                      <MessageCircle className="w-4 h-4 text-gray-600" />
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-medium text-gray-900 text-base">Contact e-mail</p>
-                      <p className="text-sm text-gray-500 font-light">Support par e-mail</p>
+                    <div className="flex-1">
+                      <p className="font-medium text-gray-900 text-sm">Chat en direct</p>
+                      <p className="text-xs text-gray-500">Support instantané en ligne</p>
                     </div>
                   </div>
                 </Button>
 
-                <Button variant="ghost" className="w-full h-auto justify-start text-left p-4 hover:bg-gray-50/80 rounded-2xl group transition-all duration-200">
-                  <div className="flex items-center gap-4 w-full">
-                    <div className="w-12 h-12 bg-gray-100 rounded-2xl flex items-center justify-center group-hover:bg-gray-200 transition-colors duration-200">
-                      <FileText className="w-5 h-5 text-gray-600" />
+                <Button variant="ghost" className="w-full h-auto justify-start text-left p-3 hover:bg-gray-50 rounded-xl group transition-all duration-200">
+                  <div className="flex items-center gap-3 w-full">
+                    <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center group-hover:bg-gray-200 transition-colors duration-200">
+                      <Mail className="w-4 h-4 text-gray-600" />
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-medium text-gray-900 text-base">Signaler un problème</p>
-                      <p className="text-sm text-gray-500 font-light">Rapporter un bug</p>
+                    <div className="flex-1">
+                      <p className="font-medium text-gray-900 text-sm">Contact e-mail</p>
+                      <p className="text-xs text-gray-500">Support par e-mail</p>
+                    </div>
+                  </div>
+                </Button>
+
+                <Button variant="ghost" className="w-full h-auto justify-start text-left p-3 hover:bg-gray-50 rounded-xl group transition-all duration-200">
+                  <div className="flex items-center gap-3 w-full">
+                    <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center group-hover:bg-gray-200 transition-colors duration-200">
+                      <FileText className="w-4 h-4 text-gray-600" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="font-medium text-gray-900 text-sm">Signaler un problème</p>
+                      <p className="text-xs text-gray-500">Rapporter un bug</p>
                     </div>
                   </div>
                 </Button>
@@ -361,35 +357,35 @@ export function Settings() {
           </Card>
 
           {/* Preferences & Account Actions */}
-          <Card className="border-0 shadow-sm bg-white/80 backdrop-blur-sm hover:shadow-lg transition-all duration-300 rounded-3xl">
-            <CardContent className="p-8">
-              <h3 className="font-medium text-gray-900 mb-8 text-xl tracking-tight">Préférences</h3>
-              <div className="space-y-6">
-                <div className="flex items-center justify-between py-3">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-gray-100 rounded-2xl flex items-center justify-center">
-                      <Globe className="w-5 h-5 text-gray-600" />
+          <Card className="border-0 shadow-sm bg-white">
+            <CardContent className="p-6">
+              <h3 className="font-medium text-gray-900 mb-6 text-lg">Préférences</h3>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between py-2">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center">
+                      <Globe className="w-4 h-4 text-gray-600" />
                     </div>
                     <div>
-                      <p className="font-medium text-gray-900 text-base">Langue</p>
-                      <p className="text-sm text-gray-500 font-light">Français</p>
+                      <p className="font-medium text-gray-900 text-sm">Langue</p>
+                      <p className="text-xs text-gray-500">Français</p>
                     </div>
                   </div>
-                  <Button variant="outline" size="sm" className="rounded-2xl px-4 py-2 font-medium">
+                  <Button variant="outline" size="sm" className="rounded-xl px-3 py-1 text-xs">
                     Changer
                   </Button>
                 </div>
 
                 <Separator />
 
-                <div className="space-y-3 pt-4">
-                  <Button variant="ghost" className="w-full justify-start text-gray-600 hover:bg-gray-50/80 h-12 rounded-2xl">
-                    <LogOut className="w-5 h-5 mr-4" />
-                    <span className="font-medium">Se déconnecter</span>
+                <div className="space-y-2 pt-2">
+                  <Button variant="ghost" className="w-full justify-start text-gray-600 hover:bg-gray-50 h-10 rounded-xl">
+                    <LogOut className="w-4 h-4 mr-3" />
+                    <span className="text-sm">Se déconnecter</span>
                   </Button>
                   
-                  <Button variant="ghost" className="w-full justify-start text-red-500 hover:bg-red-50/80 h-12 rounded-2xl">
-                    <span className="font-medium">Supprimer le compte</span>
+                  <Button variant="ghost" className="w-full justify-start text-red-500 hover:bg-red-50 h-10 rounded-xl">
+                    <span className="text-sm">Supprimer le compte</span>
                   </Button>
                 </div>
               </div>
