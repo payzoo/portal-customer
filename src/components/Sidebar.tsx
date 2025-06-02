@@ -130,14 +130,14 @@ export const Sidebar = ({ activeSection, onSectionChange }: SidebarProps) => {
 
       {/* Liens légaux */}
       <div className="p-6 border-t border-gray-50">
-        <div className="space-y-2">
+        <div className="space-y-2 text-center">
           <a
             href="#"
             className="block text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200 py-1"
           >
             Aide
           </a>
-          <div className="flex space-x-4">
+          <div className="flex justify-center space-x-4">
             <a
               href="#"
               className="text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200 py-1"
