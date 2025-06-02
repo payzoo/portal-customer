@@ -1,4 +1,3 @@
-
 import { CreditCard, Plus, MoreHorizontal, Shield, Smartphone, Building2, Wallet, Star, Trash2, Pencil, CheckCircle2, XCircle, Clock } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -476,91 +475,127 @@ export function PaymentMethods() {
           })}
         </div>
 
-        {/* Ajouter une méthode - Version minimaliste */}
-        <Card className="border-0 shadow-sm bg-white">
-          <CardContent className="p-8">
-            <div className="text-center">
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                Ajouter une nouvelle méthode
-              </h3>
-              <p className="text-gray-600 mb-8 text-lg font-light">
-                Connectez votre carte, wallet ou compte bancaire
-              </p>
-
-              <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                <DialogTrigger asChild>
-                  <Button className="bg-gray-900 hover:bg-gray-800 text-white px-8 py-3 text-lg rounded-xl">
-                    <Plus className="w-5 h-5 mr-2" />
-                    Ajouter une méthode
-                  </Button>
-                </DialogTrigger>
-                
-                <DialogContent className="sm:max-w-md bg-white border-0 rounded-2xl shadow-xl">
-                  <DialogHeader>
-                    <DialogTitle className="text-xl font-semibold text-gray-900">Nouvelle méthode de paiement</DialogTitle>
-                  </DialogHeader>
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="space-y-2">
-                      <Label htmlFor="paymentType" className="text-sm font-medium text-gray-700">Type de paiement</Label>
-                      <Select value={selectedType} onValueChange={setSelectedType}>
-                        <SelectTrigger className="h-12 rounded-xl">
-                          <SelectValue placeholder="Choisir un type" />
-                        </SelectTrigger>
-                        <SelectContent className="bg-white border-0 rounded-xl shadow-lg">
-                          <SelectItem value="card">Carte bancaire</SelectItem>
-                          <SelectItem value="mobile">Mobile Money</SelectItem>
-                          <SelectItem value="bank">Compte bancaire</SelectItem>
-                          <SelectItem value="wallet">Wallet digital</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    
-                    {renderFormFields()}
-                    
-                    {selectedType && (
-                      <div className="flex gap-3 pt-4">
-                        <Button
-                          type="button"
-                          variant="outline"
-                          onClick={() => setIsDialogOpen(false)}
-                          className="flex-1 h-12 rounded-xl"
-                        >
-                          Annuler
-                        </Button>
-                        <Button type="submit" className="flex-1 h-12 rounded-xl bg-gray-900 hover:bg-gray-800">
-                          Ajouter
-                        </Button>
-                      </div>
-                    )}
-                  </form>
-                </DialogContent>
-              </Dialog>
-
-              {/* Types supportés */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
-                {paymentTypes.map((type) => {
-                  const IconComponent = type.icon;
-                  return (
-                    <div 
-                      key={type.type}
-                      className="p-6 border-0 rounded-2xl hover:bg-gray-50 cursor-pointer transition-all duration-300 bg-white shadow-sm hover:shadow-md"
-                      onClick={() => {
-                        setSelectedType(type.type);
-                        setIsDialogOpen(true);
-                      }}
-                    >
-                      <div className={`w-12 h-12 bg-gradient-to-r ${type.color} rounded-xl flex items-center justify-center mb-4 mx-auto`}>
-                        <IconComponent className="w-6 h-6 text-white" />
-                      </div>
-                      <h4 className="font-medium text-gray-900 mb-1">{type.title}</h4>
-                      <p className="text-sm text-gray-500">{type.description}</p>
-                    </div>
-                  );
-                })}
-              </div>
+        {/* Ajouter une méthode - Version moderne */}
+        <div className="bg-gradient-to-br from-gray-50 to-white rounded-3xl p-8 border border-gray-100">
+          <div className="text-center mb-8">
+            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <Plus className="w-8 h-8 text-white" />
             </div>
-          </CardContent>
-        </Card>
+            <h3 className="text-2xl font-bold text-gray-900 mb-2">
+              Nouvelle méthode de paiement
+            </h3>
+            <p className="text-gray-600 text-lg font-light max-w-md mx-auto">
+              Connectez facilement votre carte, wallet ou compte bancaire en quelques clics
+            </p>
+          </div>
+
+          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+            <DialogTrigger asChild>
+              <Button className="w-full md:w-auto mx-auto block bg-gradient-to-r from-gray-900 to-gray-700 hover:from-gray-800 hover:to-gray-600 text-white px-12 py-4 text-lg rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                <Plus className="w-5 h-5 mr-3" />
+                Ajouter une méthode
+              </Button>
+            </DialogTrigger>
+            
+            <DialogContent className="sm:max-w-lg bg-white border-0 rounded-3xl shadow-2xl">
+              <DialogHeader className="pb-6">
+                <DialogTitle className="text-2xl font-bold text-gray-900 text-center">Nouvelle méthode</DialogTitle>
+                <p className="text-gray-600 text-center mt-2">Choisissez le type de paiement à ajouter</p>
+              </DialogHeader>
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="space-y-3">
+                  <Label htmlFor="paymentType" className="text-sm font-semibold text-gray-700 uppercase tracking-wide">Type de paiement</Label>
+                  <Select value={selectedType} onValueChange={setSelectedType}>
+                    <SelectTrigger className="h-14 rounded-2xl border-2 border-gray-200 focus:border-blue-500 bg-gray-50 hover:bg-white transition-colors">
+                      <SelectValue placeholder="Sélectionner un type de paiement" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-white border-0 rounded-2xl shadow-xl">
+                      <SelectItem value="card" className="py-3 px-4 rounded-xl hover:bg-blue-50">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                            <CreditCard className="w-4 h-4 text-blue-600" />
+                          </div>
+                          <span className="font-medium">Carte bancaire</span>
+                        </div>
+                      </SelectItem>
+                      <SelectItem value="mobile" className="py-3 px-4 rounded-xl hover:bg-orange-50">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center">
+                            <Smartphone className="w-4 h-4 text-orange-600" />
+                          </div>
+                          <span className="font-medium">Mobile Money</span>
+                        </div>
+                      </SelectItem>
+                      <SelectItem value="bank" className="py-3 px-4 rounded-xl hover:bg-green-50">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
+                            <Building2 className="w-4 h-4 text-green-600" />
+                          </div>
+                          <span className="font-medium">Compte bancaire</span>
+                        </div>
+                      </SelectItem>
+                      <SelectItem value="wallet" className="py-3 px-4 rounded-xl hover:bg-purple-50">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
+                            <Wallet className="w-4 h-4 text-purple-600" />
+                          </div>
+                          <span className="font-medium">Wallet digital</span>
+                        </div>
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                
+                {renderFormFields()}
+                
+                {selectedType && (
+                  <div className="flex gap-4 pt-6">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => setIsDialogOpen(false)}
+                      className="flex-1 h-12 rounded-2xl border-2 border-gray-200 hover:bg-gray-50"
+                    >
+                      Annuler
+                    </Button>
+                    <Button type="submit" className="flex-1 h-12 rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg">
+                      Ajouter
+                    </Button>
+                  </div>
+                )}
+              </form>
+            </DialogContent>
+          </Dialog>
+
+          {/* Types supportés - Version améliorée */}
+          <div className="mt-12">
+            <div className="text-center mb-8">
+              <h4 className="text-lg font-semibold text-gray-900 mb-2">Moyens de paiement supportés</h4>
+              <p className="text-gray-600">Choisissez parmi nos différentes options sécurisées</p>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              {paymentTypes.map((type) => {
+                const IconComponent = type.icon;
+                return (
+                  <div 
+                    key={type.type}
+                    className="group p-6 bg-white rounded-2xl border-2 border-gray-100 hover:border-blue-200 cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+                    onClick={() => {
+                      setSelectedType(type.type);
+                      setIsDialogOpen(true);
+                    }}
+                  >
+                    <div className={`w-14 h-14 bg-gradient-to-r ${type.color} rounded-2xl flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform duration-300`}>
+                      <IconComponent className="w-7 h-7 text-white" />
+                    </div>
+                    <h4 className="font-semibold text-gray-900 mb-2 text-center group-hover:text-blue-600 transition-colors">{type.title}</h4>
+                    <p className="text-sm text-gray-500 text-center">{type.description}</p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
