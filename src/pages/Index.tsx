@@ -1,17 +1,26 @@
 
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { Sidebar } from "@/components/Sidebar";
+import { AppSidebar } from "@/components/AppSidebar";
 import { Dashboard } from "@/components/Dashboard";
 import { Subscriptions } from "@/components/Subscriptions";
 import { PaymentMethods } from "@/components/PaymentMethods";
 import { Addresses } from "@/components/Addresses";
 import { Settings } from "@/components/Settings";
+import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { Separator } from "@/components/ui/separator";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 const Index = () => {
   const location = useLocation();
   const [activeSection, setActiveSection] = useState("dashboard");
-  const [sidebarWidth, setSidebarWidth] = useState("16rem");
 
   // Check if we're returning from subscription details
   useEffect(() => {
@@ -33,28 +42,16 @@ const Index = () => {
     document.title = titles[activeSection as keyof typeof titles] || "Payzoo";
   }, [activeSection]);
 
-  // Listen for sidebar state changes
-  useEffect(() => {
-    const handleSidebarToggle = () => {
-      const sidebar = document.querySelector('[class*="w-16"], [class*="w-64"]');
-      if (sidebar) {
-        const isCollapsed = sidebar.classList.contains('w-16');
-        setSidebarWidth(isCollapsed ? '4rem' : '16rem');
-      }
+  const getSectionTitle = () => {
+    const titles = {
+      dashboard: "Dashboard",
+      subscriptions: "Abonnements",
+      payments: "Paiements",
+      addresses: "Adresses",
+      settings: "Paramètres",
     };
-
-    // Initial check
-    handleSidebarToggle();
-
-    // Set up observer for sidebar changes
-    const observer = new MutationObserver(handleSidebarToggle);
-    const sidebar = document.querySelector('.fixed.left-0');
-    if (sidebar) {
-      observer.observe(sidebar, { attributes: true, attributeFilter: ['class'] });
-    }
-
-    return () => observer.disconnect();
-  }, []);
+    return titles[activeSection as keyof typeof titles] || "Dashboard";
+  };
 
   const renderContent = () => {
     switch (activeSection) {
@@ -74,20 +71,38 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex w-full">
-      <Sidebar 
-        activeSection={activeSection} 
-        onSectionChange={setActiveSection} 
-      />
-      <main 
-        className="flex-1 min-h-screen transition-all duration-300 ease-in-out" 
-        style={{ marginLeft: sidebarWidth }}
-      >
-        <div className="p-8">
-          {renderContent()}
-        </div>
-      </main>
-    </div>
+    <SidebarProvider>
+      <div className="min-h-screen flex w-full">
+        <AppSidebar 
+          activeSection={activeSection} 
+          onSectionChange={setActiveSection} 
+        />
+        <SidebarInset>
+          <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
+            <div className="flex items-center gap-2 px-4">
+              <SidebarTrigger className="-ml-1" />
+              <Separator orientation="vertical" className="mr-2 h-4" />
+              <Breadcrumb>
+                <BreadcrumbList>
+                  <BreadcrumbItem className="hidden md:block">
+                    <BreadcrumbLink href="#">
+                      Payzoo
+                    </BreadcrumbLink>
+                  </BreadcrumbItem>
+                  <BreadcrumbSeparator className="hidden md:block" />
+                  <BreadcrumbItem>
+                    <BreadcrumbPage>{getSectionTitle()}</BreadcrumbPage>
+                  </BreadcrumbItem>
+                </BreadcrumbList>
+              </Breadcrumb>
+            </div>
+          </header>
+          <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+            {renderContent()}
+          </div>
+        </SidebarInset>
+      </div>
+    </SidebarProvider>
   );
 };
 
