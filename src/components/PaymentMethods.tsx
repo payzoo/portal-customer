@@ -1,5 +1,5 @@
-import { CreditCard, Plus, MoreHorizontal, Shield, Bell, CheckCircle2, Smartphone, Building2, Wallet } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { CreditCard, Plus, MoreHorizontal, Shield, Smartphone, Building2, Wallet } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -43,7 +43,7 @@ export function PaymentMethods() {
       detail: "Expire 12/27",
       isDefault: true,
       icon: CreditCard,
-      color: "bg-gradient-to-br from-blue-500 to-blue-600"
+      color: "bg-blue-500"
     },
     {
       id: 2,
@@ -54,7 +54,7 @@ export function PaymentMethods() {
       detail: "Expire 08/26",
       isDefault: false,
       icon: CreditCard,
-      color: "bg-gradient-to-br from-red-500 to-red-600"
+      color: "bg-red-500"
     },
     {
       id: 3,
@@ -65,7 +65,7 @@ export function PaymentMethods() {
       detail: "Vérifié",
       isDefault: false,
       icon: Smartphone,
-      color: "bg-gradient-to-br from-orange-500 to-orange-600"
+      color: "bg-orange-500"
     },
     {
       id: 4,
@@ -76,7 +76,7 @@ export function PaymentMethods() {
       detail: "Compte courant",
       isDefault: false,
       icon: Building2,
-      color: "bg-gradient-to-br from-green-500 to-green-600"
+      color: "bg-green-500"
     }
   ];
 
@@ -85,29 +85,25 @@ export function PaymentMethods() {
       type: "card",
       title: "Carte bancaire",
       description: "Visa, Mastercard, American Express",
-      icon: CreditCard,
-      color: "from-blue-50 to-blue-100"
+      icon: CreditCard
     },
     {
       type: "mobile",
       title: "Mobile Money",
       description: "Orange Money, MTN, Moov",
-      icon: Smartphone,
-      color: "from-orange-50 to-orange-100"
+      icon: Smartphone
     },
     {
       type: "bank",
       title: "Compte bancaire",
       description: "Virement SEPA, RIB",
-      icon: Building2,
-      color: "from-green-50 to-green-100"
+      icon: Building2
     },
     {
       type: "wallet",
       title: "Wallet digital",
       description: "PayPal, Apple Pay, Google Pay",
-      icon: Wallet,
-      color: "from-purple-50 to-purple-100"
+      icon: Wallet
     }
   ];
 
@@ -272,23 +268,19 @@ export function PaymentMethods() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="max-w-4xl mx-auto px-6 py-12">
+    <div className="min-h-screen bg-gray-50/30">
+      <div className="max-w-4xl mx-auto p-8">
         
-        {/* Header - Ultra minimal */}
-        <div className="mb-16">
+        {/* Header ultra épuré */}
+        <div className="mb-12">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-light text-gray-900 mb-2">
-                Paiements
-              </h1>
-              <p className="text-gray-500 text-lg font-light">
-                Gérez vos méthodes de paiement
-              </p>
+              <h1 className="text-2xl font-light text-gray-900 mb-2">Paiements</h1>
+              <p className="text-gray-500 text-sm">Gérez vos méthodes de paiement</p>
             </div>
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
               <DialogTrigger asChild>
-                <Button className="bg-black text-white hover:bg-gray-800 rounded-full px-6 py-2 font-medium transition-all duration-200">
+                <Button className="bg-gray-900 hover:bg-gray-800 text-white px-6 py-2.5 rounded-full font-normal shadow-sm transition-all duration-200 hover:shadow-md">
                   <Plus className="w-4 h-4 mr-2" />
                   Ajouter
                 </Button>
@@ -325,7 +317,7 @@ export function PaymentMethods() {
                       >
                         Annuler
                       </Button>
-                      <Button type="submit" className="flex-1 bg-black text-white hover:bg-gray-800">
+                      <Button type="submit" className="flex-1 bg-gray-900 text-white hover:bg-gray-800">
                         Ajouter
                       </Button>
                     </div>
@@ -336,70 +328,52 @@ export function PaymentMethods() {
           </div>
         </div>
 
-        {/* Quick Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-          <div className="group">
-            <div className="text-3xl font-light text-gray-900 mb-1">
-              4<span className="text-lg text-gray-400"> méthodes</span>
-            </div>
-            <div className="text-sm text-gray-500 mb-2">Configurées</div>
-            <div className="text-xs text-green-600 font-medium">
-              ✓ Toutes vérifiées
-            </div>
+        {/* Stats simplifiées */}
+        <div className="grid grid-cols-3 gap-8 mb-12">
+          <div className="text-center">
+            <div className="text-3xl font-light text-gray-900 mb-1">4</div>
+            <div className="text-xs text-gray-500">méthodes</div>
           </div>
-
-          <div className="group">
-            <div className="text-3xl font-light text-gray-900 mb-1">
-              1<span className="text-lg text-gray-400"> principale</span>
-            </div>
-            <div className="text-sm text-gray-500 mb-2">Méthode par défaut</div>
-            <div className="text-xs text-blue-600 font-medium">
-              Visa •••• 4242
-            </div>
+          <div className="text-center">
+            <div className="text-3xl font-light text-gray-900 mb-1">1</div>
+            <div className="text-xs text-gray-500">principale</div>
           </div>
-
-          <div className="group">
-            <div className="text-3xl font-light text-gray-900 mb-1">
-              100<span className="text-lg text-gray-400">%</span>
-            </div>
-            <div className="text-sm text-gray-500 mb-2">Sécurisé</div>
-            <div className="text-xs text-gray-600 font-medium flex items-center gap-1">
-              <Shield className="w-3 h-3" />
-              Cryptage SSL
-            </div>
+          <div className="text-center">
+            <div className="text-3xl font-light text-gray-900 mb-1">100%</div>
+            <div className="text-xs text-gray-500">sécurisé</div>
           </div>
         </div>
 
-        {/* Current Payment Methods */}
-        <div className="space-y-6 mb-16">
-          <h2 className="text-xl font-light text-gray-900">Méthodes actives</h2>
+        {/* Liste des méthodes épurée */}
+        <div className="space-y-4 mb-12">
+          <h2 className="text-lg font-medium text-gray-900 mb-6">Méthodes actives</h2>
           
           <div className="space-y-3">
             {paymentMethods.map((method) => {
               const IconComponent = method.icon;
               return (
-                <Card key={method.id} className="border-0 shadow-sm hover:shadow-md transition-all duration-200 bg-white rounded-2xl overflow-hidden">
-                  <CardContent className="p-0">
-                    <div className="flex items-center justify-between p-6">
+                <Card key={method.id} className="border-0 shadow-sm hover:shadow-md transition-all duration-200 bg-white/80 backdrop-blur-sm group">
+                  <CardContent className="p-6">
+                    <div className="flex items-center justify-between">
                       <div className="flex items-center gap-4">
-                        <div className={`w-12 h-12 ${method.color} rounded-xl flex items-center justify-center shadow-sm`}>
-                          <IconComponent className="w-6 h-6 text-white" />
+                        <div className={`w-12 h-12 ${method.color} rounded-2xl flex items-center justify-center shadow-sm`}>
+                          <IconComponent className="w-5 h-5 text-white" />
                         </div>
                         <div className="space-y-1">
                           <div className="flex items-center gap-3">
-                            <span className="font-medium text-gray-900">{method.provider}</span>
-                            <span className="text-gray-500 font-mono text-sm">{method.identifier}</span>
+                            <span className="font-medium text-gray-900 text-sm">{method.provider}</span>
+                            <span className="text-gray-500 font-mono text-xs">{method.identifier}</span>
                             {method.isDefault && (
-                              <Badge className="bg-green-50 text-green-700 hover:bg-green-50 px-3 py-1 rounded-full text-xs border-0">
+                              <Badge className="bg-green-50 text-green-700 hover:bg-green-50 px-2.5 py-1 rounded-full text-xs border-0 font-normal">
                                 Principal
                               </Badge>
                             )}
                           </div>
-                          <p className="text-sm text-gray-500">{method.name} • {method.detail}</p>
+                          <p className="text-xs text-gray-400">{method.name} • {method.detail}</p>
                         </div>
                       </div>
                       
-                      <Button variant="ghost" size="sm" className="w-8 h-8 p-0 rounded-lg hover:bg-gray-50">
+                      <Button variant="ghost" size="sm" className="w-8 h-8 p-0 rounded-full hover:bg-gray-50 opacity-0 group-hover:opacity-100 transition-opacity">
                         <MoreHorizontal className="w-4 h-4 text-gray-400" />
                       </Button>
                     </div>
@@ -410,24 +384,24 @@ export function PaymentMethods() {
           </div>
         </div>
 
-        {/* Add New Payment Method */}
+        {/* Section d'ajout minimaliste */}
         <div className="space-y-6">
-          <h2 className="text-xl font-light text-gray-900">Ajouter une méthode</h2>
+          <h2 className="text-lg font-medium text-gray-900">Ajouter une méthode</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {paymentTypes.map((type) => {
               const IconComponent = type.icon;
               return (
-                <Card key={type.type} className="border border-gray-100 hover:border-gray-200 transition-colors bg-white rounded-2xl overflow-hidden group cursor-pointer">
+                <Card key={type.type} className="border border-gray-100 hover:border-gray-200 transition-all duration-200 bg-white/60 backdrop-blur-sm group cursor-pointer hover:shadow-md">
                   <CardContent className="p-6">
                     <div className="flex items-start gap-4">
-                      <div className={`w-12 h-12 bg-gradient-to-br ${type.color} rounded-xl flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform`}>
-                        <IconComponent className="w-6 h-6 text-gray-700" />
+                      <div className="w-12 h-12 bg-gray-50 rounded-2xl flex items-center justify-center group-hover:bg-gray-100 transition-colors">
+                        <IconComponent className="w-5 h-5 text-gray-600" />
                       </div>
                       <div className="flex-1 space-y-2">
-                        <h3 className="font-medium text-gray-900">{type.title}</h3>
-                        <p className="text-sm text-gray-500">{type.description}</p>
-                        <Button variant="ghost" className="text-xs text-gray-600 hover:text-gray-900 h-auto p-0 font-medium">
+                        <h3 className="font-medium text-gray-900 text-sm">{type.title}</h3>
+                        <p className="text-xs text-gray-500">{type.description}</p>
+                        <Button variant="ghost" className="text-xs text-gray-600 hover:text-gray-900 h-auto p-0 font-normal">
                           Configurer →
                         </Button>
                       </div>
@@ -439,13 +413,13 @@ export function PaymentMethods() {
           </div>
         </div>
 
-        {/* Security Notice */}
-        <div className="mt-16 p-6 bg-gray-50 rounded-2xl">
+        {/* Notice de sécurité épurée */}
+        <div className="mt-16 p-6 bg-gray-50/60 backdrop-blur-sm rounded-2xl border border-gray-100">
           <div className="flex items-center gap-3 mb-3">
-            <Shield className="w-5 h-5 text-gray-600" />
-            <span className="font-medium text-gray-900">Sécurité & Confidentialité</span>
+            <Shield className="w-4 h-4 text-gray-600" />
+            <span className="font-medium text-gray-900 text-sm">Sécurité & Confidentialité</span>
           </div>
-          <p className="text-sm text-gray-600 leading-relaxed">
+          <p className="text-xs text-gray-600 leading-relaxed">
             Toutes vos informations de paiement sont cryptées et sécurisées. 
             Nous ne stockons jamais vos données bancaires complètes sur nos serveurs.
           </p>
