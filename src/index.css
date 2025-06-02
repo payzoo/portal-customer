@@ -12,7 +12,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 11%;
     --primary: 0 0% 11%;
-    --primary-foreground: 0 0% 100%;
+    --primary-foreground: 0 0% 98%;
     --secondary: 0 0% 96%;
     --secondary-foreground: 0 0% 11%;
     --muted: 0 0% 96%;
@@ -28,7 +28,7 @@
     --sidebar-background: 0 0% 100%;
     --sidebar-foreground: 0 0% 11%;
     --sidebar-primary: 0 0% 11%;
-    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-primary-foreground: 0 0% 98%;
     --sidebar-accent: 0 0% 96%;
     --sidebar-accent-foreground: 0 0% 11%;
     --sidebar-border: 0 0% 90%;
@@ -37,24 +37,24 @@
 
   .dark {
     --background: 0 0% 11%;
-    --foreground: 0 0% 100%;
+    --foreground: 0 0% 98%;
     --card: 0 0% 11%;
-    --card-foreground: 0 0% 100%;
+    --card-foreground: 0 0% 98%;
     --popover: 0 0% 11%;
-    --popover-foreground: 0 0% 100%;
-    --primary: 0 0% 100%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
     --primary-foreground: 0 0% 11%;
     --secondary: 0 0% 15%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary-foreground: 0 0% 98%;
     --muted: 0 0% 15%;
     --muted-foreground: 0 0% 60%;
     --accent: 0 0% 15%;
-    --accent-foreground: 0 0% 100%;
+    --accent-foreground: 0 0% 98%;
     --destructive: 0 62% 31%;
     --destructive-foreground: 0 0% 98%;
     --border: 0 0% 15%;
     --input: 0 0% 15%;
-    --ring: 0 0% 100%;
+    --ring: 0 0% 98%;
   }
 }
 
@@ -71,117 +71,138 @@
   }
 }
 
-/* Typography System */
-.payzoo-h1 {
+/* Design System - Typography */
+.lovable-h1 {
   @apply text-4xl font-light text-foreground tracking-tight leading-tight;
 }
 
-.payzoo-h2 {
+.lovable-h2 {
   @apply text-3xl font-light text-foreground tracking-tight leading-tight;
 }
 
-.payzoo-h3 {
+.lovable-h3 {
   @apply text-2xl font-normal text-foreground tracking-tight leading-snug;
 }
 
-.payzoo-h4 {
+.lovable-h4 {
   @apply text-xl font-normal text-foreground tracking-tight leading-snug;
 }
 
-.payzoo-body {
+.lovable-body {
   @apply text-base text-foreground leading-relaxed;
 }
 
-.payzoo-body-sm {
+.lovable-body-sm {
   @apply text-sm text-muted-foreground leading-relaxed;
 }
 
-.payzoo-caption {
+.lovable-caption {
   @apply text-xs text-muted-foreground leading-normal;
 }
 
-/* Standardized Containers */
-.payzoo-container {
+/* Design System - Layout (70% dominant, 30% secondary, 10% accent) */
+.lovable-container {
   @apply max-w-6xl mx-auto px-8 py-12;
 }
 
-.payzoo-section {
+.lovable-section {
   @apply space-y-12;
 }
 
-.payzoo-grid-2 {
+.lovable-grid-2 {
   @apply grid grid-cols-1 md:grid-cols-2 gap-8;
 }
 
-.payzoo-grid-3 {
+.lovable-grid-3 {
   @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8;
 }
 
-.payzoo-grid-4 {
+.lovable-grid-4 {
   @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8;
 }
 
-/* CTA System - Primary (70% usage) */
-.payzoo-btn-primary {
-  @apply inline-flex items-center justify-center gap-2 h-12 px-8 bg-primary text-primary-foreground font-medium rounded-xl transition-all duration-200 hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 active:scale-[0.98];
+/* Design System - CTA Elements (Primary 70% usage) */
+.lovable-btn-primary {
+  @apply inline-flex items-center justify-center gap-2 h-12 px-8 bg-primary text-primary-foreground font-medium rounded-xl transition-all duration-200 hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 active:scale-[0.98] shadow-sm;
 }
 
 /* CTA System - Secondary (30% usage) */
-.payzoo-btn-secondary {
+.lovable-btn-secondary {
   @apply inline-flex items-center justify-center gap-2 h-12 px-8 bg-secondary text-secondary-foreground font-medium rounded-xl border border-border transition-all duration-200 hover:bg-accent focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 active:scale-[0.98];
 }
 
 /* CTA System - Accent (10% usage) */
-.payzoo-btn-accent {
+.lovable-btn-accent {
   @apply inline-flex items-center justify-center gap-2 h-12 px-8 bg-transparent text-primary font-medium rounded-xl border border-primary transition-all duration-200 hover:bg-primary hover:text-primary-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 active:scale-[0.98];
 }
 
 /* Ghost button for less important actions */
-.payzoo-btn-ghost {
+.lovable-btn-ghost {
   @apply inline-flex items-center justify-center gap-2 h-10 px-4 bg-transparent text-muted-foreground font-medium rounded-lg transition-all duration-200 hover:bg-accent hover:text-accent-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1 active:scale-[0.98];
 }
 
 /* Icon buttons */
-.payzoo-btn-icon {
+.lovable-btn-icon {
   @apply inline-flex items-center justify-center w-10 h-10 bg-transparent text-muted-foreground rounded-lg transition-all duration-200 hover:bg-accent hover:text-accent-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1 active:scale-[0.95];
 }
 
-/* Cards System */
-.payzoo-card {
+/* Design System - Cards */
+.lovable-card {
   @apply bg-card border border-border rounded-2xl shadow-sm transition-all duration-200;
 }
 
-.payzoo-card-interactive {
+.lovable-card-interactive {
   @apply bg-card border border-border rounded-2xl shadow-sm transition-all duration-200 hover:shadow-md hover:border-primary/20 cursor-pointer;
 }
 
-.payzoo-card-content {
+.lovable-card-content {
   @apply p-8;
 }
 
-.payzoo-card-header {
+.lovable-card-header {
   @apply px-8 pt-8 pb-6;
 }
 
-.payzoo-card-footer {
+.lovable-card-footer {
   @apply px-8 pb-8 pt-6;
 }
 
-/* Input System */
-.payzoo-input {
+/* Design System - Input System (Fixed alignment issues) */
+.lovable-input {
   @apply w-full h-12 px-4 bg-background border border-border rounded-xl text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary;
 }
 
-/* Animation System */
-.payzoo-fade-in {
-  animation: payzooFadeIn 0.4s ease-out;
+.lovable-input-with-icon {
+  @apply w-full h-12 pl-12 pr-4 bg-background border border-border rounded-xl text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary;
 }
 
-.payzoo-slide-up {
-  animation: payzooSlideUp 0.4s ease-out;
+.lovable-input-icon {
+  @apply absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none;
 }
 
-@keyframes payzooFadeIn {
+/* Design System - Status indicators */
+.lovable-status-active {
+  @apply w-2 h-2 bg-primary rounded-full;
+}
+
+.lovable-status-inactive {
+  @apply w-2 h-2 bg-muted-foreground rounded-full;
+}
+
+.lovable-status-warning {
+  @apply w-2 h-2 bg-yellow-500 rounded-full;
+}
+
+/* Design System - Animation */
+.lovable-fade-in {
+  animation: lovableFadeIn 0.4s ease-out;
+}
+
+.lovable-slide-up {
+  animation: lovableSlideUp 0.4s ease-out;
+}
+
+@keyframes lovableFadeIn {
   from {
     opacity: 0;
     transform: translateY(8px);
@@ -192,7 +213,7 @@
   }
 }
 
-@keyframes payzooSlideUp {
+@keyframes lovableSlideUp {
   from {
     opacity: 0;
     transform: translateY(16px);
@@ -203,36 +224,34 @@
   }
 }
 
-/* Status indicators */
-.payzoo-status-active {
-  @apply w-2 h-2 bg-primary rounded-full;
-}
-
-.payzoo-status-inactive {
-  @apply w-2 h-2 bg-muted-foreground rounded-full;
-}
-
-.payzoo-status-warning {
-  @apply w-2 h-2 bg-yellow-500 rounded-full;
-}
-
 /* Accessibility improvements */
 @media (prefers-reduced-motion: reduce) {
-  .payzoo-fade-in,
-  .payzoo-slide-up {
+  .lovable-fade-in,
+  .lovable-slide-up {
     animation: none;
   }
   
-  .payzoo-btn-primary,
-  .payzoo-btn-secondary,
-  .payzoo-btn-accent,
-  .payzoo-btn-ghost,
-  .payzoo-btn-icon {
+  .lovable-btn-primary,
+  .lovable-btn-secondary,
+  .lovable-btn-accent,
+  .lovable-btn-ghost,
+  .lovable-btn-icon {
     transition: none;
   }
 }
 
 /* Focus improvements for better accessibility */
-.payzoo-focus-ring {
+.lovable-focus-ring {
   @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .lovable-btn-primary {
+    @apply border border-primary;
+  }
+  
+  .lovable-card {
+    @apply border-2;
+  }
 }
