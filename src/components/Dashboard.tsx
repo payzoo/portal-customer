@@ -122,12 +122,8 @@ export function Dashboard() {
           <div className="flex gap-3">
             <Button className="payzoo-btn-primary group overflow-hidden relative">
               <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-500"></div>
-              <Send className="w-4 h-4 mr-2 text-background relative z-10 group-hover:scale-110 transition-transform duration-300" />
-              <span className="relative z-10">Nouvelle transaction</span>
-            </Button>
-            <Button className="payzoo-btn-secondary group">
-              <Plus className="w-4 h-4 mr-2 text-foreground group-hover:rotate-90 transition-transform duration-300" />
-              Ajouter budget
+              <Plus className="w-4 h-4 mr-2 text-background relative z-10 group-hover:rotate-90 transition-transform duration-300" />
+              <span className="relative z-10">Ajouter un budget</span>
             </Button>
           </div>
         </div>
