@@ -56,7 +56,7 @@ export function PaymentMethods() {
       provider: "Visa",
       displayName: "Carte principale",
       identifier: "•••• 4242",
-      detail: "Expire 12/27",
+      detail: "",
       isDefault: true,
       status: 'active',
       icon: CreditCard,
@@ -69,7 +69,7 @@ export function PaymentMethods() {
       provider: "Mastercard",
       displayName: "Carte bureau",
       identifier: "•••• 5555",
-      detail: "Expire 08/26",
+      detail: "",
       isDefault: false,
       status: 'active',
       icon: CreditCard,
@@ -82,7 +82,7 @@ export function PaymentMethods() {
       provider: "Orange Money",
       displayName: "Mobile personnel",
       identifier: "+33 6 •• •• •• 89",
-      detail: "Vérifié",
+      detail: "",
       isDefault: false,
       status: 'suspended',
       icon: Smartphone,
@@ -95,7 +95,7 @@ export function PaymentMethods() {
       provider: "BNP Paribas",
       displayName: "Compte courant BNP",
       identifier: "FR76 •••• •••• •••• 1234",
-      detail: "Compte courant",
+      detail: "",
       isDefault: false,
       status: 'inactive',
       icon: Building2,
@@ -409,12 +409,6 @@ export function PaymentMethods() {
                     </div>
                     
                     <div className="flex items-center gap-6">
-                      <div className="text-right">
-                        <div className="font-medium text-gray-900 text-lg mb-1">
-                          {method.detail}
-                        </div>
-                      </div>
-                      
                       <div className="flex items-center gap-3">
                         {getStatusBadge(method.status)}
                         {method.isDefault && (
