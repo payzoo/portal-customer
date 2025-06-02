@@ -1,5 +1,3 @@
-
-
 import { Building2, Plus, Clock, TrendingUp, CreditCard, Calendar, MoreVertical, Search, Filter, ArrowUpRight, Zap, AlertCircle, CheckCircle2, Pause, Play, X, Settings, Eye, BarChart3, DollarSign, Activity, Users, Edit, Trash2, Copy, Archive, RefreshCw } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -448,6 +446,7 @@ export function Subscriptions() {
                   key={subscription.id} 
                   className="border-0 bg-white/90 backdrop-blur-sm hover:bg-white hover:shadow-xl transition-all duration-500 rounded-2xl overflow-hidden group cursor-pointer animate-fade-in"
                   style={{ animationDelay: `${index * 100}ms` }}
+                  onClick={() => window.location.href = `/subscription/${subscription.id}`}
                 >
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between">
@@ -628,4 +627,3 @@ export function Subscriptions() {
     </div>
   );
 }
-

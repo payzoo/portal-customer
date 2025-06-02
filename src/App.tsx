@@ -8,6 +8,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import Index from "./pages/Index";
 import AuthPage from "./pages/AuthPage";
 import VerifyOTP from "./pages/VerifyOTP";
+import SubscriptionDetails from "./pages/SubscriptionDetails";
 import ProtectedRoute from "./components/ProtectedRoute";
 import NotFound from "./pages/NotFound";
 
@@ -28,6 +29,14 @@ const App = () => (
               element={
                 <ProtectedRoute>
                   <Index />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/subscription/:id" 
+              element={
+                <ProtectedRoute>
+                  <SubscriptionDetails />
                 </ProtectedRoute>
               } 
             />
