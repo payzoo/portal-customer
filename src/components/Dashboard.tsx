@@ -13,10 +13,10 @@ export function Dashboard() {
   const spentPercentage = (currentSpent / monthlyBudget) * 100;
 
   const expenseCategories = [
-    { name: "Alimentation", amount: 487.20, percentage: 26, color: "bg-primary", icon: Coffee, trend: "+12%" },
+    { name: "Alimentation", amount: 487.20, percentage: 26, color: "bg-foreground", icon: Coffee, trend: "+12%" },
     { name: "Transport", amount: 356.80, percentage: 19, color: "bg-muted-foreground", icon: Car, trend: "-8%" },
     { name: "Shopping", amount: 298.45, percentage: 16, color: "bg-muted-foreground", icon: ShoppingBag, trend: "+5%" },
-    { name: "Logement", amount: 705.05, percentage: 38, color: "bg-primary", icon: Home, trend: "0%" },
+    { name: "Logement", amount: 705.05, percentage: 38, color: "bg-foreground", icon: Home, trend: "0%" },
   ];
 
   const insights = [
@@ -25,7 +25,7 @@ export function Dashboard() {
       description: "89€ d'économies possibles ce mois",
       icon: PiggyBank,
       value: "89€",
-      color: "text-primary"
+      color: "text-foreground"
     },
     {
       title: "Tendance positive",
@@ -52,13 +52,13 @@ export function Dashboard() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="lovable-container">
+      <div className="lovable-page-container">
         
-        {/* Header with improved typography hierarchy */}
+        {/* Header with consistent typography */}
         <div className="flex items-center justify-between mb-12">
           <div>
-            <h1 className="lovable-h1 mb-2">Dashboard</h1>
-            <p className="lovable-body-sm flex items-center gap-2">
+            <h1 className="lovable-page-title">Activité</h1>
+            <p className="lovable-subtitle flex items-center gap-2">
               <Calendar className="w-4 h-4" />
               Décembre 2024
             </p>
@@ -75,7 +75,7 @@ export function Dashboard() {
           </div>
         </div>
 
-        {/* Budget Overview with better contrast */}
+        {/* Budget Overview with consistent card sizing */}
         <Card className="lovable-card mb-12">
           <CardContent className="lovable-card-content">
             <div className="flex items-center justify-between mb-6">
@@ -98,12 +98,12 @@ export function Dashboard() {
               <div className="space-y-6">
                 <div>
                   <div className="flex items-baseline gap-3 mb-4">
-                    <span className="lovable-h1 text-foreground">
+                    <span className="lovable-page-title text-foreground">
                       {currentSpent.toLocaleString('fr-FR', { minimumFractionDigits: 2 })}€
                     </span>
-                    <span className="lovable-body-sm text-muted-foreground">/ {monthlyBudget.toLocaleString('fr-FR')}€</span>
+                    <span className="lovable-subtitle">/ {monthlyBudget.toLocaleString('fr-FR')}€</span>
                   </div>
-                  <Progress value={spentPercentage} className="h-1.5 bg-secondary" />
+                  <Progress value={spentPercentage} className="h-1.5 bg-muted" />
                 </div>
                 <div className="flex items-center gap-8 lovable-body-sm text-muted-foreground">
                   <div className="flex items-center gap-2">
@@ -125,10 +125,10 @@ export function Dashboard() {
           {/* Main section */}
           <div className="col-span-2 lovable-section">
             
-            {/* Categories with improved contrast */}
+            {/* Categories with consistent card sizing */}
             <div>
               <div className="flex items-center justify-between mb-8">
-                <h2 className="lovable-h2">Dépenses par catégorie</h2>
+                <h2 className="lovable-section-title">Dépenses par catégorie</h2>
                 <Button className="lovable-btn-ghost">
                   Voir détails
                   <ArrowUpRight className="w-4 h-4 ml-1" />
@@ -141,12 +141,12 @@ export function Dashboard() {
                     <CardContent className="lovable-card-content">
                       <div className="flex items-center justify-between mb-4">
                         <div className={`w-10 h-10 ${category.color} rounded-lg flex items-center justify-center`}>
-                          <category.icon className="w-5 h-5 text-primary-foreground" />
+                          <category.icon className="w-5 h-5 text-background" />
                         </div>
                         <span className={`lovable-caption font-medium px-2 py-1 rounded-full ${
                           category.trend.startsWith('+') ? 'bg-red-50 text-red-600' : 
                           category.trend.startsWith('-') ? 'bg-green-50 text-green-600' : 
-                          'bg-secondary text-secondary-foreground'
+                          'bg-muted text-foreground'
                         }`}>
                           {category.trend}
                         </span>
@@ -154,10 +154,10 @@ export function Dashboard() {
                       <div className="space-y-3">
                         <div>
                           <p className="lovable-body-sm text-muted-foreground">{category.name}</p>
-                          <p className="lovable-h3 text-foreground">{category.amount.toLocaleString('fr-FR', { minimumFractionDigits: 2 })}€</p>
+                          <p className="lovable-subsection-title text-foreground">{category.amount.toLocaleString('fr-FR', { minimumFractionDigits: 2 })}€</p>
                         </div>
                         <div className="space-y-2">
-                          <Progress value={category.percentage} className="h-1 bg-secondary" />
+                          <Progress value={category.percentage} className="h-1 bg-muted" />
                           <p className="lovable-caption text-muted-foreground">{category.percentage}% du budget</p>
                         </div>
                       </div>
@@ -167,10 +167,10 @@ export function Dashboard() {
               </div>
             </div>
 
-            {/* Recent transactions with better text contrast */}
+            {/* Recent transactions */}
             <div>
               <div className="flex items-center justify-between mb-8">
-                <h2 className="lovable-h2">Transactions récentes</h2>
+                <h2 className="lovable-section-title">Transactions récentes</h2>
                 <Button className="lovable-btn-ghost">
                   Tout voir
                   <ArrowUpRight className="w-4 h-4 ml-1" />
@@ -179,9 +179,9 @@ export function Dashboard() {
               
               <div className="space-y-1">
                 {recentTransactions.map((transaction, index) => (
-                  <div key={index} className="flex items-center justify-between p-4 hover:bg-accent rounded-lg transition-colors">
+                  <div key={index} className="flex items-center justify-between p-4 hover:bg-muted rounded-lg transition-colors">
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-secondary rounded-lg flex items-center justify-center">
+                      <div className="w-8 h-8 bg-muted rounded-lg flex items-center justify-center">
                         <transaction.icon className="w-4 h-4 text-muted-foreground" />
                       </div>
                       <div>
@@ -196,17 +196,17 @@ export function Dashboard() {
             </div>
           </div>
 
-          {/* Sidebar insights with improved contrast */}
+          {/* Sidebar insights */}
           <div className="col-span-1 lovable-section">
             
-            {/* Insights */}
+            {/* Insights with consistent card sizing */}
             <div>
-              <h3 className="lovable-h3 mb-8">Insights</h3>
+              <h3 className="lovable-subsection-title">Insights</h3>
               <div className="space-y-4">
                 {insights.map((insight, index) => (
-                  <div key={index} className="lovable-card-interactive lovable-card-content">
+                  <div key={index} className="lovable-metric-card">
                     <div className="flex items-start gap-3">
-                      <div className="w-8 h-8 bg-secondary rounded-lg flex items-center justify-center flex-shrink-0">
+                      <div className="w-8 h-8 bg-muted rounded-lg flex items-center justify-center flex-shrink-0">
                         <insight.icon className="w-4 h-4 text-muted-foreground" />
                       </div>
                       <div className="flex-1 min-w-0">
@@ -222,9 +222,9 @@ export function Dashboard() {
               </div>
             </div>
 
-            {/* Quick actions with consistent CTAs */}
+            {/* Quick actions */}
             <div>
-              <h3 className="lovable-h3 mb-8">Actions rapides</h3>
+              <h3 className="lovable-subsection-title">Actions rapides</h3>
               <div className="space-y-2">
                 <Button className="lovable-btn-secondary w-full justify-start lovable-card-content h-auto">
                   <TrendingUp className="w-4 h-4 mr-3 text-muted-foreground" />
@@ -243,19 +243,19 @@ export function Dashboard() {
               </div>
             </div>
 
-            {/* Main CTA with improved accessibility */}
-            <Card className="border-0 bg-primary text-primary-foreground">
+            {/* Main CTA */}
+            <Card className="border-0 bg-foreground text-background">
               <CardContent className="lovable-card-content">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 bg-primary-foreground/10 rounded-lg flex items-center justify-center">
+                  <div className="w-8 h-8 bg-background/10 rounded-lg flex items-center justify-center">
                     <Shield className="w-4 h-4" />
                   </div>
                   <span className="lovable-body-sm font-medium">Optimisation IA</span>
                 </div>
-                <p className="text-primary-foreground/80 mb-4 lovable-body-sm leading-relaxed">
+                <p className="text-background/80 mb-4 lovable-body-sm leading-relaxed">
                   Optimisez vos finances avec notre IA
                 </p>
-                <Button className="lovable-btn-accent w-full bg-primary-foreground text-primary hover:bg-primary-foreground/90">
+                <Button className="lovable-btn-accent w-full bg-background text-foreground hover:bg-background/90">
                   Activer l'IA
                   <ArrowUpRight className="w-4 h-4 ml-2" />
                 </Button>

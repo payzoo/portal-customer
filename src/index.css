@@ -25,14 +25,6 @@
     --input: 0 0% 90%;
     --ring: 0 0% 11%;
     --radius: 0.75rem;
-    --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 0 0% 11%;
-    --sidebar-primary: 0 0% 11%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 0 0% 96%;
-    --sidebar-accent-foreground: 0 0% 11%;
-    --sidebar-border: 0 0% 90%;
-    --sidebar-ring: 0 0% 11%;
   }
 
   .dark {
@@ -71,21 +63,17 @@
   }
 }
 
-/* Design System - Typography */
-.lovable-h1 {
-  @apply text-4xl font-light text-foreground tracking-tight leading-tight;
+/* Design System - Typography (Consistent hierarchy) */
+.lovable-page-title {
+  @apply text-4xl font-light text-foreground tracking-tight leading-tight mb-3;
 }
 
-.lovable-h2 {
-  @apply text-3xl font-light text-foreground tracking-tight leading-tight;
+.lovable-section-title {
+  @apply text-2xl font-normal text-foreground tracking-tight leading-snug mb-6;
 }
 
-.lovable-h3 {
-  @apply text-2xl font-normal text-foreground tracking-tight leading-snug;
-}
-
-.lovable-h4 {
-  @apply text-xl font-normal text-foreground tracking-tight leading-snug;
+.lovable-subsection-title {
+  @apply text-xl font-normal text-foreground tracking-tight leading-snug mb-4;
 }
 
 .lovable-body {
@@ -93,96 +81,102 @@
 }
 
 .lovable-body-sm {
-  @apply text-sm text-muted-foreground leading-relaxed;
+  @apply text-sm text-foreground leading-relaxed;
 }
 
 .lovable-caption {
   @apply text-xs text-muted-foreground leading-normal;
 }
 
-/* Design System - Layout (70% dominant, 30% secondary, 10% accent) */
-.lovable-container {
+.lovable-subtitle {
+  @apply text-base text-muted-foreground leading-relaxed;
+}
+
+/* Design System - Layout (Consistent containers) */
+.lovable-page-container {
   @apply max-w-6xl mx-auto px-8 py-12;
 }
 
 .lovable-section {
-  @apply space-y-12;
+  @apply space-y-8 mb-12;
 }
 
 .lovable-grid-2 {
-  @apply grid grid-cols-1 md:grid-cols-2 gap-8;
+  @apply grid grid-cols-1 md:grid-cols-2 gap-6;
 }
 
 .lovable-grid-3 {
-  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8;
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
 }
 
 .lovable-grid-4 {
-  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8;
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6;
 }
 
-/* Design System - CTA Elements (Primary 70% usage) */
+/* Design System - CTA Elements (70% Primary usage) */
 .lovable-btn-primary {
-  @apply inline-flex items-center justify-center gap-2 h-12 px-8 bg-primary text-primary-foreground font-medium rounded-xl transition-all duration-200 hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 active:scale-[0.98] shadow-sm;
+  @apply inline-flex items-center justify-center gap-2 h-12 px-8 bg-foreground text-background font-medium rounded-xl transition-all duration-200 hover:bg-foreground/90 focus:outline-none focus:ring-2 focus:ring-foreground focus:ring-offset-2 active:scale-[0.98] shadow-sm;
 }
 
 /* CTA System - Secondary (30% usage) */
 .lovable-btn-secondary {
-  @apply inline-flex items-center justify-center gap-2 h-12 px-8 bg-secondary text-secondary-foreground font-medium rounded-xl border border-border transition-all duration-200 hover:bg-accent focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 active:scale-[0.98];
+  @apply inline-flex items-center justify-center gap-2 h-12 px-8 bg-background text-foreground font-medium rounded-xl border border-border transition-all duration-200 hover:bg-muted focus:outline-none focus:ring-2 focus:ring-foreground focus:ring-offset-2 active:scale-[0.98];
 }
 
 /* CTA System - Accent (10% usage) */
 .lovable-btn-accent {
-  @apply inline-flex items-center justify-center gap-2 h-12 px-8 bg-transparent text-primary font-medium rounded-xl border border-primary transition-all duration-200 hover:bg-primary hover:text-primary-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 active:scale-[0.98];
+  @apply inline-flex items-center justify-center gap-2 h-12 px-8 bg-transparent text-foreground font-medium rounded-xl border border-foreground transition-all duration-200 hover:bg-foreground hover:text-background focus:outline-none focus:ring-2 focus:ring-foreground focus:ring-offset-2 active:scale-[0.98];
 }
 
-/* Ghost button for less important actions */
 .lovable-btn-ghost {
-  @apply inline-flex items-center justify-center gap-2 h-10 px-4 bg-transparent text-muted-foreground font-medium rounded-lg transition-all duration-200 hover:bg-accent hover:text-accent-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1 active:scale-[0.98];
+  @apply inline-flex items-center justify-center gap-2 h-10 px-4 bg-transparent text-muted-foreground font-medium rounded-lg transition-all duration-200 hover:bg-muted hover:text-foreground focus:outline-none focus:ring-2 focus:ring-foreground focus:ring-offset-1 active:scale-[0.98];
 }
 
-/* Icon buttons */
 .lovable-btn-icon {
-  @apply inline-flex items-center justify-center w-10 h-10 bg-transparent text-muted-foreground rounded-lg transition-all duration-200 hover:bg-accent hover:text-accent-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1 active:scale-[0.95];
+  @apply inline-flex items-center justify-center w-10 h-10 bg-transparent text-muted-foreground rounded-lg transition-all duration-200 hover:bg-muted hover:text-foreground focus:outline-none focus:ring-2 focus:ring-foreground focus:ring-offset-1 active:scale-[0.95];
 }
 
-/* Design System - Cards */
+/* Design System - Cards (Consistent dimensions) */
 .lovable-card {
-  @apply bg-card border border-border rounded-2xl shadow-sm transition-all duration-200;
+  @apply bg-card border border-border rounded-2xl shadow-sm transition-all duration-200 min-h-[200px];
 }
 
 .lovable-card-interactive {
-  @apply bg-card border border-border rounded-2xl shadow-sm transition-all duration-200 hover:shadow-md hover:border-primary/20 cursor-pointer;
+  @apply bg-card border border-border rounded-2xl shadow-sm transition-all duration-200 hover:shadow-md hover:border-foreground/20 cursor-pointer min-h-[200px];
 }
 
 .lovable-card-content {
   @apply p-8;
 }
 
-.lovable-card-header {
-  @apply px-8 pt-8 pb-6;
+.lovable-card-compact {
+  @apply p-6;
 }
 
-.lovable-card-footer {
-  @apply px-8 pb-8 pt-6;
+/* Design System - Input System (Fixed alignment and visibility) */
+.lovable-input-container {
+  @apply relative w-full;
 }
 
-/* Design System - Input System (Fixed alignment issues) */
 .lovable-input {
-  @apply w-full h-12 px-4 bg-background border border-border rounded-xl text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary;
+  @apply w-full h-12 px-4 bg-background border border-border rounded-xl text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-foreground focus:border-foreground;
 }
 
 .lovable-input-with-icon {
-  @apply w-full h-12 pl-12 pr-4 bg-background border border-border rounded-xl text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary;
+  @apply w-full h-12 pl-12 pr-4 bg-background border border-border rounded-xl text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-foreground focus:border-foreground;
 }
 
 .lovable-input-icon {
-  @apply absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none;
+  @apply absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none z-10;
+}
+
+.lovable-input-action {
+  @apply absolute right-4 top-1/2 transform -translate-y-1/2 z-10;
 }
 
 /* Design System - Status indicators */
 .lovable-status-active {
-  @apply w-2 h-2 bg-primary rounded-full;
+  @apply w-2 h-2 bg-foreground rounded-full;
 }
 
 .lovable-status-inactive {
@@ -193,13 +187,19 @@
   @apply w-2 h-2 bg-yellow-500 rounded-full;
 }
 
-/* Design System - Animation */
-.lovable-fade-in {
-  animation: lovableFadeIn 0.4s ease-out;
+/* Design System - Metrics Cards */
+.lovable-metric-card {
+  @apply bg-card border border-border rounded-2xl p-6 min-h-[120px] flex flex-col justify-between;
 }
 
-.lovable-slide-up {
-  animation: lovableSlideUp 0.4s ease-out;
+/* Accessibility improvements */
+.lovable-focus-ring {
+  @apply focus:outline-none focus:ring-2 focus:ring-foreground focus:ring-offset-2;
+}
+
+/* Animation */
+.lovable-fade-in {
+  animation: lovableFadeIn 0.4s ease-out;
 }
 
 @keyframes lovableFadeIn {
@@ -213,42 +213,10 @@
   }
 }
 
-@keyframes lovableSlideUp {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Accessibility improvements */
-@media (prefers-reduced-motion: reduce) {
-  .lovable-fade-in,
-  .lovable-slide-up {
-    animation: none;
-  }
-  
-  .lovable-btn-primary,
-  .lovable-btn-secondary,
-  .lovable-btn-accent,
-  .lovable-btn-ghost,
-  .lovable-btn-icon {
-    transition: none;
-  }
-}
-
-/* Focus improvements for better accessibility */
-.lovable-focus-ring {
-  @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
-}
-
 /* High contrast mode support */
 @media (prefers-contrast: high) {
   .lovable-btn-primary {
-    @apply border border-primary;
+    @apply border-2 border-foreground;
   }
   
   .lovable-card {

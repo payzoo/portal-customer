@@ -1,4 +1,3 @@
-
 import { Building2, Plus, Clock, TrendingUp, CreditCard, Calendar, MoreVertical, Search, Filter, ArrowUpRight, CheckCircle2, Pause, AlertCircle, Eye, BarChart3, DollarSign, Activity, Settings, Edit, Trash2, Copy, Archive, RefreshCw } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -205,37 +204,35 @@ export function Subscriptions() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="max-w-6xl mx-auto px-8 py-12">
+    <div className="min-h-screen bg-background">
+      <div className="lovable-page-container">
         
-        {/* Header ultra clean */}
+        {/* Header with consistent typography */}
         <div className="mb-16">
-          <h1 className="text-4xl font-light text-black mb-3 tracking-tight">
-            Abonnements
-          </h1>
-          <p className="text-gray-400 text-base">
+          <h1 className="lovable-page-title">Abonnements</h1>
+          <p className="lovable-subtitle">
             Gérez tous vos services en un coup d'œil
           </p>
         </div>
 
-        {/* Search bar ultra minimaliste */}
+        {/* Search bar with fixed alignment */}
         <div className="mb-12">
           <div className="flex gap-4">
-            <div className="relative flex-1 max-w-md">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-300 w-5 h-5" />
+            <div className="lovable-input-container flex-1 max-w-md">
+              <Search className="lovable-input-icon" />
               <input
                 type="text"
                 placeholder="Rechercher..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-12 pr-4 py-4 bg-white border-0 border-b border-gray-100 focus:border-black focus:outline-none transition-colors text-base text-black placeholder-gray-300"
+                className="lovable-input-with-icon border-0 border-b border-border focus:border-foreground focus:outline-none transition-colors bg-transparent"
               />
             </div>
             <Select value={filterStatus} onValueChange={setFilterStatus}>
-              <SelectTrigger className="w-32 bg-white border-0 border-b border-gray-100 rounded-none h-auto py-4 focus:border-black transition-colors">
+              <SelectTrigger className="w-32 bg-background border-0 border-b border-border rounded-none h-auto py-4 focus:border-foreground transition-colors">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent className="bg-white border border-gray-100 rounded-lg shadow-sm">
+              <SelectContent className="bg-background border border-border rounded-lg shadow-sm">
                 <SelectItem value="all">Tous</SelectItem>
                 <SelectItem value="active">Actifs</SelectItem>
                 <SelectItem value="paused">Pause</SelectItem>
@@ -245,57 +242,57 @@ export function Subscriptions() {
           </div>
         </div>
 
-        {/* Métriques ultra simplifiées */}
-        <div className="grid grid-cols-4 gap-8 mb-16">
-          <div className="space-y-2">
+        {/* Métriques with consistent card sizing */}
+        <div className="lovable-grid-4 mb-16">
+          <div className="lovable-metric-card">
             <div className="flex items-center justify-between">
-              <div className="w-2 h-2 bg-black rounded-full"></div>
+              <div className="lovable-status-active"></div>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => setShowAnalytics(!showAnalytics)}
-                className="p-1 h-auto w-auto text-gray-300 hover:text-black"
+                className="lovable-btn-icon"
               >
                 <Eye className="w-4 h-4" />
               </Button>
             </div>
             {showAnalytics ? (
               <>
-                <div className="text-3xl font-light text-black">
+                <div className="lovable-subsection-title text-foreground">
                   {totalMonthly.toFixed(0)}€
                 </div>
-                <div className="text-sm text-gray-400">Total mensuel</div>
+                <div className="lovable-body-sm text-muted-foreground">Total mensuel</div>
               </>
             ) : (
               <>
-                <div className="text-3xl text-gray-200">●●●</div>
-                <div className="text-sm text-gray-400">Total mensuel</div>
+                <div className="lovable-subsection-title text-muted-foreground">●●●</div>
+                <div className="lovable-body-sm text-muted-foreground">Total mensuel</div>
               </>
             )}
           </div>
 
-          <div className="space-y-2">
-            <div className="w-2 h-2 bg-black rounded-full"></div>
-            <div className="text-3xl font-light text-black">
+          <div className="lovable-metric-card">
+            <div className="lovable-status-active"></div>
+            <div className="lovable-subsection-title text-foreground">
               {activeCount}
             </div>
-            <div className="text-sm text-gray-400">Actifs</div>
+            <div className="lovable-body-sm text-muted-foreground">Actifs</div>
           </div>
 
-          <div className="space-y-2">
-            <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
-            <div className="text-3xl font-light text-black">
+          <div className="lovable-metric-card">
+            <div className="lovable-status-inactive"></div>
+            <div className="lovable-subsection-title text-foreground">
               {pausedCount}
             </div>
-            <div className="text-sm text-gray-400">En pause</div>
+            <div className="lovable-body-sm text-muted-foreground">En pause</div>
           </div>
 
-          <div className="space-y-2">
-            <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
-            <div className="text-3xl font-light text-black">
+          <div className="lovable-metric-card">
+            <div className="lovable-status-inactive"></div>
+            <div className="lovable-subsection-title text-foreground">
               {expiringCount}
             </div>
-            <div className="text-sm text-gray-400">À renouveler</div>
+            <div className="lovable-body-sm text-muted-foreground">À renouveler</div>
           </div>
         </div>
 
@@ -443,7 +440,7 @@ export function Subscriptions() {
           )}
         </div>
 
-        {/* Add subscription - Version ultra minimaliste */}
+        {/* Add subscription */}
         <AddSubscriptionCard />
       </div>
     </div>

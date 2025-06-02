@@ -60,14 +60,14 @@ export function AppSidebar({ activeSection, onSectionChange }: AppSidebarProps) 
       <div className="flex items-center justify-between p-4 border-b border-border">
         {!isCollapsed && (
           <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center font-bold text-sm text-primary-foreground">
+            <div className="w-8 h-8 bg-foreground rounded-lg flex items-center justify-center font-bold text-sm text-background">
               L
             </div>
-            <h1 className="lovable-h4 text-foreground">Lovable</h1>
+            <h1 className="lovable-subsection-title text-foreground">Lovable</h1>
           </div>
         )}
         {isCollapsed && (
-          <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center mx-auto font-bold text-sm text-primary-foreground">
+          <div className="w-8 h-8 bg-foreground rounded-lg flex items-center justify-center mx-auto font-bold text-sm text-background">
             L
           </div>
         )}
@@ -82,12 +82,12 @@ export function AppSidebar({ activeSection, onSectionChange }: AppSidebarProps) 
         </Button>
       </div>
 
-      {/* Profile section with better contrast */}
+      {/* Profile section */}
       {!isCollapsed && (
         <div className="p-4 border-b border-border">
           <div className="flex items-center space-x-3">
             <Avatar className="w-10 h-10">
-              <AvatarFallback className="bg-secondary text-secondary-foreground text-sm font-medium">
+              <AvatarFallback className="bg-muted text-foreground text-sm font-medium">
                 {user ? getUserInitials(user.email) : 'U'}
               </AvatarFallback>
             </Avatar>
@@ -101,7 +101,7 @@ export function AppSidebar({ activeSection, onSectionChange }: AppSidebarProps) 
         </div>
       )}
 
-      {/* Navigation with improved accessibility */}
+      {/* Navigation */}
       <nav className="flex-1 p-4">
         <ul className="space-y-1" role="navigation" aria-label="Main navigation">
           {menuItems.map((item) => {
@@ -113,8 +113,8 @@ export function AppSidebar({ activeSection, onSectionChange }: AppSidebarProps) 
                   onClick={() => onSectionChange(item.id)}
                   className={`w-full flex items-center ${isCollapsed ? 'justify-center px-3' : 'px-3'} py-2.5 rounded-lg text-left transition-all duration-200 group lovable-focus-ring ${
                     isActive
-                      ? "bg-primary text-primary-foreground shadow-sm"
-                      : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                      ? "bg-foreground text-background shadow-sm"
+                      : "text-muted-foreground hover:bg-muted hover:text-foreground"
                   }`}
                   title={isCollapsed ? item.label : undefined}
                   aria-current={isActive ? "page" : undefined}
@@ -124,7 +124,7 @@ export function AppSidebar({ activeSection, onSectionChange }: AppSidebarProps) 
                     <span className="lovable-body-sm font-medium">{item.label}</span>
                   )}
                   {isActive && !isCollapsed && (
-                    <div className="ml-auto lovable-status-active" />
+                    <div className="ml-auto lovable-status-active bg-background" />
                   )}
                 </button>
               </li>
@@ -137,7 +137,7 @@ export function AppSidebar({ activeSection, onSectionChange }: AppSidebarProps) 
       <div className="p-4 border-t border-border">
         <button
           onClick={handleLogout}
-          className={`w-full flex items-center ${isCollapsed ? 'justify-center px-3' : 'px-3'} py-2.5 rounded-lg text-muted-foreground hover:bg-destructive/10 hover:text-destructive transition-all duration-200 group lovable-focus-ring`}
+          className={`w-full flex items-center ${isCollapsed ? 'justify-center px-3' : 'px-3'} py-2.5 rounded-lg text-muted-foreground hover:bg-red-50 hover:text-red-600 transition-all duration-200 group lovable-focus-ring`}
           title={isCollapsed ? "Déconnexion" : undefined}
           aria-label="Se déconnecter"
         >

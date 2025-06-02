@@ -62,20 +62,20 @@ const AuthPage = () => {
     <div className="min-h-screen bg-background flex items-center justify-center p-4 relative">
       {/* Subtle background decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-5">
-        <div className="absolute w-96 h-96 bg-primary rounded-full blur-3xl top-10 left-10"></div>
-        <div className="absolute w-80 h-80 bg-primary rounded-full blur-3xl right-15 bottom-20"></div>
+        <div className="absolute w-96 h-96 bg-foreground rounded-full blur-3xl top-10 left-10"></div>
+        <div className="absolute w-80 h-80 bg-foreground rounded-full blur-3xl right-15 bottom-20"></div>
       </div>
 
       <div className={`w-full max-w-sm space-y-12 relative z-10 transform transition-all duration-1000 ease-out ${
         isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
       }`}>
         
-        {/* Header - Clean typography hierarchy */}
+        {/* Header with consistent typography */}
         <div className="text-center">
           <div className={`transform transition-all duration-700 ease-out ${
             isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
           }`} style={{ transitionDelay: '400ms' }}>
-            <h1 className="lovable-h1 mb-4">Lovable</h1>
+            <h1 className="lovable-page-title mb-4">Lovable</h1>
             <div className="flex items-center justify-center space-x-2 mb-2">
               <div className="lovable-status-active"></div>
               <p className="lovable-caption uppercase tracking-wider font-medium">SIMPLY BETTER</p>
@@ -84,16 +84,16 @@ const AuthPage = () => {
           </div>
         </div>
 
-        {/* Form section with improved input alignment */}
+        {/* Form section with proper input alignment */}
         <div className={`space-y-8 transform transition-all duration-700 ease-out ${
           isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
         }`} style={{ transitionDelay: '600ms' }}>
           {!showEmailTag ? (
             <div className="space-y-8">
-              {/* Fixed input field with proper icon alignment */}
-              <div className="relative group">
+              {/* Fixed input field with proper alignment */}
+              <div className="lovable-input-container">
                 <div className="lovable-card">
-                  <div className="relative flex items-center p-1">
+                  <div className="relative lovable-card-compact">
                     <Mail className="lovable-input-icon" />
                     <Input
                       type="email"
@@ -102,11 +102,11 @@ const AuthPage = () => {
                       onChange={handleEmailChange}
                       className="lovable-input-with-icon border-0 bg-transparent focus:ring-0 focus:border-0"
                     />
-                    <div className={`absolute right-4 transition-all duration-500 ${
+                    <div className={`lovable-input-action transition-all duration-500 ${
                       isEmailValid ? 'scale-100 opacity-100 rotate-0' : 'scale-0 opacity-0 rotate-90'
                     }`}>
-                      <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center">
-                        <Check className="w-3 h-3 text-primary-foreground" />
+                      <div className="w-6 h-6 bg-foreground rounded-full flex items-center justify-center">
+                        <Check className="w-3 h-3 text-background" />
                       </div>
                     </div>
                   </div>
@@ -128,7 +128,7 @@ const AuthPage = () => {
               <div className="group cursor-pointer">
                 <div className="lovable-card-interactive lovable-card-content">
                   <div className="flex items-center space-x-4">
-                    <div className="w-14 h-14 bg-primary rounded-2xl flex items-center justify-center text-primary-foreground font-semibold text-xl flex-shrink-0">
+                    <div className="w-14 h-14 bg-foreground rounded-2xl flex items-center justify-center text-background font-semibold text-xl flex-shrink-0">
                       {email.charAt(0).toUpperCase()}
                     </div>
                     <div className="flex-1 min-w-0">
@@ -160,7 +160,7 @@ const AuthPage = () => {
           )}
         </div>
 
-        {/* Footer with proper text hierarchy */}
+        {/* Footer */}
         <div className={`text-center space-y-6 transform transition-all duration-700 ease-out ${
           isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
         }`} style={{ transitionDelay: '800ms' }}>
@@ -169,7 +169,7 @@ const AuthPage = () => {
               Pas encore de compte ?{" "}
               <button
                 onClick={handleRegisterRedirect}
-                className="text-primary font-medium hover:underline transition-all duration-200 lovable-focus-ring"
+                className="text-foreground font-medium hover:underline transition-all duration-200 lovable-focus-ring"
               >
                 S'inscrire
               </button>
