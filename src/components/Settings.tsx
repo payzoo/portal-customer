@@ -1,28 +1,29 @@
-import { User, Shield, Bell, HelpCircle, LogOut, ChevronRight, Lock, Smartphone, Globe, Mail, CreditCard, CheckCircle, AlertCircle, MapPin } from "lucide-react";
+
+import { User, Shield, Bell, HelpCircle, LogOut, ChevronRight, Smartphone, Globe, Mail, CreditCard, CheckCircle, AlertCircle, MapPin, Settings as SettingsIcon } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { useState } from "react";
+import { EditProfileModal } from "./modals/EditProfileModal";
+import { SecurityModal } from "./modals/SecurityModal";
+import { DeleteAccountModal } from "./modals/DeleteAccountModal";
 
 export function Settings() {
   const [pushNotifications, setPushNotifications] = useState(true);
   const [emailNotifications, setEmailNotifications] = useState(true);
-  const [paymentReminders, setPaymentReminders] = useState(true);
   const [transactionAlerts, setTransactionAlerts] = useState(true);
+  
+  // Modal states
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+  const [isSecurityModalOpen, setIsSecurityModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  const accountSettings = [
-    { icon: User, title: "Nom complet", value: "Housseine Dao", action: "Modifier" },
-    { icon: Mail, title: "Email", value: "dao.housseine@gmail.com", action: "Modifier" },
-    { icon: Smartphone, title: "Téléphone", value: "+33 • • • • • 64", action: "Modifier" },
-    { icon: Globe, title: "Langue", value: "Français", action: "Changer" },
-  ];
-
-  const securitySettings = [
-    { icon: Lock, title: "Mot de passe", description: "Modifié il y a 2 mois" },
-    { icon: Shield, title: "Authentification 2FA", description: "Sécuriser votre wallet" },
-    { icon: Smartphone, title: "Sessions actives", description: "Gérer les connexions Payzoo" },
-  ];
+  const currentUserData = {
+    firstName: "Housseine",
+    lastName: "Dao",
+    email: "dao.housseine@gmail.com",
+    phone: "+33 6 12 34 56 78"
+  };
 
   const kycSettings = [
     { icon: User, title: "Identité", description: "Carte d'identité ou passeport", status: "verified" },
@@ -30,24 +31,12 @@ export function Settings() {
     { icon: CreditCard, title: "Justificatif de revenus", description: "Fiche de paie", status: "missing" },
   ];
 
-  const paymentFeatures = [
-    { icon: CreditCard, title: "Méthodes de paiement", description: "Gérer vos cartes et comptes" },
-    { icon: CreditCard, title: "Limites de transfert", description: "Configurer vos plafonds" },
-    { icon: Shield, title: "Sécurité des paiements", description: "Validation par email/SMS" },
-  ];
-
-  const supportSettings = [
-    { icon: HelpCircle, title: "Centre d'aide Payzoo" },
-    { icon: HelpCircle, title: "Chat support 24/7" },
-    { icon: CreditCard, title: "Facturation & Abonnements" },
-  ];
-
   const getStatusIcon = (status: string) => {
     switch (status) {
       case 'verified':
         return <CheckCircle className="w-4 h-4 text-green-600" />;
       case 'pending':
-        return <AlertCircle className="w-4 h-4 text-yellow-600" />;
+        return <AlertCircle className="w-4 h-4 text-amber-600" />;
       case 'missing':
         return <AlertCircle className="w-4 h-4 text-red-600" />;
       default:
@@ -57,287 +46,201 @@ export function Settings() {
 
   const getStatusText = (status: string) => {
     switch (status) {
-      case 'verified':
-        return 'Vérifié';
-      case 'pending':
-        return 'En attente';
-      case 'missing':
-        return 'Manquant';
-      default:
-        return 'À faire';
+      case 'verified': return 'Vérifié';
+      case 'pending': return 'En attente';
+      case 'missing': return 'Manquant';
+      default: return 'À faire';
     }
   };
 
   return (
-    <div className="p-6 bg-gray-50/30 min-h-screen">
-      <div className="max-w-4xl mx-auto space-y-6">
+    <div className="min-h-screen bg-gray-50/50">
+      <div className="max-w-2xl mx-auto p-6 space-y-8">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-2xl font-bold text-gray-900">Paramètres Payzoo</h1>
-          <p className="text-gray-500 mt-1">Personnalise ton expérience de paiement web 🌐</p>
+        <div className="text-center space-y-2">
+          <div className="inline-flex items-center justify-center w-12 h-12 bg-blue-100 rounded-full mb-4">
+            <SettingsIcon className="w-6 h-6 text-blue-600" />
+          </div>
+          <h1 className="text-2xl font-bold text-gray-900">Paramètres</h1>
+          <p className="text-gray-500">Gérez votre compte Payzoo</p>
         </div>
 
-        {/* KYC Status */}
-        <Card className="border-0 shadow-sm bg-white/80 backdrop-blur-sm">
-          <CardHeader className="pb-3">
-            <CardTitle className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-              <Shield className="w-5 h-5 text-blue-600" />
-              Vérification KYC
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4 pt-0">
-            <div className="p-4 bg-blue-50 rounded-lg mb-4">
-              <div className="flex items-center justify-between mb-2">
-                <div className="text-sm font-medium text-blue-900">Limite actuelle</div>
-                <div className="text-sm font-bold text-blue-600">1 000€/mois</div>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="text-sm font-medium text-blue-900">Après vérification complète</div>
-                <div className="text-sm font-bold text-green-600">15 000€/mois</div>
-              </div>
-            </div>
-
-            {kycSettings.map((item, index) => (
-              <div key={index} className="flex items-center justify-between p-3 rounded-lg hover:bg-blue-50/50 transition-colors group">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-gray-100 rounded-lg group-hover:bg-blue-100 transition-colors">
-                    <item.icon className="w-4 h-4 text-gray-600 group-hover:text-blue-600 transition-colors" />
-                  </div>
-                  <div>
-                    <p className="font-medium text-gray-900 text-sm">{item.title}</p>
-                    <p className="text-xs text-gray-500">{item.description}</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  {getStatusIcon(item.status)}
-                  <span className="text-xs font-medium">{getStatusText(item.status)}</span>
-                </div>
-              </div>
-            ))}
-
-            <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-lg h-10 font-medium mt-4">
-              Continuer la vérification KYC
-            </Button>
-          </CardContent>
-        </Card>
-
-        {/* Account Information */}
-        <Card className="border-0 shadow-sm bg-white/80 backdrop-blur-sm">
-          <CardHeader className="pb-3">
-            <CardTitle className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-              <User className="w-5 h-5 text-payzoo-primary" />
-              Compte
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3 pt-0">
-            {accountSettings.map((setting, index) => (
-              <div key={index} className="flex items-center justify-between p-3 rounded-lg hover:bg-payzoo-primary/5 transition-colors group">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-gray-100 rounded-lg group-hover:bg-payzoo-primary/10 transition-colors">
-                    <setting.icon className="w-4 h-4 text-gray-600 group-hover:text-payzoo-primary transition-colors" />
-                  </div>
-                  <div>
-                    <p className="font-medium text-gray-900 text-sm">{setting.title}</p>
-                    <p className="text-xs text-gray-500">{setting.value}</p>
-                  </div>
-                </div>
-                <Button variant="ghost" size="sm" className="text-payzoo-primary hover:text-payzoo-primary/80 hover:bg-payzoo-primary/5 text-xs px-3 h-8">
-                  {setting.action}
-                  <ChevronRight className="w-3 h-3 ml-1" />
-                </Button>
-              </div>
-            ))}
-          </CardContent>
-        </Card>
-
-        {/* Payzoo Features Web */}
-        <Card className="border-0 shadow-sm bg-white/80 backdrop-blur-sm">
-          <CardHeader className="pb-3">
-            <CardTitle className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-              <CreditCard className="w-5 h-5 text-payzoo-primary" />
-              Fonctionnalités Payzoo Web
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4 pt-0">
-            <div className="flex items-center justify-between p-3 rounded-lg">
+        {/* KYC Status - Compact */}
+        <Card className="border-0 shadow-sm">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-payzoo-primary/10 rounded-lg">
-                  <Bell className="w-4 h-4 text-payzoo-primary" />
+                <Shield className="w-5 h-5 text-blue-600" />
+                <div>
+                  <h3 className="font-semibold">Vérification KYC</h3>
+                  <p className="text-sm text-gray-500">1 000€ → 15 000€/mois</p>
+                </div>
+              </div>
+              <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
+                Continuer
+              </Button>
+            </div>
+            
+            <div className="flex gap-2">
+              {kycSettings.map((item, index) => (
+                <div key={index} className="flex-1 text-center p-3 rounded-lg border bg-gray-50/50">
+                  <div className="flex justify-center mb-2">
+                    {getStatusIcon(item.status)}
+                  </div>
+                  <p className="text-xs font-medium text-gray-700">{item.title}</p>
+                  <p className="text-xs text-gray-500">{getStatusText(item.status)}</p>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Quick Actions */}
+        <div className="grid grid-cols-2 gap-4">
+          <Button
+            variant="outline"
+            className="h-20 flex-col gap-2 hover:bg-blue-50 hover:border-blue-200"
+            onClick={() => setIsProfileModalOpen(true)}
+          >
+            <User className="w-5 h-5 text-blue-600" />
+            <span className="text-sm font-medium">Profil</span>
+          </Button>
+          
+          <Button
+            variant="outline"
+            className="h-20 flex-col gap-2 hover:bg-blue-50 hover:border-blue-200"
+            onClick={() => setIsSecurityModalOpen(true)}
+          >
+            <Shield className="w-5 h-5 text-blue-600" />
+            <span className="text-sm font-medium">Sécurité</span>
+          </Button>
+        </div>
+
+        {/* User Info - Simplified */}
+        <Card className="border-0 shadow-sm">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                  <User className="w-6 h-6 text-blue-600" />
                 </div>
                 <div>
-                  <p className="font-medium text-gray-900 text-sm">Alertes de transaction</p>
-                  <p className="text-xs text-gray-500">Notifications en temps réel</p>
+                  <h3 className="font-semibold">{currentUserData.firstName} {currentUserData.lastName}</h3>
+                  <p className="text-sm text-gray-500">{currentUserData.email}</p>
                 </div>
               </div>
-              <Switch 
-                checked={transactionAlerts} 
-                onCheckedChange={setTransactionAlerts}
-                className="data-[state=checked]:bg-payzoo-primary"
-              />
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setIsProfileModalOpen(true)}
+              >
+                Modifier
+                <ChevronRight className="w-4 h-4 ml-1" />
+              </Button>
             </div>
-
-            {paymentFeatures.map((feature, index) => (
-              <div key={index} className="flex items-center justify-between p-3 rounded-lg hover:bg-payzoo-primary/5 transition-colors group">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-gray-100 rounded-lg group-hover:bg-payzoo-primary/10 transition-colors">
-                    <feature.icon className="w-4 h-4 text-gray-600 group-hover:text-payzoo-primary transition-colors" />
-                  </div>
-                  <div>
-                    <p className="font-medium text-gray-900 text-sm">{feature.title}</p>
-                    <p className="text-xs text-gray-500">{feature.description}</p>
-                  </div>
-                </div>
-                <Button variant="ghost" size="sm" className="text-gray-500 hover:text-payzoo-primary hover:bg-payzoo-primary/5">
-                  <ChevronRight className="w-4 h-4" />
-                </Button>
-              </div>
-            ))}
           </CardContent>
         </Card>
 
-        {/* Security */}
-        <Card className="border-0 shadow-sm bg-white/80 backdrop-blur-sm">
-          <CardHeader className="pb-3">
-            <CardTitle className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-              <Shield className="w-5 h-5 text-payzoo-primary" />
-              Sécurité
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3 pt-0">
-            {securitySettings.map((setting, index) => (
-              <div key={index} className="flex items-center justify-between p-3 rounded-lg hover:bg-payzoo-primary/5 transition-colors group">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-gray-100 rounded-lg group-hover:bg-payzoo-primary/10 transition-colors">
-                    <setting.icon className="w-4 h-4 text-gray-600 group-hover:text-payzoo-primary transition-colors" />
-                  </div>
-                  <div>
-                    <p className="font-medium text-gray-900 text-sm">{setting.title}</p>
-                    <p className="text-xs text-gray-500">{setting.description}</p>
-                  </div>
-                </div>
-                <Button variant="ghost" size="sm" className="text-gray-500 hover:text-payzoo-primary hover:bg-payzoo-primary/5">
-                  <ChevronRight className="w-4 h-4" />
-                </Button>
-              </div>
-            ))}
-          </CardContent>
-        </Card>
-
-        {/* Notifications */}
-        <Card className="border-0 shadow-sm bg-white/80 backdrop-blur-sm">
-          <CardHeader className="pb-3">
-            <CardTitle className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-              <Bell className="w-5 h-5 text-payzoo-primary" />
+        {/* Notifications - Simplified */}
+        <Card className="border-0 shadow-sm">
+          <CardHeader className="pb-4">
+            <CardTitle className="text-lg flex items-center gap-2">
+              <Bell className="w-5 h-5 text-blue-600" />
               Notifications
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4 pt-0">
-            <div className="flex items-center justify-between p-3 rounded-lg">
+            <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-gray-100 rounded-lg">
-                  <Bell className="w-4 h-4 text-gray-600" />
-                </div>
-                <div>
-                  <p className="font-medium text-gray-900 text-sm">Notifications navigateur</p>
-                  <p className="text-xs text-gray-500">Alertes en temps réel sur le web</p>
-                </div>
+                <Smartphone className="w-4 h-4 text-gray-500" />
+                <span className="text-sm font-medium">Notifications push</span>
               </div>
               <Switch 
                 checked={pushNotifications} 
                 onCheckedChange={setPushNotifications}
-                className="data-[state=checked]:bg-payzoo-primary"
+                className="data-[state=checked]:bg-blue-600"
               />
             </div>
 
-            <div className="flex items-center justify-between p-3 rounded-lg">
+            <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-gray-100 rounded-lg">
-                  <Mail className="w-4 h-4 text-gray-600" />
-                </div>
-                <div>
-                  <p className="font-medium text-gray-900 text-sm">Notifications e-mail</p>
-                  <p className="text-xs text-gray-500">Confirmations et relevés</p>
-                </div>
+                <Mail className="w-4 h-4 text-gray-500" />
+                <span className="text-sm font-medium">E-mails</span>
               </div>
               <Switch 
                 checked={emailNotifications} 
                 onCheckedChange={setEmailNotifications}
-                className="data-[state=checked]:bg-payzoo-primary"
+                className="data-[state=checked]:bg-blue-600"
               />
             </div>
 
-            <div className="flex items-center justify-between p-3 rounded-lg">
+            <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-gray-100 rounded-lg">
-                  <CreditCard className="w-4 h-4 text-gray-600" />
-                </div>
-                <div>
-                  <p className="font-medium text-gray-900 text-sm">Rappels de paiement</p>
-                  <p className="text-xs text-gray-500">Alertes avant prélèvements</p>
-                </div>
+                <CreditCard className="w-4 h-4 text-gray-500" />
+                <span className="text-sm font-medium">Transactions</span>
               </div>
               <Switch 
-                checked={paymentReminders} 
-                onCheckedChange={setPaymentReminders}
-                className="data-[state=checked]:bg-payzoo-primary"
+                checked={transactionAlerts} 
+                onCheckedChange={setTransactionAlerts}
+                className="data-[state=checked]:bg-blue-600"
               />
             </div>
           </CardContent>
         </Card>
 
-        {/* Support */}
-        <Card className="border-0 shadow-sm bg-white/80 backdrop-blur-sm">
-          <CardHeader className="pb-3">
-            <CardTitle className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-              <HelpCircle className="w-5 h-5 text-payzoo-primary" />
-              Support
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3 pt-0">
-            {supportSettings.map((setting, index) => (
-              <div key={index} className="flex items-center justify-between p-3 rounded-lg hover:bg-payzoo-primary/5 transition-colors group">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-gray-100 rounded-lg group-hover:bg-payzoo-primary/10 transition-colors">
-                    <setting.icon className="w-4 h-4 text-gray-600 group-hover:text-payzoo-primary transition-colors" />
-                  </div>
-                  <div>
-                    <p className="font-medium text-gray-900 text-sm">{setting.title}</p>
-                  </div>
-                </div>
-                <Button variant="ghost" size="sm" className="text-gray-500 hover:text-payzoo-primary hover:bg-payzoo-primary/5">
-                  <ChevronRight className="w-4 h-4" />
-                </Button>
-              </div>
-            ))}
+        {/* Quick Links */}
+        <Card className="border-0 shadow-sm">
+          <CardContent className="p-6 space-y-3">
+            <Button variant="ghost" className="w-full justify-start">
+              <HelpCircle className="w-4 h-4 mr-3" />
+              Centre d'aide
+            </Button>
+            
+            <Button variant="ghost" className="w-full justify-start">
+              <Globe className="w-4 h-4 mr-3" />
+              Langue: Français
+            </Button>
           </CardContent>
         </Card>
 
-        {/* Actions */}
-        <Card className="border-0 shadow-sm bg-white/80 backdrop-blur-sm">
-          <CardContent className="p-4 space-y-3">
+        {/* Danger Zone */}
+        <Card className="border-0 shadow-sm">
+          <CardContent className="p-6 space-y-3">
             <Button 
               variant="outline" 
-              className="w-full justify-center h-10 rounded-lg font-medium hover:bg-gray-50 border-gray-200"
+              className="w-full justify-start hover:bg-gray-50"
             >
-              <LogOut className="w-4 h-4 mr-2" />
+              <LogOut className="w-4 h-4 mr-3" />
               Se déconnecter
             </Button>
             
-            <Separator className="my-3" />
-            
             <Button 
-              variant="destructive" 
-              className="w-full justify-center h-10 rounded-lg font-medium bg-red-500 hover:bg-red-600"
+              variant="ghost" 
+              className="w-full justify-start text-red-600 hover:bg-red-50 hover:text-red-700"
+              onClick={() => setIsDeleteModalOpen(true)}
             >
-              Supprimer le compte Payzoo
+              Supprimer le compte
             </Button>
-            
-            <p className="text-xs text-gray-400 text-center mt-2">
-              ⚠️ Cette action est irréversible et supprimera ton wallet
-            </p>
           </CardContent>
         </Card>
       </div>
+
+      {/* Modals */}
+      <EditProfileModal
+        isOpen={isProfileModalOpen}
+        onClose={() => setIsProfileModalOpen(false)}
+        currentData={currentUserData}
+      />
+      
+      <SecurityModal
+        isOpen={isSecurityModalOpen}
+        onClose={() => setIsSecurityModalOpen(false)}
+      />
+      
+      <DeleteAccountModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+      />
     </div>
   );
 }
