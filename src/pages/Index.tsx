@@ -50,13 +50,13 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen flex w-full bg-background">
+    <div className="min-h-screen flex w-full bg-gradient-to-br from-background via-background to-muted/5">
       <AppSidebar 
         activeSection={activeSection} 
         onSectionChange={setActiveSection} 
       />
-      <div className="flex-1 ml-64 bg-background">
-        <div className="flex flex-1 flex-col gap-6 p-6 payzoo-fade-in">
+      <div className="flex-1 ml-72 bg-transparent">
+        <div className="flex flex-1 flex-col gap-6 p-8 payzoo-fade-in">
           {renderContent()}
         </div>
       </div>
