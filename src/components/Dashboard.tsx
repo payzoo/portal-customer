@@ -1,3 +1,4 @@
+
 import { TrendingUp, Send, Calendar, Target, Plus, Eye, EyeOff, PiggyBank, TrendingDown, Coffee, ShoppingBag, Car, Home, ArrowUpRight, Shield } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -239,7 +240,6 @@ export function Dashboard() {
                     <div className="payzoo-body-sm font-medium text-foreground">Définir objectifs</div>
                     <div className="payzoo-caption text-muted-foreground">Budget personnalisé</div>
                   </div>
-                </div>
                 </Button>
               </div>
             </div>
