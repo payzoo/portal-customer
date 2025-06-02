@@ -25,7 +25,7 @@ export const Sidebar = ({ activeSection, onSectionChange }: SidebarProps) => {
   const handleLogout = () => {
     logout();
     toast({
-      title: "Déconnexion réussie",
+      title: "À bientôt !",
       description: "Vous avez été déconnecté avec succès.",
     });
     navigate("/auth");
@@ -44,12 +44,17 @@ export const Sidebar = ({ activeSection, onSectionChange }: SidebarProps) => {
       {/* Header */}
       <div className="p-6 border-b border-gray-200">
         <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-            <span className="text-white font-semibold text-sm">L</span>
+          <div className="relative">
+            <div className="w-10 h-10 payzoo-gradient rounded-xl flex items-center justify-center shadow-sm">
+              <span className="text-white font-bold text-sm">P</span>
+            </div>
+            <div className="absolute -top-1 -right-1 w-3 h-3 bg-white rounded-full flex items-center justify-center">
+              <div className="w-1.5 h-1.5 bg-payzoo-green-500 rounded-full animate-pulse-green"></div>
+            </div>
           </div>
           <div>
-            <h2 className="font-semibold text-gray-900">Link Dashboard</h2>
-            <p className="text-sm text-gray-500">{user?.email}</p>
+            <h2 className="font-bold text-gray-900 text-lg">Payzoo</h2>
+            <p className="text-sm text-gray-500 truncate max-w-32">{user?.email}</p>
           </div>
         </div>
       </div>
@@ -63,9 +68,9 @@ export const Sidebar = ({ activeSection, onSectionChange }: SidebarProps) => {
               <li key={item.id}>
                 <button
                   onClick={() => onSectionChange(item.id)}
-                  className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-left transition-colors ${
+                  className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-left transition-all duration-200 ${
                     activeSection === item.id
-                      ? "bg-blue-50 text-blue-700 border border-blue-200"
+                      ? "bg-payzoo-green-50 text-payzoo-green-700 border border-payzoo-green-200 shadow-sm"
                       : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                   }`}
                 >
@@ -82,7 +87,7 @@ export const Sidebar = ({ activeSection, onSectionChange }: SidebarProps) => {
       <div className="p-4 border-t border-gray-200">
         <button
           onClick={handleLogout}
-          className="w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-red-600 hover:bg-red-50 transition-colors"
+          className="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-red-600 hover:bg-red-50 transition-all duration-200"
         >
           <LogOut className="w-5 h-5" />
           <span className="font-medium">Se déconnecter</span>
