@@ -49,46 +49,94 @@ export function Settings() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-2xl mx-auto px-6 py-8">
+      <div className="max-w-4xl mx-auto px-6 py-8">
         
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-2xl font-semibold text-gray-900 mb-2">Paramètres</h1>
-          <p className="text-gray-600">Gérez votre compte et vos préférences</p>
+          <h1 className="text-3xl font-light text-gray-900 mb-2">Paramètres</h1>
+          <p className="text-gray-500">Gérez votre compte et vos préférences</p>
         </div>
 
-        <div className="space-y-6">
+        <div className="space-y-8">
           
-          {/* Profile Section */}
+          {/* Profile Section - Redesigned */}
           <div>
-            <h2 className="text-lg font-medium text-gray-900 mb-4">Profil</h2>
-            <Card className="border-0 shadow-sm">
-              <CardContent className="p-6">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-                    <span className="text-white font-medium text-xl">
+            <h2 className="text-xl font-medium text-gray-900 mb-6">Profil</h2>
+            <Card className="border-0 shadow-sm bg-white">
+              <CardContent className="p-8">
+                {/* User Info - Clean Layout */}
+                <div className="flex items-start gap-6 mb-8">
+                  <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center flex-shrink-0">
+                    <span className="text-white font-semibold text-2xl">
                       {currentUserData.firstName[0]}{currentUserData.lastName[0]}
                     </span>
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 text-lg">{currentUserData.firstName} {currentUserData.lastName}</h3>
-                    <p className="text-gray-600">{currentUserData.email}</p>
-                    <p className="text-gray-500 text-sm">{currentUserData.phone}</p>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-2xl font-semibold text-gray-900 mb-1">
+                      {currentUserData.firstName} {currentUserData.lastName}
+                    </h3>
+                    <div className="space-y-1">
+                      <p className="text-gray-600 flex items-center gap-2">
+                        <Mail className="w-4 h-4 text-gray-400" />
+                        {currentUserData.email}
+                      </p>
+                      <p className="text-gray-600 flex items-center gap-2">
+                        <Phone className="w-4 h-4 text-gray-400" />
+                        {currentUserData.phone}
+                      </p>
+                    </div>
                   </div>
                 </div>
                 
-                <div className="space-y-3">
-                  <Button variant="outline" className="w-full justify-start">
-                    <User className="w-4 h-4 mr-3" />
-                    Modifier les informations personnelles
-                  </Button>
-                  <Button variant="outline" className="w-full justify-start">
-                    <Mail className="w-4 h-4 mr-3" />
-                    Changer l'adresse e-mail
-                  </Button>
-                  <Button variant="outline" className="w-full justify-start">
-                    <Phone className="w-4 h-4 mr-3" />
-                    Modifier le numéro de téléphone
+                <Separator className="my-8" />
+                
+                {/* Action Menu - Minimalist Grid */}
+                <div className="grid gap-4">
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <Button 
+                      variant="ghost" 
+                      className="h-16 justify-start text-left p-6 hover:bg-gray-50 border border-gray-100 rounded-xl"
+                    >
+                      <div className="flex items-center gap-4 w-full">
+                        <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
+                          <User className="w-5 h-5 text-blue-600" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-medium text-gray-900">Informations personnelles</p>
+                          <p className="text-sm text-gray-500">Nom, prénom, données de profil</p>
+                        </div>
+                      </div>
+                    </Button>
+                    
+                    <Button 
+                      variant="ghost" 
+                      className="h-16 justify-start text-left p-6 hover:bg-gray-50 border border-gray-100 rounded-xl"
+                    >
+                      <div className="flex items-center gap-4 w-full">
+                        <div className="w-10 h-10 bg-purple-50 rounded-lg flex items-center justify-center">
+                          <Mail className="w-5 h-5 text-purple-600" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-medium text-gray-900">Adresse e-mail</p>
+                          <p className="text-sm text-gray-500">Modifier votre e-mail principal</p>
+                        </div>
+                      </div>
+                    </Button>
+                  </div>
+                  
+                  <Button 
+                    variant="ghost" 
+                    className="h-16 justify-start text-left p-6 hover:bg-gray-50 border border-gray-100 rounded-xl"
+                  >
+                    <div className="flex items-center gap-4 w-full">
+                      <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center">
+                        <Phone className="w-5 h-5 text-green-600" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="font-medium text-gray-900">Numéro de téléphone</p>
+                        <p className="text-sm text-gray-500">Gérer votre numéro de contact</p>
+                      </div>
+                    </div>
                   </Button>
                 </div>
               </CardContent>
@@ -97,9 +145,9 @@ export function Settings() {
 
           {/* KYC Section */}
           <div>
-            <h2 className="text-lg font-medium text-gray-900 mb-4">Vérification</h2>
+            <h2 className="text-xl font-medium text-gray-900 mb-6">Vérification</h2>
             <Card className="border-0 shadow-sm">
-              <div className="bg-gradient-to-r from-blue-500 to-purple-600 p-4 text-white rounded-t-lg">
+              <div className="bg-gradient-to-r from-blue-500 to-purple-600 p-6 text-white rounded-t-lg">
                 <div className="flex items-center justify-between">
                   <div>
                     <h3 className="font-semibold mb-1">Vérification KYC</h3>
@@ -112,16 +160,16 @@ export function Settings() {
               </div>
               
               <CardContent className="p-6">
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-3 gap-6">
                   {kycSettings.map((item, index) => (
                     <div key={index} className="text-center">
-                      <div className="flex justify-center mb-2">
-                        <div className="p-2 bg-gray-50 rounded-lg">
-                          <item.icon className="w-4 h-4 text-gray-600" />
+                      <div className="flex justify-center mb-3">
+                        <div className="p-3 bg-gray-50 rounded-xl">
+                          <item.icon className="w-5 h-5 text-gray-600" />
                         </div>
                       </div>
-                      <p className="font-medium text-gray-900 text-sm mb-1">{item.title}</p>
-                      <div className="flex items-center justify-center gap-1">
+                      <p className="font-medium text-gray-900 text-sm mb-2">{item.title}</p>
+                      <div className="flex items-center justify-center gap-2">
                         {getStatusIcon(item.status)}
                         <span className="text-xs text-gray-500">{getStatusText(item.status)}</span>
                       </div>
@@ -134,15 +182,17 @@ export function Settings() {
 
           {/* Notifications Section */}
           <div>
-            <h2 className="text-lg font-medium text-gray-900 mb-4">Notifications</h2>
+            <h2 className="text-xl font-medium text-gray-900 mb-6">Notifications</h2>
             <Card className="border-0 shadow-sm">
-              <CardContent className="p-6 space-y-4">
-                <div className="flex items-center justify-between py-2">
-                  <div className="flex items-center gap-3">
-                    <Bell className="w-4 h-4 text-blue-600" />
+              <CardContent className="p-6 space-y-6">
+                <div className="flex items-center justify-between py-3">
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
+                      <Bell className="w-5 h-5 text-blue-600" />
+                    </div>
                     <div>
-                      <p className="font-medium text-gray-900 text-sm">Notifications push</p>
-                      <p className="text-xs text-gray-500">Alertes sur votre appareil</p>
+                      <p className="font-medium text-gray-900">Notifications push</p>
+                      <p className="text-sm text-gray-500">Alertes sur votre appareil</p>
                     </div>
                   </div>
                   <Switch 
@@ -152,12 +202,16 @@ export function Settings() {
                   />
                 </div>
 
-                <div className="flex items-center justify-between py-2">
-                  <div className="flex items-center gap-3">
-                    <Mail className="w-4 h-4 text-purple-600" />
+                <Separator />
+
+                <div className="flex items-center justify-between py-3">
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 bg-purple-50 rounded-lg flex items-center justify-center">
+                      <Mail className="w-5 h-5 text-purple-600" />
+                    </div>
                     <div>
-                      <p className="font-medium text-gray-900 text-sm">Notifications e-mail</p>
-                      <p className="text-xs text-gray-500">Mises à jour par e-mail</p>
+                      <p className="font-medium text-gray-900">Notifications e-mail</p>
+                      <p className="text-sm text-gray-500">Mises à jour par e-mail</p>
                     </div>
                   </div>
                   <Switch 
@@ -167,12 +221,16 @@ export function Settings() {
                   />
                 </div>
 
-                <div className="flex items-center justify-between py-2">
-                  <div className="flex items-center gap-3">
-                    <CreditCard className="w-4 h-4 text-emerald-600" />
+                <Separator />
+
+                <div className="flex items-center justify-between py-3">
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 bg-emerald-50 rounded-lg flex items-center justify-center">
+                      <CreditCard className="w-5 h-5 text-emerald-600" />
+                    </div>
                     <div>
-                      <p className="font-medium text-gray-900 text-sm">Alertes de transaction</p>
-                      <p className="text-xs text-gray-500">Notification pour chaque transaction</p>
+                      <p className="font-medium text-gray-900">Alertes de transaction</p>
+                      <p className="text-sm text-gray-500">Notification pour chaque transaction</p>
                     </div>
                   </div>
                   <Switch 
@@ -187,30 +245,34 @@ export function Settings() {
 
           {/* Security Section */}
           <div>
-            <h2 className="text-lg font-medium text-gray-900 mb-4">Sécurité</h2>
+            <h2 className="text-xl font-medium text-gray-900 mb-6">Sécurité</h2>
             <Card className="border-0 shadow-sm">
-              <CardContent className="p-6 space-y-4">
-                <div className="flex items-center justify-between py-2">
-                  <div className="flex items-center gap-3">
-                    <Key className="w-4 h-4 text-red-600" />
+              <CardContent className="p-6 space-y-6">
+                <div className="flex items-center justify-between py-3">
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 bg-red-50 rounded-lg flex items-center justify-center">
+                      <Key className="w-5 h-5 text-red-600" />
+                    </div>
                     <div>
-                      <p className="font-medium text-gray-900 text-sm">Mot de passe</p>
-                      <p className="text-xs text-gray-500">Modifié il y a 3 mois</p>
+                      <p className="font-medium text-gray-900">Mot de passe</p>
+                      <p className="text-sm text-gray-500">Modifié il y a 3 mois</p>
                     </div>
                   </div>
-                  <Button variant="outline" size="sm">
+                  <Button variant="outline" size="sm" className="rounded-lg">
                     Changer
                   </Button>
                 </div>
 
                 <Separator />
 
-                <div className="flex items-center justify-between py-2">
-                  <div className="flex items-center gap-3">
-                    <Smartphone className="w-4 h-4 text-blue-600" />
+                <div className="flex items-center justify-between py-3">
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
+                      <Smartphone className="w-5 h-5 text-blue-600" />
+                    </div>
                     <div>
-                      <p className="font-medium text-gray-900 text-sm">Authentification à deux facteurs</p>
-                      <p className="text-xs text-gray-500">
+                      <p className="font-medium text-gray-900">Authentification à deux facteurs</p>
+                      <p className="text-sm text-gray-500">
                         {twoFactorEnabled ? "Activée" : "Désactivée"}
                       </p>
                     </div>
@@ -224,30 +286,34 @@ export function Settings() {
 
                 <Separator />
 
-                <div className="flex items-center justify-between py-2">
-                  <div className="flex items-center gap-3">
-                    <Shield className="w-4 h-4 text-green-600" />
+                <div className="flex items-center justify-between py-3">
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center">
+                      <Shield className="w-5 h-5 text-green-600" />
+                    </div>
                     <div>
-                      <p className="font-medium text-gray-900 text-sm">Sessions actives</p>
-                      <p className="text-xs text-gray-500">2 appareils connectés</p>
+                      <p className="font-medium text-gray-900">Sessions actives</p>
+                      <p className="text-sm text-gray-500">2 appareils connectés</p>
                     </div>
                   </div>
-                  <Button variant="outline" size="sm">
+                  <Button variant="outline" size="sm" className="rounded-lg">
                     Gérer
                   </Button>
                 </div>
 
                 <Separator />
 
-                <div className="flex items-center justify-between py-2">
-                  <div className="flex items-center gap-3">
-                    <FileText className="w-4 h-4 text-purple-600" />
+                <div className="flex items-center justify-between py-3">
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 bg-purple-50 rounded-lg flex items-center justify-center">
+                      <FileText className="w-5 h-5 text-purple-600" />
+                    </div>
                     <div>
-                      <p className="font-medium text-gray-900 text-sm">Historique de connexion</p>
-                      <p className="text-xs text-gray-500">Voir les connexions récentes</p>
+                      <p className="font-medium text-gray-900">Historique de connexion</p>
+                      <p className="text-sm text-gray-500">Voir les connexions récentes</p>
                     </div>
                   </div>
-                  <Button variant="outline" size="sm">
+                  <Button variant="outline" size="sm" className="rounded-lg">
                     Voir
                   </Button>
                 </div>
@@ -257,59 +323,93 @@ export function Settings() {
 
           {/* Support Section */}
           <div>
-            <h2 className="text-lg font-medium text-gray-900 mb-4">Support</h2>
+            <h2 className="text-xl font-medium text-gray-900 mb-6">Support</h2>
             <Card className="border-0 shadow-sm">
-              <CardContent className="p-6 space-y-3">
-                <Button variant="outline" className="w-full justify-start">
-                  <HelpCircle className="w-4 h-4 mr-3 text-blue-600" />
-                  Centre d'aide
-                </Button>
+              <CardContent className="p-6">
+                <div className="grid gap-4">
+                  <Button variant="ghost" className="h-16 justify-start text-left p-6 hover:bg-gray-50 border border-gray-100 rounded-xl">
+                    <div className="flex items-center gap-4 w-full">
+                      <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
+                        <HelpCircle className="w-5 h-5 text-blue-600" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="font-medium text-gray-900">Centre d'aide</p>
+                        <p className="text-sm text-gray-500">FAQ et guides d'utilisation</p>
+                      </div>
+                    </div>
+                  </Button>
 
-                <Button variant="outline" className="w-full justify-start">
-                  <MessageCircle className="w-4 h-4 mr-3 text-green-600" />
-                  Chat en direct
-                </Button>
+                  <Button variant="ghost" className="h-16 justify-start text-left p-6 hover:bg-gray-50 border border-gray-100 rounded-xl">
+                    <div className="flex items-center gap-4 w-full">
+                      <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center">
+                        <MessageCircle className="w-5 h-5 text-green-600" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="font-medium text-gray-900">Chat en direct</p>
+                        <p className="text-sm text-gray-500">Support instantané en ligne</p>
+                      </div>
+                    </div>
+                  </Button>
 
-                <Button variant="outline" className="w-full justify-start">
-                  <Mail className="w-4 h-4 mr-3 text-purple-600" />
-                  Contacter par e-mail
-                </Button>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <Button variant="ghost" className="h-16 justify-start text-left p-6 hover:bg-gray-50 border border-gray-100 rounded-xl">
+                      <div className="flex items-center gap-4 w-full">
+                        <div className="w-10 h-10 bg-purple-50 rounded-lg flex items-center justify-center">
+                          <Mail className="w-5 h-5 text-purple-600" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-medium text-gray-900">Contact e-mail</p>
+                          <p className="text-sm text-gray-500">Support par e-mail</p>
+                        </div>
+                      </div>
+                    </Button>
 
-                <Button variant="outline" className="w-full justify-start">
-                  <FileText className="w-4 h-4 mr-3 text-orange-600" />
-                  Signaler un problème
-                </Button>
+                    <Button variant="ghost" className="h-16 justify-start text-left p-6 hover:bg-gray-50 border border-gray-100 rounded-xl">
+                      <div className="flex items-center gap-4 w-full">
+                        <div className="w-10 h-10 bg-orange-50 rounded-lg flex items-center justify-center">
+                          <FileText className="w-5 h-5 text-orange-600" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-medium text-gray-900">Signaler un problème</p>
+                          <p className="text-sm text-gray-500">Rapporter un bug</p>
+                        </div>
+                      </div>
+                    </Button>
+                  </div>
+                </div>
               </CardContent>
             </Card>
           </div>
 
           {/* Preferences & Account Actions */}
           <div>
-            <h2 className="text-lg font-medium text-gray-900 mb-4">Préférences</h2>
+            <h2 className="text-xl font-medium text-gray-900 mb-6">Préférences</h2>
             <Card className="border-0 shadow-sm">
-              <CardContent className="p-6 space-y-4">
-                <div className="flex items-center justify-between py-2">
-                  <div className="flex items-center gap-3">
-                    <Globe className="w-4 h-4 text-gray-600" />
+              <CardContent className="p-6 space-y-6">
+                <div className="flex items-center justify-between py-3">
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 bg-gray-50 rounded-lg flex items-center justify-center">
+                      <Globe className="w-5 h-5 text-gray-600" />
+                    </div>
                     <div>
-                      <p className="font-medium text-gray-900 text-sm">Langue</p>
-                      <p className="text-xs text-gray-500">Français</p>
+                      <p className="font-medium text-gray-900">Langue</p>
+                      <p className="text-sm text-gray-500">Français</p>
                     </div>
                   </div>
-                  <Button variant="outline" size="sm">
+                  <Button variant="outline" size="sm" className="rounded-lg">
                     Changer
                   </Button>
                 </div>
 
                 <Separator />
 
-                <div className="space-y-2 pt-2">
-                  <Button variant="ghost" className="w-full justify-start text-gray-600 hover:bg-gray-50">
-                    <LogOut className="w-4 h-4 mr-3" />
+                <div className="space-y-3 pt-3">
+                  <Button variant="ghost" className="w-full justify-start text-gray-600 hover:bg-gray-50 h-12 rounded-lg">
+                    <LogOut className="w-5 h-5 mr-3" />
                     Se déconnecter
                   </Button>
                   
-                  <Button variant="ghost" className="w-full justify-start text-red-500 hover:bg-red-50">
+                  <Button variant="ghost" className="w-full justify-start text-red-500 hover:bg-red-50 h-12 rounded-lg">
                     Supprimer le compte
                   </Button>
                 </div>
