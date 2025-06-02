@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import Index from "./pages/Index";
 import AuthPage from "./pages/AuthPage";
+import RegisterPage from "./pages/RegisterPage";
 import VerifyOTP from "./pages/VerifyOTP";
 import SubscriptionDetails from "./pages/SubscriptionDetails";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -23,6 +24,7 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/auth" element={<AuthPage />} />
+            <Route path="/register" element={<RegisterPage />} />
             <Route path="/verify-otp" element={<VerifyOTP />} />
             <Route 
               path="/" 

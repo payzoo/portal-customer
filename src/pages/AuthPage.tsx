@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -54,6 +53,10 @@ const AuthPage = () => {
       setPendingEmail(email);
       navigate("/verify-otp");
     }
+  };
+
+  const handleRegisterRedirect = () => {
+    navigate("/register");
   };
 
   const removeEmailTag = () => {
@@ -192,6 +195,17 @@ const AuthPage = () => {
         <div className={`text-center space-y-6 transform transition-all duration-700 ease-out ${
           isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
         }`} style={{ transitionDelay: '800ms' }}>
+          <div className="text-center">
+            <p className="text-sm text-gray-600 mb-4">
+              Pas encore de compte ?{" "}
+              <button
+                onClick={handleRegisterRedirect}
+                className="text-black font-medium hover:underline transition-all duration-200"
+              >
+                S'inscrire
+              </button>
+            </p>
+          </div>
           <div className="flex justify-center space-x-3">
             {[1, 2, 3].map((i) => (
               <div 
