@@ -76,13 +76,26 @@ export function Settings() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'verified':
-        return <Badge className="bg-emerald-50 text-emerald-700 border-emerald-200 font-medium">Vérifié</Badge>;
+        return <Badge className="bg-emerald-50 text-emerald-700 border-emerald-200 font-medium text-xs px-2 py-1">Vérifié</Badge>;
       case 'pending':
-        return <Badge className="bg-amber-50 text-amber-700 border-amber-200 font-medium">En cours</Badge>;
+        return <Badge className="bg-amber-50 text-amber-700 border-amber-200 font-medium text-xs px-2 py-1">En cours</Badge>;
       case 'missing':
-        return <Badge className="bg-red-50 text-red-700 border-red-200 font-medium">Requis</Badge>;
+        return <Badge className="bg-red-50 text-red-700 border-red-200 font-medium text-xs px-2 py-1">Requis</Badge>;
       default:
-        return <Badge variant="secondary">À faire</Badge>;
+        return <Badge variant="secondary" className="text-xs px-2 py-1">À faire</Badge>;
+    }
+  };
+
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case 'verified':
+        return <CheckCircle className="w-4 h-4 text-emerald-600" />;
+      case 'pending':
+        return <AlertCircle className="w-4 h-4 text-amber-600" />;
+      case 'missing':
+        return <AlertCircle className="w-4 h-4 text-red-600" />;
+      default:
+        return <AlertCircle className="w-4 h-4 text-gray-400" />;
     }
   };
 
@@ -152,43 +165,51 @@ export function Settings() {
               </CardContent>
             </Card>
 
-            {/* KYC Section Redesigned */}
-            <Card className="border-0 shadow-sm bg-black text-white">
+            {/* KYC Section Ultra Minimal */}
+            <Card className="border-0 shadow-sm bg-white">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-6">
                   <div>
-                    <h3 className="font-bold text-xl mb-2">Vérification KYC</h3>
-                    <p className="text-gray-300">Augmentez vos limites</p>
-                    <div className="mt-3 flex items-center gap-3">
-                      <div className="h-1.5 w-24 bg-gray-700 rounded-full overflow-hidden">
-                        <div className="h-full bg-white rounded-full transition-all duration-1000" style={{ width: '53%' }}></div>
-                      </div>
-                      <span className="text-sm text-gray-300">53%</span>
-                    </div>
+                    <h3 className="font-bold text-black text-xl mb-1">Vérification KYC</h3>
+                    <p className="text-gray-500 text-sm">Augmentez vos limites de transaction</p>
                   </div>
-                  <Button className="bg-white text-black hover:bg-gray-100 px-6 py-2 rounded-lg font-medium">
-                    Continuer
-                  </Button>
+                  <div className="flex items-center gap-3">
+                    <div className="text-right">
+                      <div className="text-sm font-medium text-black">53% terminé</div>
+                      <div className="w-16 h-1 bg-gray-200 rounded-full mt-1">
+                        <div className="h-full bg-black rounded-full transition-all duration-500" style={{ width: '53%' }}></div>
+                      </div>
+                    </div>
+                    <Button className="bg-black text-white hover:bg-gray-800 px-4 py-2 rounded-lg font-medium text-sm">
+                      Continuer
+                    </Button>
+                  </div>
                 </div>
                 
-                <div className="grid grid-cols-3 gap-4">
+                <div className="space-y-3">
                   {kycSettings.map((item, index) => (
-                    <div key={index} className="text-center p-4 rounded-xl bg-gray-900/50 border border-gray-800">
-                      <div className="flex justify-center mb-3">
-                        <div className="p-3 rounded-xl bg-gray-800">
-                          <item.icon className="w-5 h-5 text-gray-300" />
+                    <div key={index} className="flex items-center justify-between p-4 rounded-xl border border-gray-100 hover:border-gray-200 transition-all duration-200">
+                      <div className="flex items-center gap-4">
+                        <div className="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center">
+                          <item.icon className="w-5 h-5 text-gray-600" />
+                        </div>
+                        <div>
+                          <div className="flex items-center gap-2 mb-1">
+                            <p className="font-medium text-black text-sm">{item.title}</p>
+                            {getStatusIcon(item.status)}
+                          </div>
+                          <p className="text-xs text-gray-500">{item.description}</p>
                         </div>
                       </div>
-                      <p className="font-medium text-white mb-1 text-sm">{item.title}</p>
-                      <p className="text-xs text-gray-400 mb-3">{item.description}</p>
-                      <div className="flex justify-center mb-2">
+                      <div className="flex items-center gap-3">
                         {getStatusBadge(item.status)}
-                      </div>
-                      <div className="w-full bg-gray-800 rounded-full h-1 overflow-hidden">
-                        <div 
-                          className="h-full bg-white rounded-full transition-all duration-1000"
-                          style={{ width: `${item.progress}%` }}
-                        ></div>
+                        <div className="w-12 h-1 bg-gray-200 rounded-full">
+                          <div 
+                            className="h-full bg-black rounded-full transition-all duration-500"
+                            style={{ width: `${item.progress}%` }}
+                          ></div>
+                        </div>
+                        <ChevronRight className="w-4 h-4 text-gray-400" />
                       </div>
                     </div>
                   ))}
