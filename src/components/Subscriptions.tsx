@@ -1,5 +1,6 @@
-import { Building2, MoreHorizontal, Plus, Clock, CheckCircle2, Pause, Calendar } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+import { Building2, Plus, Clock, CheckCircle2, Pause, Calendar, MoreVertical, TrendingUp, CreditCard } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
@@ -10,126 +11,149 @@ export function Subscriptions() {
       name: "StackBlitz Inc",
       plan: "Pro",
       amount: "50.00",
-      currency: "$US",
+      currency: "$",
       status: "active",
       nextBilling: "15 Juin 2025",
       logo: "S",
-      color: "bg-blue-500"
+      color: "bg-gradient-to-br from-blue-500 to-blue-600"
     },
     {
       id: 2,
       name: "OpenAI LLC",
       plan: "Plus",
       amount: "20.00",
-      currency: "$US",
+      currency: "$",
       status: "active",
       nextBilling: "22 Juin 2025",
       logo: "O",
-      color: "bg-green-500"
+      color: "bg-gradient-to-br from-green-500 to-green-600"
     },
     {
       id: 3,
       name: "GAIFM",
       plan: "Premium",
-      amount: "1793.967",
-      currency: "CFA",
+      amount: "1,793.97",
+      currency: "€",
       status: "paused",
       nextBilling: "28 Juin 2025",
       logo: "G",
-      color: "bg-purple-500"
+      color: "bg-gradient-to-br from-purple-500 to-purple-600"
     },
   ];
 
-  const stats = [
-    { title: "Total mensuel", value: "2,163.97", currency: "$", subtitle: "3 abonnements actifs", icon: Building2 },
-    { title: "Économies", value: "47.50", currency: "$", subtitle: "↓ 12% vs mois dernier", icon: CheckCircle2 },
-    { title: "Prochaine facture", value: "15 Juin", subtitle: "StackBlitz Inc - 50.00 $", icon: Calendar },
-  ];
+  const totalMonthly = subscriptions
+    .filter(sub => sub.status === 'active')
+    .reduce((sum, sub) => sum + parseFloat(sub.amount.replace(',', '')), 0);
 
   return (
-    <div className="p-8 bg-gray-50/30 min-h-screen">
-      <div className="max-w-7xl mx-auto space-y-8">
-        {/* Header */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Abonnements</h1>
-            <p className="text-gray-600 text-lg">Gérez vos services et abonnements</p>
+    <div className="min-h-screen bg-white">
+      <div className="max-w-5xl mx-auto px-6 py-12">
+        
+        {/* Header - Ultra minimal */}
+        <div className="mb-16">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-light text-gray-900 mb-2">
+                Abonnements
+              </h1>
+              <p className="text-gray-500 text-lg font-light">
+                Gérez vos services actifs
+              </p>
+            </div>
+            <Button className="bg-black text-white hover:bg-gray-800 rounded-full px-6 py-2 font-medium transition-all duration-200">
+              <Plus className="w-4 h-4 mr-2" />
+              Ajouter
+            </Button>
           </div>
-          <Button className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-200">
-            <Plus className="w-5 h-5 mr-2" />
-            Nouvel abonnement
-          </Button>
         </div>
 
-        {/* Statistics Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {stats.map((stat, index) => (
-            <Card key={index} className="border-0 shadow-sm hover:shadow-md transition-shadow bg-white">
-              <CardContent className="p-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="p-3 bg-gray-50 rounded-xl">
-                    <stat.icon className="h-6 w-6 text-gray-600" />
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-sm font-medium text-gray-500">{stat.title}</p>
-                    <div className="flex items-baseline gap-1">
-                      <span className="text-2xl font-bold text-gray-900">{stat.value}</span>
-                      {stat.currency && <span className="text-lg font-semibold text-gray-700">{stat.currency}</span>}
-                    </div>
-                  </div>
-                </div>
-                <p className="text-sm text-gray-500">{stat.subtitle}</p>
-              </CardContent>
-            </Card>
-          ))}
+        {/* Stats - Clean overview */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+          <div className="group">
+            <div className="text-3xl font-light text-gray-900 mb-1">
+              {totalMonthly.toFixed(2)}<span className="text-lg text-gray-400">€/mois</span>
+            </div>
+            <div className="text-sm text-gray-500 mb-2">Total mensuel</div>
+            <div className="text-xs text-green-600 font-medium flex items-center gap-1">
+              <TrendingUp className="w-3 h-3" />
+              3 actifs
+            </div>
+          </div>
+
+          <div className="group">
+            <div className="text-3xl font-light text-gray-900 mb-1">
+              15<span className="text-lg text-gray-400"> Juin</span>
+            </div>
+            <div className="text-sm text-gray-500 mb-2">Prochain paiement</div>
+            <div className="text-xs text-blue-600 font-medium">
+              StackBlitz Pro
+            </div>
+          </div>
+
+          <div className="group">
+            <div className="text-3xl font-light text-gray-900 mb-1">
+              3<span className="text-lg text-gray-400"> services</span>
+            </div>
+            <div className="text-sm text-gray-500 mb-2">Abonnements</div>
+            <div className="text-xs text-gray-600 font-medium">
+              2 actifs, 1 en pause
+            </div>
+          </div>
         </div>
 
-        {/* Subscriptions List */}
-        <div className="space-y-4">
+        {/* Subscriptions - Minimal cards */}
+        <div className="space-y-4 mb-16">
           {subscriptions.map((subscription) => (
-            <Card key={subscription.id} className="border-0 shadow-sm hover:shadow-md transition-all duration-200 bg-white">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
+            <Card key={subscription.id} className="border-0 shadow-sm hover:shadow-md transition-all duration-200 bg-white rounded-2xl overflow-hidden">
+              <CardContent className="p-0">
+                <div className="flex items-center justify-between p-6">
                   <div className="flex items-center gap-4">
-                    <div className={`w-14 h-14 ${subscription.color} rounded-xl flex items-center justify-center shadow-sm`}>
-                      <span className="font-bold text-white text-lg">{subscription.logo}</span>
+                    <div className={`w-12 h-12 ${subscription.color} rounded-xl flex items-center justify-center shadow-sm`}>
+                      <span className="font-semibold text-white text-lg">{subscription.logo}</span>
                     </div>
                     <div className="space-y-1">
-                      <h3 className="font-semibold text-gray-900 text-lg">{subscription.name}</h3>
-                      <p className="text-gray-500">{subscription.plan}</p>
+                      <h3 className="font-medium text-gray-900">{subscription.name}</h3>
+                      <p className="text-sm text-gray-500">{subscription.plan}</p>
                     </div>
                   </div>
                   
                   <div className="flex items-center gap-6">
-                    <div className="text-right space-y-1">
-                      <div className="flex items-baseline gap-1">
-                        <span className="text-xl font-bold text-gray-900">{subscription.amount}</span>
-                        <span className="text-sm text-gray-600">{subscription.currency}</span>
+                    <div className="text-right">
+                      <div className="font-semibold text-gray-900 text-lg">
+                        {subscription.amount} {subscription.currency}
                       </div>
-                      <div className="flex items-center gap-2 text-sm text-gray-500">
-                        <Clock className="h-4 w-4" />
-                        Prochain: {subscription.nextBilling}
+                      <div className="text-xs text-gray-500 flex items-center gap-1">
+                        <Clock className="w-3 h-3" />
+                        {subscription.nextBilling}
                       </div>
                     </div>
                     
-                    <Badge 
-                      variant={subscription.status === 'active' ? 'default' : 'secondary'}
-                      className={`px-3 py-1 rounded-full font-medium ${
-                        subscription.status === 'active' 
-                          ? 'bg-green-100 text-green-800 hover:bg-green-100' 
-                          : 'bg-yellow-100 text-yellow-800 hover:bg-yellow-100'
-                      }`}
-                    >
-                      {subscription.status === 'active' ? (
-                        <><CheckCircle2 className="w-3 h-3 mr-1" />Actif</>
-                      ) : (
-                        <><Pause className="w-3 h-3 mr-1" />En pause</>
-                      )}
-                    </Badge>
-                    
-                    <Button variant="ghost" size="sm" className="rounded-lg">
-                      <MoreHorizontal className="w-5 h-5" />
-                    </Button>
+                    <div className="flex items-center gap-3">
+                      <Badge 
+                        variant="secondary"
+                        className={`px-3 py-1 rounded-full text-xs font-medium border-0 ${
+                          subscription.status === 'active' 
+                            ? 'bg-green-50 text-green-700' 
+                            : 'bg-yellow-50 text-yellow-700'
+                        }`}
+                      >
+                        {subscription.status === 'active' ? (
+                          <>
+                            <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
+                            Actif
+                          </>
+                        ) : (
+                          <>
+                            <div className="w-2 h-2 bg-yellow-500 rounded-full mr-2"></div>
+                            Pause
+                          </>
+                        )}
+                      </Badge>
+                      
+                      <Button variant="ghost" size="sm" className="w-8 h-8 p-0 rounded-lg hover:bg-gray-50">
+                        <MoreVertical className="w-4 h-4 text-gray-400" />
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </CardContent>
@@ -137,23 +161,33 @@ export function Subscriptions() {
           ))}
         </div>
 
-        {/* Add New Subscription CTA */}
-        <Card className="border-2 border-dashed border-gray-200 hover:border-gray-300 transition-colors bg-white">
-          <CardContent className="p-8">
-            <div className="flex flex-col items-center justify-center text-center space-y-4">
-              <div className="w-16 h-16 bg-gray-50 rounded-xl flex items-center justify-center">
-                <Plus className="w-8 h-8 text-gray-400" />
-              </div>
-              <div className="space-y-2">
-                <h3 className="font-semibold text-gray-900 text-lg">Ajouter un nouvel abonnement</h3>
-                <p className="text-gray-500">Connectez un nouveau service à votre compte PayZoo</p>
-              </div>
-              <Button variant="outline" className="px-6 py-2 rounded-lg">
-                Ajouter un abonnement
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+        {/* Add new subscription - Minimal CTA */}
+        <div className="border-2 border-dashed border-gray-200 rounded-3xl p-12 text-center hover:border-gray-300 transition-colors">
+          <div className="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <Plus className="w-6 h-6 text-gray-400" />
+          </div>
+          <h3 className="font-medium text-gray-900 mb-2">Nouveau service</h3>
+          <p className="text-gray-500 text-sm mb-6 max-w-md mx-auto">
+            Connectez un nouvel abonnement pour un suivi centralisé
+          </p>
+          <Button variant="outline" className="rounded-full px-6 py-2 font-medium border-gray-200 hover:bg-gray-50">
+            Ajouter un abonnement
+          </Button>
+        </div>
+
+        {/* Quick actions */}
+        <div className="mt-16 flex justify-center">
+          <div className="flex items-center gap-4">
+            <Button variant="ghost" className="rounded-full px-4 py-2 text-gray-600 hover:bg-gray-50">
+              <CreditCard className="w-4 h-4 mr-2" />
+              Méthodes de paiement
+            </Button>
+            <Button variant="ghost" className="rounded-full px-4 py-2 text-gray-600 hover:bg-gray-50">
+              <Calendar className="w-4 h-4 mr-2" />
+              Calendrier des paiements
+            </Button>
+          </div>
+        </div>
       </div>
     </div>
   );
