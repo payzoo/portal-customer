@@ -1,5 +1,5 @@
 
-import { MapPin, Plus, MoreHorizontal, Home, Building2 } from "lucide-react";
+import { MapPin, Plus, Home, Building2, Edit, Trash2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -27,107 +27,115 @@ export function Addresses() {
   ];
 
   return (
-    <div className="p-8 bg-gray-50/30 min-h-screen">
-      <div className="max-w-4xl mx-auto space-y-8">
-        {/* Header */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Adresses</h1>
-            <p className="text-gray-600 text-lg">Gérez vos adresses de facturation et livraison</p>
+    <div className="min-h-screen bg-white">
+      <div className="max-w-6xl mx-auto p-8">
+        {/* Header minimal */}
+        <div className="mb-12">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h1 className="text-2xl font-light text-gray-900">Adresses</h1>
+              <p className="text-sm text-gray-500 mt-1">Gérez vos adresses de facturation et livraison</p>
+            </div>
+            <Button className="bg-black hover:bg-gray-800 text-white px-6 py-2 text-sm font-medium rounded-lg transition-colors">
+              <Plus className="w-4 h-4 mr-2" />
+              Nouvelle adresse
+            </Button>
           </div>
-          <Button className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-200">
-            <Plus className="w-5 h-5 mr-2" />
-            Ajouter une adresse
-          </Button>
         </div>
 
-        {/* Addresses List */}
-        <div className="space-y-4">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">Adresses enregistrées</h2>
-          
+        {/* Liste des adresses */}
+        <div className="space-y-3">
           {addresses.map((address) => (
-            <Card key={address.id} className="border-0 shadow-sm hover:shadow-md transition-all duration-200 bg-white">
+            <Card key={address.id} className="border border-gray-100 hover:border-gray-200 transition-colors bg-white rounded-xl overflow-hidden group">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 bg-gradient-to-br from-green-50 to-green-100 rounded-xl flex items-center justify-center shadow-sm">
+                    <div className="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center">
                       {address.type === 'home' ? (
-                        <Home className="w-7 h-7 text-green-600" />
+                        <Home className="w-5 h-5 text-gray-600" />
                       ) : (
-                        <Building2 className="w-7 h-7 text-green-600" />
+                        <Building2 className="w-5 h-5 text-gray-600" />
                       )}
                     </div>
+                    
                     <div className="space-y-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <span className="font-semibold text-gray-900 text-lg">{address.name}</span>
+                      <div className="flex items-center gap-3">
+                        <span className="font-medium text-gray-900">{address.name}</span>
                         {address.isDefault && (
-                          <Badge className="bg-green-100 text-green-800 hover:bg-green-100 px-3 py-1 rounded-full">
+                          <Badge className="bg-gray-100 text-gray-700 hover:bg-gray-100 px-2 py-0.5 text-xs rounded-md border-0">
                             Par défaut
                           </Badge>
                         )}
                       </div>
-                      <p className="text-gray-700 font-medium">{address.street}</p>
-                      <p className="text-gray-500">{address.city}, {address.country}</p>
+                      <p className="text-sm text-gray-600">{address.street}</p>
+                      <p className="text-xs text-gray-400">{address.city}, {address.country}</p>
                     </div>
                   </div>
                   
-                  <Button variant="ghost" size="sm" className="rounded-lg">
-                    <MoreHorizontal className="w-5 h-5" />
-                  </Button>
+                  <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-gray-50">
+                      <Edit className="w-4 h-4 text-gray-600" />
+                    </Button>
+                    <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-red-50 hover:text-red-600">
+                      <Trash2 className="w-4 h-4" />
+                    </Button>
+                  </div>
                 </div>
               </CardContent>
             </Card>
           ))}
 
-          {/* Add Address CTA */}
-          <Card className="border-2 border-dashed border-gray-200 hover:border-gray-300 transition-colors bg-white">
+          {/* CTA pour ajouter une adresse */}
+          <Card className="border-2 border-dashed border-gray-200 hover:border-gray-300 transition-colors bg-gray-50/30 rounded-xl group cursor-pointer">
             <CardContent className="p-8">
-              <div className="flex flex-col items-center justify-center text-center space-y-4">
-                <div className="w-16 h-16 bg-gray-50 rounded-xl flex items-center justify-center">
-                  <Plus className="w-8 h-8 text-gray-400" />
+              <div className="flex flex-col items-center justify-center text-center space-y-3">
+                <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow">
+                  <Plus className="w-5 h-5 text-gray-400 group-hover:text-gray-600 transition-colors" />
                 </div>
-                <div className="space-y-2">
-                  <h3 className="font-semibold text-gray-900 text-lg">Ajouter une nouvelle adresse</h3>
-                  <p className="text-gray-500">Adresse de facturation ou de livraison</p>
+                <div className="space-y-1">
+                  <h3 className="font-medium text-gray-900 text-sm">Ajouter une adresse</h3>
+                  <p className="text-xs text-gray-500">Facturation ou livraison</p>
                 </div>
-                <Button variant="outline" className="px-6 py-2 rounded-lg">
-                  Ajouter une adresse
-                </Button>
               </div>
             </CardContent>
           </Card>
         </div>
 
-        {/* Quick Actions */}
-        <Card className="border-0 shadow-sm bg-white">
-          <CardContent className="p-6">
-            <h3 className="font-semibold text-gray-900 text-lg mb-4">Actions rapides</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Button variant="outline" className="justify-start h-auto p-4 rounded-xl">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-blue-50 rounded-lg">
-                    <MapPin className="w-5 h-5 text-blue-600" />
-                  </div>
-                  <div className="text-left">
-                    <p className="font-medium text-gray-900">Importer depuis Google</p>
-                    <p className="text-sm text-gray-500">Synchroniser vos adresses Google</p>
-                  </div>
+        {/* Actions rapides minimalistes */}
+        <div className="mt-12 pt-8 border-t border-gray-100">
+          <h3 className="font-medium text-gray-900 text-sm mb-6">Actions rapides</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <Button 
+              variant="outline" 
+              className="justify-start h-auto p-4 rounded-xl border-gray-200 hover:border-gray-300 hover:bg-gray-50 transition-colors group"
+            >
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-blue-50 rounded-lg group-hover:bg-blue-100 transition-colors">
+                  <MapPin className="w-4 h-4 text-blue-600" />
                 </div>
-              </Button>
-              <Button variant="outline" className="justify-start h-auto p-4 rounded-xl">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-purple-50 rounded-lg">
-                    <Building2 className="w-5 h-5 text-purple-600" />
-                  </div>
-                  <div className="text-left">
-                    <p className="font-medium text-gray-900">Adresse professionnelle</p>
-                    <p className="text-sm text-gray-500">Ajouter l'adresse de votre entreprise</p>
-                  </div>
+                <div className="text-left">
+                  <p className="font-medium text-gray-900 text-sm">Importer depuis Google</p>
+                  <p className="text-xs text-gray-500">Synchroniser vos adresses</p>
                 </div>
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+              </div>
+            </Button>
+            
+            <Button 
+              variant="outline" 
+              className="justify-start h-auto p-4 rounded-xl border-gray-200 hover:border-gray-300 hover:bg-gray-50 transition-colors group"
+            >
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-purple-50 rounded-lg group-hover:bg-purple-100 transition-colors">
+                  <Building2 className="w-4 h-4 text-purple-600" />
+                </div>
+                <div className="text-left">
+                  <p className="font-medium text-gray-900 text-sm">Adresse professionnelle</p>
+                  <p className="text-xs text-gray-500">Ajouter votre entreprise</p>
+                </div>
+              </div>
+            </Button>
+          </div>
+        </div>
       </div>
     </div>
   );
