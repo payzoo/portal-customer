@@ -11,6 +11,8 @@ import {
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Separator } from "@/components/ui/separator";
 
 interface SidebarProps {
   activeSection: string;
@@ -39,6 +41,17 @@ export const Sidebar = ({ activeSection, onSectionChange }: SidebarProps) => {
     { id: "settings", label: "Paramètres", icon: Settings },
   ];
 
+  // Fonction pour obtenir les initiales de l'utilisateur
+  const getUserInitials = (email: string) => {
+    const name = email.split('@')[0];
+    return name.charAt(0).toUpperCase() + (name.charAt(1) || '').toUpperCase();
+  };
+
+  // Fonction pour obtenir le nom d'affichage
+  const getDisplayName = (email: string) => {
+    return email.split('@')[0];
+  };
+
   return (
     <div className="w-80 bg-white border-r border-gray-100 min-h-screen flex flex-col">
       {/* Header moderne */}
@@ -52,7 +65,24 @@ export const Sidebar = ({ activeSection, onSectionChange }: SidebarProps) => {
           </div>
           <div className="flex-1 min-w-0">
             <h1 className="font-bold text-gray-900 text-2xl tracking-tight">Payzoo</h1>
-            <p className="text-sm text-gray-500 truncate font-medium mt-1">{user?.email}</p>
+            <p className="text-sm text-gray-500 font-medium mt-1">Gestion simplifiée</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Section utilisateur */}
+      <div className="p-6 border-b border-gray-50">
+        <div className="flex items-center space-x-4">
+          <Avatar className="w-12 h-12">
+            <AvatarFallback className="bg-payzoo-green-100 text-payzoo-green-700 font-semibold text-base">
+              {user ? getUserInitials(user.email) : 'U'}
+            </AvatarFallback>
+          </Avatar>
+          <div className="flex-1 min-w-0">
+            <h3 className="font-semibold text-gray-900 text-base truncate">
+              {user ? getDisplayName(user.email) : 'Utilisateur'}
+            </h3>
+            <p className="text-sm text-gray-500 truncate">{user?.email}</p>
           </div>
         </div>
       </div>
