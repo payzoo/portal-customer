@@ -1,4 +1,3 @@
-
 import { CreditCard, Plus, MoreHorizontal, Shield, Smartphone, Building2, Wallet } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -269,25 +268,119 @@ export function PaymentMethods() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-4xl mx-auto px-6 py-8">
+    <div className="min-h-screen bg-gray-50/30">
+      <div className="max-w-6xl mx-auto px-6 py-8">
         
-        {/* Header épuré */}
-        <div className="mb-12">
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <h1 className="text-2xl font-semibold text-gray-900 mb-2">
-                Méthodes de paiement
-              </h1>
-              <p className="text-gray-500">
-                Gérez vos moyens de paiement
-              </p>
+        {/* Header minimaliste */}
+        <div className="mb-10">
+          <h1 className="text-4xl font-light text-gray-900 mb-2 tracking-tight">
+            Méthodes de paiement
+          </h1>
+          <p className="text-gray-600 text-lg font-light">
+            Gérez vos moyens de paiement en toute sécurité
+          </p>
+        </div>
+
+        {/* Stats simplifiées */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+          <Card className="border-0 shadow-sm bg-white">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center">
+                  <CreditCard className="w-5 h-5 text-white" />
+                </div>
+              </div>
+              <div>
+                <div className="text-2xl font-semibold text-gray-900 mb-1">4</div>
+                <div className="text-sm text-gray-500">Méthodes actives</div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-0 shadow-sm bg-white">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-10 h-10 bg-green-500 rounded-xl flex items-center justify-center">
+                  <Shield className="w-5 h-5 text-white" />
+                </div>
+                <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+              </div>
+              <div>
+                <div className="text-2xl font-semibold text-gray-900 mb-1">100%</div>
+                <div className="text-sm text-gray-500">Sécurisé</div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-0 shadow-sm bg-white">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-10 h-10 bg-purple-600 rounded-xl flex items-center justify-center">
+                  <CreditCard className="w-5 h-5 text-white" />
+                </div>
+                <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
+              </div>
+              <div>
+                <div className="text-2xl font-semibold text-gray-900 mb-1">1</div>
+                <div className="text-sm text-gray-500">Principal</div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Liste des méthodes épurée */}
+        <div className="space-y-3 mb-12">
+          {paymentMethods.map((method) => {
+            const IconComponent = method.icon;
+            return (
+              <Card key={method.id} className="border-0 bg-white shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer group">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <div className={`w-12 h-12 ${method.color} rounded-xl flex items-center justify-center`}>
+                        <IconComponent className="w-5 h-5 text-white" />
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center gap-4 mb-2">
+                          <h3 className="font-medium text-gray-900 text-lg">{method.provider}</h3>
+                          <span className="text-gray-500 font-mono text-sm">{method.identifier}</span>
+                          {method.isDefault && (
+                            <Badge className="bg-green-50 text-green-600 hover:bg-green-50 px-3 py-1 rounded-lg text-xs border-0">
+                              <div className="w-1.5 h-1.5 bg-green-400 rounded-full mr-2"></div>
+                              Principal
+                            </Badge>
+                          )}
+                        </div>
+                        <p className="text-gray-600 text-base mb-1">{method.name}</p>
+                        <p className="text-gray-400 text-sm">{method.detail}</p>
+                      </div>
+                    </div>
+                    
+                    <Button variant="ghost" size="sm" className="w-8 h-8 p-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <MoreHorizontal className="w-4 h-4 text-gray-400" />
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
+
+        {/* CTA principal épuré */}
+        <Card className="border-2 border-dashed border-gray-200 bg-gray-50/50 hover:border-gray-300 hover:bg-gray-50 transition-all duration-300 group cursor-pointer">
+          <CardContent className="p-12 text-center">
+            <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-gray-200 transition-colors">
+              <Plus className="w-6 h-6 text-gray-400" />
             </div>
+            <h3 className="font-medium text-gray-900 text-lg mb-2">Ajouter une nouvelle méthode</h3>
+            <p className="text-gray-500 text-sm mb-6 max-w-md mx-auto">
+              Carte bancaire, Mobile Money, compte bancaire ou wallet digital
+            </p>
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
               <DialogTrigger asChild>
                 <Button className="bg-gray-900 hover:bg-gray-800 text-white rounded-xl px-6">
                   <Plus className="w-4 h-4 mr-2" />
-                  Ajouter
+                  Ajouter une méthode
                 </Button>
               </DialogTrigger>
               <DialogContent className="sm:max-w-md max-h-[90vh] overflow-y-auto rounded-2xl">
@@ -330,86 +423,8 @@ export function PaymentMethods() {
                 </form>
               </DialogContent>
             </Dialog>
-          </div>
-
-          {/* Stats simplifiées */}
-          <div className="grid grid-cols-3 gap-6">
-            <div className="bg-white rounded-2xl p-6 border border-gray-100">
-              <div className="text-2xl font-semibold text-gray-900 mb-1">4</div>
-              <div className="text-sm text-gray-500">Méthodes actives</div>
-            </div>
-            <div className="bg-white rounded-2xl p-6 border border-gray-100">
-              <div className="text-2xl font-semibold text-gray-900 mb-1">100%</div>
-              <div className="text-sm text-gray-500">Sécurisé</div>
-            </div>
-            <div className="bg-white rounded-2xl p-6 border border-gray-100">
-              <div className="text-2xl font-semibold text-gray-900 mb-1">1</div>
-              <div className="text-sm text-gray-500">Principal</div>
-            </div>
-          </div>
-        </div>
-
-        {/* Liste des méthodes épurée */}
-        <div className="space-y-3 mb-12">
-          {paymentMethods.map((method) => {
-            const IconComponent = method.icon;
-            return (
-              <Card key={method.id} className="border-0 bg-white hover:shadow-md transition-all duration-200 rounded-2xl group">
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                      <div className={`w-12 h-12 ${method.color} rounded-xl flex items-center justify-center`}>
-                        <IconComponent className="w-5 h-5 text-white" />
-                      </div>
-                      <div>
-                        <div className="flex items-center gap-3 mb-1">
-                          <h3 className="font-medium text-gray-900">{method.provider}</h3>
-                          <span className="text-gray-500 font-mono text-sm">{method.identifier}</span>
-                          {method.isDefault && (
-                            <Badge className="bg-green-50 text-green-600 hover:bg-green-50 px-3 py-1 rounded-lg text-xs">
-                              Principal
-                            </Badge>
-                          )}
-                        </div>
-                        <p className="text-xs text-gray-400">{method.name} • {method.detail}</p>
-                      </div>
-                    </div>
-                    
-                    <Button variant="ghost" size="sm" className="w-10 h-10 p-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity">
-                      <MoreHorizontal className="w-4 h-4 text-gray-400" />
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            );
-          })}
-        </div>
-
-        {/* Types de paiement disponibles */}
-        <div className="space-y-6">
-          <h2 className="text-lg font-medium text-gray-900">Ajouter une nouvelle méthode</h2>
-          
-          <div className="grid grid-cols-2 gap-4">
-            {paymentTypes.map((type) => {
-              const IconComponent = type.icon;
-              return (
-                <Card key={type.type} className="border-0 bg-white hover:shadow-md transition-all duration-200 rounded-2xl group cursor-pointer">
-                  <CardContent className="p-6">
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center group-hover:bg-gray-200 transition-colors">
-                        <IconComponent className="w-5 h-5 text-gray-600" />
-                      </div>
-                      <div>
-                        <h3 className="font-medium text-gray-900 mb-1">{type.title}</h3>
-                        <p className="text-xs text-gray-500">{type.description}</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
-        </div>
+          </CardContent>
+        </Card>
 
         {/* Notice de sécurité simplifiée */}
         <div className="mt-12 bg-blue-50 rounded-2xl p-6">
@@ -420,7 +435,7 @@ export function PaymentMethods() {
             <div>
               <h3 className="font-medium text-gray-900 mb-1">Sécurité garantie</h3>
               <p className="text-sm text-gray-600">
-                Vos données de paiement sont cryptées selon les standards PCI DSS.
+                Vos données de paiement sont cryptées selon les standards PCI DSS et protégées par des protocoles de sécurité avancés.
               </p>
             </div>
           </div>
