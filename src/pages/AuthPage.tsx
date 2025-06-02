@@ -60,7 +60,7 @@ const AuthPage = () => {
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-6">
-      {/* Subtle background decoration */}
+      {/* Minimal background decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-5">
         <div className="absolute w-96 h-96 bg-foreground rounded-full blur-3xl top-10 left-10"></div>
         <div className="absolute w-80 h-80 bg-foreground rounded-full blur-3xl right-15 bottom-20"></div>
@@ -70,7 +70,7 @@ const AuthPage = () => {
         isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
       }`}>
         
-        {/* Header with brand identity */}
+        {/* Header with consistent typography */}
         <div className="text-center">
           <div className={`transform transition-all duration-700 ease-out ${
             isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
@@ -85,23 +85,23 @@ const AuthPage = () => {
           </div>
         </div>
 
-        {/* Form section */}
+        {/* Form section with unified container dimensions */}
         <div className={`space-y-8 transform transition-all duration-700 ease-out ${
           isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
         }`} style={{ transitionDelay: '600ms' }}>
           {!showEmailTag ? (
             <div className="space-y-8">
-              {/* Email input field */}
+              {/* Email input with proper alignment */}
               <div className="payzoo-input-container">
                 <div className="payzoo-card">
                   <div className="relative payzoo-card-compact">
-                    <Mail className="payzoo-input-icon" />
+                    <Mail className="payzoo-input-icon text-muted-foreground" />
                     <Input
                       type="email"
                       placeholder="votre@email.com"
                       value={email}
                       onChange={handleEmailChange}
-                      className="payzoo-input-with-icon border-0 bg-transparent focus:ring-0 focus:border-0 placeholder:text-muted-foreground"
+                      className="payzoo-input-with-icon border-0 bg-transparent focus:ring-0 focus:border-0 placeholder:text-muted-foreground text-foreground"
                     />
                     <div className={`payzoo-input-action transition-all duration-500 ${
                       isEmailValid ? 'scale-100 opacity-100 rotate-0' : 'scale-0 opacity-0 rotate-90'
@@ -120,12 +120,12 @@ const AuthPage = () => {
                 className={`payzoo-btn-primary w-full ${!isEmailValid ? 'opacity-40 cursor-not-allowed' : ''}`}
               >
                 Continuer
-                <ArrowRight className="w-5 h-5" />
+                <ArrowRight className="w-5 h-5 text-background" />
               </Button>
             </div>
           ) : (
             <div className="space-y-8 payzoo-fade-in">
-              {/* Email confirmation card */}
+              {/* Email confirmation card with unified dimensions */}
               <div className="group cursor-pointer">
                 <div className="payzoo-card-interactive payzoo-card-content">
                   <div className="flex items-center space-x-4">
@@ -141,7 +141,7 @@ const AuthPage = () => {
                     </div>
                     <button 
                       onClick={removeEmailTag}
-                      className="payzoo-btn-icon flex-shrink-0"
+                      className="payzoo-btn-icon flex-shrink-0 text-muted-foreground hover:text-foreground"
                       aria-label="Supprimer l'email"
                     >
                       ×
@@ -155,13 +155,13 @@ const AuthPage = () => {
                 className="payzoo-btn-primary w-full"
               >
                 Se connecter
-                <ArrowRight className="w-5 h-5" />
+                <ArrowRight className="w-5 h-5 text-background" />
               </Button>
             </div>
           )}
         </div>
 
-        {/* Footer */}
+        {/* Footer with consistent styling */}
         <div className={`text-center space-y-6 transform transition-all duration-700 ease-out ${
           isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
         }`} style={{ transitionDelay: '800ms' }}>

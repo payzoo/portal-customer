@@ -56,33 +56,33 @@ export function AppSidebar({ activeSection, onSectionChange }: AppSidebarProps) 
   return (
     <div className={`${isCollapsed ? 'w-16' : 'w-64'} bg-background border-r border-border h-screen fixed left-0 top-0 flex flex-col transition-all duration-300 ease-in-out z-40 shadow-sm`}>
       
-      {/* Header with improved contrast */}
+      {/* Header with consistent branding */}
       <div className="flex items-center justify-between p-4 border-b border-border">
         {!isCollapsed && (
           <div className="flex items-center space-x-3">
             <div className="w-8 h-8 bg-foreground rounded-lg flex items-center justify-center font-bold text-sm text-background">
-              L
+              P
             </div>
-            <h1 className="lovable-subsection-title text-foreground">Lovable</h1>
+            <h1 className="payzoo-subsection-title text-foreground">Payzoo</h1>
           </div>
         )}
         {isCollapsed && (
           <div className="w-8 h-8 bg-foreground rounded-lg flex items-center justify-center mx-auto font-bold text-sm text-background">
-            L
+            P
           </div>
         )}
         <Button
           variant="ghost"
           size="icon"
           onClick={() => setIsCollapsed(!isCollapsed)}
-          className="lovable-btn-icon"
+          className="payzoo-btn-icon text-muted-foreground hover:text-foreground"
           aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
         >
           {isCollapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
         </Button>
       </div>
 
-      {/* Profile section */}
+      {/* Profile section with proper contrast */}
       {!isCollapsed && (
         <div className="p-4 border-b border-border">
           <div className="flex items-center space-x-3">
@@ -92,16 +92,16 @@ export function AppSidebar({ activeSection, onSectionChange }: AppSidebarProps) 
               </AvatarFallback>
             </Avatar>
             <div className="flex-1 min-w-0">
-              <p className="lovable-body-sm font-medium text-foreground truncate">
+              <p className="payzoo-body-sm font-medium text-foreground truncate">
                 {user ? getDisplayName(user.email) : 'Utilisateur'}
               </p>
-              <p className="lovable-caption text-muted-foreground truncate">{user?.email}</p>
+              <p className="payzoo-caption text-muted-foreground truncate">{user?.email}</p>
             </div>
           </div>
         </div>
       )}
 
-      {/* Navigation */}
+      {/* Navigation with proper color contrast */}
       <nav className="flex-1 p-4">
         <ul className="space-y-1" role="navigation" aria-label="Main navigation">
           {menuItems.map((item) => {
@@ -111,7 +111,7 @@ export function AppSidebar({ activeSection, onSectionChange }: AppSidebarProps) 
               <li key={item.id}>
                 <button
                   onClick={() => onSectionChange(item.id)}
-                  className={`w-full flex items-center ${isCollapsed ? 'justify-center px-3' : 'px-3'} py-2.5 rounded-lg text-left transition-all duration-200 group lovable-focus-ring ${
+                  className={`w-full flex items-center ${isCollapsed ? 'justify-center px-3' : 'px-3'} py-2.5 rounded-lg text-left transition-all duration-200 group payzoo-focus-ring ${
                     isActive
                       ? "bg-foreground text-background shadow-sm"
                       : "text-muted-foreground hover:bg-muted hover:text-foreground"
@@ -119,12 +119,14 @@ export function AppSidebar({ activeSection, onSectionChange }: AppSidebarProps) 
                   title={isCollapsed ? item.label : undefined}
                   aria-current={isActive ? "page" : undefined}
                 >
-                  <Icon className={`w-5 h-5 ${isCollapsed ? '' : 'mr-3'} flex-shrink-0`} />
+                  <Icon className={`w-5 h-5 ${isCollapsed ? '' : 'mr-3'} flex-shrink-0 ${
+                    isActive ? 'text-background' : 'text-inherit'
+                  }`} />
                   {!isCollapsed && (
-                    <span className="lovable-body-sm font-medium">{item.label}</span>
+                    <span className="payzoo-body-sm font-medium">{item.label}</span>
                   )}
                   {isActive && !isCollapsed && (
-                    <div className="ml-auto lovable-status-active bg-background" />
+                    <div className="ml-auto payzoo-status-active bg-background" />
                   )}
                 </button>
               </li>
@@ -137,13 +139,13 @@ export function AppSidebar({ activeSection, onSectionChange }: AppSidebarProps) 
       <div className="p-4 border-t border-border">
         <button
           onClick={handleLogout}
-          className={`w-full flex items-center ${isCollapsed ? 'justify-center px-3' : 'px-3'} py-2.5 rounded-lg text-muted-foreground hover:bg-red-50 hover:text-red-600 transition-all duration-200 group lovable-focus-ring`}
+          className={`w-full flex items-center ${isCollapsed ? 'justify-center px-3' : 'px-3'} py-2.5 rounded-lg text-muted-foreground hover:bg-red-50 hover:text-red-600 transition-all duration-200 group payzoo-focus-ring`}
           title={isCollapsed ? "Déconnexion" : undefined}
           aria-label="Se déconnecter"
         >
           <LogOut className={`w-5 h-5 ${isCollapsed ? '' : 'mr-3'} flex-shrink-0`} />
           {!isCollapsed && (
-            <span className="lovable-body-sm font-medium">Déconnexion</span>
+            <span className="payzoo-body-sm font-medium">Déconnexion</span>
           )}
         </button>
       </div>
@@ -151,8 +153,8 @@ export function AppSidebar({ activeSection, onSectionChange }: AppSidebarProps) 
       {/* Footer info */}
       {!isCollapsed && (
         <div className="p-4 text-center">
-          <p className="lovable-caption text-muted-foreground">
-            © 2024 Lovable • Version Pro
+          <p className="payzoo-caption text-muted-foreground">
+            © 2024 Payzoo • Version Pro
           </p>
         </div>
       )}

@@ -63,17 +63,17 @@
   }
 }
 
-/* Payzoo Design System - Typography */
+/* Payzoo Design System - Typography with consistent hierarchy */
 .payzoo-page-title {
-  @apply text-4xl font-light text-foreground tracking-tight leading-tight mb-3;
+  @apply text-4xl font-light text-foreground tracking-tight leading-tight;
 }
 
 .payzoo-section-title {
-  @apply text-2xl font-normal text-foreground tracking-tight leading-snug mb-6;
+  @apply text-2xl font-normal text-foreground tracking-tight leading-snug;
 }
 
 .payzoo-subsection-title {
-  @apply text-xl font-normal text-foreground tracking-tight leading-snug mb-4;
+  @apply text-xl font-normal text-foreground tracking-tight leading-snug;
 }
 
 .payzoo-body {
@@ -92,7 +92,7 @@
   @apply text-base text-muted-foreground leading-relaxed;
 }
 
-/* Payzoo Design System - Layout */
+/* Payzoo Design System - Layout with consistent container dimensions */
 .payzoo-page-container {
   @apply max-w-6xl mx-auto px-8 py-12;
 }
@@ -113,17 +113,15 @@
   @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6;
 }
 
-/* Payzoo Design System - CTA Elements (70% Primary usage) */
+/* Payzoo Design System - CTA Elements with proper contrast */
 .payzoo-btn-primary {
   @apply inline-flex items-center justify-center gap-2 h-12 px-8 bg-foreground text-background font-medium rounded-xl transition-all duration-200 hover:bg-foreground/90 focus:outline-none focus:ring-2 focus:ring-foreground focus:ring-offset-2 active:scale-[0.98] shadow-sm;
 }
 
-/* CTA System - Secondary (30% usage) */
 .payzoo-btn-secondary {
   @apply inline-flex items-center justify-center gap-2 h-12 px-8 bg-background text-foreground font-medium rounded-xl border border-border transition-all duration-200 hover:bg-muted focus:outline-none focus:ring-2 focus:ring-foreground focus:ring-offset-2 active:scale-[0.98];
 }
 
-/* CTA System - Accent (10% usage) */
 .payzoo-btn-accent {
   @apply inline-flex items-center justify-center gap-2 h-12 px-8 bg-transparent text-foreground font-medium rounded-xl border border-foreground transition-all duration-200 hover:bg-foreground hover:text-background focus:outline-none focus:ring-2 focus:ring-foreground focus:ring-offset-2 active:scale-[0.98];
 }
@@ -136,7 +134,7 @@
   @apply inline-flex items-center justify-center w-10 h-10 bg-transparent text-muted-foreground rounded-lg transition-all duration-200 hover:bg-muted hover:text-foreground focus:outline-none focus:ring-2 focus:ring-foreground focus:ring-offset-1 active:scale-[0.95];
 }
 
-/* Payzoo Design System - Cards */
+/* Payzoo Design System - Cards with unified dimensions */
 .payzoo-card {
   @apply bg-card border border-border rounded-2xl shadow-sm transition-all duration-200 min-h-[120px];
 }
@@ -153,7 +151,7 @@
   @apply p-6;
 }
 
-/* Payzoo Design System - Input System */
+/* Payzoo Design System - Input System with proper alignment */
 .payzoo-input-container {
   @apply relative w-full;
 }
@@ -187,7 +185,7 @@
   @apply w-2 h-2 bg-yellow-500 rounded-full;
 }
 
-/* Payzoo Design System - Metrics Cards */
+/* Payzoo Design System - Metrics Cards with consistent dimensions */
 .payzoo-metric-card {
   @apply bg-card border border-border rounded-2xl p-6 min-h-[120px] flex flex-col justify-between;
 }
@@ -224,36 +222,21 @@
   }
 }
 
-/* Legacy Lovable classes for backward compatibility */
-.lovable-page-title { @apply payzoo-page-title; }
-.lovable-section-title { @apply payzoo-section-title; }
-.lovable-subsection-title { @apply payzoo-subsection-title; }
-.lovable-body { @apply payzoo-body; }
-.lovable-body-sm { @apply payzoo-body-sm; }
-.lovable-caption { @apply payzoo-caption; }
-.lovable-subtitle { @apply payzoo-subtitle; }
-.lovable-page-container { @apply payzoo-page-container; }
-.lovable-section { @apply payzoo-section; }
-.lovable-grid-2 { @apply payzoo-grid-2; }
-.lovable-grid-3 { @apply payzoo-grid-3; }
-.lovable-grid-4 { @apply payzoo-grid-4; }
-.lovable-btn-primary { @apply payzoo-btn-primary; }
-.lovable-btn-secondary { @apply payzoo-btn-secondary; }
-.lovable-btn-accent { @apply payzoo-btn-accent; }
-.lovable-btn-ghost { @apply payzoo-btn-ghost; }
-.lovable-btn-icon { @apply payzoo-btn-icon; }
-.lovable-card { @apply payzoo-card; }
-.lovable-card-interactive { @apply payzoo-card-interactive; }
-.lovable-card-content { @apply payzoo-card-content; }
-.lovable-card-compact { @apply payzoo-card-compact; }
-.lovable-input-container { @apply payzoo-input-container; }
-.lovable-input { @apply payzoo-input; }
-.lovable-input-with-icon { @apply payzoo-input-with-icon; }
-.lovable-input-icon { @apply payzoo-input-icon; }
-.lovable-input-action { @apply payzoo-input-action; }
-.lovable-status-active { @apply payzoo-status-active; }
-.lovable-status-inactive { @apply payzoo-status-inactive; }
-.lovable-status-warning { @apply payzoo-status-warning; }
-.lovable-metric-card { @apply payzoo-metric-card; }
-.lovable-focus-ring { @apply payzoo-focus-ring; }
-.lovable-fade-in { @apply payzoo-fade-in; }
+/* Payzoo Color Rules Enforcement */
+.payzoo-white-on-black {
+  @apply text-white;
+}
+
+.payzoo-black-on-white {
+  @apply text-black;
+}
+
+.payzoo-icon-white {
+  @apply text-white;
+}
+
+.payzoo-icon-black {
+  @apply text-black;
+}
+
+/* Legacy classes removed for cleaner codebase */
