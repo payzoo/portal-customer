@@ -40,28 +40,26 @@ export const Sidebar = ({ activeSection, onSectionChange }: SidebarProps) => {
   ];
 
   return (
-    <div className="w-80 bg-white/90 backdrop-blur-md border-r border-gray-100/50 min-h-screen flex flex-col">
-      {/* Header */}
-      <div className="px-8 py-10">
-        <div className="flex items-center space-x-5">
+    <div className="w-72 bg-white/95 backdrop-blur-xl border-r border-gray-100 min-h-screen flex flex-col">
+      {/* Header minimaliste */}
+      <div className="px-6 py-8">
+        <div className="flex items-center space-x-3">
           <div className="relative">
-            <div className="w-14 h-14 payzoo-gradient rounded-3xl flex items-center justify-center shadow-xl shadow-payzoo-green-500/25">
-              <span className="text-white font-bold text-xl">P</span>
+            <div className="w-10 h-10 payzoo-gradient rounded-2xl flex items-center justify-center shadow-lg">
+              <span className="text-white font-bold text-lg">P</span>
             </div>
-            <div className="absolute -top-0.5 -right-0.5 w-5 h-5 bg-white rounded-full flex items-center justify-center shadow-lg">
-              <div className="w-2.5 h-2.5 bg-emerald-400 rounded-full animate-pulse"></div>
-            </div>
+            <div className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-400 rounded-full animate-pulse"></div>
           </div>
           <div className="flex-1 min-w-0">
-            <h1 className="font-bold text-gray-900 text-2xl tracking-tight mb-1">Payzoo</h1>
-            <p className="text-sm text-gray-400 truncate font-medium">{user?.email}</p>
+            <h1 className="font-semibold text-gray-900 text-xl tracking-tight">Payzoo</h1>
+            <p className="text-xs text-gray-400 truncate font-medium mt-0.5">{user?.email}</p>
           </div>
         </div>
       </div>
 
-      {/* Navigation */}
-      <nav className="flex-1 px-6">
-        <ul className="space-y-2">
+      {/* Navigation épurée */}
+      <nav className="flex-1 px-4">
+        <ul className="space-y-1">
           {menuItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeSection === item.id;
@@ -69,19 +67,19 @@ export const Sidebar = ({ activeSection, onSectionChange }: SidebarProps) => {
               <li key={item.id}>
                 <button
                   onClick={() => onSectionChange(item.id)}
-                  className={`w-full flex items-center space-x-4 px-6 py-4 rounded-2xl text-left transition-all duration-300 group relative overflow-hidden ${
+                  className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-left transition-all duration-200 group relative ${
                     isActive
-                      ? "bg-gradient-to-r from-payzoo-green-50 to-payzoo-green-50/30 text-payzoo-green-700 shadow-sm border border-payzoo-green-100/50"
-                      : "text-gray-500 hover:bg-gray-50/60 hover:text-gray-700"
+                      ? "bg-payzoo-green-50 text-payzoo-green-700 shadow-sm"
+                      : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                   }`}
                 >
                   {isActive && (
-                    <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-payzoo-green-500 rounded-r-full" />
+                    <div className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-6 bg-payzoo-green-500 rounded-r-full" />
                   )}
-                  <Icon className={`w-5 h-5 transition-all duration-300 ${
-                    isActive ? "scale-110 text-payzoo-green-600" : "group-hover:scale-105"
+                  <Icon className={`w-4 h-4 transition-all duration-200 ${
+                    isActive ? "text-payzoo-green-600" : "group-hover:scale-105"
                   }`} />
-                  <span className={`font-medium text-sm tracking-wide transition-all duration-300 ${
+                  <span className={`font-medium text-sm tracking-wide ${
                     isActive ? "font-semibold" : ""
                   }`}>
                     {item.label}
@@ -93,17 +91,15 @@ export const Sidebar = ({ activeSection, onSectionChange }: SidebarProps) => {
         </ul>
       </nav>
 
-      {/* Footer */}
-      <div className="p-6">
-        <div className="border-t border-gray-100/70 pt-6">
-          <button
-            onClick={handleLogout}
-            className="w-full flex items-center space-x-4 px-6 py-4 rounded-2xl text-gray-400 hover:bg-red-50/60 hover:text-red-500 transition-all duration-300 group"
-          >
-            <LogOut className="w-5 h-5 group-hover:scale-105 transition-transform duration-300" />
-            <span className="font-medium text-sm tracking-wide">Déconnexion</span>
-          </button>
-        </div>
+      {/* Footer minimaliste */}
+      <div className="p-4">
+        <button
+          onClick={handleLogout}
+          className="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-500 hover:bg-red-50 hover:text-red-600 transition-all duration-200 group"
+        >
+          <LogOut className="w-4 h-4 group-hover:scale-105 transition-transform duration-200" />
+          <span className="font-medium text-sm tracking-wide">Déconnexion</span>
+        </button>
       </div>
     </div>
   );
