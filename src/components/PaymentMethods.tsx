@@ -12,7 +12,26 @@ import { useToast } from "@/hooks/use-toast";
 export function PaymentMethods() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedType, setSelectedType] = useState("");
+  const [selectedAddress, setSelectedAddress] = useState("");
   const { toast } = useToast();
+
+  // Adresses existantes
+  const existingAddresses = [
+    {
+      id: 1,
+      name: "Domicile",
+      street: "Avenue Royale Abdiran O",
+      city: "Paris",
+      country: "France"
+    },
+    {
+      id: 2,
+      name: "Bureau",
+      street: "15 Rue de la Tech",
+      city: "Lyon",
+      country: "France"
+    }
+  ];
 
   const paymentMethods = [
     {
@@ -100,6 +119,7 @@ export function PaymentMethods() {
     });
     setIsDialogOpen(false);
     setSelectedType("");
+    setSelectedAddress("");
   };
 
   const renderFormFields = () => {
@@ -124,6 +144,64 @@ export function PaymentMethods() {
             <div className="space-y-2">
               <Label htmlFor="cardName">Nom sur la carte</Label>
               <Input id="cardName" placeholder="Nom complet" />
+            </div>
+            
+            {/* Section adresse de facturation */}
+            <div className="space-y-4 pt-4 border-t border-gray-200">
+              <h4 className="font-medium text-gray-900">Adresse de facturation</h4>
+              <div className="space-y-2">
+                <Label htmlFor="billingAddress">Sélectionner une adresse</Label>
+                <Select value={selectedAddress} onValueChange={setSelectedAddress}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Choisir une adresse" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {existingAddresses.map((address) => (
+                      <SelectItem key={address.id} value={address.id.toString()}>
+                        {address.name} - {address.street}, {address.city}
+                      </SelectItem>
+                    ))}
+                    <SelectItem value="new">+ Nouvelle adresse</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              
+              {selectedAddress === "new" && (
+                <div className="space-y-3">
+                  <div className="space-y-2">
+                    <Label htmlFor="addressName">Nom de l'adresse</Label>
+                    <Input id="addressName" placeholder="Ex: Domicile, Bureau..." />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="street">Adresse</Label>
+                    <Input id="street" placeholder="Numéro et nom de rue" />
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="city">Ville</Label>
+                      <Input id="city" placeholder="Ville" />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="postalCode">Code postal</Label>
+                      <Input id="postalCode" placeholder="75001" />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="country">Pays</Label>
+                    <Select>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Sélectionner un pays" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="france">France</SelectItem>
+                        <SelectItem value="belgium">Belgique</SelectItem>
+                        <SelectItem value="switzerland">Suisse</SelectItem>
+                        <SelectItem value="canada">Canada</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+              )}
             </div>
           </>
         );
@@ -215,7 +293,7 @@ export function PaymentMethods() {
                   Ajouter
                 </Button>
               </DialogTrigger>
-              <DialogContent className="sm:max-w-md">
+              <DialogContent className="sm:max-w-md max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
                   <DialogTitle>Ajouter une méthode de paiement</DialogTitle>
                 </DialogHeader>
