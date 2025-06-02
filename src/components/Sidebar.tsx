@@ -1,106 +1,93 @@
 
+import { useState } from "react";
 import { 
-  Home, 
+  LayoutDashboard, 
   CreditCard, 
   MapPin, 
-  Settings,
+  Settings, 
   Calendar,
-  Plus,
-  LogOut,
-  Send,
-  Wallet
+  LogOut
 } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import { useAuth } from "@/contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
 
 interface SidebarProps {
   activeSection: string;
   onSectionChange: (section: string) => void;
 }
 
-const navigation = [
-  { id: 'dashboard', name: 'Accueil', icon: Home },
-  { id: 'subscriptions', name: 'Abonnements', icon: Calendar },
-  { id: 'payments', name: 'Paiements', icon: CreditCard },
-  { id: 'addresses', name: 'Adresses', icon: MapPin },
-  { id: 'settings', name: 'Paramètres', icon: Settings },
-];
+export const Sidebar = ({ activeSection, onSectionChange }: SidebarProps) => {
+  const { logout, user } = useAuth();
+  const navigate = useNavigate();
+  const { toast } = useToast();
 
-export function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
+  const handleLogout = () => {
+    logout();
+    toast({
+      title: "Déconnexion réussie",
+      description: "Vous avez été déconnecté avec succès.",
+    });
+    navigate("/auth");
+  };
+
+  const menuItems = [
+    { id: "dashboard", label: "Tableau de bord", icon: LayoutDashboard },
+    { id: "subscriptions", label: "Abonnements", icon: Calendar },
+    { id: "payments", label: "Moyens de paiement", icon: CreditCard },
+    { id: "addresses", label: "Adresses", icon: MapPin },
+    { id: "settings", label: "Paramètres", icon: Settings },
+  ];
+
   return (
-    <div className="w-72 bg-white border-r border-gray-100 min-h-screen flex flex-col">
+    <div className="w-64 bg-white border-r border-gray-200 min-h-screen flex flex-col">
       {/* Header */}
-      <div className="p-8 border-b border-gray-100">
-        <div className="flex items-center gap-3">
-          <div className="w-12 h-12 payzoo-gradient rounded-xl flex items-center justify-center shadow-lg payzoo-glow">
-            <span className="text-black font-bold text-xl">P</span>
+      <div className="p-6 border-b border-gray-200">
+        <div className="flex items-center space-x-3">
+          <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+            <span className="text-white font-semibold text-sm">L</span>
           </div>
           <div>
-            <h2 className="font-bold text-gray-900 text-xl">Payzoo</h2>
-            <p className="text-sm text-gray-500">Interface web</p>
-          </div>
-        </div>
-      </div>
-
-      {/* User Profile */}
-      <div className="p-6 border-b border-gray-100">
-        <div className="flex items-center gap-3">
-          <div className="w-12 h-12 bg-gradient-to-br from-payzoo-green-100 to-payzoo-green-200 rounded-xl flex items-center justify-center">
-            <span className="text-payzoo-green-800 font-semibold text-lg">HD</span>
-          </div>
-          <div className="flex-1">
-            <p className="font-semibold text-gray-900">Housseine Dao</p>
-            <p className="text-sm text-gray-500 truncate">dao.housseine@gmail.com</p>
+            <h2 className="font-semibold text-gray-900">Link Dashboard</h2>
+            <p className="text-sm text-gray-500">{user?.email}</p>
           </div>
         </div>
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 p-6">
-        <div className="space-y-2">
-          {navigation.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => onSectionChange(item.id)}
-              className={cn(
-                "w-full flex items-center gap-3 px-4 py-3 text-left rounded-xl transition-all duration-200 font-medium",
-                activeSection === item.id
-                  ? "bg-payzoo-green-50 text-payzoo-green-800 shadow-sm border border-payzoo-green-200"
-                  : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-              )}
-            >
-              <item.icon className="w-5 h-5" />
-              <span>{item.name}</span>
-            </button>
-          ))}
-        </div>
-
-        {/* Quick Actions - Web Features */}
-        <div className="mt-8 pt-6 border-t border-gray-100">
-          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4">Actions rapides</p>
-          
-          <div className="space-y-2">
-            <Button className="w-full payzoo-gradient hover:opacity-90 text-black rounded-xl h-12 font-medium shadow-lg hover:shadow-xl transition-all duration-200">
-              <Send className="w-5 h-5 mr-2" />
-              Nouveau transfert
-            </Button>
-            
-            <Button variant="outline" className="w-full justify-start text-gray-600 hover:text-gray-900 hover:bg-payzoo-green-50 hover:border-payzoo-green-200 rounded-xl h-10 border-gray-200">
-              <Wallet className="w-4 h-4 mr-3" />
-              Ajouter paiement
-            </Button>
-          </div>
-        </div>
+      <nav className="flex-1 p-4">
+        <ul className="space-y-2">
+          {menuItems.map((item) => {
+            const Icon = item.icon;
+            return (
+              <li key={item.id}>
+                <button
+                  onClick={() => onSectionChange(item.id)}
+                  className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-left transition-colors ${
+                    activeSection === item.id
+                      ? "bg-blue-50 text-blue-700 border border-blue-200"
+                      : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                  }`}
+                >
+                  <Icon className="w-5 h-5" />
+                  <span className="font-medium">{item.label}</span>
+                </button>
+              </li>
+            );
+          })}
+        </ul>
       </nav>
 
       {/* Footer */}
-      <div className="p-6 border-t border-gray-100">
-        <Button variant="ghost" className="w-full justify-start text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-xl h-12">
-          <LogOut className="w-5 h-5 mr-3" />
-          Se déconnecter
-        </Button>
-        <p className="text-xs text-gray-400 mt-4 text-center">Payzoo Web v2.0.0 • Dashboard particuliers</p>
+      <div className="p-4 border-t border-gray-200">
+        <button
+          onClick={handleLogout}
+          className="w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-red-600 hover:bg-red-50 transition-colors"
+        >
+          <LogOut className="w-5 h-5" />
+          <span className="font-medium">Se déconnecter</span>
+        </button>
       </div>
     </div>
   );
-}
+};
