@@ -57,13 +57,13 @@ export function Settings() {
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-xl mx-auto px-6 py-8 space-y-6">
         
-        {/* Header - Plus épuré */}
+        {/* Header */}
         <div className="text-center space-y-3">
           <h1 className="text-2xl font-light text-gray-900">Paramètres</h1>
           <p className="text-gray-500 text-sm">Gérez votre compte Payzoo</p>
         </div>
 
-        {/* Profil utilisateur - Simplifié */}
+        {/* Profil utilisateur */}
         <Card className="border-0 shadow-sm">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
@@ -90,7 +90,7 @@ export function Settings() {
           </CardContent>
         </Card>
 
-        {/* KYC Status - Moderne et compact */}
+        {/* KYC Status */}
         <Card className="border-0 shadow-sm overflow-hidden">
           <CardContent className="p-0">
             <div className="bg-gradient-to-r from-blue-600 to-blue-700 p-6 text-white">
@@ -119,27 +119,48 @@ export function Settings() {
           </CardContent>
         </Card>
 
-        {/* Actions principales - Grid simplifié */}
-        <div className="grid grid-cols-2 gap-4">
-          <Button
-            variant="outline"
-            className="h-16 flex-col gap-2 border-gray-200 hover:bg-gray-50"
-            onClick={() => setIsSecurityModalOpen(true)}
-          >
-            <Shield className="w-5 h-5 text-blue-600" />
-            <span className="text-sm">Sécurité</span>
-          </Button>
-          
-          <Button
-            variant="outline"
-            className="h-16 flex-col gap-2 border-gray-200 hover:bg-gray-50"
-          >
-            <HelpCircle className="w-5 h-5 text-green-600" />
-            <span className="text-sm">Support</span>
-          </Button>
-        </div>
+        {/* Sécurité et Support - Section dédiée */}
+        <Card className="border-0 shadow-sm">
+          <CardHeader className="pb-4">
+            <CardTitle className="text-base text-gray-900">Sécurité et Support</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3 pt-0">
+            <Button
+              variant="ghost"
+              className="w-full justify-start h-14 px-4 hover:bg-blue-50 hover:border-blue-100 border border-transparent rounded-xl transition-all"
+              onClick={() => setIsSecurityModalOpen(true)}
+            >
+              <div className="flex items-center gap-4 w-full">
+                <div className="p-3 bg-blue-50 rounded-xl">
+                  <Shield className="w-5 h-5 text-blue-600" />
+                </div>
+                <div className="text-left flex-1">
+                  <p className="font-medium text-gray-900 text-sm">Sécurité</p>
+                  <p className="text-xs text-gray-500">Mot de passe, 2FA, sessions</p>
+                </div>
+                <ChevronRight className="w-4 h-4 text-gray-400" />
+              </div>
+            </Button>
+            
+            <Button
+              variant="ghost"
+              className="w-full justify-start h-14 px-4 hover:bg-green-50 hover:border-green-100 border border-transparent rounded-xl transition-all"
+            >
+              <div className="flex items-center gap-4 w-full">
+                <div className="p-3 bg-green-50 rounded-xl">
+                  <HelpCircle className="w-5 h-5 text-green-600" />
+                </div>
+                <div className="text-left flex-1">
+                  <p className="font-medium text-gray-900 text-sm">Centre d'aide</p>
+                  <p className="text-xs text-gray-500">FAQ, contact support</p>
+                </div>
+                <ChevronRight className="w-4 h-4 text-gray-400" />
+              </div>
+            </Button>
+          </CardContent>
+        </Card>
 
-        {/* Notifications - Plus épuré */}
+        {/* Notifications */}
         <Card className="border-0 shadow-sm">
           <CardHeader className="pb-4">
             <CardTitle className="text-base flex items-center gap-2">
@@ -186,28 +207,25 @@ export function Settings() {
           </CardContent>
         </Card>
 
-        {/* Préférences - Minimaliste */}
+        {/* Préférences */}
         <Card className="border-0 shadow-sm">
-          <CardContent className="p-4 space-y-2">
-            <Button variant="ghost" className="w-full justify-start h-12 px-4">
+          <CardHeader className="pb-4">
+            <CardTitle className="text-base text-gray-900">Préférences</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-2 pt-0">
+            <Button variant="ghost" className="w-full justify-start h-12 px-4 hover:bg-gray-50 rounded-xl">
               <Globe className="w-4 h-4 mr-3 text-gray-400" />
               <span className="text-sm">Français</span>
-              <ChevronRight className="w-4 h-4 ml-auto text-gray-400" />
-            </Button>
-            
-            <Button variant="ghost" className="w-full justify-start h-12 px-4">
-              <HelpCircle className="w-4 h-4 mr-3 text-gray-400" />
-              <span className="text-sm">Centre d'aide</span>
               <ChevronRight className="w-4 h-4 ml-auto text-gray-400" />
             </Button>
           </CardContent>
         </Card>
 
-        {/* Actions de compte - Séparées */}
+        {/* Actions de compte */}
         <div className="space-y-3 pt-4">
           <Button 
             variant="outline" 
-            className="w-full justify-start h-12 border-gray-200 hover:bg-gray-50"
+            className="w-full justify-start h-12 border-gray-200 hover:bg-gray-50 rounded-xl"
           >
             <LogOut className="w-4 h-4 mr-3 text-gray-500" />
             <span className="text-sm">Se déconnecter</span>
@@ -215,7 +233,7 @@ export function Settings() {
           
           <Button 
             variant="ghost" 
-            className="w-full justify-start h-12 text-red-600 hover:bg-red-50"
+            className="w-full justify-start h-12 text-red-600 hover:bg-red-50 rounded-xl"
             onClick={() => setIsDeleteModalOpen(true)}
           >
             <span className="text-sm">Supprimer le compte</span>
