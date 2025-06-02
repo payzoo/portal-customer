@@ -130,16 +130,33 @@ export const Sidebar = ({ activeSection, onSectionChange }: SidebarProps) => {
 
       {/* Liens légaux */}
       <div className="p-6 border-t border-gray-50">
-        <div className="grid grid-cols-2 gap-2">
-          {legalLinks.map((link) => (
+        <div className="space-y-2">
+          <a
+            href="#"
+            className="block text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200 py-1"
+          >
+            Aide
+          </a>
+          <div className="flex space-x-4">
             <a
-              key={link.label}
-              href={link.href}
+              href="#"
               className="text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200 py-1"
             >
-              {link.label}
+              Conditions
             </a>
-          ))}
+            <a
+              href="#"
+              className="text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200 py-1"
+            >
+              Confidentialité
+            </a>
+            <a
+              href="#"
+              className="text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200 py-1"
+            >
+              Cookies
+            </a>
+          </div>
         </div>
       </div>
 
