@@ -46,157 +46,152 @@ export function Subscriptions() {
     .reduce((sum, sub) => sum + parseFloat(sub.amount.replace(',', '')), 0);
 
   return (
-    <div className="min-h-screen bg-gray-50/50">
-      <div className="max-w-4xl mx-auto px-4 py-6">
+    <div className="min-h-screen bg-gray-50/30">
+      <div className="max-w-5xl mx-auto px-6 py-12">
         
-        {/* Header */}
-        <div className="mb-8">
+        {/* Header - Ultra minimal */}
+        <div className="mb-16">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-semibold text-gray-900 mb-1">Abonnements</h1>
-              <p className="text-gray-500 text-sm">Gérez vos services en toute simplicité</p>
+              <h1 className="text-3xl font-light text-gray-900 tracking-tight">
+                Abonnements
+              </h1>
+              <p className="text-gray-500 text-base mt-2 font-light">
+                Gérez vos services en toute simplicité
+              </p>
             </div>
-            <Button className="bg-gray-900 hover:bg-gray-800 text-white rounded-lg">
+            <Button className="bg-gray-900 hover:bg-gray-800 text-white rounded-2xl px-8 py-3 font-medium shadow-sm transition-all duration-300 hover:shadow-lg hover:scale-105">
               <Plus className="w-4 h-4 mr-2" />
               Nouveau
             </Button>
           </div>
         </div>
 
-        <div className="space-y-6">
-          
-          {/* Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Card className="border-0 shadow-sm bg-white/80 backdrop-blur-sm">
-              <CardContent className="p-5">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
-                    <TrendingUp className="w-4 h-4 text-green-600" />
-                  </div>
-                  <div>
-                    <p className="font-medium text-gray-900 text-sm">Total mensuel</p>
-                    <p className="text-xs text-gray-500">Dépenses récurrentes</p>
-                  </div>
-                </div>
-                <div className="text-2xl font-semibold text-gray-900 mb-1">{totalMonthly.toFixed(2)}€</div>
-                <div className="text-xs text-green-600">+5% vs mois dernier</div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-0 shadow-sm bg-white/80 backdrop-blur-sm">
-              <CardContent className="p-5">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                    <Clock className="w-4 h-4 text-blue-600" />
-                  </div>
-                  <div>
-                    <p className="font-medium text-gray-900 text-sm">Prochain paiement</p>
-                    <p className="text-xs text-gray-500">Date la plus proche</p>
-                  </div>
-                </div>
-                <div className="text-2xl font-semibold text-gray-900 mb-1">15 Juin</div>
-                <div className="text-xs text-blue-600">StackBlitz Pro</div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-0 shadow-sm bg-white/80 backdrop-blur-sm">
-              <CardContent className="p-5">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
-                    <Building2 className="w-4 h-4 text-purple-600" />
-                  </div>
-                  <div>
-                    <p className="font-medium text-gray-900 text-sm">Services actifs</p>
-                    <p className="text-xs text-gray-500">Abonnements en cours</p>
-                  </div>
-                </div>
-                <div className="text-2xl font-semibold text-gray-900 mb-1">3</div>
-                <div className="text-xs text-purple-600">2 actifs, 1 en pause</div>
-              </CardContent>
-            </Card>
+        {/* Stats - Elegant cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+          <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 border border-gray-100/50 hover:border-gray-200/80 transition-all duration-300 hover:shadow-xl group">
+            <div className="flex items-center justify-between mb-6">
+              <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-green-500 rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow duration-300">
+                <TrendingUp className="w-6 h-6 text-white" />
+              </div>
+            </div>
+            <div className="text-3xl font-light text-gray-900 mb-2">
+              {totalMonthly.toFixed(2)}€
+            </div>
+            <div className="text-sm text-gray-500 font-light">Total mensuel</div>
           </div>
 
-          {/* Subscriptions List */}
-          <Card className="border-0 shadow-sm bg-white/80 backdrop-blur-sm">
-            <CardContent className="p-6">
-              <h3 className="font-semibold text-gray-900 mb-6">Mes abonnements</h3>
-              
-              <div className="space-y-4">
-                {subscriptions.map((subscription) => (
-                  <div key={subscription.id} className="flex items-center justify-between py-3 border-b border-gray-100 last:border-0">
-                    <div className="flex items-center gap-4">
-                      <div className={`w-12 h-12 ${subscription.color} rounded-lg flex items-center justify-center`}>
-                        <span className="font-medium text-white text-lg">{subscription.logo}</span>
+          <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 border border-gray-100/50 hover:border-gray-200/80 transition-all duration-300 hover:shadow-xl group">
+            <div className="flex items-center justify-between mb-6">
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-500 rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow duration-300">
+                <Clock className="w-6 h-6 text-white" />
+              </div>
+            </div>
+            <div className="text-3xl font-light text-gray-900 mb-2">
+              15 Juin
+            </div>
+            <div className="text-sm text-gray-500 font-light">Prochain paiement</div>
+          </div>
+
+          <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 border border-gray-100/50 hover:border-gray-200/80 transition-all duration-300 hover:shadow-xl group">
+            <div className="flex items-center justify-between mb-6">
+              <div className="w-12 h-12 bg-gradient-to-br from-purple-400 to-purple-500 rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow duration-300">
+                <Building2 className="w-6 h-6 text-white" />
+              </div>
+            </div>
+            <div className="text-3xl font-light text-gray-900 mb-2">
+              3
+            </div>
+            <div className="text-sm text-gray-500 font-light">Services actifs</div>
+          </div>
+        </div>
+
+        {/* Subscriptions - Premium cards */}
+        <div className="space-y-4 mb-16">
+          {subscriptions.map((subscription) => (
+            <Card key={subscription.id} className="border-0 bg-white/90 backdrop-blur-sm hover:bg-white hover:shadow-2xl transition-all duration-500 rounded-3xl overflow-hidden group cursor-pointer">
+              <CardContent className="p-8">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-6">
+                    <div className={`w-16 h-16 ${subscription.color} rounded-3xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110`}>
+                      <span className="font-medium text-white text-xl">{subscription.logo}</span>
+                    </div>
+                    <div>
+                      <h3 className="font-medium text-gray-900 text-xl mb-1">{subscription.name}</h3>
+                      <p className="text-gray-500 font-light">{subscription.plan}</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center gap-8">
+                    <div className="text-right">
+                      <div className="font-light text-gray-900 text-2xl">
+                        {subscription.amount} {subscription.currency}
                       </div>
-                      <div>
-                        <h3 className="font-medium text-gray-900 text-sm mb-1">{subscription.name}</h3>
-                        <p className="text-xs text-gray-500">{subscription.plan}</p>
+                      <div className="text-sm text-gray-400 flex items-center gap-2 justify-end mt-2">
+                        <Clock className="w-3 h-3" />
+                        {subscription.nextBilling}
                       </div>
                     </div>
                     
                     <div className="flex items-center gap-6">
-                      <div className="text-right">
-                        <div className="font-semibold text-gray-900 text-sm mb-1">
-                          {subscription.amount} {subscription.currency}
-                        </div>
-                        <div className="text-xs text-gray-500 flex items-center gap-1">
-                          <Clock className="w-3 h-3" />
-                          {subscription.nextBilling}
-                        </div>
-                      </div>
+                      <Badge 
+                        variant="secondary"
+                        className={`px-6 py-2.5 rounded-2xl text-sm font-light border-0 ${
+                          subscription.status === 'active' 
+                            ? 'bg-green-50 text-green-600' 
+                            : 'bg-yellow-50 text-yellow-600'
+                        }`}
+                      >
+                        {subscription.status === 'active' ? (
+                          <>
+                            <div className="w-2 h-2 bg-green-400 rounded-full mr-3"></div>
+                            Actif
+                          </>
+                        ) : (
+                          <>
+                            <div className="w-2 h-2 bg-yellow-400 rounded-full mr-3"></div>
+                            Pause
+                          </>
+                        )}
+                      </Badge>
                       
-                      <div className="flex items-center gap-3">
-                        <Badge 
-                          variant="secondary"
-                          className={`text-xs ${
-                            subscription.status === 'active' 
-                              ? 'bg-green-50 text-green-600 border-green-200' 
-                              : 'bg-yellow-50 text-yellow-600 border-yellow-200'
-                          }`}
-                        >
-                          {subscription.status === 'active' ? 'Actif' : 'Pause'}
-                        </Badge>
-                        
-                        <Button variant="ghost" size="sm" className="w-8 h-8 p-0 rounded-lg">
-                          <MoreVertical className="w-4 h-4 text-gray-400" />
-                        </Button>
-                      </div>
+                      <Button variant="ghost" size="sm" className="w-12 h-12 p-0 rounded-2xl hover:bg-gray-50 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                        <MoreVertical className="w-5 h-5 text-gray-400" />
+                      </Button>
                     </div>
                   </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
 
-          {/* Add New Subscription */}
-          <Card className="border-2 border-dashed border-gray-200 bg-white/60 backdrop-blur-sm hover:border-gray-300 hover:bg-white/80 transition-all duration-300">
-            <CardContent className="p-8 text-center">
-              <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <Plus className="w-6 h-6 text-gray-400" />
-              </div>
-              <h3 className="font-medium text-gray-900 text-sm mb-2">Ajouter un service</h3>
-              <p className="text-gray-500 text-xs mb-6 max-w-sm mx-auto">
-                Connectez facilement un nouvel abonnement pour centraliser votre gestion
-              </p>
-              <Button variant="outline" className="rounded-lg text-xs">
-                Connecter un abonnement
-              </Button>
-            </CardContent>
-          </Card>
+        {/* Add subscription - Minimalist CTA */}
+        <div className="bg-white/60 backdrop-blur-sm border-2 border-dashed border-gray-200/80 rounded-3xl p-20 text-center hover:border-gray-300/80 hover:bg-white/80 transition-all duration-500 group cursor-pointer">
+          <div className="w-20 h-20 bg-gray-100 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-gray-200 transition-all duration-300 group-hover:scale-110">
+            <Plus className="w-8 h-8 text-gray-400" />
+          </div>
+          <h3 className="font-medium text-gray-900 text-xl mb-3">Ajouter un service</h3>
+          <p className="text-gray-500 text-base mb-10 max-w-md mx-auto font-light leading-relaxed">
+            Connectez facilement un nouvel abonnement pour centraliser votre gestion
+          </p>
+          <Button variant="outline" className="rounded-2xl px-10 py-4 font-medium border-gray-200 hover:bg-white hover:border-gray-300 hover:shadow-lg transition-all duration-300">
+            Connecter un abonnement
+          </Button>
+        </div>
 
-          {/* Quick Actions */}
-          <div className="flex justify-center">
-            <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-lg p-2 border border-gray-100">
-              <Button variant="ghost" className="rounded-lg px-4 py-2 text-gray-600 hover:bg-gray-50 text-xs">
-                <CreditCard className="w-4 h-4 mr-2" />
-                Paiements
-              </Button>
-              <div className="w-px h-6 bg-gray-200"></div>
-              <Button variant="ghost" className="rounded-lg px-4 py-2 text-gray-600 hover:bg-gray-50 text-xs">
-                <Calendar className="w-4 h-4 mr-2" />
-                Planning
-              </Button>
-            </div>
+        {/* Quick actions - Subtle footer */}
+        <div className="mt-20 flex justify-center">
+          <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-2xl p-2 border border-gray-100/50">
+            <Button variant="ghost" className="rounded-xl px-6 py-3 text-gray-600 hover:bg-gray-50 hover:text-gray-900 text-sm font-light transition-all duration-200">
+              <CreditCard className="w-4 h-4 mr-2" />
+              Paiements
+            </Button>
+            <div className="w-px h-6 bg-gray-200"></div>
+            <Button variant="ghost" className="rounded-xl px-6 py-3 text-gray-600 hover:bg-gray-50 hover:text-gray-900 text-sm font-light transition-all duration-200">
+              <Calendar className="w-4 h-4 mr-2" />
+              Planning
+            </Button>
           </div>
         </div>
       </div>
