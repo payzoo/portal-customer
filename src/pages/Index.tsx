@@ -72,26 +72,26 @@ const Index = () => {
 
   return (
     <SidebarProvider>
-      <div className="min-h-screen flex w-full bg-gray-50/30">
+      <div className="min-h-screen flex w-full bg-gray-50/20">
         <AppSidebar 
           activeSection={activeSection} 
           onSectionChange={setActiveSection} 
         />
-        <SidebarInset className="bg-white rounded-tl-xl shadow-sm">
-          <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 border-b border-gray-100/80">
+        <SidebarInset className="bg-white rounded-tl-2xl shadow-sm border-l border-gray-100">
+          <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 border-b border-gray-50">
             <div className="flex items-center gap-2 px-6">
-              <SidebarTrigger className="-ml-1 hover:bg-gray-100 transition-colors" />
+              <SidebarTrigger className="-ml-1 hover:bg-gray-50 transition-colors rounded-lg" />
               <Separator orientation="vertical" className="mr-2 h-4 bg-gray-200" />
               <Breadcrumb>
                 <BreadcrumbList>
                   <BreadcrumbItem className="hidden md:block">
-                    <BreadcrumbLink href="#" className="text-gray-500 hover:text-gray-700">
+                    <BreadcrumbLink href="#" className="text-gray-400 hover:text-gray-600 text-sm">
                       Payzoo
                     </BreadcrumbLink>
                   </BreadcrumbItem>
                   <BreadcrumbSeparator className="hidden md:block" />
                   <BreadcrumbItem>
-                    <BreadcrumbPage className="font-semibold text-gray-900">{getSectionTitle()}</BreadcrumbPage>
+                    <BreadcrumbPage className="font-semibold text-gray-900 text-sm">{getSectionTitle()}</BreadcrumbPage>
                   </BreadcrumbItem>
                 </BreadcrumbList>
               </Breadcrumb>

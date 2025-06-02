@@ -64,23 +64,23 @@ export function AppSidebar({ activeSection, onSectionChange }: AppSidebarProps) 
   };
 
   return (
-    <Sidebar variant="inset" className="border-r-0 bg-white/50 backdrop-blur-sm">
-      <SidebarHeader className="border-b border-gray-100/80 px-6 py-4">
+    <Sidebar variant="inset" className="border-r border-gray-100">
+      <SidebarHeader className="border-b border-gray-50 px-6 py-5">
         <div className="flex items-center gap-3">
-          <div className="flex aspect-square size-9 items-center justify-center rounded-xl bg-black text-white shadow-sm">
-            <span className="text-sm font-bold">P</span>
+          <div className="flex aspect-square size-10 items-center justify-center rounded-xl" style={{ backgroundColor: '#B4DE00' }}>
+            <span className="text-sm font-bold text-black">P</span>
           </div>
           <div className="grid flex-1 text-left leading-tight">
-            <span className="truncate font-semibold text-gray-900 text-base">Payzoo</span>
-            <span className="truncate text-xs text-gray-500">Gestion d'abonnements</span>
+            <span className="truncate font-semibold text-gray-900 text-lg">Payzoo</span>
+            <span className="truncate text-xs text-gray-400">Gestion d'abonnements</span>
           </div>
         </div>
       </SidebarHeader>
       
-      <SidebarContent className="px-3 py-4">
+      <SidebarContent className="px-4 py-6">
         <SidebarGroup>
           <SidebarGroupContent>
-            <SidebarMenu className="space-y-1">
+            <SidebarMenu className="space-y-2">
               {menuItems.map((item) => (
                 <SidebarMenuItem key={item.id}>
                   <SidebarMenuButton 
@@ -88,18 +88,18 @@ export function AppSidebar({ activeSection, onSectionChange }: AppSidebarProps) 
                     isActive={activeSection === item.id}
                     tooltip={item.label}
                     className={`
-                      h-11 px-3 rounded-lg transition-all duration-200 group
+                      h-12 px-4 rounded-xl transition-all duration-200 group text-sm font-medium
                       ${activeSection === item.id 
-                        ? 'bg-black text-white shadow-sm hover:bg-gray-900' 
+                        ? 'text-black shadow-sm' 
                         : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                       }
                     `}
+                    style={{
+                      backgroundColor: activeSection === item.id ? '#B4DE00' : 'transparent'
+                    }}
                   >
                     <item.icon className="size-5 transition-transform group-hover:scale-105" />
-                    <span className="font-medium text-sm">{item.label}</span>
-                    {activeSection === item.id && (
-                      <div className="ml-auto size-2 rounded-full bg-white/80" />
-                    )}
+                    <span>{item.label}</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
@@ -108,20 +108,20 @@ export function AppSidebar({ activeSection, onSectionChange }: AppSidebarProps) 
         </SidebarGroup>
       </SidebarContent>
 
-      <SidebarFooter className="border-t border-gray-100/80 p-3">
+      <SidebarFooter className="border-t border-gray-50 p-4">
         <SidebarMenu>
           <SidebarMenuItem>
-            <div className="flex items-center gap-3 px-3 py-2 rounded-lg bg-gray-50/50">
-              <Avatar className="size-8 ring-2 ring-white shadow-sm">
-                <AvatarFallback className="text-xs font-medium bg-gradient-to-br from-gray-100 to-gray-200 text-gray-700">
+            <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-gray-50/80">
+              <Avatar className="size-9 ring-2 ring-white shadow-sm">
+                <AvatarFallback className="text-xs font-semibold bg-gray-100 text-gray-700">
                   {user ? getUserInitials(user.email) : 'U'}
                 </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left leading-tight min-w-0">
-                <span className="truncate font-medium text-sm text-gray-900">
+                <span className="truncate font-semibold text-sm text-gray-900">
                   {user ? getDisplayName(user.email) : 'Utilisateur'}
                 </span>
-                <span className="truncate text-xs text-gray-500">
+                <span className="truncate text-xs text-gray-400">
                   {user?.email}
                 </span>
               </div>
@@ -130,7 +130,7 @@ export function AppSidebar({ activeSection, onSectionChange }: AppSidebarProps) 
           <SidebarMenuItem>
             <SidebarMenuButton 
               onClick={handleLogout} 
-              className="h-10 px-3 rounded-lg text-gray-500 hover:bg-red-50 hover:text-red-600 transition-all duration-200 group"
+              className="h-11 px-4 rounded-xl text-gray-500 hover:bg-red-50 hover:text-red-600 transition-all duration-200 group mt-2"
             >
               <LogOut className="size-4 transition-transform group-hover:scale-105" />
               <span className="font-medium text-sm">Déconnexion</span>
