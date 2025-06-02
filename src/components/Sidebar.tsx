@@ -40,25 +40,25 @@ export const Sidebar = ({ activeSection, onSectionChange }: SidebarProps) => {
   ];
 
   return (
-    <div className="w-72 bg-white/95 backdrop-blur-xl border-r border-gray-100 min-h-screen flex flex-col">
-      {/* Header minimaliste */}
-      <div className="px-6 py-8">
+    <div className="w-64 bg-white/80 backdrop-blur-xl border-r border-gray-100/50 min-h-screen flex flex-col">
+      {/* Header ultra-minimaliste */}
+      <div className="p-6 border-b border-gray-50">
         <div className="flex items-center space-x-3">
           <div className="relative">
-            <div className="w-10 h-10 payzoo-gradient rounded-2xl flex items-center justify-center shadow-lg">
-              <span className="text-white font-bold text-lg">P</span>
+            <div className="w-8 h-8 payzoo-gradient rounded-xl flex items-center justify-center shadow-sm">
+              <span className="text-white font-bold text-sm">P</span>
             </div>
-            <div className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-400 rounded-full animate-pulse"></div>
+            <div className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-emerald-400 rounded-full"></div>
           </div>
           <div className="flex-1 min-w-0">
-            <h1 className="font-semibold text-gray-900 text-xl tracking-tight">Payzoo</h1>
-            <p className="text-xs text-gray-400 truncate font-medium mt-0.5">{user?.email}</p>
+            <h1 className="font-bold text-gray-900 text-lg tracking-tight">Payzoo</h1>
+            <p className="text-xs text-gray-400 truncate font-medium">{user?.email}</p>
           </div>
         </div>
       </div>
 
-      {/* Navigation épurée */}
-      <nav className="flex-1 px-4">
+      {/* Navigation ultra-épurée */}
+      <nav className="flex-1 p-3">
         <ul className="space-y-1">
           {menuItems.map((item) => {
             const Icon = item.icon;
@@ -67,23 +67,23 @@ export const Sidebar = ({ activeSection, onSectionChange }: SidebarProps) => {
               <li key={item.id}>
                 <button
                   onClick={() => onSectionChange(item.id)}
-                  className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-left transition-all duration-200 group relative ${
+                  className={`w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-left transition-all duration-200 group relative ${
                     isActive
-                      ? "bg-payzoo-green-50 text-payzoo-green-700 shadow-sm"
-                      : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                      ? "bg-payzoo-green-50 text-payzoo-green-700"
+                      : "text-gray-600 hover:bg-gray-50/80 hover:text-gray-900"
                   }`}
                 >
-                  {isActive && (
-                    <div className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-6 bg-payzoo-green-500 rounded-r-full" />
-                  )}
                   <Icon className={`w-4 h-4 transition-all duration-200 ${
-                    isActive ? "text-payzoo-green-600" : "group-hover:scale-105"
+                    isActive ? "text-payzoo-green-600" : ""
                   }`} />
-                  <span className={`font-medium text-sm tracking-wide ${
+                  <span className={`font-medium text-sm ${
                     isActive ? "font-semibold" : ""
                   }`}>
                     {item.label}
                   </span>
+                  {isActive && (
+                    <div className="absolute right-2 w-1.5 h-1.5 bg-payzoo-green-500 rounded-full" />
+                  )}
                 </button>
               </li>
             );
@@ -91,14 +91,14 @@ export const Sidebar = ({ activeSection, onSectionChange }: SidebarProps) => {
         </ul>
       </nav>
 
-      {/* Footer minimaliste */}
-      <div className="p-4">
+      {/* Footer épuré */}
+      <div className="p-3 border-t border-gray-50">
         <button
           onClick={handleLogout}
-          className="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-500 hover:bg-red-50 hover:text-red-600 transition-all duration-200 group"
+          className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-500 hover:bg-red-50/80 hover:text-red-600 transition-all duration-200 group"
         >
-          <LogOut className="w-4 h-4 group-hover:scale-105 transition-transform duration-200" />
-          <span className="font-medium text-sm tracking-wide">Déconnexion</span>
+          <LogOut className="w-4 h-4 transition-transform duration-200 group-hover:scale-105" />
+          <span className="font-medium text-sm">Déconnexion</span>
         </button>
       </div>
     </div>
