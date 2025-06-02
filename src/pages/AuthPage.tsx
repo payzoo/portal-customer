@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/contexts/AuthContext";
-import { X, ArrowRight } from "lucide-react";
+import { ArrowRight, Mail, Check } from "lucide-react";
 
 const AuthPage = () => {
   const [email, setEmail] = useState("");
@@ -50,121 +50,104 @@ const AuthPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white flex">
-      {/* Section gauche - Branding */}
-      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-payzoo-green-50 via-payzoo-green-100 to-payzoo-green-200 flex-col justify-center items-center p-12 relative overflow-hidden">
-        {/* Éléments décoratifs */}
-        <div className="absolute top-20 left-20 w-32 h-32 bg-payzoo-green-300/20 rounded-full blur-xl"></div>
-        <div className="absolute bottom-32 right-16 w-48 h-48 bg-white/30 rounded-full blur-2xl"></div>
-        
-        <div className="text-center relative z-10">
-          <div className="mb-8">
-            <div className="w-20 h-20 payzoo-gradient rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl">
-              <span className="text-white font-bold text-3xl">P</span>
-            </div>
-            <h1 className="text-5xl font-bold text-gray-900 mb-4">Payzoo</h1>
-            <p className="text-xl text-payzoo-green-700 font-medium mb-8">Simply better</p>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white flex items-center justify-center p-4">
+      <div className="w-full max-w-md">
+        {/* Logo et branding */}
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center justify-center w-16 h-16 payzoo-gradient rounded-2xl mb-6 shadow-lg">
+            <span className="text-white font-bold text-2xl">P</span>
           </div>
-          
-          <div className="space-y-6 max-w-md">
-            <h2 className="text-2xl font-semibold text-gray-800">
-              Gérez vos abonnements en toute simplicité
-            </h2>
-            <p className="text-gray-600 leading-relaxed">
-              Centralisez, organisez et optimisez tous vos abonnements numériques en un seul endroit.
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Payzoo</h1>
+          <p className="text-payzoo-green-600 font-medium mb-8">Simply better</p>
+          <div className="space-y-2">
+            <h2 className="text-2xl font-semibold text-gray-800">Bienvenue</h2>
+            <p className="text-gray-500 leading-relaxed">
+              Connectez-vous pour gérer vos abonnements en toute simplicité
             </p>
           </div>
         </div>
-      </div>
 
-      {/* Section droite - Formulaire */}
-      <div className="flex-1 flex items-center justify-center p-8">
-        <div className="w-full max-w-md">
-          {/* Logo mobile */}
-          <div className="lg:hidden text-center mb-16">
-            <div className="w-16 h-16 payzoo-gradient rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg">
-              <span className="text-white font-bold text-2xl">P</span>
-            </div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Payzoo</h1>
-            <p className="text-payzoo-green-600 font-medium">Simply better</p>
-          </div>
-
-          {/* Titre principal */}
-          <div className="mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Bienvenue
-            </h2>
-            <p className="text-gray-500 text-lg leading-relaxed">
-              Connectez-vous pour accéder à votre espace personnel et gérer vos abonnements
-            </p>
-          </div>
-
-          {/* Formulaire */}
-          <div className="space-y-10">
-            {!showEmailTag ? (
-              <div className="space-y-3">
-                <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-4">
-                  Adresse e-mail
-                </label>
-                <div className="relative">
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="votre@email.com"
-                    value={email}
-                    onChange={handleEmailChange}
-                    className="w-full h-16 px-5 text-lg border-2 border-gray-200 rounded-2xl focus:ring-2 focus:ring-payzoo-green-500 focus:border-payzoo-green-500 transition-all duration-300 bg-gray-50/50 placeholder:text-gray-400"
-                  />
-                  {isEmailValid && (
-                    <div className="absolute inset-y-0 right-5 flex items-center">
-                      <div className="w-2.5 h-2.5 bg-payzoo-green-500 rounded-full animate-pulse-green"></div>
+        {/* Formulaire simplifié */}
+        <div className="bg-white rounded-3xl shadow-xl border border-gray-100 p-8 space-y-8">
+          {!showEmailTag ? (
+            <div className="space-y-4">
+              <div className="relative">
+                <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <Input
+                  type="email"
+                  placeholder="votre@email.com"
+                  value={email}
+                  onChange={handleEmailChange}
+                  className="w-full h-14 pl-12 pr-12 text-base border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-payzoo-green-500 focus:border-payzoo-green-500 transition-all duration-200 bg-gray-50/50"
+                />
+                {isEmailValid && (
+                  <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
+                    <div className="w-6 h-6 bg-payzoo-green-500 rounded-full flex items-center justify-center">
+                      <Check className="w-4 h-4 text-white" />
                     </div>
-                  )}
-                </div>
-              </div>
-            ) : (
-              <div className="space-y-3">
-                <label className="block text-sm font-semibold text-gray-700 mb-4">
-                  Compte sélectionné
-                </label>
-                <div className="relative">
-                  <div className="flex items-center space-x-5 bg-payzoo-green-50 border-2 border-payzoo-green-200 rounded-2xl px-6 py-5">
-                    <div className="w-14 h-14 payzoo-gradient rounded-2xl flex items-center justify-center text-white font-bold text-xl shadow-sm">
-                      {email.charAt(0).toUpperCase()}
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-payzoo-green-800 font-semibold text-lg">{email}</p>
-                      <p className="text-payzoo-green-600 text-sm">Prêt à continuer</p>
-                    </div>
-                    <button 
-                      onClick={removeEmailTag}
-                      className="text-payzoo-green-600 hover:text-payzoo-green-800 transition-colors p-3 hover:bg-payzoo-green-100 rounded-xl"
-                    >
-                      <X className="w-5 h-5" />
-                    </button>
                   </div>
-                </div>
+                )}
               </div>
-            )}
-
-            <Button
-              onClick={showEmailTag ? handleConnection : handleContinue}
-              disabled={!isEmailValid}
-              className="w-full h-16 payzoo-gradient hover:opacity-90 text-white rounded-2xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group"
-            >
-              <span>{showEmailTag ? "Continuer" : "Commencer"}</span>
-              <ArrowRight className="w-6 h-6 ml-3 group-hover:translate-x-1 transition-transform" />
-            </Button>
-          </div>
-
-          {/* Footer */}
-          <div className="mt-20 text-center space-y-8">
-            <div className="flex justify-center space-x-8 text-sm text-gray-400">
-              <a href="#" className="hover:text-payzoo-green-600 transition-colors">Conditions d'utilisation</a>
-              <a href="#" className="hover:text-payzoo-green-600 transition-colors">Confidentialité</a>
             </div>
-            <p className="text-xs text-gray-400">© 2024 Payzoo. Tous droits réservés.</p>
+          ) : (
+            <div className="space-y-4">
+              <div className="flex items-center space-x-4 bg-payzoo-green-50 border-2 border-payzoo-green-200 rounded-xl px-5 py-4">
+                <div className="w-12 h-12 payzoo-gradient rounded-xl flex items-center justify-center text-white font-semibold text-lg">
+                  {email.charAt(0).toUpperCase()}
+                </div>
+                <div className="flex-1">
+                  <p className="text-payzoo-green-800 font-semibold">{email}</p>
+                  <p className="text-payzoo-green-600 text-sm">Prêt à continuer</p>
+                </div>
+                <button 
+                  onClick={removeEmailTag}
+                  className="text-payzoo-green-600 hover:text-payzoo-green-800 transition-colors p-2 hover:bg-payzoo-green-100 rounded-lg"
+                >
+                  ×
+                </button>
+              </div>
+            </div>
+          )}
+
+          <Button
+            onClick={showEmailTag ? handleConnection : handleContinue}
+            disabled={!isEmailValid}
+            className="w-full h-14 payzoo-gradient hover:opacity-90 text-white rounded-xl font-semibold text-base shadow-lg hover:shadow-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed group"
+          >
+            <span>{showEmailTag ? "Continuer" : "Commencer"}</span>
+            <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+          </Button>
+        </div>
+
+        {/* Avantages */}
+        <div className="mt-12 grid grid-cols-3 gap-6 text-center">
+          <div className="space-y-2">
+            <div className="w-10 h-10 bg-payzoo-green-100 rounded-xl flex items-center justify-center mx-auto">
+              <div className="w-4 h-4 bg-payzoo-green-500 rounded-full"></div>
+            </div>
+            <p className="text-sm text-gray-600 font-medium">Sécurisé</p>
           </div>
+          <div className="space-y-2">
+            <div className="w-10 h-10 bg-payzoo-green-100 rounded-xl flex items-center justify-center mx-auto">
+              <div className="w-4 h-4 bg-payzoo-green-500 rounded-full"></div>
+            </div>
+            <p className="text-sm text-gray-600 font-medium">Simple</p>
+          </div>
+          <div className="space-y-2">
+            <div className="w-10 h-10 bg-payzoo-green-100 rounded-xl flex items-center justify-center mx-auto">
+              <div className="w-4 h-4 bg-payzoo-green-500 rounded-full"></div>
+            </div>
+            <p className="text-sm text-gray-600 font-medium">Rapide</p>
+          </div>
+        </div>
+
+        {/* Footer minimaliste */}
+        <div className="mt-16 text-center space-y-4">
+          <div className="flex justify-center space-x-6 text-sm text-gray-400">
+            <a href="#" className="hover:text-payzoo-green-600 transition-colors">Conditions</a>
+            <a href="#" className="hover:text-payzoo-green-600 transition-colors">Confidentialité</a>
+          </div>
+          <p className="text-xs text-gray-400">© 2024 Payzoo</p>
         </div>
       </div>
     </div>
