@@ -5,8 +5,10 @@ import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function Subscriptions() {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState("all");
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -446,7 +448,7 @@ export function Subscriptions() {
                   key={subscription.id} 
                   className="border-0 bg-white/90 backdrop-blur-sm hover:bg-white hover:shadow-xl transition-all duration-500 rounded-2xl overflow-hidden group cursor-pointer animate-fade-in"
                   style={{ animationDelay: `${index * 100}ms` }}
-                  onClick={() => window.location.href = `/subscription/${subscription.id}`}
+                  onClick={() => navigate(`/subscription/${subscription.id}`)}
                 >
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between">
