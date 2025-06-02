@@ -1,4 +1,5 @@
-import { TrendingUp, DollarSign, Target, Users, Plus, ArrowUpRight, Zap, Send, Wallet, CreditCard, History } from "lucide-react";
+
+import { TrendingUp, DollarSign, Target, Users, Plus, ArrowUpRight, Zap, Send, Wallet, CreditCard, History, Shield } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
@@ -145,16 +146,23 @@ export function Dashboard() {
               ))}
             </div>
 
-            {/* Payzoo Pro Card */}
-            <div className="mt-12 p-8 bg-black text-white rounded-3xl">
+            {/* KYC Verification Card */}
+            <div className="mt-12 p-8 bg-gradient-to-br from-blue-600 to-blue-800 text-white rounded-3xl">
               <div className="mb-6">
-                <div className="text-2xl font-light mb-2">Payzoo Pro 🚀</div>
-                <div className="text-gray-300 text-sm font-light">
-                  Débloquez les fonctionnalités premium pour les particuliers
+                <div className="flex items-center gap-3 mb-3">
+                  <Shield className="w-6 h-6" />
+                  <div className="text-2xl font-light">Vérification KYC</div>
+                </div>
+                <div className="text-blue-100 text-sm font-light">
+                  Débloquez des volumes de transaction plus élevés en vérifiant votre identité
                 </div>
               </div>
-              <Button className="payzoo-gradient text-black hover:opacity-90 rounded-full px-6 py-2 font-medium">
-                Upgrade
+              <div className="mb-6">
+                <div className="text-sm text-blue-200 mb-2">Limite actuelle : 1 000€/mois</div>
+                <div className="text-sm text-blue-100">Après KYC : 15 000€/mois</div>
+              </div>
+              <Button className="bg-white text-blue-600 hover:bg-blue-50 rounded-full px-6 py-2 font-medium">
+                Commencer la vérification
                 <ArrowUpRight className="w-4 h-4 ml-2" />
               </Button>
             </div>
