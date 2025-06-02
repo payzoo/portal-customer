@@ -72,32 +72,32 @@ const Index = () => {
 
   return (
     <SidebarProvider>
-      <div className="min-h-screen flex w-full">
+      <div className="min-h-screen flex w-full bg-gray-50/30">
         <AppSidebar 
           activeSection={activeSection} 
           onSectionChange={setActiveSection} 
         />
-        <SidebarInset>
-          <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
-            <div className="flex items-center gap-2 px-4">
-              <SidebarTrigger className="-ml-1" />
-              <Separator orientation="vertical" className="mr-2 h-4" />
+        <SidebarInset className="bg-white rounded-tl-xl shadow-sm">
+          <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 border-b border-gray-100/80">
+            <div className="flex items-center gap-2 px-6">
+              <SidebarTrigger className="-ml-1 hover:bg-gray-100 transition-colors" />
+              <Separator orientation="vertical" className="mr-2 h-4 bg-gray-200" />
               <Breadcrumb>
                 <BreadcrumbList>
                   <BreadcrumbItem className="hidden md:block">
-                    <BreadcrumbLink href="#">
+                    <BreadcrumbLink href="#" className="text-gray-500 hover:text-gray-700">
                       Payzoo
                     </BreadcrumbLink>
                   </BreadcrumbItem>
                   <BreadcrumbSeparator className="hidden md:block" />
                   <BreadcrumbItem>
-                    <BreadcrumbPage>{getSectionTitle()}</BreadcrumbPage>
+                    <BreadcrumbPage className="font-semibold text-gray-900">{getSectionTitle()}</BreadcrumbPage>
                   </BreadcrumbItem>
                 </BreadcrumbList>
               </Breadcrumb>
             </div>
           </header>
-          <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+          <div className="flex flex-1 flex-col gap-6 p-6">
             {renderContent()}
           </div>
         </SidebarInset>
