@@ -1,4 +1,5 @@
-import { Building2, Plus, Clock, TrendingUp, CreditCard, Calendar, MoreVertical, Search, Filter, ArrowUpRight, Zap, AlertCircle, CheckCircle2, Pause, Play, X, Settings, Eye, BarChart3 } from "lucide-react";
+
+import { Building2, Plus, Clock, TrendingUp, CreditCard, Calendar, MoreVertical, Search, Filter, ArrowUpRight, Zap, AlertCircle, CheckCircle2, Pause, Play, X, Settings, Eye, BarChart3, DollarSign, Activity, Users } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -164,14 +165,14 @@ export function Subscriptions() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50/50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
-        {/* Header optimisé avec moins d'espacement */}
+        {/* Header */}
         <div className="mb-8 animate-fade-in">
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-8">
             <div>
-              <h1 className="text-3xl lg:text-4xl font-extralight text-black mb-1 tracking-tight">
+              <h1 className="text-3xl lg:text-4xl font-extralight text-black mb-2 tracking-tight">
                 Mes abonnements
               </h1>
               <p className="text-lg text-gray-600 font-light flex items-center gap-2">
@@ -187,13 +188,13 @@ export function Subscriptions() {
                   placeholder="Rechercher un service..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all duration-300 w-full sm:w-72"
+                  className="pl-10 pr-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all duration-300 w-full sm:w-80"
                 />
               </div>
               <select
                 value={filterStatus}
                 onChange={(e) => setFilterStatus(e.target.value)}
-                className="px-4 py-2.5 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all duration-300"
+                className="px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all duration-300"
               >
                 <option value="all">Tous les statuts</option>
                 <option value="active">Actifs</option>
@@ -204,88 +205,128 @@ export function Subscriptions() {
           </div>
         </div>
 
-        {/* Analytics Overview - Compact */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8 animate-slide-in-right">
-          <Card className="border-0 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 bg-gradient-to-r from-black to-gray-800 text-white">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-3">
-                <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
-                  <TrendingUp className="w-5 h-5 text-white" />
+        {/* Analytics Overview - Enhanced */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+          {/* Total mensuel - Premium card */}
+          <Card className="border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-105 bg-gradient-to-br from-black via-gray-900 to-black text-white overflow-hidden relative group animate-fade-in">
+            <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <CardContent className="p-6 relative z-10">
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center group-hover:bg-white/20 transition-all duration-300 group-hover:scale-110">
+                  <DollarSign className="w-6 h-6 text-white" />
                 </div>
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={() => setShowAnalytics(!showAnalytics)}
-                  className="text-gray-300 hover:text-white hover:bg-white/10 rounded-lg p-1.5"
+                  className="text-gray-300 hover:text-white hover:bg-white/10 rounded-xl p-2 transition-all duration-300"
                 >
-                  <Eye className="w-3.5 h-3.5" />
+                  <Eye className="w-4 h-4" />
                 </Button>
               </div>
-              {showAnalytics ? (
-                <div className="animate-fade-in">
-                  <div className="text-2xl font-light mb-1">
-                    {totalMonthly.toFixed(2)}€
+              <div className="space-y-2">
+                {showAnalytics ? (
+                  <div className="animate-fade-in">
+                    <div className="text-3xl font-light mb-1 text-white">
+                      {totalMonthly.toFixed(2)}€
+                    </div>
+                    <div className="text-sm text-gray-300 font-light">Total mensuel</div>
+                    <div className="flex items-center gap-2 mt-3">
+                      <div className="text-xs text-gray-400">
+                        {totalYearly.toFixed(2)}€ / an
+                      </div>
+                      <ArrowUpRight className="w-3 h-3 text-green-400" />
+                    </div>
                   </div>
-                  <div className="text-xs text-gray-300 font-light">Total mensuel</div>
-                  <div className="text-xs text-gray-400 mt-1">
-                    {totalYearly.toFixed(2)}€ / an
-                  </div>
-                </div>
-              ) : (
-                <div className="text-lg text-gray-300">●●●●</div>
-              )}
+                ) : (
+                  <div className="text-xl text-gray-300">●●●●</div>
+                )}
+              </div>
             </CardContent>
           </Card>
 
-          <Card className="border-0 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105">
+          {/* Services actifs */}
+          <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-105 bg-white/80 backdrop-blur-sm hover:bg-white group animate-fade-in" style={{ animationDelay: '100ms' }}>
             <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-green-500 rounded-xl flex items-center justify-center">
-                  <CheckCircle2 className="w-5 h-5 text-white" />
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-2xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-110">
+                  <CheckCircle2 className="w-6 h-6 text-white" />
+                </div>
+                <div className="flex items-center gap-1">
+                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                  <span className="text-xs text-green-600 font-medium">En ligne</span>
                 </div>
               </div>
-              <div className="text-2xl font-light text-gray-900 mb-1">
-                {activeCount}
+              <div className="space-y-2">
+                <div className="text-3xl font-light text-gray-900 mb-1 group-hover:text-black transition-colors duration-300">
+                  {activeCount}
+                </div>
+                <div className="text-sm text-gray-500 font-light group-hover:text-gray-700 transition-colors duration-300">Services actifs</div>
+                <div className="flex items-center gap-2 mt-3">
+                  <Activity className="w-3 h-3 text-green-500" />
+                  <span className="text-xs text-green-600 font-medium">+2 ce mois</span>
+                </div>
               </div>
-              <div className="text-xs text-gray-500 font-light">Services actifs</div>
             </CardContent>
           </Card>
 
-          <Card className="border-0 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105">
+          {/* En pause */}
+          <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-105 bg-white/80 backdrop-blur-sm hover:bg-white group animate-fade-in" style={{ animationDelay: '200ms' }}>
             <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-xl flex items-center justify-center">
-                  <Pause className="w-5 h-5 text-white" />
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-110">
+                  <Pause className="w-6 h-6 text-white" />
+                </div>
+                <div className="flex items-center gap-1">
+                  <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                  <span className="text-xs text-yellow-600 font-medium">Pausé</span>
                 </div>
               </div>
-              <div className="text-2xl font-light text-gray-900 mb-1">
-                {pausedCount}
+              <div className="space-y-2">
+                <div className="text-3xl font-light text-gray-900 mb-1 group-hover:text-black transition-colors duration-300">
+                  {pausedCount}
+                </div>
+                <div className="text-sm text-gray-500 font-light group-hover:text-gray-700 transition-colors duration-300">En pause</div>
+                <div className="flex items-center gap-2 mt-3">
+                  <Clock className="w-3 h-3 text-yellow-500" />
+                  <span className="text-xs text-yellow-600 font-medium">Économies: 45€/mois</span>
+                </div>
               </div>
-              <div className="text-xs text-gray-500 font-light">En pause</div>
             </CardContent>
           </Card>
 
-          <Card className="border-0 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105">
+          {/* À renouveler */}
+          <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-105 bg-white/80 backdrop-blur-sm hover:bg-white group animate-fade-in" style={{ animationDelay: '300ms' }}>
             <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-red-400 to-red-500 rounded-xl flex items-center justify-center">
-                  <AlertCircle className="w-5 h-5 text-white" />
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-red-400 to-red-600 rounded-2xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-110">
+                  <AlertCircle className="w-6 h-6 text-white" />
+                </div>
+                <div className="flex items-center gap-1">
+                  <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse"></div>
+                  <span className="text-xs text-red-600 font-medium">Urgent</span>
                 </div>
               </div>
-              <div className="text-2xl font-light text-gray-900 mb-1">
-                {expiringCount}
+              <div className="space-y-2">
+                <div className="text-3xl font-light text-gray-900 mb-1 group-hover:text-black transition-colors duration-300">
+                  {expiringCount}
+                </div>
+                <div className="text-sm text-gray-500 font-light group-hover:text-gray-700 transition-colors duration-300">À renouveler</div>
+                <div className="flex items-center gap-2 mt-3">
+                  <Calendar className="w-3 h-3 text-red-500" />
+                  <span className="text-xs text-red-600 font-medium">Dans 3 jours</span>
+                </div>
               </div>
-              <div className="text-xs text-gray-500 font-light">À renouveler</div>
             </CardContent>
           </Card>
         </div>
 
-        {/* Filtres par catégorie - Compact */}
-        <div className="mb-6 animate-fade-in" style={{ animationDelay: '200ms' }}>
-          <div className="flex flex-wrap gap-2">
+        {/* Filtres par catégorie */}
+        <div className="mb-8 animate-fade-in" style={{ animationDelay: '400ms' }}>
+          <div className="flex flex-wrap gap-3">
             <Badge 
               variant="secondary" 
-              className="px-4 py-2 rounded-xl text-xs font-light bg-black text-white hover:bg-gray-800 cursor-pointer transition-all duration-300"
+              className="px-5 py-2.5 rounded-full text-sm font-light bg-black text-white hover:bg-gray-800 cursor-pointer transition-all duration-300 hover:scale-105 shadow-md hover:shadow-lg"
             >
               Toutes les catégories
             </Badge>
@@ -293,8 +334,8 @@ export function Subscriptions() {
               <Badge 
                 key={category}
                 variant="outline" 
-                className="px-4 py-2 rounded-xl text-xs font-light border-gray-200 hover:bg-gray-50 cursor-pointer transition-all duration-300 animate-fade-in"
-                style={{ animationDelay: `${300 + index * 100}ms` }}
+                className="px-5 py-2.5 rounded-full text-sm font-light border-gray-200 hover:bg-gray-50 hover:border-gray-300 cursor-pointer transition-all duration-300 hover:scale-105 animate-fade-in"
+                style={{ animationDelay: `${500 + index * 100}ms` }}
               >
                 {category}
               </Badge>
@@ -302,8 +343,8 @@ export function Subscriptions() {
           </div>
         </div>
 
-        {/* Liste des abonnements - Plus compact */}
-        <div className="space-y-3 mb-12">
+        {/* Liste des abonnements */}
+        <div className="space-y-4 mb-12">
           {filteredSubscriptions.map((subscription, index) => {
             const statusInfo = getStatusInfo(subscription.status);
             const StatusIcon = statusInfo.icon;
@@ -384,7 +425,7 @@ export function Subscriptions() {
           })}
         </div>
 
-        {/* Add subscription - Plus compact */}
+        {/* Add subscription */}
         <div className="bg-gradient-to-r from-gray-50 to-white border-2 border-dashed border-gray-200/80 rounded-2xl p-12 text-center hover:border-gray-300/80 hover:from-white hover:to-gray-50 transition-all duration-500 group cursor-pointer animate-scale-in">
           <div className="w-16 h-16 bg-gradient-to-br from-black to-gray-800 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-all duration-300 shadow-md group-hover:shadow-lg">
             <Plus className="w-6 h-6 text-white" />
@@ -399,20 +440,20 @@ export function Subscriptions() {
           </Button>
         </div>
 
-        {/* Quick actions - Plus compact */}
+        {/* Quick actions */}
         <div className="mt-12 flex justify-center animate-fade-in" style={{ animationDelay: '800ms' }}>
-          <div className="flex items-center gap-1 bg-white/80 backdrop-blur-sm rounded-xl p-1 border border-gray-100/50 shadow-md">
-            <Button variant="ghost" className="rounded-lg px-4 py-2 text-gray-600 hover:bg-gray-50 hover:text-gray-900 text-sm font-light transition-all duration-200">
+          <div className="flex items-center gap-1 bg-white/80 backdrop-blur-sm rounded-2xl p-1 border border-gray-100/50 shadow-lg">
+            <Button variant="ghost" className="rounded-xl px-5 py-3 text-gray-600 hover:bg-gray-50 hover:text-gray-900 text-sm font-light transition-all duration-200">
               <CreditCard className="w-4 h-4 mr-2" />
               Paiements
             </Button>
-            <div className="w-px h-5 bg-gray-200"></div>
-            <Button variant="ghost" className="rounded-lg px-4 py-2 text-gray-600 hover:bg-gray-50 hover:text-gray-900 text-sm font-light transition-all duration-200">
+            <div className="w-px h-6 bg-gray-200"></div>
+            <Button variant="ghost" className="rounded-xl px-5 py-3 text-gray-600 hover:bg-gray-50 hover:text-gray-900 text-sm font-light transition-all duration-200">
               <Calendar className="w-4 h-4 mr-2" />
               Calendrier
             </Button>
-            <div className="w-px h-5 bg-gray-200"></div>
-            <Button variant="ghost" className="rounded-lg px-4 py-2 text-gray-600 hover:bg-gray-50 hover:text-gray-900 text-sm font-light transition-all duration-200">
+            <div className="w-px h-6 bg-gray-200"></div>
+            <Button variant="ghost" className="rounded-xl px-5 py-3 text-gray-600 hover:bg-gray-50 hover:text-gray-900 text-sm font-light transition-all duration-200">
               <BarChart3 className="w-4 h-4 mr-2" />
               Analyses
             </Button>
