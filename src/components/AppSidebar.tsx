@@ -46,6 +46,14 @@ export function AppSidebar({ activeSection, onSectionChange }: AppSidebarProps) 
     { id: "settings", label: "Paramètres", icon: Settings, color: "from-gray-500 to-slate-600" },
   ];
 
+  const logoutItem = {
+    id: "logout",
+    label: "Déconnexion",
+    icon: LogOut,
+    color: "from-red-500 to-red-600",
+    action: handleLogout
+  };
+
   const getUserInitials = (email: string) => {
     const name = email.split('@')[0];
     return name.charAt(0).toUpperCase() + (name.charAt(1) || '').toUpperCase();
@@ -179,19 +187,43 @@ export function AppSidebar({ activeSection, onSectionChange }: AppSidebarProps) 
         </ul>
       </nav>
 
-      {/* Footer with enhanced styling */}
+      {/* Footer with logout button using same styling */}
       <div className="p-4 space-y-4 border-t border-border/30">
-        <button
-          onClick={handleLogout}
-          className={`w-full group flex items-center ${isCollapsed ? 'justify-center px-3' : 'px-4'} py-3 rounded-xl text-muted-foreground hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-950/20 transition-all duration-300 transform hover:scale-[1.02]`}
-          title={isCollapsed ? "Déconnexion" : undefined}
-          aria-label="Se déconnecter"
-        >
-          <LogOut className={`w-5 h-5 ${isCollapsed ? '' : 'mr-4'} flex-shrink-0 transition-transform duration-300 group-hover:scale-110`} />
-          {!isCollapsed && (
-            <span className="text-sm font-medium">Déconnexion</span>
-          )}
-        </button>
+        <li className="animate-fade-in" style={{ animationDelay: `${menuItems.length * 100}ms` }}>
+          <button
+            onClick={logoutItem.action}
+            onMouseEnter={() => setHoveredItem(logoutItem.id)}
+            onMouseLeave={() => setHoveredItem(null)}
+            className={`w-full group relative flex items-center ${isCollapsed ? 'justify-center px-3' : 'px-4'} py-4 rounded-xl text-left transition-all duration-300 transform hover:scale-[1.02] text-muted-foreground hover:bg-gradient-to-r hover:from-muted/50 hover:to-muted/30 hover:text-foreground`}
+            title={isCollapsed ? logoutItem.label : undefined}
+            aria-label="Se déconnecter"
+          >
+            {/* Animated background gradient */}
+            {hoveredItem === logoutItem.id && (
+              <div className={`absolute inset-0 bg-gradient-to-r ${logoutItem.color} opacity-10 rounded-xl transition-opacity duration-300`} />
+            )}
+            
+            {/* Icon with enhanced styling */}
+            <div className={`relative z-10 ${isCollapsed ? '' : 'mr-4'} flex-shrink-0`}>
+              <LogOut className="w-5 h-5 transition-all duration-300 text-inherit group-hover:scale-110" />
+              {hoveredItem === logoutItem.id && !isCollapsed && (
+                <div className={`absolute inset-0 bg-gradient-to-r ${logoutItem.color} opacity-20 rounded-lg blur-sm transition-opacity duration-300`} />
+              )}
+            </div>
+            
+            {/* Label with smooth transitions */}
+            {!isCollapsed && (
+              <span className="relative z-10 text-sm font-medium transition-all duration-300">
+                {logoutItem.label}
+              </span>
+            )}
+            
+            {/* Hover effect */}
+            {hoveredItem === logoutItem.id && (
+              <div className="absolute right-4 w-1 h-1 bg-foreground rounded-full animate-ping" />
+            )}
+          </button>
+        </li>
 
         {/* Footer info with startup vibe */}
         {!isCollapsed && (
