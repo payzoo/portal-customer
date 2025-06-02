@@ -225,35 +225,35 @@ export function PaymentMethods() {
         return (
           <>
             <div className="space-y-2">
-              <Label htmlFor="displayName">Nom d'affichage</Label>
-              <Input id="displayName" placeholder="Ex: Carte principale, Carte bureau..." />
+              <Label htmlFor="displayName" className="text-sm font-medium text-gray-700">Nom d'affichage</Label>
+              <Input id="displayName" placeholder="Ex: Carte principale, Carte bureau..." className="h-11" />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="cardNumber">Numéro de carte</Label>
-              <Input id="cardNumber" placeholder="1234 5678 9012 3456" />
+              <Label htmlFor="cardNumber" className="text-sm font-medium text-gray-700">Numéro de carte</Label>
+              <Input id="cardNumber" placeholder="1234 5678 9012 3456" className="h-11" />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="expiry">Date d'expiration</Label>
-                <Input id="expiry" placeholder="MM/AA" />
+                <Label htmlFor="expiry" className="text-sm font-medium text-gray-700">Date d'expiration</Label>
+                <Input id="expiry" placeholder="MM/AA" className="h-11" />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="cvv">CVV</Label>
-                <Input id="cvv" placeholder="123" />
+                <Label htmlFor="cvv" className="text-sm font-medium text-gray-700">CVV</Label>
+                <Input id="cvv" placeholder="123" className="h-11" />
               </div>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="cardName">Nom sur la carte</Label>
-              <Input id="cardName" placeholder="Nom complet" />
+              <Label htmlFor="cardName" className="text-sm font-medium text-gray-700">Nom sur la carte</Label>
+              <Input id="cardName" placeholder="Nom complet" className="h-11" />
             </div>
             
             {/* Section adresse de facturation */}
             <div className="space-y-4 pt-4 border-t border-gray-200">
               <h4 className="font-medium text-gray-900">Adresse de facturation</h4>
               <div className="space-y-2">
-                <Label htmlFor="billingAddress">Sélectionner une adresse</Label>
+                <Label htmlFor="billingAddress" className="text-sm font-medium text-gray-700">Sélectionner une adresse</Label>
                 <Select value={selectedAddress} onValueChange={setSelectedAddress}>
-                  <SelectTrigger>
+                  <SelectTrigger className="h-11">
                     <SelectValue placeholder="Choisir une adresse" />
                   </SelectTrigger>
                   <SelectContent>
@@ -270,27 +270,27 @@ export function PaymentMethods() {
               {selectedAddress === "new" && (
                 <div className="space-y-3">
                   <div className="space-y-2">
-                    <Label htmlFor="addressName">Nom de l'adresse</Label>
-                    <Input id="addressName" placeholder="Ex: Domicile, Bureau..." />
+                    <Label htmlFor="addressName" className="text-sm font-medium text-gray-700">Nom de l'adresse</Label>
+                    <Input id="addressName" placeholder="Ex: Domicile, Bureau..." className="h-11" />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="street">Adresse</Label>
-                    <Input id="street" placeholder="Numéro et nom de rue" />
+                    <Label htmlFor="street" className="text-sm font-medium text-gray-700">Adresse</Label>
+                    <Input id="street" placeholder="Numéro et nom de rue" className="h-11" />
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="city">Ville</Label>
-                      <Input id="city" placeholder="Ville" />
+                      <Label htmlFor="city" className="text-sm font-medium text-gray-700">Ville</Label>
+                      <Input id="city" placeholder="Ville" className="h-11" />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="postalCode">Code postal</Label>
-                      <Input id="postalCode" placeholder="75001" />
+                      <Label htmlFor="postalCode" className="text-sm font-medium text-gray-700">Code postal</Label>
+                      <Input id="postalCode" placeholder="75001" className="h-11" />
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="country">Pays</Label>
+                    <Label htmlFor="country" className="text-sm font-medium text-gray-700">Pays</Label>
                     <Select>
-                      <SelectTrigger>
+                      <SelectTrigger className="h-11">
                         <SelectValue placeholder="Sélectionner un pays" />
                       </SelectTrigger>
                       <SelectContent>
@@ -310,13 +310,13 @@ export function PaymentMethods() {
         return (
           <>
             <div className="space-y-2">
-              <Label htmlFor="displayName">Nom d'affichage</Label>
-              <Input id="displayName" placeholder="Ex: Mobile personnel, Mobile professionnel..." />
+              <Label htmlFor="displayName" className="text-sm font-medium text-gray-700">Nom d'affichage</Label>
+              <Input id="displayName" placeholder="Ex: Mobile personnel, Mobile professionnel..." className="h-11" />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="provider">Opérateur</Label>
+              <Label htmlFor="provider" className="text-sm font-medium text-gray-700">Opérateur</Label>
               <Select>
-                <SelectTrigger>
+                <SelectTrigger className="h-11">
                   <SelectValue placeholder="Choisir un opérateur" />
                 </SelectTrigger>
                 <SelectContent>
@@ -327,8 +327,8 @@ export function PaymentMethods() {
               </Select>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="phoneNumber">Numéro de téléphone</Label>
-              <Input id="phoneNumber" placeholder="+33 6 12 34 56 78" />
+              <Label htmlFor="phoneNumber" className="text-sm font-medium text-gray-700">Numéro de téléphone</Label>
+              <Input id="phoneNumber" placeholder="+33 6 12 34 56 78" className="h-11" />
             </div>
           </>
         );
@@ -336,20 +336,20 @@ export function PaymentMethods() {
         return (
           <>
             <div className="space-y-2">
-              <Label htmlFor="displayName">Nom d'affichage</Label>
-              <Input id="displayName" placeholder="Ex: Compte courant, Compte épargne..." />
+              <Label htmlFor="displayName" className="text-sm font-medium text-gray-700">Nom d'affichage</Label>
+              <Input id="displayName" placeholder="Ex: Compte courant, Compte épargne..." className="h-11" />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="bankName">Nom de la banque</Label>
-              <Input id="bankName" placeholder="BNP Paribas" />
+              <Label htmlFor="bankName" className="text-sm font-medium text-gray-700">Nom de la banque</Label>
+              <Input id="bankName" placeholder="BNP Paribas" className="h-11" />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="iban">IBAN</Label>
-              <Input id="iban" placeholder="FR76 1234 5678 9012 3456 7890 123" />
+              <Label htmlFor="iban" className="text-sm font-medium text-gray-700">IBAN</Label>
+              <Input id="iban" placeholder="FR76 1234 5678 9012 3456 7890 123" className="h-11" />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="accountHolder">Titulaire du compte</Label>
-              <Input id="accountHolder" placeholder="Nom complet" />
+              <Label htmlFor="accountHolder" className="text-sm font-medium text-gray-700">Titulaire du compte</Label>
+              <Input id="accountHolder" placeholder="Nom complet" className="h-11" />
             </div>
           </>
         );
@@ -357,13 +357,13 @@ export function PaymentMethods() {
         return (
           <>
             <div className="space-y-2">
-              <Label htmlFor="displayName">Nom d'affichage</Label>
-              <Input id="displayName" placeholder="Ex: PayPal principal, Apple Pay..." />
+              <Label htmlFor="displayName" className="text-sm font-medium text-gray-700">Nom d'affichage</Label>
+              <Input id="displayName" placeholder="Ex: PayPal principal, Apple Pay..." className="h-11" />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="walletType">Type de wallet</Label>
+              <Label htmlFor="walletType" className="text-sm font-medium text-gray-700">Type de wallet</Label>
               <Select>
-                <SelectTrigger>
+                <SelectTrigger className="h-11">
                   <SelectValue placeholder="Choisir un wallet" />
                 </SelectTrigger>
                 <SelectContent>
@@ -374,8 +374,8 @@ export function PaymentMethods() {
               </Select>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="walletEmail">Email associé</Label>
-              <Input id="walletEmail" placeholder="email@example.com" />
+              <Label htmlFor="walletEmail" className="text-sm font-medium text-gray-700">Email associé</Label>
+              <Input id="walletEmail" placeholder="email@example.com" className="h-11" />
             </div>
           </>
         );
@@ -468,14 +468,14 @@ export function PaymentMethods() {
                       <div className={`w-12 h-12 ${method.color} rounded-xl flex items-center justify-center shadow-sm`}>
                         <IconComponent className="w-5 h-5 text-white" />
                       </div>
-                      <div>
+                      <div className="min-w-0 flex-1">
                         <h3 className="font-medium text-gray-900 text-lg mb-1">{method.displayName}</h3>
                         <div className="flex items-center gap-3 text-sm text-gray-500">
-                          <span>{method.provider}</span>
+                          <span className="min-w-fit">{method.provider}</span>
                           <span>•</span>
-                          <span className="font-mono">{method.identifier}</span>
+                          <span className="font-mono min-w-fit">{method.identifier}</span>
                           <span>•</span>
-                          <span>{method.detail}</span>
+                          <span className="min-w-fit">{method.detail}</span>
                         </div>
                       </div>
                     </div>
@@ -575,7 +575,7 @@ export function PaymentMethods() {
                 </DialogHeader>
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="paymentType" className="text-gray-700 font-medium">Type de paiement</Label>
+                    <Label htmlFor="paymentType" className="text-sm font-medium text-gray-700">Type de paiement</Label>
                     <Select value={selectedType} onValueChange={setSelectedType}>
                       <SelectTrigger className="rounded-xl border-gray-200 h-11">
                         <SelectValue placeholder="Choisir un type" />
