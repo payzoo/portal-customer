@@ -1,4 +1,3 @@
-
 import { MapPin, Plus, MoreHorizontal, Home, Building2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -95,7 +94,7 @@ export function Addresses() {
                 </Button>
               </div>
             </CardContent>
-          </div>
+          </Card>
 
         {/* Quick Actions */}
         <Card className="border-0 shadow-sm bg-white">
