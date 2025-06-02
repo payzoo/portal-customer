@@ -1,13 +1,16 @@
 
-import { MapPin, Plus, Home, Building2, Edit, Trash2, MoreHorizontal, Star } from "lucide-react";
+import { MapPin, Plus, Home, Building2, Edit, Trash2, MoreHorizontal, Star, Search, Filter } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useState } from "react";
 
 export function Addresses() {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterType, setFilterType] = useState("all");
 
   const addresses = [
     {
@@ -30,6 +33,19 @@ export function Addresses() {
     }
   ];
 
+  const filteredAddresses = addresses.filter(addr => {
+    const matchesSearch = addr.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                         addr.city.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         addr.street.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesFilter = filterType === "all" || addr.type === filterType;
+    return matchesSearch && matchesFilter;
+  });
+
+  const totalAddresses = addresses.length;
+  const defaultCount = addresses.filter(a => a.isDefault).length;
+  const homeCount = addresses.filter(a => a.type === "home").length;
+  const officeCount = addresses.filter(a => a.type === "office").length;
+
   const handleEdit = (id: number) => {
     console.log(`Modifier l'adresse ${id}`);
   };
@@ -43,177 +59,254 @@ export function Addresses() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="max-w-4xl mx-auto px-6 py-12">
+    <div className="min-h-screen bg-gray-50/30">
+      <div className="max-w-6xl mx-auto px-6 py-8">
         
-        {/* Header épuré */}
-        <div className="mb-12">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-8 h-8 bg-slate-900 rounded-lg flex items-center justify-center">
-              <MapPin className="w-4 h-4 text-white" />
-            </div>
-            <h1 className="text-2xl font-semibold text-slate-900">
-              Adresses
-            </h1>
-          </div>
-          <p className="text-slate-600 text-sm">
-            Gérez vos adresses de livraison et de facturation
+        {/* Header minimaliste */}
+        <div className="mb-10">
+          <h1 className="text-4xl font-light text-gray-900 mb-2 tracking-tight">
+            Adresses
+          </h1>
+          <p className="text-gray-600 text-lg font-light">
+            Gérez vos adresses facilement
           </p>
         </div>
 
-        {/* Statistiques minimalistes */}
-        <div className="grid grid-cols-3 gap-6 mb-8">
-          <div className="text-center">
-            <div className="text-2xl font-bold text-slate-900 mb-1">
-              {addresses.length}
+        {/* Barre de recherche et filtres épurés */}
+        <div className="mb-8">
+          <div className="flex gap-4">
+            <div className="relative flex-1">
+              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <input
+                type="text"
+                placeholder="Rechercher..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-12 pr-4 py-4 bg-white border-0 rounded-2xl shadow-sm focus:shadow-md focus:outline-none transition-all duration-300 text-gray-900"
+              />
             </div>
-            <div className="text-xs text-slate-500 uppercase tracking-wide">
-              Total
-            </div>
-          </div>
-          <div className="text-center">
-            <div className="text-2xl font-bold text-slate-900 mb-1">
-              {addresses.filter(a => a.isDefault).length}
-            </div>
-            <div className="text-xs text-slate-500 uppercase tracking-wide">
-              Principale
-            </div>
-          </div>
-          <div className="text-center">
-            <div className="text-2xl font-bold text-slate-900 mb-1">
-              {addresses.filter(a => a.type === "office").length}
-            </div>
-            <div className="text-xs text-slate-500 uppercase tracking-wide">
-              Bureau
-            </div>
+            <Select value={filterType} onValueChange={setFilterType}>
+              <SelectTrigger className="w-48 bg-white border-0 rounded-2xl shadow-sm h-14 focus:shadow-md transition-all duration-300">
+                <SelectValue placeholder="Type" />
+              </SelectTrigger>
+              <SelectContent className="bg-white border-0 rounded-xl shadow-lg">
+                <SelectItem value="all">Toutes</SelectItem>
+                <SelectItem value="home">Domicile</SelectItem>
+                <SelectItem value="office">Bureau</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
         </div>
 
-        {/* Liste des adresses minimaliste */}
-        <div className="space-y-4 mb-8">
-          {addresses.map((address) => (
-            <Card 
-              key={address.id} 
-              className="border border-slate-200 hover:border-slate-300 transition-all duration-200 group"
-              onMouseEnter={() => setHoveredCard(address.id)}
-              onMouseLeave={() => setHoveredCard(null)}
-            >
-              <CardContent className="p-6">
-                <div className="flex items-start justify-between">
-                  <div className="flex items-start gap-4">
-                    {/* Icône simple */}
-                    <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${
-                      address.type === 'home' 
-                        ? 'bg-slate-100' 
-                        : 'bg-blue-50'
-                    }`}>
-                      {address.type === 'home' ? (
-                        <Home className={`w-5 h-5 ${
-                          address.type === 'home' ? 'text-slate-600' : 'text-blue-600'
-                        }`} />
-                      ) : (
-                        <Building2 className="w-5 h-5 text-blue-600" />
-                      )}
+        {/* Métriques essentielles */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
+          <Card className="border-0 shadow-sm bg-white">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-10 h-10 bg-gray-900 rounded-xl flex items-center justify-center">
+                  <MapPin className="w-5 h-5 text-white" />
+                </div>
+                <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
+              </div>
+              <div>
+                <div className="text-2xl font-semibold text-gray-900 mb-1">
+                  {totalAddresses}
+                </div>
+                <div className="text-sm text-gray-500">Total</div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-0 shadow-sm bg-white">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center">
+                  <Star className="w-5 h-5 text-white" />
+                </div>
+                <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+              </div>
+              <div>
+                <div className="text-2xl font-semibold text-gray-900 mb-1">
+                  {defaultCount}
+                </div>
+                <div className="text-sm text-gray-500">Principale</div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-0 shadow-sm bg-white">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-10 h-10 bg-green-500 rounded-xl flex items-center justify-center">
+                  <Home className="w-5 h-5 text-white" />
+                </div>
+                <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+              </div>
+              <div>
+                <div className="text-2xl font-semibold text-gray-900 mb-1">
+                  {homeCount}
+                </div>
+                <div className="text-sm text-gray-500">Domicile</div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-0 shadow-sm bg-white">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-10 h-10 bg-purple-500 rounded-xl flex items-center justify-center">
+                  <Building2 className="w-5 h-5 text-white" />
+                </div>
+                <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
+              </div>
+              <div>
+                <div className="text-2xl font-semibold text-gray-900 mb-1">
+                  {officeCount}
+                </div>
+                <div className="text-sm text-gray-500">Bureau</div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Liste des adresses épurée */}
+        <div className="space-y-3 mb-12">
+          {filteredAddresses.length === 0 ? (
+            <Card className="border-0 bg-white shadow-sm">
+              <CardContent className="p-12 text-center">
+                <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <Search className="w-6 h-6 text-gray-400" />
+                </div>
+                <h3 className="font-medium text-gray-900 mb-2">Aucun résultat</h3>
+                <p className="text-gray-500 text-sm">
+                  Aucune adresse ne correspond à vos critères.
+                </p>
+              </CardContent>
+            </Card>
+          ) : (
+            filteredAddresses.map((address) => (
+              <Card 
+                key={address.id} 
+                className="border-0 bg-white shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer group"
+                onMouseEnter={() => setHoveredCard(address.id)}
+                onMouseLeave={() => setHoveredCard(null)}
+              >
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${
+                        address.type === 'home' 
+                          ? 'bg-green-500' 
+                          : 'bg-purple-500'
+                      }`}>
+                        {address.type === 'home' ? (
+                          <Home className="w-5 h-5 text-white" />
+                        ) : (
+                          <Building2 className="w-5 h-5 text-white" />
+                        )}
+                      </div>
+                      <div>
+                        <h3 className="font-medium text-gray-900 text-lg mb-1">{address.name}</h3>
+                        <div className="flex items-center gap-3 text-sm text-gray-500">
+                          <span>{address.street}</span>
+                          <span>•</span>
+                          <span>{address.city}, {address.country}</span>
+                        </div>
+                      </div>
                     </div>
                     
-                    <div className="flex-1">
-                      {/* En-tête avec nom et badge */}
-                      <div className="flex items-center gap-3 mb-2">
-                        <h3 className="font-medium text-slate-900">
-                          {address.name}
-                        </h3>
+                    <div className="flex items-center gap-6">
+                      <div className="text-right">
+                        <div className="font-medium text-gray-900 text-lg mb-1">
+                          {address.type === 'home' ? 'Domicile' : 'Bureau'}
+                        </div>
+                        <div className="text-xs text-gray-400">
+                          {address.isDefault ? 'Adresse principale' : 'Adresse secondaire'}
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-center gap-3">
                         {address.isDefault && (
-                          <Badge className="bg-slate-900 text-white hover:bg-slate-900 px-2 py-0.5 text-xs rounded-md">
-                            <Star className="w-3 h-3 mr-1" />
+                          <Badge className="bg-blue-50 text-blue-700 hover:bg-blue-50 px-3 py-1 rounded-lg text-xs border-0">
+                            <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2"></div>
                             Principal
                           </Badge>
                         )}
-                      </div>
-                      
-                      {/* Adresse */}
-                      <div className="space-y-1">
-                        <p className="text-slate-700 text-sm">
-                          {address.street}
-                        </p>
-                        <p className="text-slate-500 text-sm">
-                          {address.city}, {address.country}
-                        </p>
+                        
+                        <div className={`flex items-center gap-1 transition-opacity duration-200 ${
+                          hoveredCard === address.id ? 'opacity-100' : 'opacity-0'
+                        }`}>
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <Button 
+                                variant="ghost" 
+                                size="sm" 
+                                className="w-8 h-8 p-0 rounded-lg"
+                              >
+                                <MoreHorizontal className="w-4 h-4 text-gray-400" />
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent 
+                              align="end" 
+                              className="w-48 bg-white border-0 rounded-xl shadow-lg"
+                            >
+                              <DropdownMenuItem 
+                                onClick={() => handleEdit(address.id)}
+                                className="flex items-center gap-2 px-3 py-2 hover:bg-gray-50 rounded-lg"
+                              >
+                                <Edit className="w-4 h-4 text-gray-500" />
+                                <span>Modifier</span>
+                              </DropdownMenuItem>
+                              {!address.isDefault && (
+                                <DropdownMenuItem 
+                                  onClick={() => handleSetDefault(address.id)}
+                                  className="flex items-center gap-2 px-3 py-2 hover:bg-gray-50 rounded-lg"
+                                >
+                                  <Star className="w-4 h-4 text-gray-500" />
+                                  <span>Définir par défaut</span>
+                                </DropdownMenuItem>
+                              )}
+                              <DropdownMenuSeparator />
+                              <DropdownMenuItem 
+                                onClick={() => handleDelete(address.id)}
+                                className="flex items-center gap-2 px-3 py-2 hover:bg-red-50 rounded-lg text-red-600"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                                <span>Supprimer</span>
+                              </DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        </div>
                       </div>
                     </div>
                   </div>
-                  
-                  {/* Actions */}
-                  <div className={`flex items-center transition-opacity duration-200 ${
-                    hoveredCard === address.id ? 'opacity-100' : 'opacity-0'
-                  }`}>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button 
-                          variant="ghost" 
-                          size="sm" 
-                          className="w-8 h-8 p-0 rounded-lg hover:bg-slate-100"
-                        >
-                          <MoreHorizontal className="w-4 h-4 text-slate-400" />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent 
-                        align="end" 
-                        className="w-48 bg-white border border-slate-200 rounded-lg shadow-lg"
-                      >
-                        <DropdownMenuItem 
-                          onClick={() => handleEdit(address.id)}
-                          className="flex items-center gap-2 px-3 py-2 hover:bg-slate-50 rounded-md"
-                        >
-                          <Edit className="w-4 h-4 text-slate-500" />
-                          <span>Modifier</span>
-                        </DropdownMenuItem>
-                        {!address.isDefault && (
-                          <DropdownMenuItem 
-                            onClick={() => handleSetDefault(address.id)}
-                            className="flex items-center gap-2 px-3 py-2 hover:bg-slate-50 rounded-md"
-                          >
-                            <Star className="w-4 h-4 text-slate-500" />
-                            <span>Définir par défaut</span>
-                          </DropdownMenuItem>
-                        )}
-                        <DropdownMenuSeparator className="my-1 bg-slate-200" />
-                        <DropdownMenuItem 
-                          onClick={() => handleDelete(address.id)}
-                          className="flex items-center gap-2 px-3 py-2 hover:bg-red-50 rounded-md text-red-600"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                          <span>Supprimer</span>
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                </CardContent>
+              </Card>
+            ))
+          )}
         </div>
 
-        {/* CTA minimaliste */}
-        <Card className="border-2 border-dashed border-slate-200 hover:border-slate-300 transition-colors cursor-pointer group">
-          <CardContent className="p-8 text-center">
-            <div className="space-y-4">
+        {/* CTA pour ajouter une adresse - Version minimaliste améliorée */}
+        <Card className="border-2 border-dashed border-gray-200 hover:border-gray-300 transition-all duration-300 cursor-pointer group">
+          <CardContent className="p-12 text-center">
+            <div className="space-y-6">
               {/* Icône */}
-              <div className="w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center mx-auto group-hover:bg-slate-200 transition-colors">
-                <Plus className="w-6 h-6 text-slate-600" />
+              <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto group-hover:bg-gray-200 transition-all duration-300">
+                <Plus className="w-8 h-8 text-gray-600" />
               </div>
 
               {/* Contenu */}
-              <div className="space-y-2">
-                <h3 className="font-medium text-slate-900">
+              <div className="space-y-3">
+                <h3 className="text-xl font-medium text-gray-900">
                   Ajouter une adresse
                 </h3>
-                <p className="text-slate-500 text-sm">
+                <p className="text-gray-500 text-lg">
                   Nouvelle adresse de livraison ou de facturation
                 </p>
               </div>
 
               {/* Bouton */}
-              <Button className="bg-slate-900 text-white rounded-lg px-6 py-2 hover:bg-slate-800 transition-colors">
+              <Button className="bg-gray-900 text-white rounded-xl px-8 py-3 hover:bg-gray-800 transition-all duration-300 text-base font-medium">
                 Commencer
               </Button>
             </div>
