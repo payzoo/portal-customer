@@ -1,4 +1,4 @@
-import { CreditCard, Plus, MoreHorizontal, Shield, Smartphone, Building2, Wallet, Star, Trash2, Pencil, Eye, MapPin, CheckCircle2, XCircle, Clock, AlertTriangle, ArrowRight, Zap } from "lucide-react";
+import { CreditCard, Plus, MoreHorizontal, Shield, Smartphone, Building2, Wallet, Star, Trash2, Pencil, Eye, MapPin, CheckCircle2, XCircle, Clock, AlertTriangle, ArrowRight, Zap, TrendingUp, TrendingDown, DollarSign, Activity, Target } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -7,6 +7,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSepara
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Progress } from "@/components/ui/progress";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -391,6 +392,12 @@ export function PaymentMethods() {
   const totalMethods = paymentMethods.length;
   const activeMethods = paymentMethods.filter(method => method.status === 'active').length;
 
+  // Nouvelles métriques pour l'élément percutant
+  const monthlyTransactions = 247;
+  const transactionGrowth = 18.5;
+  const securityScore = 97;
+  const avgTransactionTime = "1.2s";
+
   return (
     <div className="min-h-screen bg-gray-50/30">
       <div className="max-w-6xl mx-auto px-6 py-8">
@@ -405,55 +412,168 @@ export function PaymentMethods() {
           </p>
         </div>
 
-        {/* Métriques essentielles */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+        {/* Élément principal percutant - Centre financier */}
+        <Card className="border-0 shadow-lg bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 mb-10 overflow-hidden">
+          <CardContent className="p-0">
+            <div className="relative">
+              {/* Overlay décoratif */}
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10"></div>
+              <div className="absolute top-4 right-4 w-32 h-32 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-2xl"></div>
+              
+              <div className="relative p-8">
+                <div className="flex items-center justify-between mb-8">
+                  <div>
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center">
+                        <Activity className="w-5 h-5 text-white" />
+                      </div>
+                      <span className="text-gray-300 text-sm font-medium uppercase tracking-wider">Centre financier</span>
+                    </div>
+                    <h2 className="text-3xl font-bold text-white mb-1">Activité de paiement</h2>
+                    <p className="text-gray-400">Performance en temps réel de vos méthodes</p>
+                  </div>
+                  
+                  <div className="text-right">
+                    <div className="text-4xl font-bold text-white mb-1">{totalMethods}</div>
+                    <div className="text-gray-300 text-sm">Méthodes actives</div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                  {/* Transactions mensuelles */}
+                  <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="w-8 h-8 bg-green-500/20 rounded-lg flex items-center justify-center">
+                        <TrendingUp className="w-4 h-4 text-green-400" />
+                      </div>
+                      <Badge className="bg-green-500/20 text-green-300 hover:bg-green-500/20 text-xs border-0">
+                        +{transactionGrowth}%
+                      </Badge>
+                    </div>
+                    <div className="text-2xl font-bold text-white mb-1">{monthlyTransactions}</div>
+                    <div className="text-gray-300 text-sm">Transactions ce mois</div>
+                    <div className="mt-3">
+                      <Progress value={75} className="h-1.5 bg-white/10" />
+                    </div>
+                  </div>
+
+                  {/* Score de sécurité */}
+                  <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center">
+                        <Shield className="w-4 h-4 text-blue-400" />
+                      </div>
+                      <Badge className="bg-blue-500/20 text-blue-300 hover:bg-blue-500/20 text-xs border-0">
+                        Excellent
+                      </Badge>
+                    </div>
+                    <div className="text-2xl font-bold text-white mb-1">{securityScore}%</div>
+                    <div className="text-gray-300 text-sm">Score sécurité</div>
+                    <div className="mt-3">
+                      <Progress value={securityScore} className="h-1.5 bg-white/10" />
+                    </div>
+                  </div>
+
+                  {/* Vitesse de traitement */}
+                  <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="w-8 h-8 bg-purple-500/20 rounded-lg flex items-center justify-center">
+                        <Zap className="w-4 h-4 text-purple-400" />
+                      </div>
+                      <Badge className="bg-purple-500/20 text-purple-300 hover:bg-purple-500/20 text-xs border-0">
+                        Rapide
+                      </Badge>
+                    </div>
+                    <div className="text-2xl font-bold text-white mb-1">{avgTransactionTime}</div>
+                    <div className="text-gray-300 text-sm">Temps moyen</div>
+                    <div className="mt-3">
+                      <div className="flex gap-1">
+                        {[1,2,3,4,5].map(i => (
+                          <div key={i} className={`h-1.5 flex-1 rounded-full ${i <= 4 ? 'bg-purple-400' : 'bg-white/10'}`}></div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Méthodes principales */}
+                  <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="w-8 h-8 bg-yellow-500/20 rounded-lg flex items-center justify-center">
+                        <Star className="w-4 h-4 text-yellow-400" />
+                      </div>
+                      <Badge className="bg-yellow-500/20 text-yellow-300 hover:bg-yellow-500/20 text-xs border-0">
+                        {defaultMethods > 0 ? 'Configuré' : 'Action requise'}
+                      </Badge>
+                    </div>
+                    <div className="text-2xl font-bold text-white mb-1">{defaultMethods}</div>
+                    <div className="text-gray-300 text-sm">Méthode principale</div>
+                    <div className="mt-3">
+                      <Progress value={defaultMethods > 0 ? 100 : 0} className="h-1.5 bg-white/10" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Insights rapides */}
+                <div className="mt-6 flex items-center justify-between">
+                  <div className="flex items-center gap-4 text-sm">
+                    <div className="flex items-center gap-2 text-gray-300">
+                      <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                      <span>Tous les systèmes opérationnels</span>
+                    </div>
+                    <div className="text-gray-500">•</div>
+                    <div className="text-gray-300">
+                      Dernière synchronisation: Il y a 2 min
+                    </div>
+                  </div>
+                  
+                  <Button variant="outline" size="sm" className="bg-white/10 border-white/20 text-white hover:bg-white/20 rounded-lg">
+                    <Eye className="w-4 h-4 mr-2" />
+                    Voir les détails
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Métriques secondaires simplifiées */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
           <Card className="border-0 shadow-sm bg-white">
             <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-4">
-                <div className="w-10 h-10 bg-gray-900 rounded-xl flex items-center justify-center">
-                  <CreditCard className="w-5 h-5 text-white" />
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center">
+                    <CheckCircle2 className="w-5 h-5 text-green-600" />
+                  </div>
+                  <div>
+                    <div className="text-2xl font-semibold text-gray-900">{activeMethods}</div>
+                    <div className="text-sm text-gray-500">Méthodes actives</div>
+                  </div>
                 </div>
-                <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
-              </div>
-              <div>
-                <div className="text-2xl font-semibold text-gray-900 mb-1">
-                  {totalMethods}
+                <div className="text-right">
+                  <div className="text-lg font-medium text-green-600">100%</div>
+                  <div className="text-xs text-gray-400">Disponibilité</div>
                 </div>
-                <div className="text-sm text-gray-500">Méthodes</div>
               </div>
             </CardContent>
           </Card>
 
           <Card className="border-0 shadow-sm bg-white">
             <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-4">
-                <div className="w-10 h-10 bg-green-500 rounded-xl flex items-center justify-center">
-                  <CheckCircle2 className="w-5 h-5 text-white" />
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
+                    <Target className="w-5 h-5 text-blue-600" />
+                  </div>
+                  <div>
+                    <div className="text-2xl font-semibold text-gray-900">{totalMethods - activeMethods}</div>
+                    <div className="text-sm text-gray-500">En attente</div>
+                  </div>
                 </div>
-                <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-              </div>
-              <div>
-                <div className="text-2xl font-semibold text-gray-900 mb-1">
-                  {activeMethods}
+                <div className="text-right">
+                  <div className="text-lg font-medium text-blue-600">Optimiser</div>
+                  <div className="text-xs text-gray-400">Recommandé</div>
                 </div>
-                <div className="text-sm text-gray-500">Actives</div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="border-0 shadow-sm bg-white">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-4">
-                <div className="w-10 h-10 bg-yellow-500 rounded-xl flex items-center justify-center">
-                  <Star className="w-5 h-5 text-white" />
-                </div>
-                <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
-              </div>
-              <div>
-                <div className="text-2xl font-semibold text-gray-900 mb-1">
-                  {defaultMethods}
-                </div>
-                <div className="text-sm text-gray-500">Principale</div>
               </div>
             </CardContent>
           </Card>
