@@ -1,10 +1,19 @@
-
 import { CreditCard, Plus, MoreHorizontal, Shield, Bell, CheckCircle2, Smartphone, Building2, Wallet } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 export function PaymentMethods() {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [selectedType, setSelectedType] = useState("");
+  const { toast } = useToast();
+
   const paymentMethods = [
     {
       id: 1,
@@ -83,6 +92,107 @@ export function PaymentMethods() {
     }
   ];
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    toast({
+      title: "Méthode ajoutée",
+      description: "Votre nouvelle méthode de paiement a été ajoutée avec succès.",
+    });
+    setIsDialogOpen(false);
+    setSelectedType("");
+  };
+
+  const renderFormFields = () => {
+    switch (selectedType) {
+      case "card":
+        return (
+          <>
+            <div className="space-y-2">
+              <Label htmlFor="cardNumber">Numéro de carte</Label>
+              <Input id="cardNumber" placeholder="1234 5678 9012 3456" />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="expiry">Date d'expiration</Label>
+                <Input id="expiry" placeholder="MM/AA" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="cvv">CVV</Label>
+                <Input id="cvv" placeholder="123" />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="cardName">Nom sur la carte</Label>
+              <Input id="cardName" placeholder="Nom complet" />
+            </div>
+          </>
+        );
+      case "mobile":
+        return (
+          <>
+            <div className="space-y-2">
+              <Label htmlFor="provider">Opérateur</Label>
+              <Select>
+                <SelectTrigger>
+                  <SelectValue placeholder="Choisir un opérateur" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="orange">Orange Money</SelectItem>
+                  <SelectItem value="mtn">MTN Mobile Money</SelectItem>
+                  <SelectItem value="moov">Moov Money</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="phoneNumber">Numéro de téléphone</Label>
+              <Input id="phoneNumber" placeholder="+33 6 12 34 56 78" />
+            </div>
+          </>
+        );
+      case "bank":
+        return (
+          <>
+            <div className="space-y-2">
+              <Label htmlFor="bankName">Nom de la banque</Label>
+              <Input id="bankName" placeholder="BNP Paribas" />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="iban">IBAN</Label>
+              <Input id="iban" placeholder="FR76 1234 5678 9012 3456 7890 123" />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="accountHolder">Titulaire du compte</Label>
+              <Input id="accountHolder" placeholder="Nom complet" />
+            </div>
+          </>
+        );
+      case "wallet":
+        return (
+          <>
+            <div className="space-y-2">
+              <Label htmlFor="walletType">Type de wallet</Label>
+              <Select>
+                <SelectTrigger>
+                  <SelectValue placeholder="Choisir un wallet" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="paypal">PayPal</SelectItem>
+                  <SelectItem value="applepay">Apple Pay</SelectItem>
+                  <SelectItem value="googlepay">Google Pay</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="walletEmail">Email associé</Label>
+              <Input id="walletEmail" placeholder="email@example.com" />
+            </div>
+          </>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-4xl mx-auto px-6 py-12">
@@ -98,10 +208,53 @@ export function PaymentMethods() {
                 Gérez vos méthodes de paiement
               </p>
             </div>
-            <Button className="bg-black text-white hover:bg-gray-800 rounded-full px-6 py-2 font-medium transition-all duration-200">
-              <Plus className="w-4 h-4 mr-2" />
-              Ajouter
-            </Button>
+            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+              <DialogTrigger asChild>
+                <Button className="bg-black text-white hover:bg-gray-800 rounded-full px-6 py-2 font-medium transition-all duration-200">
+                  <Plus className="w-4 h-4 mr-2" />
+                  Ajouter
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-md">
+                <DialogHeader>
+                  <DialogTitle>Ajouter une méthode de paiement</DialogTitle>
+                </DialogHeader>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="paymentType">Type de paiement</Label>
+                    <Select value={selectedType} onValueChange={setSelectedType}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Choisir un type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="card">Carte bancaire</SelectItem>
+                        <SelectItem value="mobile">Mobile Money</SelectItem>
+                        <SelectItem value="bank">Compte bancaire</SelectItem>
+                        <SelectItem value="wallet">Wallet digital</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  
+                  {renderFormFields()}
+                  
+                  {selectedType && (
+                    <div className="flex gap-3 pt-4">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => setIsDialogOpen(false)}
+                        className="flex-1"
+                      >
+                        Annuler
+                      </Button>
+                      <Button type="submit" className="flex-1 bg-black text-white hover:bg-gray-800">
+                        Ajouter
+                      </Button>
+                    </div>
+                  )}
+                </form>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
 
