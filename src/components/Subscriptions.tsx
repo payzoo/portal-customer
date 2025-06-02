@@ -1,9 +1,11 @@
 
-import { Building2, Plus, Clock, TrendingUp, CreditCard, Calendar, MoreVertical, Search, Filter, ArrowUpRight, Zap, AlertCircle, CheckCircle2, Pause, Play, X, Settings, Eye, BarChart3, DollarSign, Activity, Users } from "lucide-react";
+
+import { Building2, Plus, Clock, TrendingUp, CreditCard, Calendar, MoreVertical, Search, Filter, ArrowUpRight, Zap, AlertCircle, CheckCircle2, Pause, Play, X, Settings, Eye, BarChart3, DollarSign, Activity, Users, Edit, Trash2, Copy, Archive, RefreshCw } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useState } from "react";
 
 export function Subscriptions() {
@@ -178,14 +180,35 @@ export function Subscriptions() {
     // TODO: Ouvrir un modal d'analyses ou naviguer vers une page dédiée
   };
 
-  const handleMoreOptions = (subscription: any) => {
-    console.log(`Options pour ${subscription.name}`);
-    // TODO: Afficher un menu contextuel avec plus d'options
-  };
-
   const handleToggleStatus = (subscription: any) => {
     console.log(`Basculer le statut pour ${subscription.name}`);
     // TODO: Implémenter la logique pour activer/suspendre/reprendre l'abonnement
+  };
+
+  // New handlers for more options menu
+  const handleEdit = (subscription: any) => {
+    console.log(`Modifier l'abonnement ${subscription.name}`);
+    // TODO: Ouvrir un modal d'édition
+  };
+
+  const handleDuplicate = (subscription: any) => {
+    console.log(`Dupliquer l'abonnement ${subscription.name}`);
+    // TODO: Créer une copie de l'abonnement
+  };
+
+  const handleArchive = (subscription: any) => {
+    console.log(`Archiver l'abonnement ${subscription.name}`);
+    // TODO: Archiver l'abonnement
+  };
+
+  const handleRenew = (subscription: any) => {
+    console.log(`Renouveler l'abonnement ${subscription.name}`);
+    // TODO: Renouveler l'abonnement
+  };
+
+  const handleDelete = (subscription: any) => {
+    console.log(`Supprimer l'abonnement ${subscription.name}`);
+    // TODO: Afficher une confirmation puis supprimer
   };
 
   return (
@@ -502,18 +525,60 @@ export function Subscriptions() {
                             >
                               <BarChart3 className="w-3.5 h-3.5 text-gray-400 hover:text-gray-600 transition-colors duration-200" />
                             </Button>
-                            <Button 
-                              variant="ghost" 
-                              size="sm" 
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                handleMoreOptions(subscription);
-                              }}
-                              className="w-8 h-8 p-0 rounded-lg hover:bg-gray-50 hover:scale-110 transition-all duration-200"
-                              title="Plus d'options"
-                            >
-                              <MoreVertical className="w-3.5 h-3.5 text-gray-400 hover:text-gray-600 transition-colors duration-200" />
-                            </Button>
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button 
+                                  variant="ghost" 
+                                  size="sm" 
+                                  className="w-8 h-8 p-0 rounded-lg hover:bg-gray-50 hover:scale-110 transition-all duration-200"
+                                  title="Plus d'options"
+                                  onClick={(e) => e.stopPropagation()}
+                                >
+                                  <MoreVertical className="w-3.5 h-3.5 text-gray-400 hover:text-gray-600 transition-colors duration-200" />
+                                </Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent 
+                                align="end" 
+                                className="w-48 bg-white border border-gray-200 rounded-xl shadow-lg z-50"
+                              >
+                                <DropdownMenuItem 
+                                  onClick={() => handleEdit(subscription)}
+                                  className="flex items-center gap-2 px-3 py-2 hover:bg-gray-50 rounded-lg transition-colors duration-200 cursor-pointer"
+                                >
+                                  <Edit className="w-4 h-4 text-gray-500" />
+                                  <span className="font-medium text-gray-700">Modifier</span>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem 
+                                  onClick={() => handleDuplicate(subscription)}
+                                  className="flex items-center gap-2 px-3 py-2 hover:bg-gray-50 rounded-lg transition-colors duration-200 cursor-pointer"
+                                >
+                                  <Copy className="w-4 h-4 text-gray-500" />
+                                  <span className="font-medium text-gray-700">Dupliquer</span>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem 
+                                  onClick={() => handleRenew(subscription)}
+                                  className="flex items-center gap-2 px-3 py-2 hover:bg-gray-50 rounded-lg transition-colors duration-200 cursor-pointer"
+                                >
+                                  <RefreshCw className="w-4 h-4 text-blue-500" />
+                                  <span className="font-medium text-blue-600">Renouveler</span>
+                                </DropdownMenuItem>
+                                <DropdownMenuSeparator className="my-1 bg-gray-100" />
+                                <DropdownMenuItem 
+                                  onClick={() => handleArchive(subscription)}
+                                  className="flex items-center gap-2 px-3 py-2 hover:bg-gray-50 rounded-lg transition-colors duration-200 cursor-pointer"
+                                >
+                                  <Archive className="w-4 h-4 text-yellow-500" />
+                                  <span className="font-medium text-yellow-600">Archiver</span>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem 
+                                  onClick={() => handleDelete(subscription)}
+                                  className="flex items-center gap-2 px-3 py-2 hover:bg-red-50 rounded-lg transition-colors duration-200 cursor-pointer"
+                                >
+                                  <Trash2 className="w-4 h-4 text-red-500" />
+                                  <span className="font-medium text-red-600">Supprimer</span>
+                                </DropdownMenuItem>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
                           </div>
                         </div>
                       </div>
@@ -563,3 +628,4 @@ export function Subscriptions() {
     </div>
   );
 }
+
