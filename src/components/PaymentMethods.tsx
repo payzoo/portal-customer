@@ -1,4 +1,5 @@
-import { CreditCard, Plus, MoreHorizontal, Shield, Bell, CheckCircle2 } from "lucide-react";
+
+import { CreditCard, Plus, MoreHorizontal, Shield, Bell, CheckCircle2, Smartphone, Building2, Wallet } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -7,138 +8,217 @@ export function PaymentMethods() {
   const paymentMethods = [
     {
       id: 1,
-      type: "Visa",
-      last4: "4242",
+      type: "card",
+      provider: "Visa",
       name: "Housseine Dao",
-      expiry: "12/27",
+      identifier: "•••• 4242",
+      detail: "Expire 12/27",
       isDefault: true,
-      color: "bg-blue-500"
+      icon: CreditCard,
+      color: "bg-gradient-to-br from-blue-500 to-blue-600"
     },
     {
       id: 2,
-      type: "Mastercard", 
-      last4: "5555",
+      type: "card",
+      provider: "Mastercard",
       name: "Housseine Dao",
-      expiry: "08/26",
+      identifier: "•••• 5555",
+      detail: "Expire 08/26",
       isDefault: false,
-      color: "bg-red-500"
+      icon: CreditCard,
+      color: "bg-gradient-to-br from-red-500 to-red-600"
+    },
+    {
+      id: 3,
+      type: "mobile",
+      provider: "Orange Money",
+      name: "Housseine Dao",
+      identifier: "+33 6 •• •• •• 89",
+      detail: "Vérifié",
+      isDefault: false,
+      icon: Smartphone,
+      color: "bg-gradient-to-br from-orange-500 to-orange-600"
+    },
+    {
+      id: 4,
+      type: "bank",
+      provider: "BNP Paribas",
+      name: "Housseine Dao",
+      identifier: "FR76 •••• •••• •••• 1234",
+      detail: "Compte courant",
+      isDefault: false,
+      icon: Building2,
+      color: "bg-gradient-to-br from-green-500 to-green-600"
     }
   ];
 
-  const settings = [
-    { 
-      title: "Renouvellement automatique", 
-      description: "Renouveler automatiquement les abonnements",
-      status: "Activé",
-      icon: CheckCircle2
+  const paymentTypes = [
+    {
+      type: "card",
+      title: "Carte bancaire",
+      description: "Visa, Mastercard, American Express",
+      icon: CreditCard,
+      color: "from-blue-50 to-blue-100"
     },
-    { 
-      title: "Notifications de paiement", 
-      description: "Recevoir des alertes avant les prélèvements",
-      status: "Activé",
-      icon: Bell
+    {
+      type: "mobile",
+      title: "Mobile Money",
+      description: "Orange Money, MTN, Moov",
+      icon: Smartphone,
+      color: "from-orange-50 to-orange-100"
     },
-    { 
-      title: "Protection anti-fraude", 
-      description: "Surveillance des transactions suspectes",
-      status: "Activé",
-      icon: Shield
+    {
+      type: "bank",
+      title: "Compte bancaire",
+      description: "Virement SEPA, RIB",
+      icon: Building2,
+      color: "from-green-50 to-green-100"
+    },
+    {
+      type: "wallet",
+      title: "Wallet digital",
+      description: "PayPal, Apple Pay, Google Pay",
+      icon: Wallet,
+      color: "from-purple-50 to-purple-100"
     }
   ];
 
   return (
-    <div className="p-8 bg-gray-50/30 min-h-screen">
-      <div className="max-w-7xl mx-auto space-y-8">
-        {/* Header */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Moyens de paiement</h1>
-            <p className="text-gray-600 text-lg">Gérez vos cartes et préférences de paiement</p>
+    <div className="min-h-screen bg-white">
+      <div className="max-w-4xl mx-auto px-6 py-12">
+        
+        {/* Header - Ultra minimal */}
+        <div className="mb-16">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-light text-gray-900 mb-2">
+                Paiements
+              </h1>
+              <p className="text-gray-500 text-lg font-light">
+                Gérez vos méthodes de paiement
+              </p>
+            </div>
+            <Button className="bg-black text-white hover:bg-gray-800 rounded-full px-6 py-2 font-medium transition-all duration-200">
+              <Plus className="w-4 h-4 mr-2" />
+              Ajouter
+            </Button>
           </div>
-          <Button className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-200">
-            <Plus className="w-5 h-5 mr-2" />
-            Ajouter une carte
-          </Button>
         </div>
 
-        {/* Payment Methods */}
-        <div className="space-y-4">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">Cartes enregistrées</h2>
+        {/* Quick Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+          <div className="group">
+            <div className="text-3xl font-light text-gray-900 mb-1">
+              4<span className="text-lg text-gray-400"> méthodes</span>
+            </div>
+            <div className="text-sm text-gray-500 mb-2">Configurées</div>
+            <div className="text-xs text-green-600 font-medium">
+              ✓ Toutes vérifiées
+            </div>
+          </div>
+
+          <div className="group">
+            <div className="text-3xl font-light text-gray-900 mb-1">
+              1<span className="text-lg text-gray-400"> principale</span>
+            </div>
+            <div className="text-sm text-gray-500 mb-2">Méthode par défaut</div>
+            <div className="text-xs text-blue-600 font-medium">
+              Visa •••• 4242
+            </div>
+          </div>
+
+          <div className="group">
+            <div className="text-3xl font-light text-gray-900 mb-1">
+              100<span className="text-lg text-gray-400">%</span>
+            </div>
+            <div className="text-sm text-gray-500 mb-2">Sécurisé</div>
+            <div className="text-xs text-gray-600 font-medium flex items-center gap-1">
+              <Shield className="w-3 h-3" />
+              Cryptage SSL
+            </div>
+          </div>
+        </div>
+
+        {/* Current Payment Methods */}
+        <div className="space-y-6 mb-16">
+          <h2 className="text-xl font-light text-gray-900">Méthodes actives</h2>
           
-          {paymentMethods.map((method) => (
-            <Card key={method.id} className="border-0 shadow-sm hover:shadow-md transition-all duration-200 bg-white">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    <div className={`w-14 h-14 ${method.color} rounded-xl flex items-center justify-center shadow-sm`}>
-                      <CreditCard className="w-7 h-7 text-white" />
-                    </div>
-                    <div className="space-y-1">
-                      <div className="flex items-center gap-3">
-                        <span className="font-semibold text-gray-900 text-lg">{method.type}</span>
-                        <span className="text-gray-500 font-mono">•••• {method.last4}</span>
-                        {method.isDefault && (
-                          <Badge className="bg-green-100 text-green-800 hover:bg-green-100 px-3 py-1 rounded-full">
-                            Par défaut
-                          </Badge>
-                        )}
+          <div className="space-y-3">
+            {paymentMethods.map((method) => {
+              const IconComponent = method.icon;
+              return (
+                <Card key={method.id} className="border-0 shadow-sm hover:shadow-md transition-all duration-200 bg-white rounded-2xl overflow-hidden">
+                  <CardContent className="p-0">
+                    <div className="flex items-center justify-between p-6">
+                      <div className="flex items-center gap-4">
+                        <div className={`w-12 h-12 ${method.color} rounded-xl flex items-center justify-center shadow-sm`}>
+                          <IconComponent className="w-6 h-6 text-white" />
+                        </div>
+                        <div className="space-y-1">
+                          <div className="flex items-center gap-3">
+                            <span className="font-medium text-gray-900">{method.provider}</span>
+                            <span className="text-gray-500 font-mono text-sm">{method.identifier}</span>
+                            {method.isDefault && (
+                              <Badge className="bg-green-50 text-green-700 hover:bg-green-50 px-3 py-1 rounded-full text-xs border-0">
+                                Principal
+                              </Badge>
+                            )}
+                          </div>
+                          <p className="text-sm text-gray-500">{method.name} • {method.detail}</p>
+                        </div>
                       </div>
-                      <p className="text-gray-500">{method.name} • Expire {method.expiry}</p>
+                      
+                      <Button variant="ghost" size="sm" className="w-8 h-8 p-0 rounded-lg hover:bg-gray-50">
+                        <MoreHorizontal className="w-4 h-4 text-gray-400" />
+                      </Button>
                     </div>
-                  </div>
-                  
-                  <Button variant="ghost" size="sm" className="rounded-lg">
-                    <MoreHorizontal className="w-5 h-5" />
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-
-          {/* Add Payment Method CTA */}
-          <Card className="border-2 border-dashed border-gray-200 hover:border-gray-300 transition-colors bg-white">
-            <CardContent className="p-8">
-              <div className="flex flex-col items-center justify-center text-center space-y-4">
-                <div className="w-16 h-16 bg-gray-50 rounded-xl flex items-center justify-center">
-                  <Plus className="w-8 h-8 text-gray-400" />
-                </div>
-                <div className="space-y-2">
-                  <h3 className="font-semibold text-gray-900 text-lg">Ajouter une nouvelle carte</h3>
-                  <p className="text-gray-500">Visa, Mastercard, American Express</p>
-                </div>
-                <Button variant="outline" className="px-6 py-2 rounded-lg">
-                  Ajouter une carte
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
         </div>
 
-        {/* Payment Settings */}
-        <Card className="border-0 shadow-sm bg-white">
-          <CardHeader className="pb-4">
-            <CardTitle className="text-xl font-bold text-gray-900">Paramètres de paiement</CardTitle>
-            <p className="text-gray-500">Configurez vos préférences de paiement</p>
-          </CardHeader>
-          <CardContent className="space-y-6 pt-0">
-            {settings.map((setting, index) => (
-              <div key={index} className="flex items-center justify-between p-4 border border-gray-100 rounded-xl hover:bg-gray-50/50 transition-colors">
-                <div className="flex items-center gap-4">
-                  <div className="p-3 bg-gray-50 rounded-xl">
-                    <setting.icon className="w-5 h-5 text-gray-600" />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-gray-900">{setting.title}</p>
-                    <p className="text-sm text-gray-500">{setting.description}</p>
-                  </div>
-                </div>
-                <Badge className="bg-green-100 text-green-800 hover:bg-green-100 px-3 py-1 rounded-full">
-                  {setting.status}
-                </Badge>
-              </div>
-            ))}
-          </CardContent>
-        </Card>
+        {/* Add New Payment Method */}
+        <div className="space-y-6">
+          <h2 className="text-xl font-light text-gray-900">Ajouter une méthode</h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {paymentTypes.map((type) => {
+              const IconComponent = type.icon;
+              return (
+                <Card key={type.type} className="border border-gray-100 hover:border-gray-200 transition-colors bg-white rounded-2xl overflow-hidden group cursor-pointer">
+                  <CardContent className="p-6">
+                    <div className="flex items-start gap-4">
+                      <div className={`w-12 h-12 bg-gradient-to-br ${type.color} rounded-xl flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform`}>
+                        <IconComponent className="w-6 h-6 text-gray-700" />
+                      </div>
+                      <div className="flex-1 space-y-2">
+                        <h3 className="font-medium text-gray-900">{type.title}</h3>
+                        <p className="text-sm text-gray-500">{type.description}</p>
+                        <Button variant="ghost" className="text-xs text-gray-600 hover:text-gray-900 h-auto p-0 font-medium">
+                          Configurer →
+                        </Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Security Notice */}
+        <div className="mt-16 p-6 bg-gray-50 rounded-2xl">
+          <div className="flex items-center gap-3 mb-3">
+            <Shield className="w-5 h-5 text-gray-600" />
+            <span className="font-medium text-gray-900">Sécurité & Confidentialité</span>
+          </div>
+          <p className="text-sm text-gray-600 leading-relaxed">
+            Toutes vos informations de paiement sont cryptées et sécurisées. 
+            Nous ne stockons jamais vos données bancaires complètes sur nos serveurs.
+          </p>
+        </div>
       </div>
     </div>
   );
