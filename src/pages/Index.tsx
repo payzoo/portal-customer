@@ -50,13 +50,15 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex w-full">
+    <div className="min-h-screen bg-white flex w-full">
       <Sidebar 
         activeSection={activeSection} 
         onSectionChange={setActiveSection} 
       />
-      <main className="flex-1 min-h-screen">
-        {renderContent()}
+      <main className="flex-1 min-h-screen ml-80 bg-white">
+        <div className="p-8">
+          {renderContent()}
+        </div>
       </main>
     </div>
   );

@@ -26,8 +26,8 @@ export default {
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
 				primary: {
-					DEFAULT: 'hsl(var(--primary))',
-					foreground: 'hsl(var(--primary-foreground))'
+					DEFAULT: '#000000',
+					foreground: '#ffffff'
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
@@ -63,10 +63,11 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// PayZoo brand colors
+				// PayZoo brand colors avec noir comme couleur principale
 				payzoo: {
 					green: '#B4DE00',
 					black: '#000000',
+					white: '#ffffff',
 					'green-50': '#F7FDE0',
 					'green-100': '#EDFB99',
 					'green-200': '#E3F966',
@@ -76,7 +77,17 @@ export default {
 					'green-600': '#9BC500',
 					'green-700': '#83AC00',
 					'green-800': '#6A9300',
-					'green-900': '#527A00'
+					'green-900': '#527A00',
+					'black-50': '#f7f7f7',
+					'black-100': '#e3e3e3',
+					'black-200': '#c7c7c7',
+					'black-300': '#a4a4a4',
+					'black-400': '#818181',
+					'black-500': '#666666',
+					'black-600': '#515151',
+					'black-700': '#434343',
+					'black-800': '#383838',
+					'black-900': '#000000'
 				}
 			},
 			borderRadius: {
@@ -108,12 +119,23 @@ export default {
 					'50%': {
 						opacity: '.8',
 					},
+				},
+				'pulse-black': {
+					'0%, 100%': {
+						opacity: '1',
+						backgroundColor: '#000000',
+					},
+					'50%': {
+						opacity: '.8',
+						backgroundColor: '#333333',
+					},
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
-				'pulse-green': 'pulse-green 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+				'pulse-green': 'pulse-green 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+				'pulse-black': 'pulse-black 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
 			}
 		}
 	},
