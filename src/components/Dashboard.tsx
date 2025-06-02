@@ -1,4 +1,3 @@
-
 import { TrendingUp, DollarSign, Target, Users, Plus, ArrowUpRight, Zap, Send, Wallet, CreditCard, History } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -20,7 +19,7 @@ export function Dashboard() {
   const quickActions = [
     {
       title: "Nouveau transfert",
-      description: "Vers un wallet PayZoo",
+      description: "Vers un wallet Payzoo",
       icon: Send,
       color: "from-payzoo-green-400 to-payzoo-green-600",
       action: "transfer"
@@ -128,7 +127,7 @@ export function Dashboard() {
 
           {/* Quick Actions */}
           <div>
-            <h2 className="text-xl font-light text-gray-900 mb-8">Actions PayZoo</h2>
+            <h2 className="text-xl font-light text-gray-900 mb-8">Actions Payzoo</h2>
             
             <div className="space-y-4">
               {quickActions.map((action, index) => (
@@ -146,10 +145,10 @@ export function Dashboard() {
               ))}
             </div>
 
-            {/* PayZoo Pro Card */}
+            {/* Payzoo Pro Card */}
             <div className="mt-12 p-8 bg-black text-white rounded-3xl">
               <div className="mb-6">
-                <div className="text-2xl font-light mb-2">PayZoo Pro 🚀</div>
+                <div className="text-2xl font-light mb-2">Payzoo Pro 🚀</div>
                 <div className="text-gray-300 text-sm font-light">
                   Débloquez les fonctionnalités premium pour les particuliers
                 </div>

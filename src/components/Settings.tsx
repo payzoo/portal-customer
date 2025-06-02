@@ -1,4 +1,3 @@
-
 import { User, Shield, Bell, HelpCircle, LogOut, ChevronRight, Lock, Smartphone, Globe, Mail, CreditCard } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -32,7 +31,7 @@ export function Settings() {
   ];
 
   const supportSettings = [
-    { icon: HelpCircle, title: "Centre d'aide PayZoo" },
+    { icon: HelpCircle, title: "Centre d'aide Payzoo" },
     { icon: HelpCircle, title: "Chat support 24/7" },
     { icon: CreditCard, title: "Facturation & Abonnements" },
   ];
@@ -42,7 +41,7 @@ export function Settings() {
       <div className="max-w-4xl mx-auto space-y-6">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-gray-900">Paramètres PayZoo</h1>
+          <h1 className="text-2xl font-bold text-gray-900">Paramètres Payzoo</h1>
           <p className="text-gray-500 mt-1">Personnalise ton expérience de paiement web 🌐</p>
         </div>
 
@@ -75,12 +74,12 @@ export function Settings() {
           </CardContent>
         </Card>
 
-        {/* PayZoo Features Web */}
+        {/* Payzoo Features Web */}
         <Card className="border-0 shadow-sm bg-white/80 backdrop-blur-sm">
           <CardHeader className="pb-3">
             <CardTitle className="text-lg font-semibold text-gray-900 flex items-center gap-2">
               <CreditCard className="w-5 h-5 text-payzoo-primary" />
-              Fonctionnalités PayZoo Web
+              Fonctionnalités Payzoo Web
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4 pt-0">
@@ -254,7 +253,7 @@ export function Settings() {
               variant="destructive" 
               className="w-full justify-center h-10 rounded-lg font-medium bg-red-500 hover:bg-red-600"
             >
-              Supprimer le compte PayZoo
+              Supprimer le compte Payzoo
             </Button>
             
             <p className="text-xs text-gray-400 text-center mt-2">

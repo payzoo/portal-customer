@@ -36,7 +36,7 @@ export function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
             <span className="text-black font-bold text-xl">P</span>
           </div>
           <div>
-            <h2 className="font-bold text-gray-900 text-xl">PayZoo</h2>
+            <h2 className="font-bold text-gray-900 text-xl">Payzoo</h2>
             <p className="text-sm text-gray-500">Interface web</p>
           </div>
         </div>
@@ -99,7 +99,7 @@ export function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
           <LogOut className="w-5 h-5 mr-3" />
           Se déconnecter
         </Button>
-        <p className="text-xs text-gray-400 mt-4 text-center">PayZoo Web v2.0.0 • Dashboard particuliers</p>
+        <p className="text-xs text-gray-400 mt-4 text-center">Payzoo Web v2.0.0 • Dashboard particuliers</p>
       </div>
     </div>
   );
