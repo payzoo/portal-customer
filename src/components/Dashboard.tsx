@@ -1,4 +1,3 @@
-
 import { TrendingUp, Send, Calendar, Target, Plus, Eye, EyeOff, PiggyBank, TrendingDown, Coffee, ShoppingBag, Car, Home, ArrowUpRight, Shield, Zap, Activity, Sparkles, Brain, Cpu, Stars } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -10,6 +9,7 @@ export function Dashboard() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
   const [animatedProgress, setAnimatedProgress] = useState(0);
+  const [hoveredAction, setHoveredAction] = useState<string | null>(null);
   
   const monthlyBudget = 2500;
   const currentSpent = 1847.50;
@@ -65,6 +65,31 @@ export function Dashboard() {
     { name: "Spotify", amount: "9.99", time: "1j", category: "Divertissement", icon: Target, color: "from-purple-500 to-pink-500" },
     { name: "Uber", amount: "23.40", time: "2j", category: "Transport", icon: Car, color: "from-green-500 to-emerald-500" },
     { name: "Amazon", amount: "67.89", time: "3j", category: "Shopping", icon: ShoppingBag, color: "from-orange-500 to-red-500" },
+  ];
+
+  const quickActions = [
+    {
+      id: "analyze",
+      title: "Analyser dépenses",
+      subtitle: "Rapport détaillé avec IA",
+      icon: TrendingUp,
+      color: "from-blue-500 to-cyan-500",
+      bgGradient: "from-blue-500/5 to-cyan-500/5",
+      hoverBg: "from-blue-500/10 to-cyan-500/10",
+      description: "Analyse intelligente de vos habitudes",
+      metrics: "98% de précision"
+    },
+    {
+      id: "goals",
+      title: "Définir objectifs",
+      subtitle: "Budget personnalisé",
+      icon: Target,
+      color: "from-purple-500 to-pink-500",
+      bgGradient: "from-purple-500/5 to-pink-500/5",
+      hoverBg: "from-purple-500/10 to-pink-500/10",
+      description: "Objectifs adaptatifs et intelligents",
+      metrics: "5min de config"
+    }
   ];
 
   return (
@@ -308,26 +333,121 @@ export function Dashboard() {
               </div>
             </div>
 
-            {/* Quick actions with enhanced styling */}
+            {/* Enhanced Quick actions with futuristic design */}
             <div className={`transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ animationDelay: '1000ms' }}>
-              <h3 className="payzoo-subsection-title mb-6">Actions rapides</h3>
-              <div className="space-y-3">
-                <Button className="payzoo-btn-secondary w-full justify-start payzoo-card-content h-auto group relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-cyan-500/5 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-500"></div>
-                  <TrendingUp className="w-5 h-5 mr-3 text-muted-foreground group-hover:scale-110 transition-transform duration-300 relative z-10" />
-                  <div className="text-left relative z-10">
-                    <div className="payzoo-body-sm font-medium text-foreground">Analyser dépenses</div>
-                    <div className="payzoo-caption text-muted-foreground">Rapport détaillé</div>
+              <div className="flex items-center gap-3 mb-6">
+                <h3 className="payzoo-subsection-title">Actions rapides</h3>
+                <div className="flex items-center gap-1">
+                  <div className="w-1 h-1 bg-foreground/40 rounded-full animate-pulse"></div>
+                  <div className="w-1 h-1 bg-foreground/60 rounded-full animate-pulse" style={{ animationDelay: '200ms' }}></div>
+                  <div className="w-1 h-1 bg-foreground/80 rounded-full animate-pulse" style={{ animationDelay: '400ms' }}></div>
+                </div>
+              </div>
+              
+              <div className="space-y-4">
+                {quickActions.map((action, index) => (
+                  <div
+                    key={action.id}
+                    className="relative group cursor-pointer"
+                    onMouseEnter={() => setHoveredAction(action.id)}
+                    onMouseLeave={() => setHoveredAction(null)}
+                    style={{ animationDelay: `${1100 + index * 100}ms` }}
+                  >
+                    {/* Main button container */}
+                    <div className="relative overflow-hidden rounded-xl border border-border/50 bg-card/50 backdrop-blur-sm transition-all duration-500 group-hover:border-border group-hover:bg-card/80 group-hover:shadow-lg group-hover:shadow-foreground/5 group-hover:scale-[1.02]">
+                      
+                      {/* Animated background gradients */}
+                      <div className={`absolute inset-0 bg-gradient-to-r ${action.bgGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
+                      <div className={`absolute inset-0 bg-gradient-to-r ${action.hoverBg} translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-700 ease-out`}></div>
+                      
+                      {/* Shimmer effect */}
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-200%] group-hover:translate-x-200 transition-transform duration-1000 ease-in-out"></div>
+                      
+                      {/* Floating particles effect */}
+                      {hoveredAction === action.id && (
+                        <>
+                          <div className="absolute top-2 right-4 w-1 h-1 bg-white/60 rounded-full animate-ping"></div>
+                          <div className="absolute bottom-3 left-6 w-0.5 h-0.5 bg-white/40 rounded-full animate-pulse" style={{ animationDelay: '300ms' }}></div>
+                          <div className="absolute top-1/2 right-8 w-0.5 h-0.5 bg-white/50 rounded-full animate-bounce" style={{ animationDelay: '600ms' }}></div>
+                        </>
+                      )}
+                      
+                      {/* Content */}
+                      <div className="relative z-10 p-5">
+                        <div className="flex items-start gap-4">
+                          {/* Enhanced icon container */}
+                          <div className="relative flex-shrink-0">
+                            <div className={`w-12 h-12 bg-gradient-to-r ${action.color} rounded-xl flex items-center justify-center shadow-lg transition-all duration-500 group-hover:scale-110 group-hover:rotate-3`}>
+                              <action.icon className="w-6 h-6 text-white transition-transform duration-300 group-hover:scale-110" />
+                            </div>
+                            
+                            {/* Orbital ring effect */}
+                            <div className={`absolute inset-0 border border-gradient-to-r ${action.color.replace('bg-', 'border-')} rounded-xl opacity-0 group-hover:opacity-30 transition-opacity duration-500 animate-pulse`}></div>
+                            
+                            {/* Status indicator */}
+                            <div className="absolute -top-1 -right-1 w-3 h-3 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse">
+                              <div className="absolute inset-0.5 bg-white rounded-full"></div>
+                            </div>
+                          </div>
+                          
+                          {/* Text content */}
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-start justify-between mb-2">
+                              <div>
+                                <h4 className="payzoo-body-sm font-medium text-foreground group-hover:text-foreground/90 transition-colors duration-300">
+                                  {action.title}
+                                </h4>
+                                <p className="payzoo-caption text-muted-foreground group-hover:text-muted-foreground/80 transition-colors duration-300">
+                                  {action.subtitle}
+                                </p>
+                              </div>
+                              
+                              {/* Action indicator */}
+                              <div className="flex items-center gap-2 opacity-60 group-hover:opacity-100 transition-opacity duration-300">
+                                <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
+                              </div>
+                            </div>
+                            
+                            {/* Enhanced description with metrics */}
+                            <div className="space-y-2">
+                              <p className="text-xs text-muted-foreground/80 leading-relaxed group-hover:text-muted-foreground transition-colors duration-300">
+                                {action.description}
+                              </p>
+                              
+                              {/* Metrics bar */}
+                              <div className="flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform translate-y-2 group-hover:translate-y-0">
+                                <div className="flex items-center gap-1">
+                                  <Zap className="w-3 h-3 text-blue-500" />
+                                  <span className="text-xs font-medium text-blue-600">{action.metrics}</span>
+                                </div>
+                                <div className="h-1 flex-1 bg-muted rounded-full overflow-hidden">
+                                  <div className={`h-full bg-gradient-to-r ${action.color} rounded-full transition-all duration-1000 ${hoveredAction === action.id ? 'w-full' : 'w-0'}`}></div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        {/* Bottom enhancement */}
+                        <div className="mt-4 pt-3 border-t border-border/30 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-2 group-hover:translate-y-0">
+                          <div className="flex items-center justify-between text-xs">
+                            <div className="flex items-center gap-2 text-muted-foreground/60">
+                              <Activity className="w-3 h-3" />
+                              <span>Prêt à utiliser</span>
+                            </div>
+                            <div className="flex items-center gap-1">
+                              <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
+                              <span className="text-green-600 font-medium">Actif</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      {/* Border enhancement */}
+                      <div className={`absolute inset-0 rounded-xl border border-gradient-to-r ${action.color.replace('from-', 'from-').replace('to-', 'to-')} opacity-0 group-hover:opacity-20 transition-opacity duration-500`}></div>
+                    </div>
                   </div>
-                </Button>
-                <Button className="payzoo-btn-secondary w-full justify-start payzoo-card-content h-auto group relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-pink-500/5 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-500"></div>
-                  <Target className="w-5 h-5 mr-3 text-muted-foreground group-hover:scale-110 transition-transform duration-300 relative z-10" />
-                  <div className="text-left relative z-10">
-                    <div className="payzoo-body-sm font-medium text-foreground">Définir objectifs</div>
-                    <div className="payzoo-caption text-muted-foreground">Budget personnalisé</div>
-                  </div>
-                </Button>
+                ))}
               </div>
             </div>
 
