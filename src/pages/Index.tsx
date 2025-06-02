@@ -1,5 +1,6 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { Sidebar } from "@/components/Sidebar";
 import { Dashboard } from "@/components/Dashboard";
 import { Subscriptions } from "@/components/Subscriptions";
@@ -8,7 +9,15 @@ import { Addresses } from "@/components/Addresses";
 import { Settings } from "@/components/Settings";
 
 const Index = () => {
+  const location = useLocation();
   const [activeSection, setActiveSection] = useState("dashboard");
+
+  // Check if we're returning from subscription details
+  useEffect(() => {
+    if (location.state?.activeSection) {
+      setActiveSection(location.state.activeSection);
+    }
+  }, [location.state]);
 
   const renderContent = () => {
     switch (activeSection) {
