@@ -14,7 +14,7 @@ const SubscriptionDetails = () => {
   const [showCardDetails, setShowCardDetails] = useState(false);
   const [activeSection, setActiveSection] = useState("subscriptions");
 
-  // Mock data - in a real app, this would be fetched based on the ID
+  // Mock data
   const subscription = {
     id: 1,
     name: "StackBlitz Inc",
@@ -25,7 +25,7 @@ const SubscriptionDetails = () => {
     nextBilling: "15 Juin 2025",
     billingCycle: "mensuel",
     logo: "S",
-    color: "bg-blue-600",
+    color: "payzoo-secondary-bg",
     category: "Développement",
     yearlyAmount: 600,
     startDate: "15 Janvier 2024",
@@ -114,12 +114,11 @@ const SubscriptionDetails = () => {
         <div className="flex flex-1 flex-col gap-6 p-6">
           <div className="max-w-6xl mx-auto w-full">
             
-            {/* Header ultra minimaliste */}
+            {/* Header unifié */}
             <div className="mb-12">
               <Button 
-                variant="ghost" 
+                className="payzoo-btn-ghost mb-8 -ml-2"
                 onClick={handleBackToSubscriptions}
-                className="mb-8 -ml-2 text-gray-600 hover:text-gray-900 p-2"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Retour
@@ -133,20 +132,20 @@ const SubscriptionDetails = () => {
                   
                   <div>
                     <div className="flex items-center gap-4 mb-2">
-                      <h1 className="text-3xl font-bold text-gray-900">
+                      <h1 className="text-3xl font-bold payzoo-secondary-text">
                         {subscription.name}
                       </h1>
                       <Badge className={`${getStatusColor(subscription.status)} px-3 py-1 text-sm font-medium rounded-full`}>
                         {getStatusLabel(subscription.status)}
                       </Badge>
                     </div>
-                    <p className="text-lg text-gray-600 mb-1">{subscription.plan}</p>
-                    <p className="text-gray-500">{subscription.description}</p>
+                    <p className="text-lg payzoo-subtitle mb-1">{subscription.plan}</p>
+                    <p className="payzoo-text-muted">{subscription.description}</p>
                   </div>
                 </div>
                 
                 <div className="flex gap-2">
-                  <Button variant="outline" size="sm" className="text-gray-600">
+                  <Button className="payzoo-btn-ghost">
                     <Settings className="w-4 h-4 mr-2" />
                     Paramètres
                   </Button>
@@ -164,74 +163,74 @@ const SubscriptionDetails = () => {
 
             <div className="grid grid-cols-12 gap-8">
               
-              {/* Contenu principal simplifié */}
+              {/* Contenu principal */}
               <div className="col-span-8 space-y-8">
                 
-                {/* Métriques essentielles */}
+                {/* Métriques */}
                 <div className="grid grid-cols-3 gap-6">
-                  <Card className="p-6 border-0 shadow-sm bg-white">
+                  <Card className="payzoo-card p-6">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm text-gray-500 mb-1">Prix mensuel</p>
-                        <p className="text-2xl font-bold text-gray-900">{subscription.amount}{subscription.currency}</p>
+                        <p className="text-sm payzoo-text-muted mb-1">Prix mensuel</p>
+                        <p className="text-2xl font-bold payzoo-secondary-text">{subscription.amount}{subscription.currency}</p>
                       </div>
                       <DollarSign className="w-8 h-8 text-blue-500" />
                     </div>
                   </Card>
 
-                  <Card className="p-6 border-0 shadow-sm bg-white">
+                  <Card className="payzoo-card p-6">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm text-gray-500 mb-1">Total 2025</p>
-                        <p className="text-2xl font-bold text-gray-900">{subscription.yearlyAmount}{subscription.currency}</p>
+                        <p className="text-sm payzoo-text-muted mb-1">Total 2025</p>
+                        <p className="text-2xl font-bold payzoo-secondary-text">{subscription.yearlyAmount}{subscription.currency}</p>
                       </div>
                       <TrendingUp className="w-8 h-8 text-emerald-500" />
                     </div>
                   </Card>
 
-                  <Card className="p-6 border-0 shadow-sm bg-white">
+                  <Card className="payzoo-card p-6">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm text-gray-500 mb-1">Prochain paiement</p>
-                        <p className="text-lg font-semibold text-gray-900">{subscription.nextBilling}</p>
+                        <p className="text-sm payzoo-text-muted mb-1">Prochain paiement</p>
+                        <p className="text-lg font-semibold payzoo-secondary-text">{subscription.nextBilling}</p>
                       </div>
                       <Calendar className="w-8 h-8 text-purple-500" />
                     </div>
                   </Card>
                 </div>
 
-                {/* Détails du plan épurés */}
-                <Card className="border-0 shadow-sm bg-white">
+                {/* Détails du plan */}
+                <Card className="payzoo-card">
                   <CardHeader className="pb-4">
-                    <CardTitle className="text-xl font-bold text-gray-900">Détails du plan</CardTitle>
+                    <CardTitle className="text-xl font-bold payzoo-secondary-text">Détails du plan</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-6">
                     <div className="grid grid-cols-2 gap-8">
                       <div>
-                        <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">Plan actuel</label>
-                        <p className="text-lg font-semibold text-gray-900 mt-1">{subscription.plan}</p>
+                        <label className="text-xs font-medium payzoo-text-muted uppercase tracking-wide">Plan actuel</label>
+                        <p className="text-lg font-semibold payzoo-secondary-text mt-1">{subscription.plan}</p>
                       </div>
                       <div>
-                        <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">Facturation</label>
-                        <p className="text-lg font-semibold text-gray-900 mt-1 capitalize">{subscription.billingCycle}</p>
+                        <label className="text-xs font-medium payzoo-text-muted uppercase tracking-wide">Facturation</label>
+                        <p className="text-lg font-semibold payzoo-secondary-text mt-1 capitalize">{subscription.billingCycle}</p>
                       </div>
                       <div>
-                        <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">Date de début</label>
-                        <p className="text-lg font-semibold text-gray-900 mt-1">{subscription.startDate}</p>
+                        <label className="text-xs font-medium payzoo-text-muted uppercase tracking-wide">Date de début</label>
+                        <p className="text-lg font-semibold payzoo-secondary-text mt-1">{subscription.startDate}</p>
                       </div>
                       <div>
-                        <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">Catégorie</label>
-                        <p className="text-lg font-semibold text-gray-900 mt-1">{subscription.category}</p>
+                        <label className="text-xs font-medium payzoo-text-muted uppercase tracking-wide">Catégorie</label>
+                        <p className="text-lg font-semibold payzoo-secondary-text mt-1">{subscription.category}</p>
                       </div>
                     </div>
                     
                     <div className="pt-6 border-t border-gray-100">
-                      <label className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-4 block">Fonctionnalités incluses</label>
+                      <label className="text-xs font-medium payzoo-text-muted uppercase tracking-wide mb-4 block">Fonctionnalités incluses</label>
                       <div className="grid grid-cols-2 gap-3">
                         {subscription.features.map((feature, index) => (
                           <div key={index} className="flex items-center gap-3">
                             <CheckCircle2 className="w-5 h-5 text-emerald-500" />
-                            <span className="text-gray-700">{feature}</span>
+                            <span className="payzoo-subtitle">{feature}</span>
                           </div>
                         ))}
                       </div>
@@ -239,28 +238,28 @@ const SubscriptionDetails = () => {
                   </CardContent>
                 </Card>
 
-                {/* Historique simplifié */}
-                <Card className="border-0 shadow-sm bg-white">
+                {/* Historique */}
+                <Card className="payzoo-card">
                   <CardHeader className="pb-4">
-                    <CardTitle className="text-xl font-bold text-gray-900">Historique des paiements</CardTitle>
+                    <CardTitle className="text-xl font-bold payzoo-secondary-text">Historique des paiements</CardTitle>
                   </CardHeader>
                   <CardContent className="p-0">
                     <Table>
                       <TableHeader>
                         <TableRow className="border-gray-100">
-                          <TableHead className="font-medium text-gray-600">Date</TableHead>
-                          <TableHead className="font-medium text-gray-600">Description</TableHead>
-                          <TableHead className="font-medium text-gray-600">Montant</TableHead>
-                          <TableHead className="font-medium text-gray-600">Statut</TableHead>
-                          <TableHead className="font-medium text-gray-600"></TableHead>
+                          <TableHead className="font-medium payzoo-subtitle">Date</TableHead>
+                          <TableHead className="font-medium payzoo-subtitle">Description</TableHead>
+                          <TableHead className="font-medium payzoo-subtitle">Montant</TableHead>
+                          <TableHead className="font-medium payzoo-subtitle">Statut</TableHead>
+                          <TableHead className="font-medium payzoo-subtitle"></TableHead>
                         </TableRow>
                       </TableHeader>
                       <TableBody>
                         {paymentHistory.map((payment) => (
                           <TableRow key={payment.id} className="border-gray-50">
-                            <TableCell className="font-medium text-gray-900">{payment.date}</TableCell>
-                            <TableCell className="text-gray-600">{payment.description}</TableCell>
-                            <TableCell className="font-semibold text-gray-900">
+                            <TableCell className="font-medium payzoo-secondary-text">{payment.date}</TableCell>
+                            <TableCell className="payzoo-subtitle">{payment.description}</TableCell>
+                            <TableCell className="font-semibold payzoo-secondary-text">
                               {payment.amount} {subscription.currency}
                             </TableCell>
                             <TableCell>
@@ -281,16 +280,16 @@ const SubscriptionDetails = () => {
                 </Card>
               </div>
 
-              {/* Sidebar droite minimaliste */}
+              {/* Sidebar droite */}
               <div className="col-span-4 space-y-6">
                 
-                {/* Méthode de paiement épurée */}
-                <Card className="border-0 shadow-sm bg-white">
+                {/* Méthode de paiement */}
+                <Card className="payzoo-card">
                   <CardHeader className="pb-4">
-                    <CardTitle className="text-lg font-bold text-gray-900">Méthode de paiement</CardTitle>
+                    <CardTitle className="text-lg font-bold payzoo-secondary-text">Méthode de paiement</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    <div className="p-6 bg-gray-900 rounded-2xl text-white">
+                    <div className="p-6 payzoo-secondary-bg rounded-2xl text-white">
                       <div className="flex items-center justify-between mb-6">
                         <div className="flex items-center gap-3">
                           <CreditCard className="w-6 h-6" />
@@ -319,26 +318,23 @@ const SubscriptionDetails = () => {
                         </p>
                       </div>
                     </div>
-                    <Button 
-                      className="w-full text-white"
-                      style={{ backgroundColor: '#B4DE00' }}
-                    >
+                    <Button className="payzoo-btn-primary w-full">
                       Modifier la méthode de paiement
                     </Button>
                   </CardContent>
                 </Card>
 
-                {/* Actions rapides simplifiées */}
-                <Card className="border-0 shadow-sm bg-white">
+                {/* Actions rapides */}
+                <Card className="payzoo-card">
                   <CardHeader className="pb-4">
-                    <CardTitle className="text-lg font-bold text-gray-900">Actions rapides</CardTitle>
+                    <CardTitle className="text-lg font-bold payzoo-secondary-text">Actions rapides</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-3">
-                    <Button variant="outline" className="w-full justify-start text-gray-700">
+                    <Button className="payzoo-btn-outline w-full justify-start">
                       <Calendar className="w-4 h-4 mr-3" />
                       Modifier la facturation
                     </Button>
-                    <Button variant="outline" className="w-full justify-start text-gray-700">
+                    <Button className="payzoo-btn-outline w-full justify-start">
                       <Download className="w-4 h-4 mr-3" />
                       Télécharger les factures
                     </Button>

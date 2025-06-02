@@ -26,12 +26,12 @@ export default {
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
 				primary: {
-					DEFAULT: '#000000',
-					foreground: '#ffffff'
+					DEFAULT: '#B4DE00',
+					foreground: '#000000'
 				},
 				secondary: {
-					DEFAULT: 'hsl(var(--secondary))',
-					foreground: 'hsl(var(--secondary-foreground))'
+					DEFAULT: '#000000',
+					foreground: '#ffffff'
 				},
 				destructive: {
 					DEFAULT: 'hsl(var(--destructive))',
@@ -42,8 +42,8 @@ export default {
 					foreground: 'hsl(var(--muted-foreground))'
 				},
 				accent: {
-					DEFAULT: 'hsl(var(--accent))',
-					foreground: 'hsl(var(--accent-foreground))'
+					DEFAULT: '#B4DE00',
+					foreground: '#000000'
 				},
 				popover: {
 					DEFAULT: 'hsl(var(--popover))',
@@ -63,31 +63,23 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// PayZoo brand colors avec noir comme couleur principale
+				// Palette Payzoo unifiée
 				payzoo: {
-					green: '#B4DE00',
-					black: '#000000',
+					primary: '#B4DE00',
+					secondary: '#000000',
 					white: '#ffffff',
-					'green-50': '#F7FDE0',
-					'green-100': '#EDFB99',
-					'green-200': '#E3F966',
-					'green-300': '#D9F733',
-					'green-400': '#CEF500',
-					'green-500': '#B4DE00',
-					'green-600': '#9BC500',
-					'green-700': '#83AC00',
-					'green-800': '#6A9300',
-					'green-900': '#527A00',
-					'black-50': '#f7f7f7',
-					'black-100': '#e3e3e3',
-					'black-200': '#c7c7c7',
-					'black-300': '#a4a4a4',
-					'black-400': '#818181',
-					'black-500': '#666666',
-					'black-600': '#515151',
-					'black-700': '#434343',
-					'black-800': '#383838',
-					'black-900': '#000000'
+					gray: {
+						50: '#f9fafb',
+						100: '#f3f4f6',
+						200: '#e5e7eb',
+						300: '#d1d5db',
+						400: '#9ca3af',
+						500: '#6b7280',
+						600: '#4b5563',
+						700: '#374151',
+						800: '#1f2937',
+						900: '#111827'
+					}
 				}
 			},
 			borderRadius: {
@@ -97,45 +89,27 @@ export default {
 			},
 			keyframes: {
 				'accordion-down': {
-					from: {
-						height: '0'
-					},
-					to: {
-						height: 'var(--radix-accordion-content-height)'
-					}
+					from: { height: '0' },
+					to: { height: 'var(--radix-accordion-content-height)' }
 				},
 				'accordion-up': {
-					from: {
-						height: 'var(--radix-accordion-content-height)'
-					},
-					to: {
-						height: '0'
-					}
+					from: { height: 'var(--radix-accordion-content-height)' },
+					to: { height: '0' }
 				},
-				'pulse-green': {
-					'0%, 100%': {
-						opacity: '1',
-					},
-					'50%': {
-						opacity: '.8',
-					},
+				'payzoo-pulse': {
+					'0%, 100%': { opacity: '1' },
+					'50%': { opacity: '.7' }
 				},
-				'pulse-black': {
-					'0%, 100%': {
-						opacity: '1',
-						backgroundColor: '#000000',
-					},
-					'50%': {
-						opacity: '.8',
-						backgroundColor: '#333333',
-					},
+				'payzoo-slide-up': {
+					'from': { opacity: '0', transform: 'translateY(20px)' },
+					'to': { opacity: '1', transform: 'translateY(0)' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
-				'pulse-green': 'pulse-green 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-				'pulse-black': 'pulse-black 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+				'payzoo-pulse': 'payzoo-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+				'payzoo-slide-up': 'payzoo-slide-up 0.3s ease-out'
 			}
 		}
 	},

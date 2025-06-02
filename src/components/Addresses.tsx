@@ -90,33 +90,33 @@ export function Addresses() {
         return {
           label: "Domicile",
           icon: Home,
-          color: "bg-black",
+          color: "payzoo-secondary-bg",
           bgColor: "bg-gray-50",
-          textColor: "text-gray-700",
+          textColor: "payzoo-subtitle",
         };
       case "work":
         return {
           label: "Travail",
           icon: Building2,
-          color: "bg-black",
+          color: "payzoo-secondary-bg",
           bgColor: "bg-gray-50",
-          textColor: "text-gray-700",
+          textColor: "payzoo-subtitle",
         };
       case "other":
         return {
           label: "Autre",
           icon: MapPin,
-          color: "bg-black",
+          color: "payzoo-secondary-bg",
           bgColor: "bg-gray-50",
-          textColor: "text-gray-700",
+          textColor: "payzoo-subtitle",
         };
       default:
         return {
           label: "Inconnu",
           icon: MapPin,
-          color: "bg-black",
+          color: "payzoo-secondary-bg",
           bgColor: "bg-gray-50",
-          textColor: "text-gray-700",
+          textColor: "payzoo-subtitle",
         };
     }
   };
@@ -130,9 +130,7 @@ export function Addresses() {
   };
 
   const handleToggleFavorite = (address: Address) => {
-    console.log(
-      `Basculer le statut favori pour l'adresse ${address.label}`
-    );
+    console.log(`Basculer le statut favori pour l'adresse ${address.label}`);
   };
 
   const handleArchive = (address: Address) => {
@@ -147,84 +145,84 @@ export function Addresses() {
     <div className="min-h-screen bg-white">
       <div className="max-w-5xl mx-auto px-8 py-12">
         
-        {/* Header ultra-minimaliste */}
+        {/* Header unifié */}
         <div className="mb-16">
-          <h1 className="text-5xl font-light text-black mb-3 tracking-tight">
+          <h1 className="text-5xl payzoo-title mb-3 tracking-tight">
             Adresses
           </h1>
-          <p className="text-gray-500 text-lg font-light">
+          <p className="payzoo-subtitle text-lg font-light">
             Gérez vos adresses en toute simplicité
           </p>
         </div>
 
-        {/* Métriques essentielles avec design noir */}
+        {/* Métriques avec design unifié */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-16">
-          <Card className="border border-gray-100 bg-white hover:border-black transition-all duration-300">
+          <Card className="payzoo-card-hover">
             <CardContent className="p-8">
               <div className="flex items-center justify-between mb-6">
-                <div className="w-12 h-12 bg-black rounded-lg flex items-center justify-center">
+                <div className="w-12 h-12 payzoo-secondary-bg rounded-lg flex items-center justify-center">
                   <MapPin className="w-6 h-6 text-white" />
                 </div>
               </div>
               <div>
-                <div className="text-3xl font-light text-black mb-2">
+                <div className="text-3xl font-light payzoo-secondary-text mb-2">
                   {addresses.length}
                 </div>
-                <div className="text-sm text-gray-500 font-medium">Total</div>
+                <div className="text-sm payzoo-text-muted font-medium">Total</div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="border border-gray-100 bg-white hover:border-black transition-all duration-300">
+          <Card className="payzoo-card-hover">
             <CardContent className="p-8">
               <div className="flex items-center justify-between mb-6">
-                <div className="w-12 h-12 bg-black rounded-lg flex items-center justify-center">
+                <div className="w-12 h-12 payzoo-secondary-bg rounded-lg flex items-center justify-center">
                   <Star className="w-6 h-6 text-white" />
                 </div>
               </div>
               <div>
-                <div className="text-3xl font-light text-black mb-2">
+                <div className="text-3xl font-light payzoo-secondary-text mb-2">
                   {favoriteCount}
                 </div>
-                <div className="text-sm text-gray-500 font-medium">Favorites</div>
+                <div className="text-sm payzoo-text-muted font-medium">Favorites</div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="border border-gray-100 bg-white hover:border-black transition-all duration-300">
+          <Card className="payzoo-card-hover">
             <CardContent className="p-8">
               <div className="flex items-center justify-between mb-6">
-                <div className="w-12 h-12 bg-black rounded-lg flex items-center justify-center">
+                <div className="w-12 h-12 payzoo-secondary-bg rounded-lg flex items-center justify-center">
                   <Home className="w-6 h-6 text-white" />
                 </div>
               </div>
               <div>
-                <div className="text-3xl font-light text-black mb-2">
+                <div className="text-3xl font-light payzoo-secondary-text mb-2">
                   {homeCount}
                 </div>
-                <div className="text-sm text-gray-500 font-medium">Domicile</div>
+                <div className="text-sm payzoo-text-muted font-medium">Domicile</div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="border border-gray-100 bg-white hover:border-black transition-all duration-300">
+          <Card className="payzoo-card-hover">
             <CardContent className="p-8">
               <div className="flex items-center justify-between mb-6">
-                <div className="w-12 h-12 bg-black rounded-lg flex items-center justify-center">
+                <div className="w-12 h-12 payzoo-secondary-bg rounded-lg flex items-center justify-center">
                   <Building2 className="w-6 h-6 text-white" />
                 </div>
               </div>
               <div>
-                <div className="text-3xl font-light text-black mb-2">
+                <div className="text-3xl font-light payzoo-secondary-text mb-2">
                   {workCount}
                 </div>
-                <div className="text-sm text-gray-500 font-medium">Travail</div>
+                <div className="text-sm payzoo-text-muted font-medium">Travail</div>
               </div>
             </CardContent>
           </Card>
         </div>
 
-        {/* Barre de recherche et filtres ultra-simples */}
+        {/* Barre de recherche et filtres */}
         <div className="mb-12">
           <div className="flex gap-4">
             <div className="relative flex-1">
@@ -234,11 +232,11 @@ export function Addresses() {
                 placeholder="Rechercher une adresse..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-16 pr-6 py-6 bg-white border border-gray-200 rounded-xl focus:border-black focus:outline-none transition-all duration-300 text-gray-900 text-lg"
+                className="w-full pl-16 pr-6 py-6 bg-white border border-gray-200 rounded-xl payzoo-focus transition-all duration-300 payzoo-secondary-text text-lg"
               />
             </div>
             <Select value={filterType} onValueChange={setFilterType}>
-              <SelectTrigger className="w-48 bg-white border border-gray-200 rounded-xl h-16 focus:border-black transition-all duration-300 text-lg">
+              <SelectTrigger className="w-48 bg-white border border-gray-200 rounded-xl h-16 payzoo-focus transition-all duration-300 text-lg">
                 <SelectValue placeholder="Type" />
               </SelectTrigger>
               <SelectContent className="bg-white border border-gray-200 rounded-xl shadow-xl">
@@ -251,16 +249,16 @@ export function Addresses() {
           </div>
         </div>
 
-        {/* Liste des adresses ultra-épurée */}
+        {/* Liste des adresses */}
         <div className="space-y-4 mb-16">
           {filteredAddresses.length === 0 ? (
-            <Card className="border border-gray-100 bg-white">
+            <Card className="payzoo-card">
               <CardContent className="p-16 text-center">
                 <div className="w-16 h-16 bg-gray-50 rounded-xl flex items-center justify-center mx-auto mb-6">
                   <Search className="w-8 h-8 text-gray-300" />
                 </div>
-                <h3 className="text-xl font-light text-black mb-3">Aucun résultat</h3>
-                <p className="text-gray-500">
+                <h3 className="text-xl font-light payzoo-secondary-text mb-3">Aucun résultat</h3>
+                <p className="payzoo-text-muted">
                   Aucune adresse ne correspond à vos critères.
                 </p>
               </CardContent>
@@ -272,7 +270,7 @@ export function Addresses() {
               return (
                 <Card 
                   key={address.id} 
-                  className="border border-gray-100 bg-white hover:border-black transition-all duration-300 cursor-pointer group"
+                  className="payzoo-card-hover cursor-pointer group"
                 >
                   <CardContent className="p-8">
                     <div className="flex items-center justify-between">
@@ -282,20 +280,20 @@ export function Addresses() {
                         </div>
                         <div className="flex-1">
                           <div className="flex items-center gap-4 mb-3">
-                            <h3 className="text-xl font-light text-black">{address.label}</h3>
+                            <h3 className="text-xl font-light payzoo-secondary-text">{address.label}</h3>
                             {address.isDefault && (
-                              <Badge className="px-3 py-1 rounded-full text-xs bg-black text-white border-0">
+                              <Badge className="px-3 py-1 rounded-full text-xs payzoo-secondary-bg text-white border-0">
                                 Par défaut
                               </Badge>
                             )}
                             {address.isFavorite && (
-                              <Star className="w-5 h-5 text-black fill-current" />
+                              <Star className="w-5 h-5 payzoo-secondary-text fill-current" />
                             )}
                           </div>
-                          <div className="text-gray-600 mb-2 text-lg">
+                          <div className="payzoo-subtitle mb-2 text-lg">
                             {address.street}, {address.city}
                           </div>
-                          <div className="text-gray-400 text-sm">
+                          <div className="payzoo-text-muted text-sm">
                             {address.zipCode} • {address.country}
                           </div>
                         </div>
@@ -353,7 +351,7 @@ export function Addresses() {
                                 onClick={() => handleToggleFavorite(address)}
                                 className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 rounded-lg"
                               >
-                                <Star className={`w-4 h-4 ${address.isFavorite ? 'text-black fill-current' : 'text-gray-500'}`} />
+                                <Star className={`w-4 h-4 ${address.isFavorite ? 'payzoo-secondary-text fill-current' : 'text-gray-500'}`} />
                                 <span>{address.isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris'}</span>
                               </DropdownMenuItem>
                               <DropdownMenuSeparator />
@@ -383,17 +381,17 @@ export function Addresses() {
           )}
         </div>
 
-        {/* Ajouter une adresse - Version ultra-minimaliste */}
-        <Card className="border-2 border-dashed border-gray-200 bg-white hover:border-black transition-all duration-300 cursor-pointer group">
+        {/* CTA Ajouter une adresse */}
+        <Card className="border-2 border-dashed border-gray-200 bg-white hover:border-[#B4DE00] transition-all duration-300 cursor-pointer group">
           <CardContent className="p-12">
             <div className="flex flex-col items-center text-center">
-              <div className="w-20 h-20 bg-black rounded-2xl flex items-center justify-center mb-8 group-hover:scale-105 transition-transform duration-300">
+              <div className="w-20 h-20 payzoo-secondary-bg rounded-2xl flex items-center justify-center mb-8 group-hover:scale-105 transition-transform duration-300">
                 <Plus className="w-10 h-10 text-white" />
               </div>
-              <h3 className="text-2xl font-light text-black mb-4">
+              <h3 className="text-2xl font-light payzoo-secondary-text mb-4">
                 Ajouter une adresse
               </h3>
-              <p className="text-gray-500 text-lg max-w-md">
+              <p className="payzoo-text-muted text-lg max-w-md">
                 Créez une nouvelle adresse pour simplifier vos commandes
               </p>
             </div>
