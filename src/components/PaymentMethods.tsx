@@ -1,4 +1,4 @@
-import { CreditCard, Plus, MoreHorizontal, Shield, Smartphone, Building2, Wallet, Star, Trash2, Pencil, Eye, MapPin, CheckCircle2, XCircle, Clock, AlertTriangle, ArrowRight, Zap, TrendingUp, TrendingDown, DollarSign, Activity, Target } from "lucide-react";
+import { CreditCard, Plus, MoreHorizontal, Shield, Smartphone, Building2, Wallet, Star, Trash2, Pencil, Eye, MapPin, CheckCircle2, XCircle, Clock, AlertTriangle, ArrowRight, Zap, TrendingUp, Activity, Target } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -109,29 +109,29 @@ export function PaymentMethods() {
   const paymentTypes = [
     {
       type: "card",
-      title: "Carte bancaire",
-      description: "Visa, Mastercard, American Express",
+      title: "Carte",
+      description: "Visa, Mastercard",
       icon: CreditCard,
       color: "from-blue-500 to-blue-600"
     },
     {
       type: "mobile",
-      title: "Mobile Money",
-      description: "Orange Money, MTN, Moov",
+      title: "Mobile",
+      description: "Orange, MTN",
       icon: Smartphone,
       color: "from-orange-500 to-orange-600"
     },
     {
       type: "bank",
-      title: "Compte bancaire",
-      description: "Virement SEPA, RIB",
+      title: "Banque",
+      description: "Virement SEPA",
       icon: Building2,
       color: "from-green-500 to-green-600"
     },
     {
       type: "wallet",
-      title: "Wallet digital",
-      description: "PayPal, Apple Pay, Google Pay",
+      title: "Wallet",
+      description: "PayPal, Apple Pay",
       icon: Wallet,
       color: "from-purple-500 to-purple-600"
     }
@@ -141,30 +141,23 @@ export function PaymentMethods() {
     switch (status) {
       case 'active':
         return (
-          <Badge className="bg-green-50 text-green-700 hover:bg-green-50 px-3 py-1 rounded-lg text-xs border-0 font-medium">
+          <Badge className="bg-green-50 text-green-700 hover:bg-green-50 px-2 py-1 rounded-md text-xs border-0">
             <CheckCircle2 className="w-3 h-3 mr-1" />
-            Active
+            Actif
           </Badge>
         );
       case 'inactive':
         return (
-          <Badge className="bg-gray-50 text-gray-700 hover:bg-gray-50 px-3 py-1 rounded-lg text-xs border-0 font-medium">
+          <Badge className="bg-gray-50 text-gray-700 hover:bg-gray-50 px-2 py-1 rounded-md text-xs border-0">
             <XCircle className="w-3 h-3 mr-1" />
-            Inactive
+            Inactif
           </Badge>
         );
       case 'suspended':
         return (
-          <Badge className="bg-yellow-50 text-yellow-700 hover:bg-yellow-50 px-3 py-1 rounded-lg text-xs border-0 font-medium">
+          <Badge className="bg-yellow-50 text-yellow-700 hover:bg-yellow-50 px-2 py-1 rounded-md text-xs border-0">
             <Clock className="w-3 h-3 mr-1" />
-            Suspendue
-          </Badge>
-        );
-      case 'destroyed':
-        return (
-          <Badge className="bg-red-50 text-red-700 hover:bg-red-50 px-3 py-1 rounded-lg text-xs border-0 font-medium">
-            <AlertTriangle className="w-3 h-3 mr-1" />
-            Détruite
+            Suspendu
           </Badge>
         );
       default:
@@ -230,83 +223,21 @@ export function PaymentMethods() {
           <>
             <div className="space-y-2">
               <Label htmlFor="displayName" className="text-sm font-medium text-gray-700">Nom d'affichage</Label>
-              <Input id="displayName" placeholder="Ex: Carte principale, Carte bureau..." className="h-11" />
+              <Input id="displayName" placeholder="Ex: Carte principale" className="h-10" />
             </div>
             <div className="space-y-2">
               <Label htmlFor="cardNumber" className="text-sm font-medium text-gray-700">Numéro de carte</Label>
-              <Input id="cardNumber" placeholder="1234 5678 9012 3456" className="h-11" />
+              <Input id="cardNumber" placeholder="1234 5678 9012 3456" className="h-10" />
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-3">
               <div className="space-y-2">
-                <Label htmlFor="expiry" className="text-sm font-medium text-gray-700">Date d'expiration</Label>
-                <Input id="expiry" placeholder="MM/AA" className="h-11" />
+                <Label htmlFor="expiry" className="text-sm font-medium text-gray-700">Expiration</Label>
+                <Input id="expiry" placeholder="MM/AA" className="h-10" />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="cvv" className="text-sm font-medium text-gray-700">CVV</Label>
-                <Input id="cvv" placeholder="123" className="h-11" />
+                <Input id="cvv" placeholder="123" className="h-10" />
               </div>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="cardName" className="text-sm font-medium text-gray-700">Nom sur la carte</Label>
-              <Input id="cardName" placeholder="Nom complet" className="h-11" />
-            </div>
-            
-            {/* Section adresse de facturation */}
-            <div className="space-y-4 pt-4 border-t border-gray-200">
-              <h4 className="font-medium text-gray-900">Adresse de facturation</h4>
-              <div className="space-y-2">
-                <Label htmlFor="billingAddress" className="text-sm font-medium text-gray-700">Sélectionner une adresse</Label>
-                <Select value={selectedAddress} onValueChange={setSelectedAddress}>
-                  <SelectTrigger className="h-11">
-                    <SelectValue placeholder="Choisir une adresse" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {existingAddresses.map((address) => (
-                      <SelectItem key={address.id} value={address.id.toString()}>
-                        {address.name} - {address.street}, {address.city}
-                      </SelectItem>
-                    ))}
-                    <SelectItem value="new">+ Nouvelle adresse</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              
-              {selectedAddress === "new" && (
-                <div className="space-y-3">
-                  <div className="space-y-2">
-                    <Label htmlFor="addressName" className="text-sm font-medium text-gray-700">Nom de l'adresse</Label>
-                    <Input id="addressName" placeholder="Ex: Domicile, Bureau..." className="h-11" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="street" className="text-sm font-medium text-gray-700">Adresse</Label>
-                    <Input id="street" placeholder="Numéro et nom de rue" className="h-11" />
-                  </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="city" className="text-sm font-medium text-gray-700">Ville</Label>
-                      <Input id="city" placeholder="Ville" className="h-11" />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="postalCode" className="text-sm font-medium text-gray-700">Code postal</Label>
-                      <Input id="postalCode" placeholder="75001" className="h-11" />
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="country" className="text-sm font-medium text-gray-700">Pays</Label>
-                    <Select>
-                      <SelectTrigger className="h-11">
-                        <SelectValue placeholder="Sélectionner un pays" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="france">France</SelectItem>
-                        <SelectItem value="belgium">Belgique</SelectItem>
-                        <SelectItem value="switzerland">Suisse</SelectItem>
-                        <SelectItem value="canada">Canada</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-              )}
             </div>
           </>
         );
@@ -315,12 +246,12 @@ export function PaymentMethods() {
           <>
             <div className="space-y-2">
               <Label htmlFor="displayName" className="text-sm font-medium text-gray-700">Nom d'affichage</Label>
-              <Input id="displayName" placeholder="Ex: Mobile personnel, Mobile professionnel..." className="h-11" />
+              <Input id="displayName" placeholder="Ex: Mobile personnel" className="h-10" />
             </div>
             <div className="space-y-2">
               <Label htmlFor="provider" className="text-sm font-medium text-gray-700">Opérateur</Label>
               <Select>
-                <SelectTrigger className="h-11">
+                <SelectTrigger className="h-10">
                   <SelectValue placeholder="Choisir un opérateur" />
                 </SelectTrigger>
                 <SelectContent>
@@ -331,8 +262,8 @@ export function PaymentMethods() {
               </Select>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="phoneNumber" className="text-sm font-medium text-gray-700">Numéro de téléphone</Label>
-              <Input id="phoneNumber" placeholder="+33 6 12 34 56 78" className="h-11" />
+              <Label htmlFor="phoneNumber" className="text-sm font-medium text-gray-700">Numéro</Label>
+              <Input id="phoneNumber" placeholder="+33 6 12 34 56 78" className="h-10" />
             </div>
           </>
         );
@@ -341,19 +272,15 @@ export function PaymentMethods() {
           <>
             <div className="space-y-2">
               <Label htmlFor="displayName" className="text-sm font-medium text-gray-700">Nom d'affichage</Label>
-              <Input id="displayName" placeholder="Ex: Compte courant, Compte épargne..." className="h-11" />
+              <Input id="displayName" placeholder="Ex: Compte courant" className="h-10" />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="bankName" className="text-sm font-medium text-gray-700">Nom de la banque</Label>
-              <Input id="bankName" placeholder="BNP Paribas" className="h-11" />
+              <Label htmlFor="bankName" className="text-sm font-medium text-gray-700">Banque</Label>
+              <Input id="bankName" placeholder="BNP Paribas" className="h-10" />
             </div>
             <div className="space-y-2">
               <Label htmlFor="iban" className="text-sm font-medium text-gray-700">IBAN</Label>
-              <Input id="iban" placeholder="FR76 1234 5678 9012 3456 7890 123" className="h-11" />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="accountHolder" className="text-sm font-medium text-gray-700">Titulaire du compte</Label>
-              <Input id="accountHolder" placeholder="Nom complet" className="h-11" />
+              <Input id="iban" placeholder="FR76 1234 5678 9012 3456 7890 123" className="h-10" />
             </div>
           </>
         );
@@ -362,12 +289,12 @@ export function PaymentMethods() {
           <>
             <div className="space-y-2">
               <Label htmlFor="displayName" className="text-sm font-medium text-gray-700">Nom d'affichage</Label>
-              <Input id="displayName" placeholder="Ex: PayPal principal, Apple Pay..." className="h-11" />
+              <Input id="displayName" placeholder="Ex: PayPal principal" className="h-10" />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="walletType" className="text-sm font-medium text-gray-700">Type de wallet</Label>
+              <Label htmlFor="walletType" className="text-sm font-medium text-gray-700">Type</Label>
               <Select>
-                <SelectTrigger className="h-11">
+                <SelectTrigger className="h-10">
                   <SelectValue placeholder="Choisir un wallet" />
                 </SelectTrigger>
                 <SelectContent>
@@ -378,8 +305,8 @@ export function PaymentMethods() {
               </Select>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="walletEmail" className="text-sm font-medium text-gray-700">Email associé</Label>
-              <Input id="walletEmail" placeholder="email@example.com" className="h-11" />
+              <Label htmlFor="walletEmail" className="text-sm font-medium text-gray-700">Email</Label>
+              <Input id="walletEmail" placeholder="email@example.com" className="h-10" />
             </div>
           </>
         );
@@ -388,285 +315,113 @@ export function PaymentMethods() {
     }
   };
 
-  const defaultMethods = paymentMethods.filter(method => method.isDefault).length;
   const totalMethods = paymentMethods.length;
   const activeMethods = paymentMethods.filter(method => method.status === 'active').length;
 
-  // Nouvelles métriques pour l'élément percutant
-  const monthlyTransactions = 247;
-  const transactionGrowth = 18.5;
-  const securityScore = 97;
-  const avgTransactionTime = "1.2s";
-
   return (
-    <div className="min-h-screen bg-gray-50/30">
-      <div className="max-w-6xl mx-auto px-6 py-8">
+    <div className="min-h-screen bg-gray-50/50">
+      <div className="max-w-4xl mx-auto px-4 py-6">
         
-        {/* Header minimaliste */}
-        <div className="mb-10">
-          <h1 className="text-4xl font-light text-gray-900 mb-2 tracking-tight">
+        {/* Header épuré */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-semibold text-gray-900 mb-1">
             Paiements
           </h1>
-          <p className="text-gray-600 text-lg font-light">
-            Gérez vos moyens de paiement facilement
+          <p className="text-gray-600">
+            Gérez vos moyens de paiement
           </p>
         </div>
 
-        {/* Élément principal percutant - Centre financier */}
-        <Card className="border-0 shadow-lg bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 mb-10 overflow-hidden">
-          <CardContent className="p-0">
-            <div className="relative">
-              {/* Overlay décoratif */}
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10"></div>
-              <div className="absolute top-4 right-4 w-32 h-32 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-2xl"></div>
-              
-              <div className="relative p-8">
-                <div className="flex items-center justify-between mb-8">
-                  <div>
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center">
-                        <Activity className="w-5 h-5 text-white" />
-                      </div>
-                      <span className="text-gray-300 text-sm font-medium uppercase tracking-wider">Centre financier</span>
-                    </div>
-                    <h2 className="text-3xl font-bold text-white mb-1">Activité de paiement</h2>
-                    <p className="text-gray-400">Performance en temps réel de vos méthodes</p>
-                  </div>
-                  
-                  <div className="text-right">
-                    <div className="text-4xl font-bold text-white mb-1">{totalMethods}</div>
-                    <div className="text-gray-300 text-sm">Méthodes actives</div>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                  {/* Transactions mensuelles */}
-                  <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="w-8 h-8 bg-green-500/20 rounded-lg flex items-center justify-center">
-                        <TrendingUp className="w-4 h-4 text-green-400" />
-                      </div>
-                      <Badge className="bg-green-500/20 text-green-300 hover:bg-green-500/20 text-xs border-0">
-                        +{transactionGrowth}%
-                      </Badge>
-                    </div>
-                    <div className="text-2xl font-bold text-white mb-1">{monthlyTransactions}</div>
-                    <div className="text-gray-300 text-sm">Transactions ce mois</div>
-                    <div className="mt-3">
-                      <Progress value={75} className="h-1.5 bg-white/10" />
-                    </div>
-                  </div>
-
-                  {/* Score de sécurité */}
-                  <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center">
-                        <Shield className="w-4 h-4 text-blue-400" />
-                      </div>
-                      <Badge className="bg-blue-500/20 text-blue-300 hover:bg-blue-500/20 text-xs border-0">
-                        Excellent
-                      </Badge>
-                    </div>
-                    <div className="text-2xl font-bold text-white mb-1">{securityScore}%</div>
-                    <div className="text-gray-300 text-sm">Score sécurité</div>
-                    <div className="mt-3">
-                      <Progress value={securityScore} className="h-1.5 bg-white/10" />
-                    </div>
-                  </div>
-
-                  {/* Vitesse de traitement */}
-                  <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="w-8 h-8 bg-purple-500/20 rounded-lg flex items-center justify-center">
-                        <Zap className="w-4 h-4 text-purple-400" />
-                      </div>
-                      <Badge className="bg-purple-500/20 text-purple-300 hover:bg-purple-500/20 text-xs border-0">
-                        Rapide
-                      </Badge>
-                    </div>
-                    <div className="text-2xl font-bold text-white mb-1">{avgTransactionTime}</div>
-                    <div className="text-gray-300 text-sm">Temps moyen</div>
-                    <div className="mt-3">
-                      <div className="flex gap-1">
-                        {[1,2,3,4,5].map(i => (
-                          <div key={i} className={`h-1.5 flex-1 rounded-full ${i <= 4 ? 'bg-purple-400' : 'bg-white/10'}`}></div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Méthodes principales */}
-                  <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="w-8 h-8 bg-yellow-500/20 rounded-lg flex items-center justify-center">
-                        <Star className="w-4 h-4 text-yellow-400" />
-                      </div>
-                      <Badge className="bg-yellow-500/20 text-yellow-300 hover:bg-yellow-500/20 text-xs border-0">
-                        {defaultMethods > 0 ? 'Configuré' : 'Action requise'}
-                      </Badge>
-                    </div>
-                    <div className="text-2xl font-bold text-white mb-1">{defaultMethods}</div>
-                    <div className="text-gray-300 text-sm">Méthode principale</div>
-                    <div className="mt-3">
-                      <Progress value={defaultMethods > 0 ? 100 : 0} className="h-1.5 bg-white/10" />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Insights rapides */}
-                <div className="mt-6 flex items-center justify-between">
-                  <div className="flex items-center gap-4 text-sm">
-                    <div className="flex items-center gap-2 text-gray-300">
-                      <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                      <span>Tous les systèmes opérationnels</span>
-                    </div>
-                    <div className="text-gray-500">•</div>
-                    <div className="text-gray-300">
-                      Dernière synchronisation: Il y a 2 min
-                    </div>
-                  </div>
-                  
-                  <Button variant="outline" size="sm" className="bg-white/10 border-white/20 text-white hover:bg-white/20 rounded-lg">
-                    <Eye className="w-4 h-4 mr-2" />
-                    Voir les détails
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Métriques secondaires simplifiées */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+        {/* Stats minimalistes */}
+        <div className="grid grid-cols-2 gap-4 mb-8">
           <Card className="border-0 shadow-sm bg-white">
-            <CardContent className="p-6">
+            <CardContent className="p-5">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center">
-                    <CheckCircle2 className="w-5 h-5 text-green-600" />
-                  </div>
-                  <div>
-                    <div className="text-2xl font-semibold text-gray-900">{activeMethods}</div>
-                    <div className="text-sm text-gray-500">Méthodes actives</div>
-                  </div>
+                <div>
+                  <div className="text-2xl font-semibold text-gray-900">{activeMethods}</div>
+                  <div className="text-sm text-gray-500">Méthodes actives</div>
                 </div>
-                <div className="text-right">
-                  <div className="text-lg font-medium text-green-600">100%</div>
-                  <div className="text-xs text-gray-400">Disponibilité</div>
+                <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                  <CheckCircle2 className="w-5 h-5 text-green-600" />
                 </div>
               </div>
             </CardContent>
           </Card>
 
           <Card className="border-0 shadow-sm bg-white">
-            <CardContent className="p-6">
+            <CardContent className="p-5">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
-                    <Target className="w-5 h-5 text-blue-600" />
-                  </div>
-                  <div>
-                    <div className="text-2xl font-semibold text-gray-900">{totalMethods - activeMethods}</div>
-                    <div className="text-sm text-gray-500">En attente</div>
-                  </div>
+                <div>
+                  <div className="text-2xl font-semibold text-gray-900">{totalMethods}</div>
+                  <div className="text-sm text-gray-500">Total configurées</div>
                 </div>
-                <div className="text-right">
-                  <div className="text-lg font-medium text-blue-600">Optimiser</div>
-                  <div className="text-xs text-gray-400">Recommandé</div>
+                <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                  <CreditCard className="w-5 h-5 text-blue-600" />
                 </div>
               </div>
             </CardContent>
           </Card>
         </div>
 
-        {/* Liste des méthodes épurée */}
-        <div className="space-y-3 mb-12">
+        {/* Liste des méthodes simplifiée */}
+        <div className="space-y-2 mb-8">
           {paymentMethods.map((method) => {
             const IconComponent = method.icon;
             return (
-              <Card key={method.id} className="border-0 bg-white shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer group">
-                <CardContent className="p-6">
+              <Card key={method.id} className="border-0 bg-white shadow-sm hover:shadow-md transition-all duration-200 group">
+                <CardContent className="p-4">
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                      <div className={`w-12 h-12 ${method.color} rounded-xl flex items-center justify-center shadow-sm`}>
+                    <div className="flex items-center gap-3">
+                      <div className={`w-10 h-10 ${method.color} rounded-lg flex items-center justify-center`}>
                         <IconComponent className="w-5 h-5 text-white" />
                       </div>
-                      <div className="min-w-0 flex-1">
-                        <h3 className="font-medium text-gray-900 text-lg mb-1">{method.displayName}</h3>
-                        <div className="flex items-center gap-3 text-sm text-gray-500">
-                          <span className="min-w-fit">{method.provider}</span>
+                      <div>
+                        <h3 className="font-medium text-gray-900">{method.displayName}</h3>
+                        <div className="flex items-center gap-2 text-sm text-gray-500">
+                          <span>{method.provider}</span>
                           <span>•</span>
-                          <span className="font-mono min-w-fit">{method.identifier}</span>
-                          <span>•</span>
-                          <span className="min-w-fit">{method.detail}</span>
+                          <span className="font-mono">{method.identifier}</span>
                         </div>
                       </div>
                     </div>
                     
-                    <div className="flex items-center gap-6">
-                      <div className="flex items-center gap-3">
-                        {getStatusBadge(method.status)}
-                        {method.isDefault && (
-                          <Badge className="bg-blue-50 text-blue-700 hover:bg-blue-50 px-3 py-1 rounded-lg text-xs border-0 font-medium">
-                            <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2"></div>
-                            Principal
-                          </Badge>
-                        )}
-                      </div>
+                    <div className="flex items-center gap-3">
+                      {getStatusBadge(method.status)}
+                      {method.isDefault && (
+                        <Badge className="bg-blue-50 text-blue-700 hover:bg-blue-50 px-2 py-1 rounded-md text-xs border-0">
+                          <Star className="w-3 h-3 mr-1" />
+                          Principal
+                        </Badge>
+                      )}
                       
-                      <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                        {!method.isDefault && method.status === 'active' && (
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
                           <Button
                             variant="ghost"
                             size="sm"
-                            className="w-8 h-8 p-0 rounded-lg"
-                            onClick={() => handleSetDefault(method.id)}
+                            className="w-8 h-8 p-0 opacity-0 group-hover:opacity-100 transition-opacity"
                           >
-                            <Star className="w-4 h-4 text-gray-400" />
+                            <MoreHorizontal className="w-4 h-4 text-gray-400" />
                           </Button>
-                        )}
-                        
-                        <DropdownMenu>
-                          <DropdownMenuTrigger asChild>
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              className="w-8 h-8 p-0 rounded-lg"
-                            >
-                              <MoreHorizontal className="w-4 h-4 text-gray-400" />
-                            </Button>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent 
-                            align="end" 
-                            className="w-48 bg-white border-0 rounded-xl shadow-lg"
-                          >
-                            <DropdownMenuItem 
-                              onClick={() => handleEdit(method.id)}
-                              className="flex items-center gap-2 px-3 py-2 hover:bg-gray-50 rounded-lg"
-                            >
-                              <Pencil className="w-4 h-4 text-gray-500" />
-                              <span>Modifier</span>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end" className="w-40 bg-white border-0 shadow-lg">
+                          <DropdownMenuItem onClick={() => handleEdit(method.id)} className="text-sm">
+                            <Pencil className="w-4 h-4 mr-2" />
+                            Modifier
+                          </DropdownMenuItem>
+                          {!method.isDefault && method.status === 'active' && (
+                            <DropdownMenuItem onClick={() => handleSetDefault(method.id)} className="text-sm">
+                              <Star className="w-4 h-4 mr-2" />
+                              Par défaut
                             </DropdownMenuItem>
-                            {method.address && (
-                              <DropdownMenuItem 
-                                onClick={() => handleViewAddress(method.address)}
-                                className="flex items-center gap-2 px-3 py-2 hover:bg-gray-50 rounded-lg"
-                              >
-                                <MapPin className="w-4 h-4 text-gray-500" />
-                                <span>Voir l'adresse</span>
-                              </DropdownMenuItem>
-                            )}
-                            <DropdownMenuSeparator />
-                            <DropdownMenuItem 
-                              onClick={() => handleDelete(method.id)}
-                              className="flex items-center gap-2 px-3 py-2 hover:bg-red-50 rounded-lg"
-                            >
-                              <Trash2 className="w-4 h-4 text-red-500" />
-                              <span className="text-red-600">Supprimer</span>
-                            </DropdownMenuItem>
-                          </DropdownMenuContent>
-                        </DropdownMenu>
-                      </div>
+                          )}
+                          <DropdownMenuSeparator />
+                          <DropdownMenuItem onClick={() => handleDelete(method.id)} className="text-sm text-red-600">
+                            <Trash2 className="w-4 h-4 mr-2" />
+                            Supprimer
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
                     </div>
                   </div>
                 </CardContent>
@@ -675,160 +430,114 @@ export function PaymentMethods() {
           })}
         </div>
 
-        {/* CTA principal - Version startup moderne */}
-        <div className="space-y-8">
-          {/* Section principale */}
-          <Card className="border-0 bg-white shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group">
-            <CardContent className="p-0">
-              <div className="flex flex-col lg:flex-row">
-                {/* Contenu principal */}
-                <div className="flex-1 p-8 lg:p-12">
-                  <div className="max-w-md">
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="w-8 h-8 bg-gradient-to-r from-gray-900 to-gray-700 rounded-lg flex items-center justify-center">
-                        <Zap className="w-4 h-4 text-white" />
-                      </div>
-                      <span className="text-sm font-medium text-gray-500 uppercase tracking-wide">Setup rapide</span>
-                    </div>
-                    
-                    <h3 className="text-2xl font-semibold text-gray-900 mb-3">
-                      Nouvelle méthode de paiement
-                    </h3>
-                    
-                    <p className="text-gray-600 mb-6 leading-relaxed">
-                      Connectez votre carte, wallet ou compte bancaire en moins de 2 minutes. 
-                      Sécurisé et conforme aux standards européens.
-                    </p>
+        {/* CTA moderne et épuré */}
+        <Card className="border-0 bg-white shadow-sm overflow-hidden">
+          <CardContent className="p-0">
+            <div className="flex">
+              {/* Contenu principal */}
+              <div className="flex-1 p-6">
+                <div className="max-w-sm">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                    Ajouter une méthode
+                  </h3>
+                  <p className="text-gray-600 mb-6">
+                    Connectez votre carte, wallet ou compte en 2 minutes.
+                  </p>
 
-                    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                      <DialogTrigger asChild>
-                        <Button className="bg-gray-900 hover:bg-gray-800 text-white rounded-xl px-6 py-3 shadow-lg hover:shadow-xl transition-all duration-300 group/btn">
-                          <Plus className="w-4 h-4 mr-2 group-hover/btn:rotate-90 transition-transform duration-300" />
-                          Commencer
-                          <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform duration-300" />
-                        </Button>
-                      </DialogTrigger>
-                      {/* Dialog content reste identique */}
-                      <DialogContent className="sm:max-w-md max-h-[90vh] overflow-y-auto rounded-2xl border-0 shadow-xl">
-                        <DialogHeader className="pb-4">
-                          <DialogTitle className="text-xl font-light text-gray-900">Nouvelle méthode</DialogTitle>
-                        </DialogHeader>
-                        <form onSubmit={handleSubmit} className="space-y-4">
-                          <div className="space-y-2">
-                            <Label htmlFor="paymentType" className="text-sm font-medium text-gray-700">Type de paiement</Label>
-                            <Select value={selectedType} onValueChange={setSelectedType}>
-                              <SelectTrigger className="rounded-xl border-gray-200 h-11">
-                                <SelectValue placeholder="Choisir un type" />
-                              </SelectTrigger>
-                              <SelectContent className="rounded-xl border-0 shadow-lg bg-white">
-                                <SelectItem value="card" className="rounded-lg">Carte bancaire</SelectItem>
-                                <SelectItem value="mobile" className="rounded-lg">Mobile Money</SelectItem>
-                                <SelectItem value="bank" className="rounded-lg">Compte bancaire</SelectItem>
-                                <SelectItem value="wallet" className="rounded-lg">Wallet digital</SelectItem>
-                              </SelectContent>
-                            </Select>
-                          </div>
-                          
-                          {renderFormFields()}
-                          
-                          {selectedType && (
-                            <div className="flex gap-3 pt-6">
-                              <Button
-                                type="button"
-                                variant="outline"
-                                onClick={() => setIsDialogOpen(false)}
-                                className="flex-1 rounded-xl border-gray-200 h-11 font-light"
-                              >
-                                Annuler
-                              </Button>
-                              <Button type="submit" className="flex-1 bg-gray-900 text-white hover:bg-gray-800 rounded-xl h-11 font-light shadow-md">
-                                Ajouter
-                              </Button>
-                            </div>
-                          )}
-                        </form>
-                      </DialogContent>
-                    </Dialog>
-
-                    {/* Indicateurs de confiance */}
-                    <div className="flex items-center gap-6 mt-8 pt-6 border-t border-gray-100">
-                      <div className="flex items-center gap-2 text-sm text-gray-500">
-                        <Shield className="w-4 h-4 text-green-500" />
-                        <span>Sécurisé SSL</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-sm text-gray-500">
-                        <CheckCircle2 className="w-4 h-4 text-blue-500" />
-                        <span>Conforme PCI DSS</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Section visuelle moderne */}
-                <div className="lg:w-80 bg-gradient-to-br from-gray-50 to-gray-100 p-8 lg:p-12 flex flex-col justify-center">
-                  <div className="space-y-4">
-                    <h4 className="font-medium text-gray-900 mb-6">Types supportés</h4>
+                  <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                    <DialogTrigger asChild>
+                      <Button className="bg-gray-900 hover:bg-gray-800 text-white rounded-lg px-4 py-2 shadow-sm">
+                        <Plus className="w-4 h-4 mr-2" />
+                        Commencer
+                      </Button>
+                    </DialogTrigger>
                     
-                    {paymentTypes.map((type, index) => {
-                      const IconComponent = type.icon;
-                      return (
-                        <div 
-                          key={type.type} 
-                          className="flex items-center gap-3 p-3 rounded-xl bg-white/60 hover:bg-white transition-all duration-300 group/item"
-                          style={{ 
-                            animationDelay: `${index * 100}ms`,
-                            animation: 'fade-in 0.5s ease-out forwards'
-                          }}
-                        >
-                          <div className={`w-10 h-10 bg-gradient-to-r ${type.color} rounded-lg flex items-center justify-center shadow-sm group-hover/item:scale-110 transition-transform duration-300`}>
-                            <IconComponent className="w-5 h-5 text-white" />
-                          </div>
-                          <div className="min-w-0 flex-1">
-                            <div className="font-medium text-gray-900 text-sm">{type.title}</div>
-                            <div className="text-xs text-gray-500 truncate">{type.description}</div>
-                          </div>
+                    <DialogContent className="sm:max-w-md rounded-xl border-0 shadow-xl">
+                      <DialogHeader>
+                        <DialogTitle className="text-lg font-semibold text-gray-900">Nouvelle méthode</DialogTitle>
+                      </DialogHeader>
+                      <form onSubmit={handleSubmit} className="space-y-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="paymentType" className="text-sm font-medium text-gray-700">Type</Label>
+                          <Select value={selectedType} onValueChange={setSelectedType}>
+                            <SelectTrigger className="h-10">
+                              <SelectValue placeholder="Choisir un type" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="card">Carte bancaire</SelectItem>
+                              <SelectItem value="mobile">Mobile Money</SelectItem>
+                              <SelectItem value="bank">Compte bancaire</SelectItem>
+                              <SelectItem value="wallet">Wallet digital</SelectItem>
+                            </SelectContent>
+                          </Select>
                         </div>
-                      );
-                    })}
-                  </div>
+                        
+                        {renderFormFields()}
+                        
+                        {selectedType && (
+                          <div className="flex gap-3 pt-4">
+                            <Button
+                              type="button"
+                              variant="outline"
+                              onClick={() => setIsDialogOpen(false)}
+                              className="flex-1 h-10"
+                            >
+                              Annuler
+                            </Button>
+                            <Button type="submit" className="flex-1 bg-gray-900 text-white hover:bg-gray-800 h-10">
+                              Ajouter
+                            </Button>
+                          </div>
+                        )}
+                      </form>
+                    </DialogContent>
+                  </Dialog>
 
-                  {/* Stats discrètes */}
-                  <div className="mt-8 pt-6 border-t border-gray-200/50">
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-gray-900">2min</div>
-                      <div className="text-xs text-gray-500">Configuration moyenne</div>
+                  {/* Indicateurs de confiance épurés */}
+                  <div className="flex items-center gap-4 mt-6 pt-4 border-t border-gray-100">
+                    <div className="flex items-center gap-2 text-xs text-gray-500">
+                      <Shield className="w-3 h-3 text-green-500" />
+                      <span>Sécurisé</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-xs text-gray-500">
+                      <CheckCircle2 className="w-3 h-3 text-blue-500" />
+                      <span>Conforme</span>
                     </div>
                   </div>
                 </div>
               </div>
-            </CardContent>
-          </Card>
 
-          {/* Section alternative rapide */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            {paymentTypes.map((type) => {
-              const IconComponent = type.icon;
-              return (
-                <Card 
-                  key={type.type}
-                  className="border-0 bg-white shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer group/quick"
-                  onClick={() => {
-                    setSelectedType(type.type);
-                    setIsDialogOpen(true);
-                  }}
-                >
-                  <CardContent className="p-6 text-center">
-                    <div className={`w-12 h-12 bg-gradient-to-r ${type.color} rounded-xl flex items-center justify-center mx-auto mb-3 shadow-sm group-hover/quick:scale-110 transition-transform duration-300`}>
-                      <IconComponent className="w-6 h-6 text-white" />
-                    </div>
-                    <h4 className="font-medium text-gray-900 text-sm mb-1">{type.title}</h4>
-                    <p className="text-xs text-gray-500">{type.description}</p>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
-        </div>
+              {/* Section types - simplifiée */}
+              <div className="w-64 bg-gray-50 p-6">
+                <h4 className="font-medium text-gray-900 mb-4 text-sm">Types supportés</h4>
+                
+                <div className="space-y-2">
+                  {paymentTypes.map((type) => {
+                    const IconComponent = type.icon;
+                    return (
+                      <div 
+                        key={type.type} 
+                        className="flex items-center gap-3 p-3 rounded-lg bg-white/60 hover:bg-white transition-colors cursor-pointer"
+                        onClick={() => {
+                          setSelectedType(type.type);
+                          setIsDialogOpen(true);
+                        }}
+                      >
+                        <div className={`w-8 h-8 bg-gradient-to-r ${type.color} rounded-lg flex items-center justify-center`}>
+                          <IconComponent className="w-4 h-4 text-white" />
+                        </div>
+                        <div>
+                          <div className="font-medium text-gray-900 text-sm">{type.title}</div>
+                          <div className="text-xs text-gray-500">{type.description}</div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
