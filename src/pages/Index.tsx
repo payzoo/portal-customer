@@ -19,6 +19,19 @@ const Index = () => {
     }
   }, [location.state]);
 
+  // Update page title based on active section
+  useEffect(() => {
+    const titles = {
+      dashboard: "Dashboard - Payzoo",
+      subscriptions: "Abonnements - Payzoo",
+      payments: "Paiements - Payzoo",
+      addresses: "Adresses - Payzoo",
+      settings: "Paramètres - Payzoo",
+    };
+    
+    document.title = titles[activeSection as keyof typeof titles] || "Payzoo";
+  }, [activeSection]);
+
   const renderContent = () => {
     switch (activeSection) {
       case "dashboard":
