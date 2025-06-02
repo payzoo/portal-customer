@@ -1,7 +1,9 @@
+
 import { Building2, Plus, Clock, TrendingUp, CreditCard, Calendar, MoreVertical, Search, Filter, ArrowUpRight, Zap, AlertCircle, CheckCircle2, Pause, Play, X, Settings, Eye, BarChart3, DollarSign, Activity, Users } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useState } from "react";
 
 export function Subscriptions() {
@@ -213,16 +215,40 @@ export function Subscriptions() {
                   className="pl-10 pr-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all duration-300 w-full sm:w-80"
                 />
               </div>
-              <select
-                value={filterStatus}
-                onChange={(e) => setFilterStatus(e.target.value)}
-                className="px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all duration-300"
-              >
-                <option value="all">Tous les statuts</option>
-                <option value="active">Actifs</option>
-                <option value="paused">En pause</option>
-                <option value="expiring">Expire bientôt</option>
-              </select>
+              <Select value={filterStatus} onValueChange={setFilterStatus}>
+                <SelectTrigger className="w-full sm:w-[200px] bg-white border-gray-200 rounded-xl focus:ring-2 focus:ring-black focus:border-transparent transition-all duration-300 h-12">
+                  <div className="flex items-center gap-2">
+                    <Filter className="w-4 h-4 text-gray-400" />
+                    <SelectValue placeholder="Filtrer par statut" />
+                  </div>
+                </SelectTrigger>
+                <SelectContent className="bg-white border border-gray-200 rounded-xl shadow-lg z-50">
+                  <SelectItem value="all" className="flex items-center gap-2 py-3 px-4 hover:bg-gray-50 rounded-lg transition-colors duration-200">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
+                      <span className="font-medium">Tous les statuts</span>
+                    </div>
+                  </SelectItem>
+                  <SelectItem value="active" className="flex items-center gap-2 py-3 px-4 hover:bg-gray-50 rounded-lg transition-colors duration-200">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                      <span className="font-medium text-green-700">Actifs</span>
+                    </div>
+                  </SelectItem>
+                  <SelectItem value="paused" className="flex items-center gap-2 py-3 px-4 hover:bg-gray-50 rounded-lg transition-colors duration-200">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                      <span className="font-medium text-yellow-700">En pause</span>
+                    </div>
+                  </SelectItem>
+                  <SelectItem value="expiring" className="flex items-center gap-2 py-3 px-4 hover:bg-gray-50 rounded-lg transition-colors duration-200">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-red-400 rounded-full"></div>
+                      <span className="font-medium text-red-700">Expire bientôt</span>
+                    </div>
+                  </SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </div>
         </div>
