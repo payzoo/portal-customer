@@ -11,6 +11,7 @@ import { Settings } from "@/components/Settings";
 const Index = () => {
   const location = useLocation();
   const [activeSection, setActiveSection] = useState("dashboard");
+  const [sidebarWidth, setSidebarWidth] = useState("16rem");
 
   // Check if we're returning from subscription details
   useEffect(() => {
@@ -31,6 +32,29 @@ const Index = () => {
     
     document.title = titles[activeSection as keyof typeof titles] || "Payzoo";
   }, [activeSection]);
+
+  // Listen for sidebar state changes
+  useEffect(() => {
+    const handleSidebarToggle = () => {
+      const sidebar = document.querySelector('[class*="w-16"], [class*="w-64"]');
+      if (sidebar) {
+        const isCollapsed = sidebar.classList.contains('w-16');
+        setSidebarWidth(isCollapsed ? '4rem' : '16rem');
+      }
+    };
+
+    // Initial check
+    handleSidebarToggle();
+
+    // Set up observer for sidebar changes
+    const observer = new MutationObserver(handleSidebarToggle);
+    const sidebar = document.querySelector('.fixed.left-0');
+    if (sidebar) {
+      observer.observe(sidebar, { attributes: true, attributeFilter: ['class'] });
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   const renderContent = () => {
     switch (activeSection) {
@@ -55,7 +79,10 @@ const Index = () => {
         activeSection={activeSection} 
         onSectionChange={setActiveSection} 
       />
-      <main className="flex-1 min-h-screen transition-all duration-300 ease-in-out" style={{ marginLeft: '16rem' }}>
+      <main 
+        className="flex-1 min-h-screen transition-all duration-300 ease-in-out" 
+        style={{ marginLeft: sidebarWidth }}
+      >
         <div className="p-8">
           {renderContent()}
         </div>
