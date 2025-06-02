@@ -1,5 +1,5 @@
 
-import { User, Shield, Bell, HelpCircle, LogOut, ChevronRight, Lock, Smartphone, Globe, Mail, CreditCard, QrCode } from "lucide-react";
+import { User, Shield, Bell, HelpCircle, LogOut, ChevronRight, Lock, Smartphone, Globe, Mail, CreditCard } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -8,10 +8,9 @@ import { useState } from "react";
 
 export function Settings() {
   const [pushNotifications, setPushNotifications] = useState(true);
-  const [emailNotifications, setEmailNotifications] = useState(false);
+  const [emailNotifications, setEmailNotifications] = useState(true);
   const [paymentReminders, setPaymentReminders] = useState(true);
-  const [tapToPay, setTapToPay] = useState(true);
-  const [qrNotifications, setQrNotifications] = useState(true);
+  const [transactionAlerts, setTransactionAlerts] = useState(true);
 
   const accountSettings = [
     { icon: User, title: "Nom complet", value: "Housseine Dao", action: "Modifier" },
@@ -23,13 +22,13 @@ export function Settings() {
   const securitySettings = [
     { icon: Lock, title: "Mot de passe", description: "Modifié il y a 2 mois" },
     { icon: Shield, title: "Authentification 2FA", description: "Sécuriser votre wallet" },
-    { icon: Smartphone, title: "Appareils connectés", description: "Gérer les sessions PayZoo" },
+    { icon: Smartphone, title: "Sessions actives", description: "Gérer les connexions PayZoo" },
   ];
 
   const paymentFeatures = [
-    { icon: QrCode, title: "Paiements QR Code", description: "Scanner pour payer instantanément" },
-    { icon: Smartphone, title: "Tap to Pay", description: "Paiements sans contact" },
     { icon: CreditCard, title: "Méthodes de paiement", description: "Gérer vos cartes et comptes" },
+    { icon: CreditCard, title: "Limites de transfert", description: "Configurer vos plafonds" },
+    { icon: Shield, title: "Sécurité des paiements", description: "Validation par email/SMS" },
   ];
 
   const supportSettings = [
@@ -44,30 +43,30 @@ export function Settings() {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-gray-900">Paramètres PayZoo</h1>
-          <p className="text-gray-500 mt-1">Personnalise ton expérience de paiement 🎯</p>
+          <p className="text-gray-500 mt-1">Personnalise ton expérience de paiement web 🌐</p>
         </div>
 
         {/* Account Information */}
         <Card className="border-0 shadow-sm bg-white/80 backdrop-blur-sm">
           <CardHeader className="pb-3">
             <CardTitle className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-              <User className="w-5 h-5 text-payzoo-green-600" />
+              <User className="w-5 h-5 text-payzoo-primary" />
               Compte
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3 pt-0">
             {accountSettings.map((setting, index) => (
-              <div key={index} className="flex items-center justify-between p-3 rounded-lg hover:bg-payzoo-green-50/50 transition-colors group">
+              <div key={index} className="flex items-center justify-between p-3 rounded-lg hover:bg-payzoo-primary/5 transition-colors group">
                 <div className="flex items-center gap-3">
-                  <div className="p-2 bg-gray-100 rounded-lg group-hover:bg-payzoo-green-100 transition-colors">
-                    <setting.icon className="w-4 h-4 text-gray-600 group-hover:text-payzoo-green-700 transition-colors" />
+                  <div className="p-2 bg-gray-100 rounded-lg group-hover:bg-payzoo-primary/10 transition-colors">
+                    <setting.icon className="w-4 h-4 text-gray-600 group-hover:text-payzoo-primary transition-colors" />
                   </div>
                   <div>
                     <p className="font-medium text-gray-900 text-sm">{setting.title}</p>
                     <p className="text-xs text-gray-500">{setting.value}</p>
                   </div>
                 </div>
-                <Button variant="ghost" size="sm" className="text-payzoo-green-600 hover:text-payzoo-green-700 hover:bg-payzoo-green-50 text-xs px-3 h-8">
+                <Button variant="ghost" size="sm" className="text-payzoo-primary hover:text-payzoo-primary/80 hover:bg-payzoo-primary/5 text-xs px-3 h-8">
                   {setting.action}
                   <ChevronRight className="w-3 h-3 ml-1" />
                 </Button>
@@ -76,61 +75,44 @@ export function Settings() {
           </CardContent>
         </Card>
 
-        {/* PayZoo Features */}
+        {/* PayZoo Features Web */}
         <Card className="border-0 shadow-sm bg-white/80 backdrop-blur-sm">
           <CardHeader className="pb-3">
             <CardTitle className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-              <QrCode className="w-5 h-5 text-payzoo-green-600" />
-              Fonctionnalités PayZoo
+              <CreditCard className="w-5 h-5 text-payzoo-primary" />
+              Fonctionnalités PayZoo Web
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4 pt-0">
             <div className="flex items-center justify-between p-3 rounded-lg">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-payzoo-green-100 rounded-lg">
-                  <Smartphone className="w-4 h-4 text-payzoo-green-700" />
+                <div className="p-2 bg-payzoo-primary/10 rounded-lg">
+                  <Bell className="w-4 h-4 text-payzoo-primary" />
                 </div>
                 <div>
-                  <p className="font-medium text-gray-900 text-sm">Tap to Pay</p>
-                  <p className="text-xs text-gray-500">Paiements sans contact activés</p>
+                  <p className="font-medium text-gray-900 text-sm">Alertes de transaction</p>
+                  <p className="text-xs text-gray-500">Notifications en temps réel</p>
                 </div>
               </div>
               <Switch 
-                checked={tapToPay} 
-                onCheckedChange={setTapToPay}
-                className="data-[state=checked]:bg-payzoo-green-600"
-              />
-            </div>
-
-            <div className="flex items-center justify-between p-3 rounded-lg">
-              <div className="flex items-center gap-3">
-                <div className="p-2 bg-payzoo-green-100 rounded-lg">
-                  <QrCode className="w-4 h-4 text-payzoo-green-700" />
-                </div>
-                <div>
-                  <p className="font-medium text-gray-900 text-sm">Notifications QR</p>
-                  <p className="text-xs text-gray-500">Alertes de paiements QR Code</p>
-                </div>
-              </div>
-              <Switch 
-                checked={qrNotifications} 
-                onCheckedChange={setQrNotifications}
-                className="data-[state=checked]:bg-payzoo-green-600"
+                checked={transactionAlerts} 
+                onCheckedChange={setTransactionAlerts}
+                className="data-[state=checked]:bg-payzoo-primary"
               />
             </div>
 
             {paymentFeatures.map((feature, index) => (
-              <div key={index} className="flex items-center justify-between p-3 rounded-lg hover:bg-payzoo-green-50/50 transition-colors group">
+              <div key={index} className="flex items-center justify-between p-3 rounded-lg hover:bg-payzoo-primary/5 transition-colors group">
                 <div className="flex items-center gap-3">
-                  <div className="p-2 bg-gray-100 rounded-lg group-hover:bg-payzoo-green-100 transition-colors">
-                    <feature.icon className="w-4 h-4 text-gray-600 group-hover:text-payzoo-green-700 transition-colors" />
+                  <div className="p-2 bg-gray-100 rounded-lg group-hover:bg-payzoo-primary/10 transition-colors">
+                    <feature.icon className="w-4 h-4 text-gray-600 group-hover:text-payzoo-primary transition-colors" />
                   </div>
                   <div>
                     <p className="font-medium text-gray-900 text-sm">{feature.title}</p>
                     <p className="text-xs text-gray-500">{feature.description}</p>
                   </div>
                 </div>
-                <Button variant="ghost" size="sm" className="text-gray-500 hover:text-payzoo-green-700 hover:bg-payzoo-green-50">
+                <Button variant="ghost" size="sm" className="text-gray-500 hover:text-payzoo-primary hover:bg-payzoo-primary/5">
                   <ChevronRight className="w-4 h-4" />
                 </Button>
               </div>
@@ -142,23 +124,23 @@ export function Settings() {
         <Card className="border-0 shadow-sm bg-white/80 backdrop-blur-sm">
           <CardHeader className="pb-3">
             <CardTitle className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-              <Shield className="w-5 h-5 text-payzoo-green-600" />
+              <Shield className="w-5 h-5 text-payzoo-primary" />
               Sécurité
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3 pt-0">
             {securitySettings.map((setting, index) => (
-              <div key={index} className="flex items-center justify-between p-3 rounded-lg hover:bg-payzoo-green-50/50 transition-colors group">
+              <div key={index} className="flex items-center justify-between p-3 rounded-lg hover:bg-payzoo-primary/5 transition-colors group">
                 <div className="flex items-center gap-3">
-                  <div className="p-2 bg-gray-100 rounded-lg group-hover:bg-payzoo-green-100 transition-colors">
-                    <setting.icon className="w-4 h-4 text-gray-600 group-hover:text-payzoo-green-700 transition-colors" />
+                  <div className="p-2 bg-gray-100 rounded-lg group-hover:bg-payzoo-primary/10 transition-colors">
+                    <setting.icon className="w-4 h-4 text-gray-600 group-hover:text-payzoo-primary transition-colors" />
                   </div>
                   <div>
                     <p className="font-medium text-gray-900 text-sm">{setting.title}</p>
                     <p className="text-xs text-gray-500">{setting.description}</p>
                   </div>
                 </div>
-                <Button variant="ghost" size="sm" className="text-gray-500 hover:text-payzoo-green-700 hover:bg-payzoo-green-50">
+                <Button variant="ghost" size="sm" className="text-gray-500 hover:text-payzoo-primary hover:bg-payzoo-primary/5">
                   <ChevronRight className="w-4 h-4" />
                 </Button>
               </div>
@@ -170,7 +152,7 @@ export function Settings() {
         <Card className="border-0 shadow-sm bg-white/80 backdrop-blur-sm">
           <CardHeader className="pb-3">
             <CardTitle className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-              <Bell className="w-5 h-5 text-payzoo-green-600" />
+              <Bell className="w-5 h-5 text-payzoo-primary" />
               Notifications
             </CardTitle>
           </CardHeader>
@@ -181,14 +163,14 @@ export function Settings() {
                   <Bell className="w-4 h-4 text-gray-600" />
                 </div>
                 <div>
-                  <p className="font-medium text-gray-900 text-sm">Notifications push</p>
-                  <p className="text-xs text-gray-500">Alertes en temps réel</p>
+                  <p className="font-medium text-gray-900 text-sm">Notifications navigateur</p>
+                  <p className="text-xs text-gray-500">Alertes en temps réel sur le web</p>
                 </div>
               </div>
               <Switch 
                 checked={pushNotifications} 
                 onCheckedChange={setPushNotifications}
-                className="data-[state=checked]:bg-payzoo-green-600"
+                className="data-[state=checked]:bg-payzoo-primary"
               />
             </div>
 
@@ -199,13 +181,13 @@ export function Settings() {
                 </div>
                 <div>
                   <p className="font-medium text-gray-900 text-sm">Notifications e-mail</p>
-                  <p className="text-xs text-gray-500">Mises à jour par e-mail</p>
+                  <p className="text-xs text-gray-500">Confirmations et relevés</p>
                 </div>
               </div>
               <Switch 
                 checked={emailNotifications} 
                 onCheckedChange={setEmailNotifications}
-                className="data-[state=checked]:bg-payzoo-green-600"
+                className="data-[state=checked]:bg-payzoo-primary"
               />
             </div>
 
@@ -222,7 +204,7 @@ export function Settings() {
               <Switch 
                 checked={paymentReminders} 
                 onCheckedChange={setPaymentReminders}
-                className="data-[state=checked]:bg-payzoo-green-600"
+                className="data-[state=checked]:bg-payzoo-primary"
               />
             </div>
           </CardContent>
@@ -232,22 +214,22 @@ export function Settings() {
         <Card className="border-0 shadow-sm bg-white/80 backdrop-blur-sm">
           <CardHeader className="pb-3">
             <CardTitle className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-              <HelpCircle className="w-5 h-5 text-payzoo-green-600" />
+              <HelpCircle className="w-5 h-5 text-payzoo-primary" />
               Support
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3 pt-0">
             {supportSettings.map((setting, index) => (
-              <div key={index} className="flex items-center justify-between p-3 rounded-lg hover:bg-payzoo-green-50/50 transition-colors group">
+              <div key={index} className="flex items-center justify-between p-3 rounded-lg hover:bg-payzoo-primary/5 transition-colors group">
                 <div className="flex items-center gap-3">
-                  <div className="p-2 bg-gray-100 rounded-lg group-hover:bg-payzoo-green-100 transition-colors">
-                    <setting.icon className="w-4 h-4 text-gray-600 group-hover:text-payzoo-green-700 transition-colors" />
+                  <div className="p-2 bg-gray-100 rounded-lg group-hover:bg-payzoo-primary/10 transition-colors">
+                    <setting.icon className="w-4 h-4 text-gray-600 group-hover:text-payzoo-primary transition-colors" />
                   </div>
                   <div>
                     <p className="font-medium text-gray-900 text-sm">{setting.title}</p>
                   </div>
                 </div>
-                <Button variant="ghost" size="sm" className="text-gray-500 hover:text-payzoo-green-700 hover:bg-payzoo-green-50">
+                <Button variant="ghost" size="sm" className="text-gray-500 hover:text-payzoo-primary hover:bg-payzoo-primary/5">
                   <ChevronRight className="w-4 h-4" />
                 </Button>
               </div>
