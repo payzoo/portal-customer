@@ -1,4 +1,3 @@
-
 import { Building2, Plus, Clock, TrendingUp, CreditCard, Calendar, MoreVertical, Search, Filter, ArrowUpRight, Zap, AlertCircle, CheckCircle2, Pause, Play, X, Settings, Eye, BarChart3 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -132,73 +131,69 @@ export function Subscriptions() {
       case 'active':
         return { 
           icon: CheckCircle2, 
-          color: 'text-emerald-600', 
-          bgColor: 'bg-emerald-50', 
+          color: 'text-green-600', 
+          bgColor: 'bg-green-50', 
           label: 'Actif',
-          dotColor: 'bg-emerald-500',
-          borderColor: 'border-emerald-200'
+          dotColor: 'bg-green-400'
         };
       case 'paused':
         return { 
           icon: Pause, 
-          color: 'text-amber-600', 
-          bgColor: 'bg-amber-50', 
+          color: 'text-yellow-600', 
+          bgColor: 'bg-yellow-50', 
           label: 'En pause',
-          dotColor: 'bg-amber-500',
-          borderColor: 'border-amber-200'
+          dotColor: 'bg-yellow-400'
         };
       case 'expiring':
         return { 
           icon: AlertCircle, 
-          color: 'text-rose-600', 
-          bgColor: 'bg-rose-50', 
+          color: 'text-red-600', 
+          bgColor: 'bg-red-50', 
           label: 'Expire bientôt',
-          dotColor: 'bg-rose-500',
-          borderColor: 'border-rose-200'
+          dotColor: 'bg-red-400'
         };
       default:
         return { 
           icon: Clock, 
-          color: 'text-slate-600', 
-          bgColor: 'bg-slate-50', 
+          color: 'text-gray-600', 
+          bgColor: 'bg-gray-50', 
           label: 'Inconnu',
-          dotColor: 'bg-slate-500',
-          borderColor: 'border-slate-200'
+          dotColor: 'bg-gray-400'
         };
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50/30">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         
-        {/* Header optimisé */}
+        {/* Header optimisé avec moins d'espacement */}
         <div className="mb-8 animate-fade-in">
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-8">
-            <div className="space-y-2">
-              <h1 className="text-4xl lg:text-5xl font-extralight text-slate-900 tracking-tight">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
+            <div>
+              <h1 className="text-3xl lg:text-4xl font-extralight text-black mb-1 tracking-tight">
                 Mes abonnements
               </h1>
-              <p className="text-lg text-slate-600 font-light flex items-center gap-2">
-                <Building2 className="w-5 h-5" />
+              <p className="text-lg text-gray-600 font-light flex items-center gap-2">
+                <Building2 className="w-4 h-4" />
                 Gérez tous vos services en un seul endroit
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-3">
-              <div className="relative group">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400 w-4 h-4 transition-colors group-focus-within:text-slate-600" />
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                 <input
                   type="text"
                   placeholder="Rechercher un service..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-12 pr-4 py-3 bg-white/80 backdrop-blur-sm border border-slate-200/60 rounded-2xl focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-300 transition-all duration-300 w-full sm:w-80 shadow-sm hover:shadow-md"
+                  className="pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all duration-300 w-full sm:w-72"
                 />
               </div>
               <select
                 value={filterStatus}
                 onChange={(e) => setFilterStatus(e.target.value)}
-                className="px-4 py-3 bg-white/80 backdrop-blur-sm border border-slate-200/60 rounded-2xl focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-300 transition-all duration-300 shadow-sm hover:shadow-md"
+                className="px-4 py-2.5 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all duration-300"
               >
                 <option value="all">Tous les statuts</option>
                 <option value="active">Actifs</option>
@@ -209,95 +204,88 @@ export function Subscriptions() {
           </div>
         </div>
 
-        {/* Analytics Overview - Compact et moderne */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10 animate-slide-in-right">
-          <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-[1.02] bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white overflow-hidden relative group">
-            <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            <CardContent className="p-7 relative z-10">
-              <div className="flex items-center justify-between mb-4">
-                <div className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center ring-1 ring-white/20">
-                  <TrendingUp className="w-6 h-6 text-white" />
+        {/* Analytics Overview - Compact */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8 animate-slide-in-right">
+          <Card className="border-0 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 bg-gradient-to-r from-black to-gray-800 text-white">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between mb-3">
+                <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
+                  <TrendingUp className="w-5 h-5 text-white" />
                 </div>
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={() => setShowAnalytics(!showAnalytics)}
-                  className="text-slate-300 hover:text-white hover:bg-white/10 rounded-xl p-2 transition-all duration-300"
+                  className="text-gray-300 hover:text-white hover:bg-white/10 rounded-lg p-1.5"
                 >
-                  <Eye className="w-4 h-4" />
+                  <Eye className="w-3.5 h-3.5" />
                 </Button>
               </div>
               {showAnalytics ? (
-                <div className="animate-fade-in space-y-1">
-                  <div className="text-3xl font-light tracking-tight">
+                <div className="animate-fade-in">
+                  <div className="text-2xl font-light mb-1">
                     {totalMonthly.toFixed(2)}€
                   </div>
-                  <div className="text-sm text-slate-300 font-medium">Total mensuel</div>
-                  <div className="text-xs text-slate-400">
+                  <div className="text-xs text-gray-300 font-light">Total mensuel</div>
+                  <div className="text-xs text-gray-400 mt-1">
                     {totalYearly.toFixed(2)}€ / an
                   </div>
                 </div>
               ) : (
-                <div className="text-2xl text-slate-300">●●●●</div>
+                <div className="text-lg text-gray-300">●●●●</div>
               )}
             </CardContent>
           </Card>
 
-          <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-[1.02] bg-white/70 backdrop-blur-sm">
-            <CardContent className="p-7">
-              <div className="flex items-center justify-between mb-4">
-                <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-lg shadow-emerald-500/25">
-                  <CheckCircle2 className="w-6 h-6 text-white" />
+          <Card className="border-0 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between mb-3">
+                <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-green-500 rounded-xl flex items-center justify-center">
+                  <CheckCircle2 className="w-5 h-5 text-white" />
                 </div>
               </div>
-              <div className="space-y-1">
-                <div className="text-3xl font-light text-slate-900 tracking-tight">
-                  {activeCount}
-                </div>
-                <div className="text-sm text-slate-600 font-medium">Services actifs</div>
+              <div className="text-2xl font-light text-gray-900 mb-1">
+                {activeCount}
               </div>
+              <div className="text-xs text-gray-500 font-light">Services actifs</div>
             </CardContent>
           </Card>
 
-          <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-[1.02] bg-white/70 backdrop-blur-sm">
-            <CardContent className="p-7">
-              <div className="flex items-center justify-between mb-4">
-                <div className="w-12 h-12 bg-gradient-to-br from-amber-500 to-amber-600 rounded-2xl flex items-center justify-center shadow-lg shadow-amber-500/25">
-                  <Pause className="w-6 h-6 text-white" />
+          <Card className="border-0 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between mb-3">
+                <div className="w-10 h-10 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-xl flex items-center justify-center">
+                  <Pause className="w-5 h-5 text-white" />
                 </div>
               </div>
-              <div className="space-y-1">
-                <div className="text-3xl font-light text-slate-900 tracking-tight">
-                  {pausedCount}
-                </div>
-                <div className="text-sm text-slate-600 font-medium">En pause</div>
+              <div className="text-2xl font-light text-gray-900 mb-1">
+                {pausedCount}
               </div>
+              <div className="text-xs text-gray-500 font-light">En pause</div>
             </CardContent>
           </Card>
 
-          <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-[1.02] bg-white/70 backdrop-blur-sm">
-            <CardContent className="p-7">
-              <div className="flex items-center justify-between mb-4">
-                <div className="w-12 h-12 bg-gradient-to-br from-rose-500 to-rose-600 rounded-2xl flex items-center justify-center shadow-lg shadow-rose-500/25">
-                  <AlertCircle className="w-6 h-6 text-white" />
+          <Card className="border-0 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between mb-3">
+                <div className="w-10 h-10 bg-gradient-to-br from-red-400 to-red-500 rounded-xl flex items-center justify-center">
+                  <AlertCircle className="w-5 h-5 text-white" />
                 </div>
               </div>
-              <div className="space-y-1">
-                <div className="text-3xl font-light text-slate-900 tracking-tight">
-                  {expiringCount}
-                </div>
-                <div className="text-sm text-slate-600 font-medium">À renouveler</div>
+              <div className="text-2xl font-light text-gray-900 mb-1">
+                {expiringCount}
               </div>
+              <div className="text-xs text-gray-500 font-light">À renouveler</div>
             </CardContent>
           </Card>
         </div>
 
-        {/* Filtres par catégorie */}
-        <div className="mb-8 animate-fade-in" style={{ animationDelay: '200ms' }}>
-          <div className="flex flex-wrap gap-3">
+        {/* Filtres par catégorie - Compact */}
+        <div className="mb-6 animate-fade-in" style={{ animationDelay: '200ms' }}>
+          <div className="flex flex-wrap gap-2">
             <Badge 
               variant="secondary" 
-              className="px-6 py-3 rounded-2xl text-sm font-medium bg-slate-900 text-white hover:bg-slate-800 cursor-pointer transition-all duration-300 hover:scale-105 shadow-lg"
+              className="px-4 py-2 rounded-xl text-xs font-light bg-black text-white hover:bg-gray-800 cursor-pointer transition-all duration-300"
             >
               Toutes les catégories
             </Badge>
@@ -305,7 +293,7 @@ export function Subscriptions() {
               <Badge 
                 key={category}
                 variant="outline" 
-                className="px-6 py-3 rounded-2xl text-sm font-medium border-slate-200/60 hover:bg-slate-50 hover:border-slate-300 cursor-pointer transition-all duration-300 hover:scale-105 bg-white/60 backdrop-blur-sm animate-fade-in"
+                className="px-4 py-2 rounded-xl text-xs font-light border-gray-200 hover:bg-gray-50 cursor-pointer transition-all duration-300 animate-fade-in"
                 style={{ animationDelay: `${300 + index * 100}ms` }}
               >
                 {category}
@@ -314,8 +302,8 @@ export function Subscriptions() {
           </div>
         </div>
 
-        {/* Liste des abonnements - Cards modernes */}
-        <div className="space-y-4 mb-12">
+        {/* Liste des abonnements - Plus compact */}
+        <div className="space-y-3 mb-12">
           {filteredSubscriptions.map((subscription, index) => {
             const statusInfo = getStatusInfo(subscription.status);
             const StatusIcon = statusInfo.icon;
@@ -323,69 +311,68 @@ export function Subscriptions() {
             return (
               <Card 
                 key={subscription.id} 
-                className="border-0 bg-white/70 backdrop-blur-sm hover:bg-white/90 hover:shadow-2xl transition-all duration-500 rounded-3xl overflow-hidden group cursor-pointer animate-fade-in hover:scale-[1.01] shadow-lg"
+                className="border-0 bg-white/90 backdrop-blur-sm hover:bg-white hover:shadow-xl transition-all duration-500 rounded-2xl overflow-hidden group cursor-pointer animate-fade-in"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                <CardContent className="p-8">
+                <CardContent className="p-6">
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-6">
-                      <div className={`relative w-16 h-16 ${subscription.color} rounded-3xl flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-all duration-500 group-hover:scale-110`}>
-                        <span className="font-semibold text-white text-xl">{subscription.logo}</span>
-                        <div className="absolute inset-0 bg-white/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div className="flex items-center gap-4">
+                      <div className={`w-12 h-12 ${subscription.color} rounded-2xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-110`}>
+                        <span className="font-medium text-white text-lg">{subscription.logo}</span>
                       </div>
-                      <div className="space-y-2">
-                        <div className="flex items-center gap-4">
-                          <h3 className="font-semibold text-slate-900 text-xl group-hover:text-slate-800 transition-colors duration-300">{subscription.name}</h3>
-                          <Badge variant="outline" className="px-3 py-1.5 rounded-xl text-xs font-medium border-slate-200/60 bg-slate-50/60 text-slate-600">
+                      <div>
+                        <div className="flex items-center gap-3 mb-1">
+                          <h3 className="font-medium text-gray-900 text-lg">{subscription.name}</h3>
+                          <Badge variant="outline" className="px-2 py-0.5 rounded-lg text-xs font-light border-gray-200">
                             {subscription.category}
                           </Badge>
                         </div>
-                        <div className="flex items-center gap-6 text-slate-500">
-                          <p className="font-medium text-sm">{subscription.plan}</p>
-                          <div className="w-1 h-1 bg-slate-300 rounded-full"></div>
-                          <p className="font-medium text-sm capitalize">{subscription.billingCycle}</p>
+                        <div className="flex items-center gap-4">
+                          <p className="text-gray-500 font-light text-sm">{subscription.plan}</p>
+                          <span className="text-xs text-gray-400">•</span>
+                          <p className="text-gray-500 font-light text-sm">{subscription.billingCycle}</p>
                         </div>
                       </div>
                     </div>
                     
-                    <div className="flex items-center gap-8">
-                      <div className="text-right space-y-2">
-                        <div className="flex items-center gap-3">
-                          <div className="font-light text-slate-900 text-2xl tracking-tight">
+                    <div className="flex items-center gap-6">
+                      <div className="text-right">
+                        <div className="flex items-center gap-2 mb-1">
+                          <div className="font-light text-gray-900 text-xl">
                             {subscription.amount} {subscription.currency}
                           </div>
-                          <div className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all duration-300 ${
-                            subscription.trend.startsWith('+') ? 'bg-rose-100 text-rose-700 hover:bg-rose-200' : 
-                            subscription.trend.startsWith('-') ? 'bg-emerald-100 text-emerald-700 hover:bg-emerald-200' : 
-                            'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                          <div className={`px-2 py-0.5 rounded-md text-xs font-medium ${
+                            subscription.trend.startsWith('+') ? 'bg-red-50 text-red-600' : 
+                            subscription.trend.startsWith('-') ? 'bg-green-50 text-green-600' : 
+                            'bg-gray-50 text-gray-600'
                           }`}>
                             {subscription.trend}
                           </div>
                         </div>
-                        <div className="text-sm text-slate-400 flex items-center gap-2 justify-end">
-                          <Clock className="w-3.5 h-3.5" />
-                          <span className="font-medium">{subscription.nextBilling}</span>
+                        <div className="text-xs text-gray-400 flex items-center gap-1 justify-end">
+                          <Clock className="w-3 h-3" />
+                          {subscription.nextBilling}
                         </div>
                       </div>
                       
-                      <div className="flex items-center gap-6">
+                      <div className="flex items-center gap-4">
                         <Badge 
                           variant="secondary"
-                          className={`px-5 py-2.5 rounded-2xl text-sm font-medium border-0 ${statusInfo.bgColor} ${statusInfo.color} ${statusInfo.borderColor} transition-all duration-300 hover:scale-105`}
+                          className={`px-4 py-2 rounded-xl text-xs font-light border-0 ${statusInfo.bgColor} ${statusInfo.color}`}
                         >
-                          <div className={`w-2 h-2 ${statusInfo.dotColor} rounded-full mr-3 animate-pulse`}></div>
+                          <div className={`w-1.5 h-1.5 ${statusInfo.dotColor} rounded-full mr-2`}></div>
                           {statusInfo.label}
                         </Badge>
                         
-                        <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-x-4 group-hover:translate-x-0">
-                          <Button variant="ghost" size="sm" className="w-10 h-10 p-0 rounded-2xl hover:bg-slate-100/80 transition-all duration-300 hover:scale-110">
-                            <Settings className="w-4 h-4 text-slate-400 hover:text-slate-600 transition-colors duration-300" />
+                        <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                          <Button variant="ghost" size="sm" className="w-8 h-8 p-0 rounded-lg hover:bg-gray-50">
+                            <Settings className="w-3.5 h-3.5 text-gray-400" />
                           </Button>
-                          <Button variant="ghost" size="sm" className="w-10 h-10 p-0 rounded-2xl hover:bg-slate-100/80 transition-all duration-300 hover:scale-110">
-                            <BarChart3 className="w-4 h-4 text-slate-400 hover:text-slate-600 transition-colors duration-300" />
+                          <Button variant="ghost" size="sm" className="w-8 h-8 p-0 rounded-lg hover:bg-gray-50">
+                            <BarChart3 className="w-3.5 h-3.5 text-gray-400" />
                           </Button>
-                          <Button variant="ghost" size="sm" className="w-10 h-10 p-0 rounded-2xl hover:bg-slate-100/80 transition-all duration-300 hover:scale-110">
-                            <MoreVertical className="w-4 h-4 text-slate-400 hover:text-slate-600 transition-colors duration-300" />
+                          <Button variant="ghost" size="sm" className="w-8 h-8 p-0 rounded-lg hover:bg-gray-50">
+                            <MoreVertical className="w-3.5 h-3.5 text-gray-400" />
                           </Button>
                         </div>
                       </div>
@@ -397,36 +384,36 @@ export function Subscriptions() {
           })}
         </div>
 
-        {/* Add subscription - Moderne */}
-        <div className="bg-gradient-to-br from-slate-50/80 to-white/80 backdrop-blur-sm border-2 border-dashed border-slate-200/60 rounded-3xl p-16 text-center hover:border-slate-300/80 hover:from-white/90 hover:to-slate-50/90 transition-all duration-700 group cursor-pointer animate-scale-in">
-          <div className="w-20 h-20 bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 transition-all duration-500 shadow-xl group-hover:shadow-2xl">
-            <Plus className="w-8 h-8 text-white" />
+        {/* Add subscription - Plus compact */}
+        <div className="bg-gradient-to-r from-gray-50 to-white border-2 border-dashed border-gray-200/80 rounded-2xl p-12 text-center hover:border-gray-300/80 hover:from-white hover:to-gray-50 transition-all duration-500 group cursor-pointer animate-scale-in">
+          <div className="w-16 h-16 bg-gradient-to-br from-black to-gray-800 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-all duration-300 shadow-md group-hover:shadow-lg">
+            <Plus className="w-6 h-6 text-white" />
           </div>
-          <h3 className="font-semibold text-slate-900 text-xl mb-3">Ajouter un nouvel abonnement</h3>
-          <p className="text-slate-600 text-base mb-10 max-w-lg mx-auto font-medium leading-relaxed">
+          <h3 className="font-medium text-gray-900 text-lg mb-2">Ajouter un nouvel abonnement</h3>
+          <p className="text-gray-500 text-sm mb-8 max-w-md mx-auto font-light leading-relaxed">
             Connectez facilement un nouvel service pour centraliser la gestion de tous vos abonnements
           </p>
-          <Button className="bg-slate-900 text-white rounded-2xl px-10 py-4 font-semibold hover:bg-slate-800 hover:shadow-xl transition-all duration-500 hover:scale-105 text-base">
-            <Plus className="w-5 h-5 mr-3" />
+          <Button className="bg-black text-white rounded-xl px-8 py-3 font-medium hover:bg-gray-800 hover:shadow-lg transition-all duration-300 hover:scale-105">
+            <Plus className="w-4 h-4 mr-2" />
             Connecter un service
           </Button>
         </div>
 
-        {/* Quick actions - Moderne */}
-        <div className="mt-16 flex justify-center animate-fade-in" style={{ animationDelay: '800ms' }}>
-          <div className="flex items-center gap-1 bg-white/80 backdrop-blur-sm rounded-2xl p-2 border border-slate-100/50 shadow-lg">
-            <Button variant="ghost" className="rounded-xl px-6 py-3 text-slate-600 hover:bg-slate-50 hover:text-slate-900 text-sm font-medium transition-all duration-300 hover:scale-105">
-              <CreditCard className="w-4 h-4 mr-3" />
+        {/* Quick actions - Plus compact */}
+        <div className="mt-12 flex justify-center animate-fade-in" style={{ animationDelay: '800ms' }}>
+          <div className="flex items-center gap-1 bg-white/80 backdrop-blur-sm rounded-xl p-1 border border-gray-100/50 shadow-md">
+            <Button variant="ghost" className="rounded-lg px-4 py-2 text-gray-600 hover:bg-gray-50 hover:text-gray-900 text-sm font-light transition-all duration-200">
+              <CreditCard className="w-4 h-4 mr-2" />
               Paiements
             </Button>
-            <div className="w-px h-6 bg-slate-200"></div>
-            <Button variant="ghost" className="rounded-xl px-6 py-3 text-slate-600 hover:bg-slate-50 hover:text-slate-900 text-sm font-medium transition-all duration-300 hover:scale-105">
-              <Calendar className="w-4 h-4 mr-3" />
+            <div className="w-px h-5 bg-gray-200"></div>
+            <Button variant="ghost" className="rounded-lg px-4 py-2 text-gray-600 hover:bg-gray-50 hover:text-gray-900 text-sm font-light transition-all duration-200">
+              <Calendar className="w-4 h-4 mr-2" />
               Calendrier
             </Button>
-            <div className="w-px h-6 bg-slate-200"></div>
-            <Button variant="ghost" className="rounded-xl px-6 py-3 text-slate-600 hover:bg-slate-50 hover:text-slate-900 text-sm font-medium transition-all duration-300 hover:scale-105">
-              <BarChart3 className="w-4 h-4 mr-3" />
+            <div className="w-px h-5 bg-gray-200"></div>
+            <Button variant="ghost" className="rounded-lg px-4 py-2 text-gray-600 hover:bg-gray-50 hover:text-gray-900 text-sm font-light transition-all duration-200">
+              <BarChart3 className="w-4 h-4 mr-2" />
               Analyses
             </Button>
           </div>
