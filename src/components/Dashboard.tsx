@@ -38,7 +38,7 @@ export function Dashboard() {
       value: "89€",
       color: "text-green-600",
       bgColor: "from-green-500/10 to-emerald-500/10",
-      pulse: true
+      pulse: false
     },
     {
       title: "Tendance positive",
