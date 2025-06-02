@@ -165,6 +165,27 @@ export function Subscriptions() {
     }
   };
 
+  // Handlers for subscription actions
+  const handleSettings = (subscription: any) => {
+    console.log(`Ouvrir les paramètres pour ${subscription.name}`);
+    // TODO: Ouvrir un modal de paramètres
+  };
+
+  const handleAnalytics = (subscription: any) => {
+    console.log(`Afficher les analyses pour ${subscription.name}`);
+    // TODO: Ouvrir un modal d'analyses ou naviguer vers une page dédiée
+  };
+
+  const handleMoreOptions = (subscription: any) => {
+    console.log(`Options pour ${subscription.name}`);
+    // TODO: Afficher un menu contextuel avec plus d'options
+  };
+
+  const handleToggleStatus = (subscription: any) => {
+    console.log(`Basculer le statut pour ${subscription.name}`);
+    // TODO: Implémenter la logique pour activer/suspendre/reprendre l'abonnement
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -423,21 +444,49 @@ export function Subscriptions() {
                         <div className="flex items-center gap-4">
                           <Badge 
                             variant="secondary"
-                            className={`px-4 py-2 rounded-xl text-xs font-light border-0 ${statusInfo.bgColor} ${statusInfo.color}`}
+                            onClick={() => handleToggleStatus(subscription)}
+                            className={`px-4 py-2 rounded-xl text-xs font-light border-0 cursor-pointer hover:scale-105 transition-all duration-200 ${statusInfo.bgColor} ${statusInfo.color}`}
                           >
                             <div className={`w-1.5 h-1.5 ${statusInfo.dotColor} rounded-full mr-2`}></div>
                             {statusInfo.label}
                           </Badge>
                           
                           <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                            <Button variant="ghost" size="sm" className="w-8 h-8 p-0 rounded-lg hover:bg-gray-50">
-                              <Settings className="w-3.5 h-3.5 text-gray-400" />
+                            <Button 
+                              variant="ghost" 
+                              size="sm" 
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleSettings(subscription);
+                              }}
+                              className="w-8 h-8 p-0 rounded-lg hover:bg-gray-50 hover:scale-110 transition-all duration-200"
+                              title="Paramètres"
+                            >
+                              <Settings className="w-3.5 h-3.5 text-gray-400 hover:text-gray-600 transition-colors duration-200" />
                             </Button>
-                            <Button variant="ghost" size="sm" className="w-8 h-8 p-0 rounded-lg hover:bg-gray-50">
-                              <BarChart3 className="w-3.5 h-3.5 text-gray-400" />
+                            <Button 
+                              variant="ghost" 
+                              size="sm" 
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleAnalytics(subscription);
+                              }}
+                              className="w-8 h-8 p-0 rounded-lg hover:bg-gray-50 hover:scale-110 transition-all duration-200"
+                              title="Analyses"
+                            >
+                              <BarChart3 className="w-3.5 h-3.5 text-gray-400 hover:text-gray-600 transition-colors duration-200" />
                             </Button>
-                            <Button variant="ghost" size="sm" className="w-8 h-8 p-0 rounded-lg hover:bg-gray-50">
-                              <MoreVertical className="w-3.5 h-3.5 text-gray-400" />
+                            <Button 
+                              variant="ghost" 
+                              size="sm" 
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleMoreOptions(subscription);
+                              }}
+                              className="w-8 h-8 p-0 rounded-lg hover:bg-gray-50 hover:scale-110 transition-all duration-200"
+                              title="Plus d'options"
+                            >
+                              <MoreVertical className="w-3.5 h-3.5 text-gray-400 hover:text-gray-600 transition-colors duration-200" />
                             </Button>
                           </div>
                         </div>
