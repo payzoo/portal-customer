@@ -1,4 +1,5 @@
-import { CreditCard, Plus, MoreHorizontal, Shield, Smartphone, Building2, Wallet, Star, Trash2, Pencil, Eye, MapPin } from "lucide-react";
+
+import { CreditCard, Plus, MoreHorizontal, Shield, Smartphone, Building2, Wallet, Star, Trash2, Pencil, Eye, MapPin, CheckCircle2, XCircle, Clock, AlertTriangle } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -9,6 +10,22 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+
+type PaymentStatus = 'active' | 'inactive' | 'suspended' | 'destroyed';
+
+interface PaymentMethod {
+  id: number;
+  type: string;
+  provider: string;
+  displayName: string;
+  identifier: string;
+  detail: string;
+  isDefault: boolean;
+  status: PaymentStatus;
+  icon: any;
+  color: string;
+  address: any;
+}
 
 export function PaymentMethods() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -34,15 +51,16 @@ export function PaymentMethods() {
     }
   ];
 
-  const paymentMethods = [
+  const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([
     {
       id: 1,
       type: "card",
       provider: "Visa",
-      name: "",
+      displayName: "Carte principale",
       identifier: "•••• 4242",
       detail: "Expire 12/27",
       isDefault: true,
+      status: 'active',
       icon: CreditCard,
       color: "bg-gradient-to-r from-blue-600 to-blue-700",
       address: existingAddresses[0]
@@ -51,10 +69,11 @@ export function PaymentMethods() {
       id: 2,
       type: "card",
       provider: "Mastercard",
-      name: "",
+      displayName: "Carte bureau",
       identifier: "•••• 5555",
       detail: "Expire 08/26",
       isDefault: false,
+      status: 'active',
       icon: CreditCard,
       color: "bg-gradient-to-r from-red-500 to-red-600",
       address: existingAddresses[1]
@@ -63,10 +82,11 @@ export function PaymentMethods() {
       id: 3,
       type: "mobile",
       provider: "Orange Money",
-      name: "",
+      displayName: "Mobile personnel",
       identifier: "+33 6 •• •• •• 89",
       detail: "Vérifié",
       isDefault: false,
+      status: 'suspended',
       icon: Smartphone,
       color: "bg-gradient-to-r from-orange-500 to-orange-600",
       address: null
@@ -75,15 +95,16 @@ export function PaymentMethods() {
       id: 4,
       type: "bank",
       provider: "BNP Paribas",
-      name: "",
+      displayName: "Compte courant BNP",
       identifier: "FR76 •••• •••• •••• 1234",
       detail: "Compte courant",
       isDefault: false,
+      status: 'inactive',
       icon: Building2,
       color: "bg-gradient-to-r from-green-500 to-green-600",
       address: existingAddresses[0]
     }
-  ];
+  ]);
 
   const paymentTypes = [
     {
@@ -112,6 +133,41 @@ export function PaymentMethods() {
     }
   ];
 
+  const getStatusBadge = (status: PaymentStatus) => {
+    switch (status) {
+      case 'active':
+        return (
+          <Badge className="bg-green-50 text-green-700 hover:bg-green-50 px-3 py-1 rounded-lg text-xs border-0 font-medium">
+            <CheckCircle2 className="w-3 h-3 mr-1" />
+            Active
+          </Badge>
+        );
+      case 'inactive':
+        return (
+          <Badge className="bg-gray-50 text-gray-700 hover:bg-gray-50 px-3 py-1 rounded-lg text-xs border-0 font-medium">
+            <XCircle className="w-3 h-3 mr-1" />
+            Inactive
+          </Badge>
+        );
+      case 'suspended':
+        return (
+          <Badge className="bg-yellow-50 text-yellow-700 hover:bg-yellow-50 px-3 py-1 rounded-lg text-xs border-0 font-medium">
+            <Clock className="w-3 h-3 mr-1" />
+            Suspendue
+          </Badge>
+        );
+      case 'destroyed':
+        return (
+          <Badge className="bg-red-50 text-red-700 hover:bg-red-50 px-3 py-1 rounded-lg text-xs border-0 font-medium">
+            <AlertTriangle className="w-3 h-3 mr-1" />
+            Détruite
+          </Badge>
+        );
+      default:
+        return null;
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     toast({
@@ -124,6 +180,10 @@ export function PaymentMethods() {
   };
 
   const handleSetDefault = (methodId: number) => {
+    setPaymentMethods(prev => prev.map(method => ({
+      ...method,
+      isDefault: method.id === methodId
+    })));
     toast({
       title: "Méthode par défaut",
       description: "Cette méthode a été définie comme principale.",
@@ -164,6 +224,10 @@ export function PaymentMethods() {
       case "card":
         return (
           <>
+            <div className="space-y-2">
+              <Label htmlFor="displayName">Nom d'affichage</Label>
+              <Input id="displayName" placeholder="Ex: Carte principale, Carte bureau..." />
+            </div>
             <div className="space-y-2">
               <Label htmlFor="cardNumber">Numéro de carte</Label>
               <Input id="cardNumber" placeholder="1234 5678 9012 3456" />
@@ -246,6 +310,10 @@ export function PaymentMethods() {
         return (
           <>
             <div className="space-y-2">
+              <Label htmlFor="displayName">Nom d'affichage</Label>
+              <Input id="displayName" placeholder="Ex: Mobile personnel, Mobile professionnel..." />
+            </div>
+            <div className="space-y-2">
               <Label htmlFor="provider">Opérateur</Label>
               <Select>
                 <SelectTrigger>
@@ -268,6 +336,10 @@ export function PaymentMethods() {
         return (
           <>
             <div className="space-y-2">
+              <Label htmlFor="displayName">Nom d'affichage</Label>
+              <Input id="displayName" placeholder="Ex: Compte courant, Compte épargne..." />
+            </div>
+            <div className="space-y-2">
               <Label htmlFor="bankName">Nom de la banque</Label>
               <Input id="bankName" placeholder="BNP Paribas" />
             </div>
@@ -284,6 +356,10 @@ export function PaymentMethods() {
       case "wallet":
         return (
           <>
+            <div className="space-y-2">
+              <Label htmlFor="displayName">Nom d'affichage</Label>
+              <Input id="displayName" placeholder="Ex: PayPal principal, Apple Pay..." />
+            </div>
             <div className="space-y-2">
               <Label htmlFor="walletType">Type de wallet</Label>
               <Select>
@@ -310,7 +386,7 @@ export function PaymentMethods() {
 
   const defaultMethods = paymentMethods.filter(method => method.isDefault).length;
   const totalMethods = paymentMethods.length;
-  const securedMethods = paymentMethods.length; // Tous sont sécurisés
+  const activeMethods = paymentMethods.filter(method => method.status === 'active').length;
 
   return (
     <div className="min-h-screen bg-gray-50/30">
@@ -349,15 +425,15 @@ export function PaymentMethods() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between mb-4">
                 <div className="w-10 h-10 bg-green-500 rounded-xl flex items-center justify-center">
-                  <Shield className="w-5 h-5 text-white" />
+                  <CheckCircle2 className="w-5 h-5 text-white" />
                 </div>
                 <div className="w-2 h-2 bg-green-400 rounded-full"></div>
               </div>
               <div>
                 <div className="text-2xl font-semibold text-gray-900 mb-1">
-                  {securedMethods}
+                  {activeMethods}
                 </div>
-                <div className="text-sm text-gray-500">Sécurisées</div>
+                <div className="text-sm text-gray-500">Actives</div>
               </div>
             </CardContent>
           </Card>
@@ -393,8 +469,10 @@ export function PaymentMethods() {
                         <IconComponent className="w-5 h-5 text-white" />
                       </div>
                       <div>
-                        <h3 className="font-medium text-gray-900 text-lg mb-1">{method.provider}</h3>
+                        <h3 className="font-medium text-gray-900 text-lg mb-1">{method.displayName}</h3>
                         <div className="flex items-center gap-3 text-sm text-gray-500">
+                          <span>{method.provider}</span>
+                          <span>•</span>
                           <span className="font-mono">{method.identifier}</span>
                           <span>•</span>
                           <span>{method.detail}</span>
@@ -403,17 +481,18 @@ export function PaymentMethods() {
                     </div>
                     
                     <div className="flex items-center gap-6">
-                      <div className="text-right">
+                      <div className="flex items-center gap-3">
+                        {getStatusBadge(method.status)}
                         {method.isDefault && (
-                          <Badge className="bg-green-50 text-green-700 hover:bg-green-50 px-3 py-1 rounded-lg text-xs border-0 font-medium">
-                            <div className="w-1.5 h-1.5 bg-green-400 rounded-full mr-2"></div>
+                          <Badge className="bg-blue-50 text-blue-700 hover:bg-blue-50 px-3 py-1 rounded-lg text-xs border-0 font-medium">
+                            <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2"></div>
                             Principal
                           </Badge>
                         )}
                       </div>
                       
                       <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                        {!method.isDefault && (
+                        {!method.isDefault && method.status === 'active' && (
                           <Button
                             variant="ghost"
                             size="sm"
