@@ -1,7 +1,5 @@
 
-import { Plus, Sparkles } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Plus } from "lucide-react";
 
 export function AddSubscriptionCard() {
   const handleAddSubscription = () => {
@@ -9,33 +7,23 @@ export function AddSubscriptionCard() {
   };
 
   return (
-    <Card className="border border-gray-200 bg-white hover:border-gray-300 transition-colors cursor-pointer group">
-      <CardContent className="p-8 text-center">
-        <div className="space-y-4">
-          {/* Icon minimaliste */}
-          <div className="mx-auto w-12 h-12 bg-black rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform">
-            <Plus className="w-5 h-5 text-white" />
+    <div 
+      className="group py-12 border-b border-gray-50 hover:bg-gray-50/50 transition-colors cursor-pointer"
+      onClick={handleAddSubscription}
+    >
+      <div className="flex items-center justify-center">
+        <div className="flex items-center gap-6">
+          <div className="w-12 h-12 bg-black rounded-lg flex items-center justify-center group-hover:scale-105 transition-transform">
+            <Plus className="w-6 h-6 text-white" />
           </div>
-
-          {/* Contenu épuré */}
-          <div className="space-y-2">
-            <h3 className="text-lg font-medium text-black">
-              Nouveau service
-            </h3>
-            <p className="text-gray-500 text-sm">
-              Ajoutez un abonnement en quelques clics
+          <div>
+            <h3 className="font-medium text-black mb-1">Ajouter un service</h3>
+            <p className="text-sm text-gray-400">
+              Nouveau service en quelques clics
             </p>
           </div>
-
-          {/* CTA minimaliste */}
-          <Button 
-            onClick={handleAddSubscription}
-            className="bg-black text-white rounded-lg px-6 py-2 hover:bg-gray-800 transition-colors text-sm font-medium"
-          >
-            Commencer
-          </Button>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }
