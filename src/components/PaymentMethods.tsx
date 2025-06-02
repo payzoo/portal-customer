@@ -1,5 +1,5 @@
 
-import { CreditCard, Plus, MoreHorizontal } from "lucide-react";
+import { CreditCard, Plus, MoreHorizontal, Shield, Bell, CheckCircle2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -8,102 +8,135 @@ export function PaymentMethods() {
   const paymentMethods = [
     {
       id: 1,
-      type: "visa",
+      type: "Visa",
       last4: "4242",
-      name: "Housseine",
+      name: "Housseine Dao",
       expiry: "12/27",
-      isDefault: true
+      isDefault: true,
+      color: "bg-blue-500"
     },
     {
       id: 2,
-      type: "mastercard", 
+      type: "Mastercard", 
       last4: "5555",
-      name: "Housseine",
+      name: "Housseine Dao",
       expiry: "08/26",
-      isDefault: false
+      isDefault: false,
+      color: "bg-red-500"
+    }
+  ];
+
+  const settings = [
+    { 
+      title: "Renouvellement automatique", 
+      description: "Renouveler automatiquement les abonnements",
+      status: "Activé",
+      icon: CheckCircle2
+    },
+    { 
+      title: "Notifications de paiement", 
+      description: "Recevoir des alertes avant les prélèvements",
+      status: "Activé",
+      icon: Bell
+    },
+    { 
+      title: "Protection anti-fraude", 
+      description: "Surveillance des transactions suspectes",
+      status: "Activé",
+      icon: Shield
     }
   ];
 
   return (
-    <div className="p-6 space-y-6">
-      <div className="flex justify-between items-center">
+    <div className="p-8 space-y-8 bg-gray-50/30 min-h-screen">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Moyens de paiement</h1>
-          <p className="text-gray-600">Gérez vos cartes et moyens de paiement</p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Moyens de paiement</h1>
+          <p className="text-gray-600 text-lg">Gérez vos cartes et préférences de paiement</p>
         </div>
-        <Button className="bg-green-500 hover:bg-green-600">
-          <Plus className="w-4 h-4 mr-2" />
-          Ajouter un moyen de paiement
+        <Button className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-200">
+          <Plus className="w-5 h-5 mr-2" />
+          Ajouter une carte
         </Button>
       </div>
 
-      <div className="grid gap-4">
+      {/* Payment Methods */}
+      <div className="space-y-4">
+        <h2 className="text-xl font-semibold text-gray-900 mb-4">Cartes enregistrées</h2>
+        
         {paymentMethods.map((method) => (
-          <Card key={method.id}>
+          <Card key={method.id} className="border-0 shadow-sm hover:shadow-md transition-all duration-200 bg-white">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                    <CreditCard className="w-6 h-6 text-blue-600" />
+                  <div className={`w-14 h-14 ${method.color} rounded-xl flex items-center justify-center shadow-sm`}>
+                    <CreditCard className="w-7 h-7 text-white" />
                   </div>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <span className="font-semibold text-gray-900 capitalize">{method.type}</span>
-                      <span className="text-gray-500">•••• {method.last4}</span>
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-3">
+                      <span className="font-semibold text-gray-900 text-lg">{method.type}</span>
+                      <span className="text-gray-500 font-mono">•••• {method.last4}</span>
                       {method.isDefault && (
-                        <Badge variant="secondary" className="bg-green-100 text-green-800">
+                        <Badge className="bg-green-100 text-green-800 hover:bg-green-100 px-3 py-1 rounded-full">
                           Par défaut
                         </Badge>
                       )}
                     </div>
-                    <p className="text-sm text-gray-500">{method.name} • Expire {method.expiry}</p>
+                    <p className="text-gray-500">{method.name} • Expire {method.expiry}</p>
                   </div>
                 </div>
                 
-                <Button variant="ghost" size="sm">
-                  <MoreHorizontal className="w-4 h-4" />
+                <Button variant="ghost" size="sm" className="rounded-lg">
+                  <MoreHorizontal className="w-5 h-5" />
                 </Button>
               </div>
             </CardContent>
           </Card>
         ))}
+
+        {/* Add Payment Method CTA */}
+        <Card className="border-2 border-dashed border-gray-200 hover:border-gray-300 transition-colors bg-white">
+          <CardContent className="p-8">
+            <div className="flex flex-col items-center justify-center text-center space-y-4">
+              <div className="w-16 h-16 bg-gray-50 rounded-xl flex items-center justify-center">
+                <Plus className="w-8 h-8 text-gray-400" />
+              </div>
+              <div className="space-y-2">
+                <h3 className="font-semibold text-gray-900 text-lg">Ajouter une nouvelle carte</h3>
+                <p className="text-gray-500">Visa, Mastercard, American Express</p>
+              </div>
+              <Button variant="outline" className="px-6 py-2 rounded-lg">
+                Ajouter une carte
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
-      {/* Add Payment Method Card */}
-      <Card className="border-dashed border-2 border-gray-300">
-        <CardContent className="p-6">
-          <div className="flex flex-col items-center justify-center text-center py-8">
-            <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mb-4">
-              <Plus className="w-6 h-6 text-gray-400" />
-            </div>
-            <h3 className="font-medium text-gray-900 mb-1">Ajouter une nouvelle carte</h3>
-            <p className="text-sm text-gray-500 mb-4">Visa, Mastercard, American Express</p>
-            <Button variant="outline">Ajouter une carte</Button>
-          </div>
-        </CardContent>
-      </Card>
-
       {/* Payment Settings */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Paramètres de paiement</CardTitle>
+      <Card className="border-0 shadow-sm bg-white">
+        <CardHeader className="pb-4">
+          <CardTitle className="text-xl font-bold text-gray-900">Paramètres de paiement</CardTitle>
+          <p className="text-gray-500">Configurez vos préférences de paiement</p>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="font-medium text-gray-900">Renouvellement automatique</p>
-              <p className="text-sm text-gray-500">Renouveler automatiquement les abonnements</p>
+        <CardContent className="space-y-6 pt-0">
+          {settings.map((setting, index) => (
+            <div key={index} className="flex items-center justify-between p-4 border border-gray-100 rounded-xl hover:bg-gray-50/50 transition-colors">
+              <div className="flex items-center gap-4">
+                <div className="p-3 bg-gray-50 rounded-xl">
+                  <setting.icon className="w-5 h-5 text-gray-600" />
+                </div>
+                <div>
+                  <p className="font-semibold text-gray-900">{setting.title}</p>
+                  <p className="text-sm text-gray-500">{setting.description}</p>
+                </div>
+              </div>
+              <Badge className="bg-green-100 text-green-800 hover:bg-green-100 px-3 py-1 rounded-full">
+                {setting.status}
+              </Badge>
             </div>
-            <Button variant="outline" size="sm">Activé</Button>
-          </div>
-          
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="font-medium text-gray-900">Notifications de paiement</p>
-              <p className="text-sm text-gray-500">Recevoir des alertes avant les prélèvements</p>
-            </div>
-            <Button variant="outline" size="sm">Activé</Button>
-          </div>
+          ))}
         </CardContent>
       </Card>
     </div>
