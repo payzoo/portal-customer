@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { 
   LayoutDashboard, 
@@ -135,7 +136,7 @@ export const Sidebar = ({ activeSection, onSectionChange }: SidebarProps) => {
       {/* Liens légaux */}
       <div className="p-6 border-t border-gray-50 flex-shrink-0">
         <div className="space-y-3 text-center">
-          <Label className="block bg-gray-100 px-3 py-1.5 rounded-md text-sm font-medium text-gray-700 cursor-pointer hover:bg-gray-200 transition-colors duration-200">
+          <Label className="inline-block bg-gray-100 px-2 py-1 rounded-md text-sm font-medium text-gray-700 cursor-pointer hover:bg-gray-200 transition-colors duration-200">
             <a href="#" className="block">Aide</a>
           </Label>
           <div className="flex justify-center space-x-4">
