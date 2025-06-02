@@ -59,50 +59,51 @@ const AuthPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4 relative">
+    <div className="min-h-screen bg-background flex items-center justify-center p-6">
       {/* Subtle background decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-5">
         <div className="absolute w-96 h-96 bg-foreground rounded-full blur-3xl top-10 left-10"></div>
         <div className="absolute w-80 h-80 bg-foreground rounded-full blur-3xl right-15 bottom-20"></div>
       </div>
 
-      <div className={`w-full max-w-sm space-y-12 relative z-10 transform transition-all duration-1000 ease-out ${
+      <div className={`w-full max-w-md space-y-12 relative z-10 transform transition-all duration-1000 ease-out ${
         isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
       }`}>
         
-        {/* Header with consistent typography */}
+        {/* Header with brand identity */}
         <div className="text-center">
           <div className={`transform transition-all duration-700 ease-out ${
             isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
           }`} style={{ transitionDelay: '400ms' }}>
-            <h1 className="lovable-page-title mb-4">Lovable</h1>
-            <div className="flex items-center justify-center space-x-2 mb-2">
-              <div className="lovable-status-active"></div>
-              <p className="lovable-caption uppercase tracking-wider font-medium">SIMPLY BETTER</p>
-              <div className="lovable-status-active"></div>
+            <h1 className="payzoo-page-title mb-6">Payzoo</h1>
+            <div className="flex items-center justify-center space-x-3 mb-4">
+              <div className="payzoo-status-active"></div>
+              <p className="payzoo-caption uppercase tracking-wider font-medium text-muted-foreground">GESTION SIMPLIFIÉE</p>
+              <div className="payzoo-status-active"></div>
             </div>
+            <p className="payzoo-subtitle">Connectez-vous à votre espace personnel</p>
           </div>
         </div>
 
-        {/* Form section with proper input alignment */}
+        {/* Form section */}
         <div className={`space-y-8 transform transition-all duration-700 ease-out ${
           isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
         }`} style={{ transitionDelay: '600ms' }}>
           {!showEmailTag ? (
             <div className="space-y-8">
-              {/* Fixed input field with proper alignment */}
-              <div className="lovable-input-container">
-                <div className="lovable-card">
-                  <div className="relative lovable-card-compact">
-                    <Mail className="lovable-input-icon" />
+              {/* Email input field */}
+              <div className="payzoo-input-container">
+                <div className="payzoo-card">
+                  <div className="relative payzoo-card-compact">
+                    <Mail className="payzoo-input-icon" />
                     <Input
                       type="email"
                       placeholder="votre@email.com"
                       value={email}
                       onChange={handleEmailChange}
-                      className="lovable-input-with-icon border-0 bg-transparent focus:ring-0 focus:border-0"
+                      className="payzoo-input-with-icon border-0 bg-transparent focus:ring-0 focus:border-0 placeholder:text-muted-foreground"
                     />
-                    <div className={`lovable-input-action transition-all duration-500 ${
+                    <div className={`payzoo-input-action transition-all duration-500 ${
                       isEmailValid ? 'scale-100 opacity-100 rotate-0' : 'scale-0 opacity-0 rotate-90'
                     }`}>
                       <div className="w-6 h-6 bg-foreground rounded-full flex items-center justify-center">
@@ -116,31 +117,31 @@ const AuthPage = () => {
               <Button
                 onClick={handleContinue}
                 disabled={!isEmailValid}
-                className={`lovable-btn-primary w-full ${!isEmailValid ? 'opacity-40 cursor-not-allowed' : ''}`}
+                className={`payzoo-btn-primary w-full ${!isEmailValid ? 'opacity-40 cursor-not-allowed' : ''}`}
               >
                 Continuer
                 <ArrowRight className="w-5 h-5" />
               </Button>
             </div>
           ) : (
-            <div className="space-y-8 lovable-fade-in">
-              {/* Email tag with proper contrast */}
+            <div className="space-y-8 payzoo-fade-in">
+              {/* Email confirmation card */}
               <div className="group cursor-pointer">
-                <div className="lovable-card-interactive lovable-card-content">
+                <div className="payzoo-card-interactive payzoo-card-content">
                   <div className="flex items-center space-x-4">
                     <div className="w-14 h-14 bg-foreground rounded-2xl flex items-center justify-center text-background font-semibold text-xl flex-shrink-0">
                       {email.charAt(0).toUpperCase()}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="lovable-body font-medium break-words">{email}</p>
+                      <p className="payzoo-body font-medium break-words text-foreground">{email}</p>
                       <div className="flex items-center space-x-2 mt-2">
-                        <div className="lovable-status-active"></div>
-                        <p className="lovable-body-sm">Prêt à se connecter</p>
+                        <div className="payzoo-status-active"></div>
+                        <p className="payzoo-body-sm text-muted-foreground">Prêt à se connecter</p>
                       </div>
                     </div>
                     <button 
                       onClick={removeEmailTag}
-                      className="lovable-btn-icon flex-shrink-0"
+                      className="payzoo-btn-icon flex-shrink-0"
                       aria-label="Supprimer l'email"
                     >
                       ×
@@ -151,7 +152,7 @@ const AuthPage = () => {
 
               <Button
                 onClick={handleConnection}
-                className="lovable-btn-primary w-full"
+                className="payzoo-btn-primary w-full"
               >
                 Se connecter
                 <ArrowRight className="w-5 h-5" />
@@ -165,11 +166,11 @@ const AuthPage = () => {
           isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
         }`} style={{ transitionDelay: '800ms' }}>
           <div className="text-center">
-            <p className="lovable-body-sm mb-4">
+            <p className="payzoo-body-sm mb-4 text-muted-foreground">
               Pas encore de compte ?{" "}
               <button
                 onClick={handleRegisterRedirect}
-                className="text-foreground font-medium hover:underline transition-all duration-200 lovable-focus-ring"
+                className="text-foreground font-medium hover:underline transition-all duration-200 payzoo-focus-ring"
               >
                 S'inscrire
               </button>
@@ -179,11 +180,11 @@ const AuthPage = () => {
             {[1, 2, 3].map((i) => (
               <div 
                 key={i} 
-                className="lovable-status-active hover:scale-150 transition-all duration-300 cursor-pointer"
+                className="payzoo-status-active hover:scale-150 transition-all duration-300 cursor-pointer"
               ></div>
             ))}
           </div>
-          <p className="lovable-caption opacity-60">© 2024 Lovable</p>
+          <p className="payzoo-caption opacity-60">© 2024 Payzoo</p>
         </div>
       </div>
     </div>

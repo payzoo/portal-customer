@@ -63,146 +63,146 @@
   }
 }
 
-/* Design System - Typography (Consistent hierarchy) */
-.lovable-page-title {
+/* Payzoo Design System - Typography */
+.payzoo-page-title {
   @apply text-4xl font-light text-foreground tracking-tight leading-tight mb-3;
 }
 
-.lovable-section-title {
+.payzoo-section-title {
   @apply text-2xl font-normal text-foreground tracking-tight leading-snug mb-6;
 }
 
-.lovable-subsection-title {
+.payzoo-subsection-title {
   @apply text-xl font-normal text-foreground tracking-tight leading-snug mb-4;
 }
 
-.lovable-body {
+.payzoo-body {
   @apply text-base text-foreground leading-relaxed;
 }
 
-.lovable-body-sm {
+.payzoo-body-sm {
   @apply text-sm text-foreground leading-relaxed;
 }
 
-.lovable-caption {
+.payzoo-caption {
   @apply text-xs text-muted-foreground leading-normal;
 }
 
-.lovable-subtitle {
+.payzoo-subtitle {
   @apply text-base text-muted-foreground leading-relaxed;
 }
 
-/* Design System - Layout (Consistent containers) */
-.lovable-page-container {
+/* Payzoo Design System - Layout */
+.payzoo-page-container {
   @apply max-w-6xl mx-auto px-8 py-12;
 }
 
-.lovable-section {
+.payzoo-section {
   @apply space-y-8 mb-12;
 }
 
-.lovable-grid-2 {
+.payzoo-grid-2 {
   @apply grid grid-cols-1 md:grid-cols-2 gap-6;
 }
 
-.lovable-grid-3 {
+.payzoo-grid-3 {
   @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
 }
 
-.lovable-grid-4 {
+.payzoo-grid-4 {
   @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6;
 }
 
-/* Design System - CTA Elements (70% Primary usage) */
-.lovable-btn-primary {
+/* Payzoo Design System - CTA Elements (70% Primary usage) */
+.payzoo-btn-primary {
   @apply inline-flex items-center justify-center gap-2 h-12 px-8 bg-foreground text-background font-medium rounded-xl transition-all duration-200 hover:bg-foreground/90 focus:outline-none focus:ring-2 focus:ring-foreground focus:ring-offset-2 active:scale-[0.98] shadow-sm;
 }
 
 /* CTA System - Secondary (30% usage) */
-.lovable-btn-secondary {
+.payzoo-btn-secondary {
   @apply inline-flex items-center justify-center gap-2 h-12 px-8 bg-background text-foreground font-medium rounded-xl border border-border transition-all duration-200 hover:bg-muted focus:outline-none focus:ring-2 focus:ring-foreground focus:ring-offset-2 active:scale-[0.98];
 }
 
 /* CTA System - Accent (10% usage) */
-.lovable-btn-accent {
+.payzoo-btn-accent {
   @apply inline-flex items-center justify-center gap-2 h-12 px-8 bg-transparent text-foreground font-medium rounded-xl border border-foreground transition-all duration-200 hover:bg-foreground hover:text-background focus:outline-none focus:ring-2 focus:ring-foreground focus:ring-offset-2 active:scale-[0.98];
 }
 
-.lovable-btn-ghost {
+.payzoo-btn-ghost {
   @apply inline-flex items-center justify-center gap-2 h-10 px-4 bg-transparent text-muted-foreground font-medium rounded-lg transition-all duration-200 hover:bg-muted hover:text-foreground focus:outline-none focus:ring-2 focus:ring-foreground focus:ring-offset-1 active:scale-[0.98];
 }
 
-.lovable-btn-icon {
+.payzoo-btn-icon {
   @apply inline-flex items-center justify-center w-10 h-10 bg-transparent text-muted-foreground rounded-lg transition-all duration-200 hover:bg-muted hover:text-foreground focus:outline-none focus:ring-2 focus:ring-foreground focus:ring-offset-1 active:scale-[0.95];
 }
 
-/* Design System - Cards (Consistent dimensions) */
-.lovable-card {
-  @apply bg-card border border-border rounded-2xl shadow-sm transition-all duration-200 min-h-[200px];
+/* Payzoo Design System - Cards */
+.payzoo-card {
+  @apply bg-card border border-border rounded-2xl shadow-sm transition-all duration-200 min-h-[120px];
 }
 
-.lovable-card-interactive {
-  @apply bg-card border border-border rounded-2xl shadow-sm transition-all duration-200 hover:shadow-md hover:border-foreground/20 cursor-pointer min-h-[200px];
+.payzoo-card-interactive {
+  @apply bg-card border border-border rounded-2xl shadow-sm transition-all duration-200 hover:shadow-md hover:border-foreground/20 cursor-pointer min-h-[120px];
 }
 
-.lovable-card-content {
+.payzoo-card-content {
   @apply p-8;
 }
 
-.lovable-card-compact {
+.payzoo-card-compact {
   @apply p-6;
 }
 
-/* Design System - Input System (Fixed alignment and visibility) */
-.lovable-input-container {
+/* Payzoo Design System - Input System */
+.payzoo-input-container {
   @apply relative w-full;
 }
 
-.lovable-input {
+.payzoo-input {
   @apply w-full h-12 px-4 bg-background border border-border rounded-xl text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-foreground focus:border-foreground;
 }
 
-.lovable-input-with-icon {
+.payzoo-input-with-icon {
   @apply w-full h-12 pl-12 pr-4 bg-background border border-border rounded-xl text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-foreground focus:border-foreground;
 }
 
-.lovable-input-icon {
+.payzoo-input-icon {
   @apply absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none z-10;
 }
 
-.lovable-input-action {
+.payzoo-input-action {
   @apply absolute right-4 top-1/2 transform -translate-y-1/2 z-10;
 }
 
-/* Design System - Status indicators */
-.lovable-status-active {
+/* Payzoo Design System - Status indicators */
+.payzoo-status-active {
   @apply w-2 h-2 bg-foreground rounded-full;
 }
 
-.lovable-status-inactive {
+.payzoo-status-inactive {
   @apply w-2 h-2 bg-muted-foreground rounded-full;
 }
 
-.lovable-status-warning {
+.payzoo-status-warning {
   @apply w-2 h-2 bg-yellow-500 rounded-full;
 }
 
-/* Design System - Metrics Cards */
-.lovable-metric-card {
+/* Payzoo Design System - Metrics Cards */
+.payzoo-metric-card {
   @apply bg-card border border-border rounded-2xl p-6 min-h-[120px] flex flex-col justify-between;
 }
 
 /* Accessibility improvements */
-.lovable-focus-ring {
+.payzoo-focus-ring {
   @apply focus:outline-none focus:ring-2 focus:ring-foreground focus:ring-offset-2;
 }
 
 /* Animation */
-.lovable-fade-in {
-  animation: lovableFadeIn 0.4s ease-out;
+.payzoo-fade-in {
+  animation: payzooFadeIn 0.4s ease-out;
 }
 
-@keyframes lovableFadeIn {
+@keyframes payzooFadeIn {
   from {
     opacity: 0;
     transform: translateY(8px);
@@ -215,11 +215,45 @@
 
 /* High contrast mode support */
 @media (prefers-contrast: high) {
-  .lovable-btn-primary {
+  .payzoo-btn-primary {
     @apply border-2 border-foreground;
   }
   
-  .lovable-card {
+  .payzoo-card {
     @apply border-2;
   }
 }
+
+/* Legacy Lovable classes for backward compatibility */
+.lovable-page-title { @apply payzoo-page-title; }
+.lovable-section-title { @apply payzoo-section-title; }
+.lovable-subsection-title { @apply payzoo-subsection-title; }
+.lovable-body { @apply payzoo-body; }
+.lovable-body-sm { @apply payzoo-body-sm; }
+.lovable-caption { @apply payzoo-caption; }
+.lovable-subtitle { @apply payzoo-subtitle; }
+.lovable-page-container { @apply payzoo-page-container; }
+.lovable-section { @apply payzoo-section; }
+.lovable-grid-2 { @apply payzoo-grid-2; }
+.lovable-grid-3 { @apply payzoo-grid-3; }
+.lovable-grid-4 { @apply payzoo-grid-4; }
+.lovable-btn-primary { @apply payzoo-btn-primary; }
+.lovable-btn-secondary { @apply payzoo-btn-secondary; }
+.lovable-btn-accent { @apply payzoo-btn-accent; }
+.lovable-btn-ghost { @apply payzoo-btn-ghost; }
+.lovable-btn-icon { @apply payzoo-btn-icon; }
+.lovable-card { @apply payzoo-card; }
+.lovable-card-interactive { @apply payzoo-card-interactive; }
+.lovable-card-content { @apply payzoo-card-content; }
+.lovable-card-compact { @apply payzoo-card-compact; }
+.lovable-input-container { @apply payzoo-input-container; }
+.lovable-input { @apply payzoo-input; }
+.lovable-input-with-icon { @apply payzoo-input-with-icon; }
+.lovable-input-icon { @apply payzoo-input-icon; }
+.lovable-input-action { @apply payzoo-input-action; }
+.lovable-status-active { @apply payzoo-status-active; }
+.lovable-status-inactive { @apply payzoo-status-inactive; }
+.lovable-status-warning { @apply payzoo-status-warning; }
+.lovable-metric-card { @apply payzoo-metric-card; }
+.lovable-focus-ring { @apply payzoo-focus-ring; }
+.lovable-fade-in { @apply payzoo-fade-in; }
