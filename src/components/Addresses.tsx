@@ -1,3 +1,4 @@
+
 import { MapPin, Plus, MoreHorizontal, Home, Building2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -27,7 +28,7 @@ export function Addresses() {
 
   return (
     <div className="p-8 bg-gray-50/30 min-h-screen">
-      <div className="max-w-7xl mx-auto space-y-8">
+      <div className="max-w-4xl mx-auto space-y-8">
         {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
@@ -95,6 +96,7 @@ export function Addresses() {
               </div>
             </CardContent>
           </Card>
+        </div>
 
         {/* Quick Actions */}
         <Card className="border-0 shadow-sm bg-white">
