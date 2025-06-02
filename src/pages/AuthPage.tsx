@@ -81,29 +81,29 @@ const AuthPage = () => {
       <div className="flex-1 flex items-center justify-center p-8">
         <div className="w-full max-w-md">
           {/* Logo mobile */}
-          <div className="lg:hidden text-center mb-12">
-            <div className="w-12 h-12 payzoo-gradient rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-              <span className="text-white font-bold text-xl">P</span>
+          <div className="lg:hidden text-center mb-16">
+            <div className="w-16 h-16 payzoo-gradient rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+              <span className="text-white font-bold text-2xl">P</span>
             </div>
-            <h1 className="text-2xl font-bold text-gray-900">Payzoo</h1>
-            <p className="text-sm text-payzoo-green-600 font-medium">Simply better</p>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">Payzoo</h1>
+            <p className="text-payzoo-green-600 font-medium">Simply better</p>
           </div>
 
           {/* Titre principal */}
-          <div className="mb-10">
-            <h2 className="text-3xl font-bold text-gray-900 mb-3">
+          <div className="mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
               Bienvenue
             </h2>
-            <p className="text-gray-500 text-lg">
-              Connectez-vous pour accéder à votre espace
+            <p className="text-gray-500 text-lg leading-relaxed">
+              Connectez-vous pour accéder à votre espace personnel et gérer vos abonnements
             </p>
           </div>
 
           {/* Formulaire */}
-          <div className="space-y-8">
+          <div className="space-y-10">
             {!showEmailTag ? (
-              <div className="space-y-2">
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-3">
+              <div className="space-y-3">
+                <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-4">
                   Adresse e-mail
                 </label>
                 <div className="relative">
@@ -113,32 +113,32 @@ const AuthPage = () => {
                     placeholder="votre@email.com"
                     value={email}
                     onChange={handleEmailChange}
-                    className="w-full h-14 px-4 text-base border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-payzoo-green-500 focus:border-payzoo-green-500 transition-all duration-200 bg-gray-50/50 placeholder:text-gray-400"
+                    className="w-full h-16 px-5 text-lg border-2 border-gray-200 rounded-2xl focus:ring-2 focus:ring-payzoo-green-500 focus:border-payzoo-green-500 transition-all duration-300 bg-gray-50/50 placeholder:text-gray-400"
                   />
                   {isEmailValid && (
-                    <div className="absolute inset-y-0 right-4 flex items-center">
-                      <div className="w-2 h-2 bg-payzoo-green-500 rounded-full animate-pulse-green"></div>
+                    <div className="absolute inset-y-0 right-5 flex items-center">
+                      <div className="w-2.5 h-2.5 bg-payzoo-green-500 rounded-full animate-pulse-green"></div>
                     </div>
                   )}
                 </div>
               </div>
             ) : (
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700 mb-3">
+              <div className="space-y-3">
+                <label className="block text-sm font-semibold text-gray-700 mb-4">
                   Compte sélectionné
                 </label>
                 <div className="relative">
-                  <div className="flex items-center space-x-4 bg-payzoo-green-50 border-2 border-payzoo-green-200 rounded-xl px-4 py-4">
-                    <div className="w-12 h-12 payzoo-gradient rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-sm">
+                  <div className="flex items-center space-x-5 bg-payzoo-green-50 border-2 border-payzoo-green-200 rounded-2xl px-6 py-5">
+                    <div className="w-14 h-14 payzoo-gradient rounded-2xl flex items-center justify-center text-white font-bold text-xl shadow-sm">
                       {email.charAt(0).toUpperCase()}
                     </div>
                     <div className="flex-1">
-                      <p className="text-payzoo-green-800 font-semibold">{email}</p>
+                      <p className="text-payzoo-green-800 font-semibold text-lg">{email}</p>
                       <p className="text-payzoo-green-600 text-sm">Prêt à continuer</p>
                     </div>
                     <button 
                       onClick={removeEmailTag}
-                      className="text-payzoo-green-600 hover:text-payzoo-green-800 transition-colors p-2 hover:bg-payzoo-green-100 rounded-lg"
+                      className="text-payzoo-green-600 hover:text-payzoo-green-800 transition-colors p-3 hover:bg-payzoo-green-100 rounded-xl"
                     >
                       <X className="w-5 h-5" />
                     </button>
@@ -150,30 +150,15 @@ const AuthPage = () => {
             <Button
               onClick={showEmailTag ? handleConnection : handleContinue}
               disabled={!isEmailValid}
-              className="w-full h-14 payzoo-gradient hover:opacity-90 text-white rounded-xl font-semibold text-base shadow-lg hover:shadow-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed group"
+              className="w-full h-16 payzoo-gradient hover:opacity-90 text-white rounded-2xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group"
             >
               <span>{showEmailTag ? "Continuer" : "Commencer"}</span>
-              <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-6 h-6 ml-3 group-hover:translate-x-1 transition-transform" />
             </Button>
           </div>
 
-          {/* Divider */}
-          <div className="my-12 flex items-center">
-            <div className="flex-1 border-t border-gray-200"></div>
-            <span className="px-4 text-sm text-gray-500">ou</span>
-            <div className="flex-1 border-t border-gray-200"></div>
-          </div>
-
-          {/* Options alternatives */}
-          <div className="space-y-4">
-            <button className="w-full h-12 border-2 border-gray-200 rounded-xl font-medium text-gray-700 hover:bg-gray-50 hover:border-gray-300 transition-all duration-200 flex items-center justify-center space-x-3">
-              <div className="w-5 h-5 bg-gradient-to-r from-blue-500 to-purple-600 rounded"></div>
-              <span>Continuer avec Google</span>
-            </button>
-          </div>
-
           {/* Footer */}
-          <div className="mt-16 text-center space-y-6">
+          <div className="mt-20 text-center space-y-8">
             <div className="flex justify-center space-x-8 text-sm text-gray-400">
               <a href="#" className="hover:text-payzoo-green-600 transition-colors">Conditions d'utilisation</a>
               <a href="#" className="hover:text-payzoo-green-600 transition-colors">Confidentialité</a>
