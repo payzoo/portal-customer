@@ -6,14 +6,15 @@ import {
   MapPin, 
   Settings, 
   Calendar,
-  LogOut
+  LogOut,
+  ChevronLeft,
+  ChevronRight
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Separator } from "@/components/ui/separator";
-import { Label } from "@/components/ui/label";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 
 interface SidebarProps {
   activeSection: string;
@@ -24,6 +25,7 @@ export const Sidebar = ({ activeSection, onSectionChange }: SidebarProps) => {
   const { logout, user } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   const handleLogout = () => {
     logout();
@@ -42,55 +44,64 @@ export const Sidebar = ({ activeSection, onSectionChange }: SidebarProps) => {
     { id: "settings", label: "Paramètres", icon: Settings },
   ];
 
-  // Fonction pour obtenir les initiales de l'utilisateur
   const getUserInitials = (email: string) => {
     const name = email.split('@')[0];
     return name.charAt(0).toUpperCase() + (name.charAt(1) || '').toUpperCase();
   };
 
-  // Fonction pour obtenir le nom d'affichage
   const getDisplayName = (email: string) => {
     return email.split('@')[0];
   };
 
   return (
-    <div className="w-80 bg-black border-r border-gray-800 h-screen max-h-screen fixed left-0 top-0 flex flex-col overflow-hidden">
-      {/* Header moderne avec noir */}
-      <div className="p-8 border-b border-gray-800 flex-shrink-0">
-        <div className="flex items-center space-x-4">
-          <div className="relative">
-            <div className="w-12 h-12 bg-white rounded-3xl flex items-center justify-center shadow-lg">
-              <span className="text-black font-bold text-lg">P</span>
+    <div className={`${isCollapsed ? 'w-16' : 'w-64'} bg-white border-r border-gray-100 h-screen fixed left-0 top-0 flex flex-col transition-all duration-300 ease-in-out z-40`}>
+      {/* Header minimaliste */}
+      <div className="flex items-center justify-between p-4 border-b border-gray-100">
+        {!isCollapsed && (
+          <div className="flex items-center space-x-3">
+            <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-sm">P</span>
             </div>
-            <div className="absolute -top-1 -right-1 w-3 h-3 bg-payzoo-green rounded-full"></div>
+            <h1 className="font-semibold text-gray-900 text-lg">Payzoo</h1>
           </div>
-          <div className="flex-1 min-w-0">
-            <h1 className="font-bold text-white text-2xl tracking-tight">Payzoo</h1>
-            <p className="text-sm text-gray-400 font-medium mt-1">Gestion simplifiée</p>
+        )}
+        {isCollapsed && (
+          <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center mx-auto">
+            <span className="text-white font-bold text-sm">P</span>
           </div>
-        </div>
+        )}
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => setIsCollapsed(!isCollapsed)}
+          className="h-8 w-8 text-gray-400 hover:text-gray-600"
+        >
+          {isCollapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
+        </Button>
       </div>
 
-      {/* Section utilisateur */}
-      <div className="p-6 border-b border-gray-800 flex-shrink-0">
-        <div className="flex items-center space-x-4">
-          <Avatar className="w-12 h-12">
-            <AvatarFallback className="bg-gray-800 text-white font-semibold text-base border border-gray-700">
-              {user ? getUserInitials(user.email) : 'U'}
-            </AvatarFallback>
-          </Avatar>
-          <div className="flex-1 min-w-0">
-            <h3 className="font-semibold text-white text-base truncate">
-              {user ? getDisplayName(user.email) : 'Utilisateur'}
-            </h3>
-            <p className="text-sm text-gray-400 truncate">{user?.email}</p>
+      {/* Profile section */}
+      {!isCollapsed && (
+        <div className="p-4 border-b border-gray-100">
+          <div className="flex items-center space-x-3">
+            <Avatar className="w-10 h-10">
+              <AvatarFallback className="bg-gray-100 text-gray-700 text-sm font-medium">
+                {user ? getUserInitials(user.email) : 'U'}
+              </AvatarFallback>
+            </Avatar>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium text-gray-900 truncate">
+                {user ? getDisplayName(user.email) : 'Utilisateur'}
+              </p>
+              <p className="text-xs text-gray-500 truncate">{user?.email}</p>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
-      {/* Navigation moderne avec noir */}
-      <nav className="flex-1 p-6 overflow-y-auto">
-        <ul className="space-y-2">
+      {/* Navigation minimaliste */}
+      <nav className="flex-1 p-4">
+        <ul className="space-y-1">
           {menuItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeSection === item.id;
@@ -98,22 +109,19 @@ export const Sidebar = ({ activeSection, onSectionChange }: SidebarProps) => {
               <li key={item.id}>
                 <button
                   onClick={() => onSectionChange(item.id)}
-                  className={`w-full flex items-center space-x-4 px-6 py-4 rounded-2xl text-left transition-all duration-300 group relative ${
+                  className={`w-full flex items-center ${isCollapsed ? 'justify-center px-3' : 'px-3'} py-2.5 rounded-lg text-left transition-all duration-200 group ${
                     isActive
-                      ? "bg-white text-black shadow-lg border border-gray-200"
-                      : "text-gray-300 hover:bg-gray-800 hover:text-white hover:shadow-sm border border-transparent hover:border-gray-700"
+                      ? "bg-black text-white shadow-sm"
+                      : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                   }`}
+                  title={isCollapsed ? item.label : undefined}
                 >
-                  <Icon className={`w-5 h-5 transition-all duration-300 ${
-                    isActive ? "text-black" : "group-hover:scale-110"
-                  }`} />
-                  <span className={`font-semibold text-base ${
-                    isActive ? "text-black" : ""
-                  }`}>
-                    {item.label}
-                  </span>
-                  {isActive && (
-                    <div className="absolute right-4 w-2 h-2 bg-payzoo-green rounded-full animate-pulse" />
+                  <Icon className={`w-5 h-5 ${isCollapsed ? '' : 'mr-3'} flex-shrink-0`} />
+                  {!isCollapsed && (
+                    <span className="font-medium text-sm">{item.label}</span>
+                  )}
+                  {isActive && !isCollapsed && (
+                    <div className="ml-auto w-1.5 h-1.5 bg-white rounded-full opacity-80" />
                   )}
                 </button>
               </li>
@@ -122,45 +130,28 @@ export const Sidebar = ({ activeSection, onSectionChange }: SidebarProps) => {
         </ul>
       </nav>
 
-      {/* Footer moderne - Déconnexion */}
-      <div className="p-6 border-t border-gray-800 flex-shrink-0">
+      {/* Footer avec déconnexion */}
+      <div className="p-4 border-t border-gray-100">
         <button
           onClick={handleLogout}
-          className="w-full flex items-center space-x-4 px-6 py-4 rounded-2xl text-gray-400 hover:bg-red-900 hover:text-red-300 transition-all duration-300 group hover:shadow-sm border border-transparent hover:border-red-800"
+          className={`w-full flex items-center ${isCollapsed ? 'justify-center px-3' : 'px-3'} py-2.5 rounded-lg text-gray-500 hover:bg-red-50 hover:text-red-600 transition-all duration-200 group`}
+          title={isCollapsed ? "Déconnexion" : undefined}
         >
-          <LogOut className="w-5 h-5 transition-all duration-300 group-hover:scale-110" />
-          <span className="font-semibold text-base">Déconnexion</span>
+          <LogOut className={`w-5 h-5 ${isCollapsed ? '' : 'mr-3'} flex-shrink-0`} />
+          {!isCollapsed && (
+            <span className="font-medium text-sm">Déconnexion</span>
+          )}
         </button>
       </div>
 
-      {/* Liens légaux */}
-      <div className="p-6 border-t border-gray-800 flex-shrink-0">
-        <div className="space-y-3 text-center">
-          <Label className="inline-block bg-gray-800 px-2 py-1 rounded-md text-sm font-medium text-gray-300 cursor-pointer hover:bg-gray-700 hover:text-white transition-colors duration-200 border border-gray-700">
-            <a href="#" className="block">Aide</a>
-          </Label>
-          <div className="flex justify-center space-x-4">
-            <a
-              href="#"
-              className="text-xs text-gray-500 hover:text-gray-300 transition-colors duration-200 py-1"
-            >
-              Conditions
-            </a>
-            <a
-              href="#"
-              className="text-xs text-gray-500 hover:text-gray-300 transition-colors duration-200 py-1"
-            >
-              Confidentialité
-            </a>
-            <a
-              href="#"
-              className="text-xs text-gray-500 hover:text-gray-300 transition-colors duration-200 py-1"
-            >
-              Cookies
-            </a>
-          </div>
+      {/* Footer minimaliste */}
+      {!isCollapsed && (
+        <div className="p-4 text-center">
+          <p className="text-xs text-gray-400">
+            © 2024 Payzoo • Startup mode
+          </p>
         </div>
-      </div>
+      )}
     </div>
   );
 };
