@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
+import { Label } from "@/components/ui/label";
 
 interface SidebarProps {
   activeSection: string;
@@ -60,9 +61,9 @@ export const Sidebar = ({ activeSection, onSectionChange }: SidebarProps) => {
   ];
 
   return (
-    <div className="w-80 bg-white border-r border-gray-100 min-h-screen flex flex-col">
+    <div className="w-80 bg-white border-r border-gray-100 h-screen max-h-screen fixed left-0 top-0 flex flex-col overflow-hidden">
       {/* Header moderne */}
-      <div className="p-8 border-b border-gray-50">
+      <div className="p-8 border-b border-gray-50 flex-shrink-0">
         <div className="flex items-center space-x-4">
           <div className="relative">
             <div className="w-12 h-12 payzoo-gradient rounded-3xl flex items-center justify-center shadow-lg">
@@ -78,7 +79,7 @@ export const Sidebar = ({ activeSection, onSectionChange }: SidebarProps) => {
       </div>
 
       {/* Section utilisateur */}
-      <div className="p-6 border-b border-gray-50">
+      <div className="p-6 border-b border-gray-50 flex-shrink-0">
         <div className="flex items-center space-x-4">
           <Avatar className="w-12 h-12">
             <AvatarFallback className="bg-payzoo-green-100 text-payzoo-green-700 font-semibold text-base">
@@ -95,7 +96,7 @@ export const Sidebar = ({ activeSection, onSectionChange }: SidebarProps) => {
       </div>
 
       {/* Navigation moderne */}
-      <nav className="flex-1 p-6">
+      <nav className="flex-1 p-6 overflow-y-auto">
         <ul className="space-y-2">
           {menuItems.map((item) => {
             const Icon = item.icon;
@@ -129,14 +130,11 @@ export const Sidebar = ({ activeSection, onSectionChange }: SidebarProps) => {
       </nav>
 
       {/* Liens légaux */}
-      <div className="p-6 border-t border-gray-50">
-        <div className="space-y-2 text-center">
-          <a
-            href="#"
-            className="block text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200 py-1"
-          >
-            Aide
-          </a>
+      <div className="p-6 border-t border-gray-50 flex-shrink-0">
+        <div className="space-y-3 text-center">
+          <Label className="block bg-gray-100 px-4 py-2 rounded-lg text-sm font-medium text-gray-700 cursor-pointer hover:bg-gray-200 transition-colors duration-200">
+            <a href="#" className="block">Aide</a>
+          </Label>
           <div className="flex justify-center space-x-4">
             <a
               href="#"
@@ -161,7 +159,7 @@ export const Sidebar = ({ activeSection, onSectionChange }: SidebarProps) => {
       </div>
 
       {/* Footer moderne */}
-      <div className="p-6 border-t border-gray-50">
+      <div className="p-6 border-t border-gray-50 flex-shrink-0">
         <button
           onClick={handleLogout}
           className="w-full flex items-center space-x-4 px-6 py-4 rounded-2xl text-gray-500 hover:bg-red-50 hover:text-red-600 transition-all duration-300 group hover:shadow-sm border border-transparent hover:border-red-100"
