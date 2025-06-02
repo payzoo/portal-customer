@@ -88,7 +88,7 @@ const AuthPage = () => {
       <div className={`w-full max-w-sm space-y-10 relative z-10 transform transition-all duration-1000 ease-out ${
         isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
       }`}>
-        {/* Logo supprimé - Titre seulement */}
+        {/* Titre seulement */}
         <div className="text-center">
           <div className={`transform transition-all duration-700 ease-out ${
             isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
@@ -153,12 +153,12 @@ const AuthPage = () => {
               <div className="group cursor-pointer">
                 <div className="relative bg-white/60 backdrop-blur-md rounded-2xl border border-white/20 shadow-xl p-6 hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                  <div className="relative flex items-start space-x-4">
+                  <div className="relative flex items-center space-x-4">
                     <div className="w-14 h-14 bg-black rounded-2xl flex items-center justify-center text-white font-semibold text-xl shadow-lg group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
                       {email.charAt(0).toUpperCase()}
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-black font-medium text-lg break-all leading-tight">{email}</p>
+                    <div className="flex-1 min-w-0 overflow-hidden">
+                      <p className="text-black font-medium text-base break-words leading-tight w-full overflow-wrap-anywhere">{email}</p>
                       <div className="flex items-center space-x-2 mt-2">
                         <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
                         <p className="text-black text-sm font-light">Prêt à se connecter</p>
