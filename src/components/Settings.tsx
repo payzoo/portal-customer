@@ -1,4 +1,3 @@
-
 import { User, Shield, Bell, HelpCircle, LogOut, Globe, CheckCircle, AlertCircle, MapPin, CreditCard, Key, Smartphone, FileText, MessageCircle, Mail, Phone } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -13,8 +12,8 @@ export function Settings() {
   const [twoFactorEnabled, setTwoFactorEnabled] = useState(false);
 
   const currentUserData = {
-    firstName: "Housseine",
-    lastName: "Dao",
+    firstName: "",
+    lastName: "",
     email: "dao.housseine@gmail.com",
     phone: "+33 6 12 34 56 78"
   };
@@ -69,13 +68,11 @@ export function Settings() {
               {/* User Info */}
               <div className="flex items-center gap-4 mb-6">
                 <div className="w-12 h-12 bg-gray-900 rounded-xl flex items-center justify-center">
-                  <span className="text-white font-medium text-lg">
-                    {currentUserData.firstName[0]}{currentUserData.lastName[0]}
-                  </span>
+                  <User className="w-6 h-6 text-white" />
                 </div>
                 <div className="flex-1">
                   <h3 className="text-xl font-medium text-gray-900 mb-1">
-                    {currentUserData.firstName} {currentUserData.lastName}
+                    Utilisateur
                   </h3>
                   <div className="space-y-1">
                     <p className="text-sm text-gray-600 flex items-center gap-2">

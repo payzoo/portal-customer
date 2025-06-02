@@ -39,7 +39,7 @@ export function PaymentMethods() {
       id: 1,
       type: "card",
       provider: "Visa",
-      name: "Housseine Dao",
+      name: "",
       identifier: "•••• 4242",
       detail: "Expire 12/27",
       isDefault: true,
@@ -51,7 +51,7 @@ export function PaymentMethods() {
       id: 2,
       type: "card",
       provider: "Mastercard",
-      name: "Housseine Dao",
+      name: "",
       identifier: "•••• 5555",
       detail: "Expire 08/26",
       isDefault: false,
@@ -63,7 +63,7 @@ export function PaymentMethods() {
       id: 3,
       type: "mobile",
       provider: "Orange Money",
-      name: "Housseine Dao",
+      name: "",
       identifier: "+33 6 •• •• •• 89",
       detail: "Vérifié",
       isDefault: false,
@@ -75,7 +75,7 @@ export function PaymentMethods() {
       id: 4,
       type: "bank",
       provider: "BNP Paribas",
-      name: "Housseine Dao",
+      name: "",
       identifier: "FR76 •••• •••• •••• 1234",
       detail: "Compte courant",
       isDefault: false,
@@ -404,9 +404,6 @@ export function PaymentMethods() {
                     
                     <div className="flex items-center gap-6">
                       <div className="text-right">
-                        <div className="font-medium text-gray-900 text-sm mb-1">
-                          {method.name}
-                        </div>
                         {method.isDefault && (
                           <Badge className="bg-green-50 text-green-700 hover:bg-green-50 px-3 py-1 rounded-lg text-xs border-0 font-medium">
                             <div className="w-1.5 h-1.5 bg-green-400 rounded-full mr-2"></div>
