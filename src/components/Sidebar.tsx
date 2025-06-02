@@ -7,9 +7,8 @@ import {
   Calendar,
   Plus,
   LogOut,
-  QrCode,
   Send,
-  Smartphone
+  Wallet
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -38,7 +37,7 @@ export function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
           </div>
           <div>
             <h2 className="font-bold text-gray-900 text-xl">PayZoo</h2>
-            <p className="text-sm text-gray-500">Paiements instantanés</p>
+            <p className="text-sm text-gray-500">Interface web</p>
           </div>
         </div>
       </div>
@@ -76,24 +75,19 @@ export function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
           ))}
         </div>
 
-        {/* Quick Actions - PayZoo Features */}
+        {/* Quick Actions - Web Features */}
         <div className="mt-8 pt-6 border-t border-gray-100">
           <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4">Actions rapides</p>
           
           <div className="space-y-2">
             <Button className="w-full payzoo-gradient hover:opacity-90 text-black rounded-xl h-12 font-medium shadow-lg hover:shadow-xl transition-all duration-200">
-              <QrCode className="w-5 h-5 mr-2" />
-              Scanner QR Code
+              <Send className="w-5 h-5 mr-2" />
+              Nouveau transfert
             </Button>
             
             <Button variant="outline" className="w-full justify-start text-gray-600 hover:text-gray-900 hover:bg-payzoo-green-50 hover:border-payzoo-green-200 rounded-xl h-10 border-gray-200">
-              <Send className="w-4 h-4 mr-3" />
-              Transfert rapide
-            </Button>
-            
-            <Button variant="outline" className="w-full justify-start text-gray-600 hover:text-gray-900 hover:bg-payzoo-green-50 hover:border-payzoo-green-200 rounded-xl h-10 border-gray-200">
-              <Smartphone className="w-4 h-4 mr-3" />
-              Tap to Pay
+              <Wallet className="w-4 h-4 mr-3" />
+              Ajouter paiement
             </Button>
           </div>
         </div>
@@ -105,7 +99,7 @@ export function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
           <LogOut className="w-5 h-5 mr-3" />
           Se déconnecter
         </Button>
-        <p className="text-xs text-gray-400 mt-4 text-center">PayZoo v2.0.0 • Pour les tech-savvy</p>
+        <p className="text-xs text-gray-400 mt-4 text-center">PayZoo Web v2.0.0 • Dashboard particuliers</p>
       </div>
     </div>
   );
