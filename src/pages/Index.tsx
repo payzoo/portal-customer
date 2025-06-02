@@ -32,9 +32,9 @@ const Index = () => {
   // Update page title based on active section
   useEffect(() => {
     const titles = {
-      dashboard: "Dashboard - Payzoo",
+      dashboard: "Activité - Payzoo",
       subscriptions: "Abonnements - Payzoo",
-      payments: "Paiements - Payzoo",
+      payments: "Portefeuille - Payzoo",
       addresses: "Adresses - Payzoo",
       settings: "Paramètres - Payzoo",
     };
@@ -44,13 +44,13 @@ const Index = () => {
 
   const getSectionTitle = () => {
     const titles = {
-      dashboard: "Dashboard",
+      dashboard: "Activité",
       subscriptions: "Abonnements",
-      payments: "Paiements",
+      payments: "Portefeuille",
       addresses: "Adresses",
       settings: "Paramètres",
     };
-    return titles[activeSection as keyof typeof titles] || "Dashboard";
+    return titles[activeSection as keyof typeof titles] || "Activité";
   };
 
   const renderContent = () => {
