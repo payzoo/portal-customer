@@ -1,5 +1,4 @@
-
-import { TrendingUp, Send, Calendar, Target, Plus, Eye, EyeOff, PiggyBank, TrendingDown, Coffee, ShoppingBag, Car, Home, ArrowUpRight, Shield, Zap, Activity, Sparkles } from "lucide-react";
+import { TrendingUp, Send, Calendar, Target, Plus, Eye, EyeOff, PiggyBank, TrendingDown, Coffee, ShoppingBag, Car, Home, ArrowUpRight, Shield, Zap, Activity, Sparkles, Brain, Cpu, Stars } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -331,27 +330,139 @@ export function Dashboard() {
               </div>
             </div>
 
-            {/* Main CTA with futuristic design */}
-            <Card className={`border-0 bg-foreground text-background relative overflow-hidden group transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ animationDelay: '1200ms' }}>
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            {/* Main CTA with enhanced futuristic design */}
+            <Card className={`border-0 bg-gradient-to-br from-foreground via-foreground/95 to-foreground/90 text-background relative overflow-hidden group transition-all duration-700 hover:shadow-2xl hover:shadow-foreground/20 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ animationDelay: '1200ms' }}>
+              {/* Animated background effects */}
+              <div className="absolute inset-0 opacity-20">
+                <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-blue-400/30 to-cyan-400/30 rounded-full blur-xl animate-float"></div>
+                <div className="absolute bottom-0 right-0 w-24 h-24 bg-gradient-to-br from-purple-400/30 to-pink-400/30 rounded-full blur-xl animate-float" style={{ animationDelay: '1s' }}></div>
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-gradient-to-br from-green-400/20 to-blue-400/20 rounded-full blur-2xl animate-pulse"></div>
+              </div>
+              
+              {/* Shimmer effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-100 transition-transform duration-1000 ease-in-out"></div>
+              
+              {/* Neural network pattern */}
+              <div className="absolute inset-0 opacity-10">
+                <div className="absolute top-4 left-8 w-1 h-1 bg-background rounded-full animate-pulse"></div>
+                <div className="absolute top-12 left-16 w-1 h-1 bg-background rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+                <div className="absolute top-8 left-24 w-1 h-1 bg-background rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
+                <div className="absolute bottom-8 right-12 w-1 h-1 bg-background rounded-full animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+                <div className="absolute bottom-16 right-20 w-1 h-1 bg-background rounded-full animate-pulse" style={{ animationDelay: '2s' }}></div>
+                
+                {/* Connection lines */}
+                <svg className="absolute inset-0 w-full h-full" viewBox="0 0 200 120">
+                  <line x1="32" y1="32" x2="64" y2="48" stroke="currentColor" strokeWidth="0.5" opacity="0.3" className="animate-pulse" />
+                  <line x1="64" y1="48" x2="96" y2="32" stroke="currentColor" strokeWidth="0.5" opacity="0.3" className="animate-pulse" style={{ animationDelay: '0.3s' }} />
+                  <line x1="140" y1="80" x2="160" y2="64" stroke="currentColor" strokeWidth="0.5" opacity="0.3" className="animate-pulse" style={{ animationDelay: '0.6s' }} />
+                </svg>
+              </div>
+              
               <CardContent className="payzoo-card-content relative z-10">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 bg-background/10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <Shield className="w-5 h-5 text-background" />
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="relative">
+                    <div className="w-12 h-12 bg-gradient-to-br from-background/20 via-background/15 to-background/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 backdrop-blur-sm border border-background/20">
+                      <div className="relative">
+                        <Brain className="w-6 h-6 text-background transition-transform duration-300 group-hover:rotate-12" />
+                        <div className="absolute -top-1 -right-1 w-3 h-3 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full animate-pulse opacity-80"></div>
+                      </div>
+                    </div>
+                    {/* Orbital rings */}
+                    <div className="absolute inset-0 border border-background/20 rounded-2xl animate-spin" style={{ animationDuration: '8s' }}></div>
+                    <div className="absolute inset-1 border border-background/10 rounded-xl animate-spin" style={{ animationDuration: '6s', animationDirection: 'reverse' }}></div>
                   </div>
-                  <span className="payzoo-body-sm font-medium text-background flex items-center gap-2">
-                    Optimisation IA
-                    <div className="w-2 h-2 bg-background/60 rounded-full animate-pulse"></div>
-                  </span>
+                  
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3 mb-2">
+                      <span className="payzoo-body-sm font-semibold text-background flex items-center gap-2">
+                        Optimisation IA
+                        <div className="flex items-center gap-1">
+                          <Cpu className="w-3 h-3 text-background/80 animate-pulse" />
+                          <Stars className="w-3 h-3 text-background/80 animate-pulse" style={{ animationDelay: '0.5s' }} />
+                        </div>
+                      </span>
+                      
+                      {/* Status indicators */}
+                      <div className="flex items-center gap-2">
+                        <div className="px-2 py-1 bg-gradient-to-r from-green-400/20 to-emerald-400/20 rounded-full border border-green-400/30 backdrop-blur-sm">
+                          <div className="flex items-center gap-1">
+                            <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></div>
+                            <span className="text-xs font-medium text-background/90">Active</span>
+                          </div>
+                        </div>
+                        <div className="px-2 py-1 bg-gradient-to-r from-blue-400/20 to-cyan-400/20 rounded-full border border-blue-400/30 backdrop-blur-sm">
+                          <span className="text-xs font-medium text-background/90">v2.1</span>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* AI metrics */}
+                    <div className="flex items-center gap-4 text-background/70 text-xs">
+                      <div className="flex items-center gap-1">
+                        <Zap className="w-3 h-3" />
+                        <span>98% précision</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Activity className="w-3 h-3" />
+                        <span>Real-time</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <p className="text-background/80 mb-4 payzoo-body-sm leading-relaxed">
-                  Optimisez vos finances avec notre IA avancée
-                </p>
-                <Button className="payzoo-btn-accent w-full bg-background text-foreground hover:bg-background/90 group/btn relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 translate-x-[-100%] group-hover/btn:translate-x-0 transition-transform duration-500"></div>
-                  <span className="relative z-10">Activer l'IA</span>
-                  <ArrowUpRight className="w-4 h-4 ml-2 text-foreground relative z-10 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform duration-300" />
+                
+                {/* Enhanced description */}
+                <div className="mb-6">
+                  <p className="text-background/90 mb-3 payzoo-body-sm leading-relaxed">
+                    Notre IA avancée analyse vos habitudes financières en temps réel pour optimiser automatiquement vos économies.
+                  </p>
+                  
+                  {/* Feature highlights */}
+                  <div className="grid grid-cols-2 gap-3 mb-4">
+                    <div className="flex items-center gap-2 p-2 bg-background/5 rounded-lg border border-background/10 backdrop-blur-sm">
+                      <div className="w-2 h-2 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full animate-pulse"></div>
+                      <span className="text-xs text-background/80">Analyse prédictive</span>
+                    </div>
+                    <div className="flex items-center gap-2 p-2 bg-background/5 rounded-lg border border-background/10 backdrop-blur-sm">
+                      <div className="w-2 h-2 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+                      <span className="text-xs text-background/80">Auto-épargne</span>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Enhanced CTA button */}
+                <Button className="w-full bg-gradient-to-r from-background via-background/95 to-background text-foreground hover:from-background/90 hover:via-background/85 hover:to-background/90 group/btn relative overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 h-12">
+                  {/* Button background effects */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-cyan-500/10 translate-x-[-100%] group-hover/btn:translate-x-0 transition-transform duration-500"></div>
+                  
+                  {/* Button content */}
+                  <div className="flex items-center justify-center gap-3 relative z-10">
+                    <div className="flex items-center gap-2">
+                      <div className="w-6 h-6 bg-gradient-to-br from-foreground to-foreground/80 rounded-lg flex items-center justify-center group-hover/btn:scale-110 transition-transform duration-300">
+                        <Sparkles className="w-3 h-3 text-background" />
+                      </div>
+                      <span className="font-medium">Activer l'IA</span>
+                    </div>
+                    
+                    <div className="flex items-center gap-1 opacity-60 group-hover/btn:opacity-100 transition-opacity duration-300">
+                      <ArrowUpRight className="w-4 h-4 text-foreground group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform duration-300" />
+                    </div>
+                  </div>
+                  
+                  {/* Scanning effect */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-background/20 to-transparent translate-x-[-100%] group-hover/btn:translate-x-100 transition-transform duration-1000 ease-in-out"></div>
                 </Button>
+                
+                {/* Bottom info */}
+                <div className="mt-4 flex items-center justify-between text-xs text-background/60">
+                  <div className="flex items-center gap-2">
+                    <Shield className="w-3 h-3" />
+                    <span>Sécurisé & Privé</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <span>Powered by</span>
+                    <span className="font-medium text-background/80">PayzooAI</span>
+                  </div>
+                </div>
               </CardContent>
             </Card>
           </div>
