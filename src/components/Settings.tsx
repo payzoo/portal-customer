@@ -26,106 +26,55 @@ export function Settings() {
   };
 
   const kycSettings = [
-    { icon: User, title: "Identité", description: "Carte d'identité ou passeport", status: "verified" },
-    { icon: MapPin, title: "Justificatif de domicile", description: "Facture récente", status: "pending" },
-    { icon: CreditCard, title: "Justificatif de revenus", description: "Fiche de paie", status: "missing" },
+    { icon: User, title: "Identité", description: "Carte d'identité", status: "verified" },
+    { icon: MapPin, title: "Domicile", description: "Facture récente", status: "pending" },
+    { icon: CreditCard, title: "Revenus", description: "Fiche de paie", status: "missing" },
   ];
 
   const getStatusIcon = (status: string) => {
     switch (status) {
       case 'verified':
-        return <CheckCircle className="w-4 h-4 text-green-600" />;
+        return <CheckCircle className="w-3 h-3 text-green-600" />;
       case 'pending':
-        return <AlertCircle className="w-4 h-4 text-amber-600" />;
+        return <AlertCircle className="w-3 h-3 text-amber-600" />;
       case 'missing':
-        return <AlertCircle className="w-4 h-4 text-red-600" />;
+        return <AlertCircle className="w-3 h-3 text-red-600" />;
       default:
-        return <AlertCircle className="w-4 h-4 text-gray-400" />;
+        return <AlertCircle className="w-3 h-3 text-gray-400" />;
     }
   };
 
   const getStatusText = (status: string) => {
     switch (status) {
       case 'verified': return 'Vérifié';
-      case 'pending': return 'En attente';
-      case 'missing': return 'Manquant';
+      case 'pending': return 'En cours';
+      case 'missing': return 'Requis';
       default: return 'À faire';
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-50/50">
-      <div className="max-w-2xl mx-auto p-6 space-y-8">
-        {/* Header */}
-        <div className="text-center space-y-2">
-          <div className="inline-flex items-center justify-center w-12 h-12 bg-blue-100 rounded-full mb-4">
-            <SettingsIcon className="w-6 h-6 text-blue-600" />
-          </div>
-          <h1 className="text-2xl font-bold text-gray-900">Paramètres</h1>
-          <p className="text-gray-500">Gérez votre compte Payzoo</p>
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-xl mx-auto px-6 py-8 space-y-6">
+        
+        {/* Header - Plus épuré */}
+        <div className="text-center space-y-3">
+          <h1 className="text-2xl font-light text-gray-900">Paramètres</h1>
+          <p className="text-gray-500 text-sm">Gérez votre compte Payzoo</p>
         </div>
 
-        {/* KYC Status - Compact */}
-        <Card className="border-0 shadow-sm">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-3">
-                <Shield className="w-5 h-5 text-blue-600" />
-                <div>
-                  <h3 className="font-semibold">Vérification KYC</h3>
-                  <p className="text-sm text-gray-500">1 000€ → 15 000€/mois</p>
-                </div>
-              </div>
-              <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
-                Continuer
-              </Button>
-            </div>
-            
-            <div className="flex gap-2">
-              {kycSettings.map((item, index) => (
-                <div key={index} className="flex-1 text-center p-3 rounded-lg border bg-gray-50/50">
-                  <div className="flex justify-center mb-2">
-                    {getStatusIcon(item.status)}
-                  </div>
-                  <p className="text-xs font-medium text-gray-700">{item.title}</p>
-                  <p className="text-xs text-gray-500">{getStatusText(item.status)}</p>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Quick Actions */}
-        <div className="grid grid-cols-2 gap-4">
-          <Button
-            variant="outline"
-            className="h-20 flex-col gap-2 hover:bg-blue-50 hover:border-blue-200"
-            onClick={() => setIsProfileModalOpen(true)}
-          >
-            <User className="w-5 h-5 text-blue-600" />
-            <span className="text-sm font-medium">Profil</span>
-          </Button>
-          
-          <Button
-            variant="outline"
-            className="h-20 flex-col gap-2 hover:bg-blue-50 hover:border-blue-200"
-            onClick={() => setIsSecurityModalOpen(true)}
-          >
-            <Shield className="w-5 h-5 text-blue-600" />
-            <span className="text-sm font-medium">Sécurité</span>
-          </Button>
-        </div>
-
-        {/* User Info - Simplified */}
+        {/* Profil utilisateur - Simplifié */}
         <Card className="border-0 shadow-sm">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                  <User className="w-6 h-6 text-blue-600" />
+                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center">
+                  <span className="text-white font-medium text-sm">
+                    {currentUserData.firstName[0]}{currentUserData.lastName[0]}
+                  </span>
                 </div>
                 <div>
-                  <h3 className="font-semibold">{currentUserData.firstName} {currentUserData.lastName}</h3>
+                  <h3 className="font-medium text-gray-900">{currentUserData.firstName} {currentUserData.lastName}</h3>
                   <p className="text-sm text-gray-500">{currentUserData.email}</p>
                 </div>
               </div>
@@ -133,27 +82,76 @@ export function Settings() {
                 variant="ghost"
                 size="sm"
                 onClick={() => setIsProfileModalOpen(true)}
+                className="text-gray-400 hover:text-gray-600"
               >
-                Modifier
-                <ChevronRight className="w-4 h-4 ml-1" />
+                <ChevronRight className="w-4 h-4" />
               </Button>
             </div>
           </CardContent>
         </Card>
 
-        {/* Notifications - Simplified */}
+        {/* KYC Status - Moderne et compact */}
+        <Card className="border-0 shadow-sm overflow-hidden">
+          <CardContent className="p-0">
+            <div className="bg-gradient-to-r from-blue-600 to-blue-700 p-6 text-white">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="font-medium mb-1">Vérification KYC</h3>
+                  <p className="text-blue-100 text-sm">Augmentez vos limites</p>
+                </div>
+                <Button size="sm" className="bg-white text-blue-600 hover:bg-blue-50">
+                  Continuer
+                </Button>
+              </div>
+            </div>
+            
+            <div className="p-6 grid grid-cols-3 gap-4">
+              {kycSettings.map((item, index) => (
+                <div key={index} className="text-center">
+                  <div className="flex justify-center mb-2">
+                    {getStatusIcon(item.status)}
+                  </div>
+                  <p className="text-xs font-medium text-gray-700 mb-1">{item.title}</p>
+                  <p className="text-xs text-gray-500">{getStatusText(item.status)}</p>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Actions principales - Grid simplifié */}
+        <div className="grid grid-cols-2 gap-4">
+          <Button
+            variant="outline"
+            className="h-16 flex-col gap-2 border-gray-200 hover:bg-gray-50"
+            onClick={() => setIsSecurityModalOpen(true)}
+          >
+            <Shield className="w-5 h-5 text-blue-600" />
+            <span className="text-sm">Sécurité</span>
+          </Button>
+          
+          <Button
+            variant="outline"
+            className="h-16 flex-col gap-2 border-gray-200 hover:bg-gray-50"
+          >
+            <HelpCircle className="w-5 h-5 text-green-600" />
+            <span className="text-sm">Support</span>
+          </Button>
+        </div>
+
+        {/* Notifications - Plus épuré */}
         <Card className="border-0 shadow-sm">
           <CardHeader className="pb-4">
-            <CardTitle className="text-lg flex items-center gap-2">
-              <Bell className="w-5 h-5 text-blue-600" />
+            <CardTitle className="text-base flex items-center gap-2">
+              <Bell className="w-4 h-4 text-gray-600" />
               Notifications
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4 pt-0">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between py-2">
               <div className="flex items-center gap-3">
-                <Smartphone className="w-4 h-4 text-gray-500" />
-                <span className="text-sm font-medium">Notifications push</span>
+                <Smartphone className="w-4 h-4 text-gray-400" />
+                <span className="text-sm">Push</span>
               </div>
               <Switch 
                 checked={pushNotifications} 
@@ -162,10 +160,10 @@ export function Settings() {
               />
             </div>
 
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between py-2">
               <div className="flex items-center gap-3">
-                <Mail className="w-4 h-4 text-gray-500" />
-                <span className="text-sm font-medium">E-mails</span>
+                <Mail className="w-4 h-4 text-gray-400" />
+                <span className="text-sm">E-mail</span>
               </div>
               <Switch 
                 checked={emailNotifications} 
@@ -174,10 +172,10 @@ export function Settings() {
               />
             </div>
 
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between py-2">
               <div className="flex items-center gap-3">
-                <CreditCard className="w-4 h-4 text-gray-500" />
-                <span className="text-sm font-medium">Transactions</span>
+                <CreditCard className="w-4 h-4 text-gray-400" />
+                <span className="text-sm">Transactions</span>
               </div>
               <Switch 
                 checked={transactionAlerts} 
@@ -188,41 +186,41 @@ export function Settings() {
           </CardContent>
         </Card>
 
-        {/* Quick Links */}
+        {/* Préférences - Minimaliste */}
         <Card className="border-0 shadow-sm">
-          <CardContent className="p-6 space-y-3">
-            <Button variant="ghost" className="w-full justify-start">
-              <HelpCircle className="w-4 h-4 mr-3" />
-              Centre d'aide
+          <CardContent className="p-4 space-y-2">
+            <Button variant="ghost" className="w-full justify-start h-12 px-4">
+              <Globe className="w-4 h-4 mr-3 text-gray-400" />
+              <span className="text-sm">Français</span>
+              <ChevronRight className="w-4 h-4 ml-auto text-gray-400" />
             </Button>
             
-            <Button variant="ghost" className="w-full justify-start">
-              <Globe className="w-4 h-4 mr-3" />
-              Langue: Français
+            <Button variant="ghost" className="w-full justify-start h-12 px-4">
+              <HelpCircle className="w-4 h-4 mr-3 text-gray-400" />
+              <span className="text-sm">Centre d'aide</span>
+              <ChevronRight className="w-4 h-4 ml-auto text-gray-400" />
             </Button>
           </CardContent>
         </Card>
 
-        {/* Danger Zone */}
-        <Card className="border-0 shadow-sm">
-          <CardContent className="p-6 space-y-3">
-            <Button 
-              variant="outline" 
-              className="w-full justify-start hover:bg-gray-50"
-            >
-              <LogOut className="w-4 h-4 mr-3" />
-              Se déconnecter
-            </Button>
-            
-            <Button 
-              variant="ghost" 
-              className="w-full justify-start text-red-600 hover:bg-red-50 hover:text-red-700"
-              onClick={() => setIsDeleteModalOpen(true)}
-            >
-              Supprimer le compte
-            </Button>
-          </CardContent>
-        </Card>
+        {/* Actions de compte - Séparées */}
+        <div className="space-y-3 pt-4">
+          <Button 
+            variant="outline" 
+            className="w-full justify-start h-12 border-gray-200 hover:bg-gray-50"
+          >
+            <LogOut className="w-4 h-4 mr-3 text-gray-500" />
+            <span className="text-sm">Se déconnecter</span>
+          </Button>
+          
+          <Button 
+            variant="ghost" 
+            className="w-full justify-start h-12 text-red-600 hover:bg-red-50"
+            onClick={() => setIsDeleteModalOpen(true)}
+          >
+            <span className="text-sm">Supprimer le compte</span>
+          </Button>
+        </div>
       </div>
 
       {/* Modals */}
