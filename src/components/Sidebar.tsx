@@ -52,6 +52,13 @@ export const Sidebar = ({ activeSection, onSectionChange }: SidebarProps) => {
     return email.split('@')[0];
   };
 
+  const legalLinks = [
+    { label: "Aide", href: "#" },
+    { label: "Conditions", href: "#" },
+    { label: "Confidentialité", href: "#" },
+    { label: "Cookies", href: "#" },
+  ];
+
   return (
     <div className="w-80 bg-white border-r border-gray-100 min-h-screen flex flex-col">
       {/* Header moderne */}
@@ -120,6 +127,21 @@ export const Sidebar = ({ activeSection, onSectionChange }: SidebarProps) => {
           })}
         </ul>
       </nav>
+
+      {/* Liens légaux */}
+      <div className="p-6 border-t border-gray-50">
+        <div className="grid grid-cols-2 gap-2">
+          {legalLinks.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              className="text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200 py-1"
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+      </div>
 
       {/* Footer moderne */}
       <div className="p-6 border-t border-gray-50">
