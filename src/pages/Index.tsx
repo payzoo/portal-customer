@@ -72,7 +72,7 @@ const Index = () => {
 
   return (
     <SidebarProvider>
-      <div className="min-h-screen flex w-full bg-gray-50/20">
+      <div className="min-h-screen flex w-full" style={{ backgroundColor: '#fafafa' }}>
         <AppSidebar 
           activeSection={activeSection} 
           onSectionChange={setActiveSection} 

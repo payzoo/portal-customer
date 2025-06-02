@@ -64,8 +64,8 @@ export function AppSidebar({ activeSection, onSectionChange }: AppSidebarProps) 
   };
 
   return (
-    <Sidebar variant="inset" className="border-r border-gray-100">
-      <SidebarHeader className="border-b border-gray-50 px-6 py-5">
+    <Sidebar variant="inset" className="border-r border-gray-100" style={{ backgroundColor: 'white' }}>
+      <SidebarHeader className="border-b border-gray-50 px-6 py-6">
         <div className="flex items-center gap-3">
           <div className="flex aspect-square size-10 items-center justify-center rounded-xl" style={{ backgroundColor: '#B4DE00' }}>
             <span className="text-sm font-bold text-black">P</span>
@@ -77,7 +77,7 @@ export function AppSidebar({ activeSection, onSectionChange }: AppSidebarProps) 
         </div>
       </SidebarHeader>
       
-      <SidebarContent className="px-4 py-6">
+      <SidebarContent className="px-4 py-6" style={{ backgroundColor: 'white' }}>
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu className="space-y-2">
@@ -108,7 +108,7 @@ export function AppSidebar({ activeSection, onSectionChange }: AppSidebarProps) 
         </SidebarGroup>
       </SidebarContent>
 
-      <SidebarFooter className="border-t border-gray-50 p-4">
+      <SidebarFooter className="border-t border-gray-50 p-4" style={{ backgroundColor: 'white' }}>
         <SidebarMenu>
           <SidebarMenuItem>
             <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-gray-50/80">
