@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { 
   LayoutDashboard, 
@@ -52,13 +51,6 @@ export const Sidebar = ({ activeSection, onSectionChange }: SidebarProps) => {
   const getDisplayName = (email: string) => {
     return email.split('@')[0];
   };
-
-  const legalLinks = [
-    { label: "Aide", href: "#" },
-    { label: "Conditions", href: "#" },
-    { label: "Confidentialité", href: "#" },
-    { label: "Cookies", href: "#" },
-  ];
 
   return (
     <div className="w-80 bg-white border-r border-gray-100 h-screen max-h-screen fixed left-0 top-0 flex flex-col overflow-hidden">
@@ -129,10 +121,21 @@ export const Sidebar = ({ activeSection, onSectionChange }: SidebarProps) => {
         </ul>
       </nav>
 
+      {/* Footer moderne - Déconnexion */}
+      <div className="p-6 border-t border-gray-50 flex-shrink-0">
+        <button
+          onClick={handleLogout}
+          className="w-full flex items-center space-x-4 px-6 py-4 rounded-2xl text-gray-500 hover:bg-red-50 hover:text-red-600 transition-all duration-300 group hover:shadow-sm border border-transparent hover:border-red-100"
+        >
+          <LogOut className="w-5 h-5 transition-all duration-300 group-hover:scale-110" />
+          <span className="font-semibold text-base">Déconnexion</span>
+        </button>
+      </div>
+
       {/* Liens légaux */}
       <div className="p-6 border-t border-gray-50 flex-shrink-0">
         <div className="space-y-3 text-center">
-          <Label className="block bg-gray-100 px-4 py-2 rounded-lg text-sm font-medium text-gray-700 cursor-pointer hover:bg-gray-200 transition-colors duration-200">
+          <Label className="block bg-gray-100 px-3 py-1.5 rounded-md text-sm font-medium text-gray-700 cursor-pointer hover:bg-gray-200 transition-colors duration-200">
             <a href="#" className="block">Aide</a>
           </Label>
           <div className="flex justify-center space-x-4">
@@ -156,17 +159,6 @@ export const Sidebar = ({ activeSection, onSectionChange }: SidebarProps) => {
             </a>
           </div>
         </div>
-      </div>
-
-      {/* Footer moderne */}
-      <div className="p-6 border-t border-gray-50 flex-shrink-0">
-        <button
-          onClick={handleLogout}
-          className="w-full flex items-center space-x-4 px-6 py-4 rounded-2xl text-gray-500 hover:bg-red-50 hover:text-red-600 transition-all duration-300 group hover:shadow-sm border border-transparent hover:border-red-100"
-        >
-          <LogOut className="w-5 h-5 transition-all duration-300 group-hover:scale-110" />
-          <span className="font-semibold text-base">Déconnexion</span>
-        </button>
       </div>
     </div>
   );
