@@ -1,4 +1,3 @@
-
 import { Building2, Plus, Clock, TrendingUp, CreditCard, Calendar, MoreVertical, Search, Filter, ArrowUpRight, CheckCircle2, Pause, AlertCircle, Eye, BarChart3, DollarSign, Activity, Settings, Edit, Trash2, Copy, Archive, RefreshCw } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -7,6 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AddSubscriptionCard } from "./AddSubscriptionCard";
 
 export function Subscriptions() {
   const navigate = useNavigate();
@@ -494,22 +494,8 @@ export function Subscriptions() {
           )}
         </div>
 
-        {/* Ajouter un abonnement - Version minimaliste */}
-        <Card className="border-2 border-dashed border-gray-200 bg-gray-50/50 hover:border-gray-300 hover:bg-white transition-all duration-300 cursor-pointer">
-          <CardContent className="p-8 text-center">
-            <div className="w-12 h-12 bg-gray-900 rounded-xl flex items-center justify-center mx-auto mb-4">
-              <Plus className="w-6 h-6 text-white" />
-            </div>
-            <h3 className="font-medium text-gray-900 mb-2">Ajouter un abonnement</h3>
-            <p className="text-gray-500 text-sm mb-6">
-              Connectez un nouveau service
-            </p>
-            <Button className="bg-gray-900 text-white rounded-xl hover:bg-gray-800">
-              <Plus className="w-4 h-4 mr-2" />
-              Ajouter
-            </Button>
-          </CardContent>
-        </Card>
+        {/* Ajouter un abonnement - Version minimaliste améliorée */}
+        <AddSubscriptionCard />
       </div>
     </div>
   );
