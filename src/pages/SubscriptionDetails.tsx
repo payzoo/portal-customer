@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { ArrowLeft, CreditCard, Calendar, CheckCircle2, Download, AlertCircle, Settings, Trash2, Pause, Play, Eye, EyeOff, TrendingUp, DollarSign, BarChart3, Zap, Star } from "lucide-react";
+import { ArrowLeft, CreditCard, Calendar, CheckCircle2, Download, AlertCircle, Settings, Trash2, Pause, Play, Eye, EyeOff, TrendingUp, DollarSign, BarChart3, Zap, Star, Users, Globe } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -25,11 +25,11 @@ const SubscriptionDetails = () => {
     nextBilling: "15 Juin 2025",
     billingCycle: "mensuel",
     logo: "S",
-    color: "bg-gradient-to-br from-blue-500 to-blue-600",
+    color: "bg-blue-600",
     category: "Développement",
     yearlyAmount: 600,
     startDate: "15 Janvier 2024",
-    description: "Plan professionnel avec fonctionnalités avancées de développement",
+    description: "Plan professionnel avec fonctionnalités avancées",
     features: ["API illimitée", "Support prioritaire", "Analytics avancées", "Collaborateurs illimités"]
   };
 
@@ -75,446 +75,328 @@ const SubscriptionDetails = () => {
     }
   ];
 
-  const getStatusInfo = (status: string) => {
+  const getStatusColor = (status: string) => {
     switch (status) {
       case 'active':
-        return { 
-          icon: CheckCircle2, 
-          color: 'text-emerald-600', 
-          bgColor: 'bg-emerald-50', 
-          label: 'Actif',
-          dotColor: 'bg-emerald-500',
-          borderColor: 'border-emerald-200'
-        };
+        return 'bg-emerald-100 text-emerald-700 border-emerald-200';
       case 'paused':
-        return { 
-          icon: Pause, 
-          color: 'text-amber-600', 
-          bgColor: 'bg-amber-50', 
-          label: 'En pause',
-          dotColor: 'bg-amber-500',
-          borderColor: 'border-amber-200'
-        };
-      default:
-        return { 
-          icon: CheckCircle2, 
-          color: 'text-gray-600', 
-          bgColor: 'bg-gray-50', 
-          label: 'Inconnu',
-          dotColor: 'bg-gray-400',
-          borderColor: 'border-gray-200'
-        };
-    }
-  };
-
-  const getPaymentStatusInfo = (status: string) => {
-    switch (status) {
+        return 'bg-amber-100 text-amber-700 border-amber-200';
       case 'paid':
-        return { 
-          color: 'text-emerald-600', 
-          bgColor: 'bg-emerald-50', 
-          label: 'Payé',
-          borderColor: 'border-emerald-200'
-        };
+        return 'bg-emerald-100 text-emerald-700 border-emerald-200';
       case 'failed':
-        return { 
-          color: 'text-red-600', 
-          bgColor: 'bg-red-50', 
-          label: 'Échec',
-          borderColor: 'border-red-200'
-        };
-      case 'pending':
-        return { 
-          color: 'text-amber-600', 
-          bgColor: 'bg-amber-50', 
-          label: 'En attente',
-          borderColor: 'border-amber-200'
-        };
+        return 'bg-red-100 text-red-700 border-red-200';
       default:
-        return { 
-          color: 'text-gray-600', 
-          bgColor: 'bg-gray-50', 
-          label: 'Inconnu',
-          borderColor: 'border-gray-200'
-        };
+        return 'bg-gray-100 text-gray-700 border-gray-200';
     }
   };
 
-  const statusInfo = getStatusInfo(subscription.status);
-  const StatusIcon = statusInfo.icon;
+  const getStatusLabel = (status: string) => {
+    switch (status) {
+      case 'active': return 'Actif';
+      case 'paused': return 'En pause';
+      case 'paid': return 'Payé';
+      case 'failed': return 'Échec';
+      default: return 'Inconnu';
+    }
+  };
 
   const handleBackToSubscriptions = () => {
     navigate('/', { state: { activeSection: 'subscriptions' } });
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50/50 via-white to-blue-50/30 flex w-full relative overflow-hidden">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-100/30 to-purple-100/30 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-emerald-100/30 to-teal-100/30 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
-      </div>
-
+    <div className="min-h-screen bg-gray-50/30 flex w-full">
       <Sidebar 
         activeSection={activeSection} 
         onSectionChange={setActiveSection} 
       />
       
-      <main className="flex-1 min-h-screen ml-80 relative z-10">
-        <div className="min-h-screen backdrop-blur-sm">
-          <div className="max-w-7xl mx-auto px-8 py-8">
+      <main className="flex-1 min-h-screen ml-80">
+        <div className="max-w-7xl mx-auto px-6 py-8">
+          
+          {/* Clean Header */}
+          <div className="mb-12">
+            <Button 
+              variant="ghost" 
+              onClick={handleBackToSubscriptions}
+              className="mb-8 -ml-4 hover:bg-white/80 rounded-xl transition-all duration-200"
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Retour aux abonnements
+            </Button>
             
-            {/* Enhanced Header */}
-            <div className="mb-12 animate-fade-in">
-              <Button 
-                variant="ghost" 
-                onClick={handleBackToSubscriptions}
-                className="mb-8 hover:bg-white/80 hover:shadow-lg rounded-2xl backdrop-blur-md transition-all duration-300 group border border-white/20"
-              >
-                <ArrowLeft className="w-4 h-4 mr-2 transition-transform duration-300 group-hover:-translate-x-1" />
-                Retour aux abonnements
-              </Button>
+            <div className="flex items-start justify-between">
+              <div className="flex items-start gap-6">
+                <div className={`w-16 h-16 ${subscription.color} rounded-2xl flex items-center justify-center shadow-sm`}>
+                  <span className="font-bold text-white text-2xl">{subscription.logo}</span>
+                </div>
+                
+                <div>
+                  <div className="flex items-center gap-4 mb-2">
+                    <h1 className="text-3xl font-bold text-gray-900">
+                      {subscription.name}
+                    </h1>
+                    <Badge className={`${getStatusColor(subscription.status)} rounded-full px-3 py-1 text-sm font-medium border`}>
+                      {getStatusLabel(subscription.status)}
+                    </Badge>
+                  </div>
+                  <p className="text-lg text-gray-600 mb-1">Plan {subscription.plan}</p>
+                  <p className="text-gray-500">{subscription.description}</p>
+                </div>
+              </div>
               
-              <div className="flex flex-col xl:flex-row xl:items-start justify-between gap-12">
-                <div className="flex items-start gap-8">
-                  <div className={`relative w-24 h-24 ${subscription.color} rounded-3xl flex items-center justify-center shadow-2xl hover:shadow-3xl transition-all duration-700 hover:scale-110 group cursor-pointer`}>
-                    <span className="font-bold text-white text-4xl group-hover:scale-110 transition-transform duration-300">{subscription.logo}</span>
-                    <div className="absolute inset-0 bg-white/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-full flex items-center justify-center shadow-lg">
-                      <Star className="w-3 h-3 text-white" />
+              <div className="flex gap-3">
+                <Button variant="outline" size="sm" className="rounded-xl">
+                  <Settings className="w-4 h-4 mr-2" />
+                  Paramètres
+                </Button>
+                <Button variant="outline" size="sm" className="rounded-xl">
+                  {subscription.status === 'active' ? <Pause className="w-4 h-4 mr-2" /> : <Play className="w-4 h-4 mr-2" />}
+                  {subscription.status === 'active' ? 'Suspendre' : 'Reprendre'}
+                </Button>
+                <Button variant="destructive" size="sm" className="rounded-xl">
+                  <Trash2 className="w-4 h-4 mr-2" />
+                  Annuler
+                </Button>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-12 gap-8">
+            
+            {/* Main Content */}
+            <div className="col-span-8 space-y-8">
+              
+              {/* Clean Metrics */}
+              <div className="grid grid-cols-3 gap-6">
+                <Card className="border-0 shadow-sm bg-white rounded-2xl p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm text-gray-500 mb-1">Prix mensuel</p>
+                      <p className="text-2xl font-bold text-gray-900">{subscription.amount} {subscription.currency}</p>
+                    </div>
+                    <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
+                      <DollarSign className="w-5 h-5 text-blue-600" />
+                    </div>
+                  </div>
+                </Card>
+
+                <Card className="border-0 shadow-sm bg-white rounded-2xl p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm text-gray-500 mb-1">Total 2025</p>
+                      <p className="text-2xl font-bold text-gray-900">{subscription.yearlyAmount} {subscription.currency}</p>
+                    </div>
+                    <div className="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center">
+                      <TrendingUp className="w-5 h-5 text-emerald-600" />
+                    </div>
+                  </div>
+                </Card>
+
+                <Card className="border-0 shadow-sm bg-white rounded-2xl p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm text-gray-500 mb-1">Prochain paiement</p>
+                      <p className="text-lg font-semibold text-gray-900">{subscription.nextBilling}</p>
+                    </div>
+                    <div className="w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center">
+                      <Calendar className="w-5 h-5 text-purple-600" />
+                    </div>
+                  </div>
+                </Card>
+              </div>
+
+              {/* Clean Plan Details */}
+              <Card className="border-0 shadow-sm bg-white rounded-2xl">
+                <CardHeader className="pb-4">
+                  <CardTitle className="text-xl font-bold text-gray-900 flex items-center gap-3">
+                    <Zap className="w-5 h-5 text-blue-600" />
+                    Détails du plan
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-2 gap-8 mb-8">
+                    <div>
+                      <label className="text-xs font-medium text-gray-500 uppercase tracking-wider">Plan actuel</label>
+                      <p className="text-lg font-semibold text-gray-900 mt-1">{subscription.plan}</p>
+                    </div>
+                    <div>
+                      <label className="text-xs font-medium text-gray-500 uppercase tracking-wider">Cycle de facturation</label>
+                      <p className="text-lg font-semibold text-gray-900 mt-1 capitalize">{subscription.billingCycle}</p>
+                    </div>
+                    <div>
+                      <label className="text-xs font-medium text-gray-500 uppercase tracking-wider">Date de début</label>
+                      <p className="text-lg font-semibold text-gray-900 mt-1">{subscription.startDate}</p>
+                    </div>
+                    <div>
+                      <label className="text-xs font-medium text-gray-500 uppercase tracking-wider">Catégorie</label>
+                      <p className="text-lg font-semibold text-gray-900 mt-1">{subscription.category}</p>
                     </div>
                   </div>
                   
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-6">
-                      <h1 className="text-5xl font-bold bg-gradient-to-r from-slate-900 via-slate-800 to-slate-700 bg-clip-text text-transparent leading-tight">
-                        {subscription.name}
-                      </h1>
-                      <Badge 
-                        variant="secondary"
-                        className={`px-6 py-3 rounded-2xl text-base font-semibold border-2 ${statusInfo.bgColor} ${statusInfo.color} ${statusInfo.borderColor} hover:scale-105 transition-all duration-300 shadow-lg backdrop-blur-sm`}
-                      >
-                        <div className={`w-3 h-3 ${statusInfo.dotColor} rounded-full mr-3 animate-pulse`}></div>
-                        {statusInfo.label}
-                      </Badge>
+                  <div className="pt-6 border-t border-gray-100">
+                    <label className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-4 block">Fonctionnalités incluses</label>
+                    <div className="grid grid-cols-2 gap-3">
+                      {subscription.features.map((feature, index) => (
+                        <div key={index} className="flex items-center gap-3">
+                          <div className="w-5 h-5 bg-emerald-100 rounded-full flex items-center justify-center">
+                            <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+                          </div>
+                          <span className="text-gray-700">{feature}</span>
+                        </div>
+                      ))}
                     </div>
-                    <div className="flex items-center gap-4">
-                      <p className="text-2xl text-slate-600 font-semibold">
-                        Plan {subscription.plan}
-                      </p>
-                      <span className="w-2 h-2 bg-slate-300 rounded-full"></span>
-                      <p className="text-2xl text-slate-600 font-semibold">
-                        {subscription.category}
-                      </p>
-                    </div>
-                    <p className="text-lg text-slate-500 max-w-2xl leading-relaxed">
-                      {subscription.description}
-                    </p>
                   </div>
-                </div>
-                
-                <div className="flex flex-wrap gap-4 xl:flex-col xl:w-auto">
-                  <Button 
-                    variant="outline" 
-                    className="rounded-2xl hover:bg-white/90 hover:shadow-xl transition-all duration-300 hover:scale-105 backdrop-blur-md border-white/30 px-6 py-3 text-base font-semibold"
-                  >
-                    <Settings className="w-5 h-5 mr-3" />
-                    Paramètres
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    className="rounded-2xl hover:bg-amber-50/90 hover:border-amber-300 hover:shadow-xl transition-all duration-300 hover:scale-105 backdrop-blur-md border-white/30 px-6 py-3 text-base font-semibold"
-                  >
-                    {subscription.status === 'active' ? <Pause className="w-5 h-5 mr-3" /> : <Play className="w-5 h-5 mr-3" />}
-                    {subscription.status === 'active' ? 'Suspendre' : 'Reprendre'}
-                  </Button>
-                  <Button 
-                    variant="destructive" 
-                    className="rounded-2xl hover:shadow-xl transition-all duration-300 hover:scale-105 px-6 py-3 text-base font-semibold"
-                  >
-                    <Trash2 className="w-5 h-5 mr-3" />
-                    Annuler
-                  </Button>
-                </div>
-              </div>
+                </CardContent>
+              </Card>
+
+              {/* Clean Payment History */}
+              <Card className="border-0 shadow-sm bg-white rounded-2xl">
+                <CardHeader className="pb-4">
+                  <CardTitle className="text-xl font-bold text-gray-900 flex items-center gap-3">
+                    <BarChart3 className="w-5 h-5 text-purple-600" />
+                    Historique des paiements
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="p-0">
+                  <Table>
+                    <TableHeader>
+                      <TableRow className="border-gray-100">
+                        <TableHead className="font-medium text-gray-600">Date</TableHead>
+                        <TableHead className="font-medium text-gray-600">Description</TableHead>
+                        <TableHead className="font-medium text-gray-600">Montant</TableHead>
+                        <TableHead className="font-medium text-gray-600">Statut</TableHead>
+                        <TableHead className="font-medium text-gray-600"></TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {paymentHistory.map((payment) => (
+                        <TableRow key={payment.id} className="border-gray-50 hover:bg-gray-50/50">
+                          <TableCell className="font-medium text-gray-900">{payment.date}</TableCell>
+                          <TableCell className="text-gray-600">{payment.description}</TableCell>
+                          <TableCell className="font-semibold text-gray-900">
+                            {payment.amount} {subscription.currency}
+                          </TableCell>
+                          <TableCell>
+                            <Badge className={`${getStatusColor(payment.status)} rounded-full px-3 py-1 text-xs font-medium border`}>
+                              {getStatusLabel(payment.status)}
+                            </Badge>
+                          </TableCell>
+                          <TableCell>
+                            <Button variant="ghost" size="sm" className="rounded-lg p-2">
+                              <Download className="w-4 h-4" />
+                            </Button>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </CardContent>
+              </Card>
             </div>
 
-            <div className="grid grid-cols-1 xl:grid-cols-12 gap-10">
+            {/* Clean Right Sidebar */}
+            <div className="col-span-4 space-y-6">
               
-              {/* Main Content */}
-              <div className="xl:col-span-8 space-y-10">
-                
-                {/* Enhanced Metrics Cards */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 animate-fade-in">
-                  <Card className="border-0 shadow-xl bg-gradient-to-br from-white/80 to-blue-50/80 backdrop-blur-md rounded-3xl hover:shadow-2xl transition-all duration-500 hover:scale-105 group overflow-hidden relative">
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-blue-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <CardContent className="p-8 relative z-10">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <p className="text-sm font-semibold text-slate-500 mb-2 uppercase tracking-wider">Prix mensuel</p>
-                          <p className="text-4xl font-bold text-slate-900 mb-1">{subscription.amount} {subscription.currency}</p>
-                          <p className="text-sm text-emerald-600 font-semibold">↗ +5% ce mois</p>
+              {/* Clean Payment Method */}
+              <Card className="border-0 shadow-sm bg-white rounded-2xl">
+                <CardHeader className="pb-4">
+                  <CardTitle className="text-lg font-bold text-gray-900 flex items-center gap-3">
+                    <CreditCard className="w-5 h-5 text-blue-600" />
+                    Méthode de paiement
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="p-6 bg-gray-900 rounded-2xl text-white mb-6">
+                    <div className="flex items-center justify-between mb-6">
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+                          <CreditCard className="w-4 h-4 text-white" />
                         </div>
-                        <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-3xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                          <DollarSign className="w-8 h-8 text-white" />
-                        </div>
+                        <span className="font-medium">{paymentMethod.type}</span>
+                        {paymentMethod.isDefault && (
+                          <Badge variant="outline" className="text-xs border-white/30 text-white/80">
+                            Défaut
+                          </Badge>
+                        )}
                       </div>
-                    </CardContent>
-                  </Card>
-
-                  <Card className="border-0 shadow-xl bg-gradient-to-br from-white/80 to-emerald-50/80 backdrop-blur-md rounded-3xl hover:shadow-2xl transition-all duration-500 hover:scale-105 group overflow-hidden relative">
-                    <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-emerald-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <CardContent className="p-8 relative z-10">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <p className="text-sm font-semibold text-slate-500 mb-2 uppercase tracking-wider">Total 2025</p>
-                          <p className="text-4xl font-bold text-slate-900 mb-1">{subscription.yearlyAmount} {subscription.currency}</p>
-                          <p className="text-sm text-emerald-600 font-semibold">8 mois payés</p>
-                        </div>
-                        <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-3xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                          <TrendingUp className="w-8 h-8 text-white" />
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-
-                  <Card className="border-0 shadow-xl bg-gradient-to-br from-white/80 to-purple-50/80 backdrop-blur-md rounded-3xl hover:shadow-2xl transition-all duration-500 hover:scale-105 group overflow-hidden relative">
-                    <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <CardContent className="p-8 relative z-10">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <p className="text-sm font-semibold text-slate-500 mb-2 uppercase tracking-wider">Prochain paiement</p>
-                          <p className="text-2xl font-bold text-slate-900 mb-1">{subscription.nextBilling}</p>
-                          <p className="text-sm text-purple-600 font-semibold">Dans 12 jours</p>
-                        </div>
-                        <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-3xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                          <Calendar className="w-8 h-8 text-white" />
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-
-                {/* Enhanced Plan Details */}
-                <Card className="border-0 shadow-xl bg-gradient-to-br from-white/90 to-slate-50/70 backdrop-blur-md rounded-3xl hover:shadow-2xl transition-all duration-500 animate-fade-in overflow-hidden">
-                  <CardHeader className="pb-6 bg-gradient-to-r from-slate-50/50 to-white/50">
-                    <div className="flex items-center justify-between">
-                      <CardTitle className="text-3xl font-bold text-slate-900 flex items-center gap-3">
-                        <Zap className="w-8 h-8 text-blue-600" />
-                        Détails du plan
-                      </CardTitle>
-                      <Badge className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-4 py-2 rounded-xl text-sm font-semibold">
-                        Premium
-                      </Badge>
+                      <Button 
+                        variant="ghost" 
+                        size="sm"
+                        onClick={() => setShowCardDetails(!showCardDetails)}
+                        className="text-white hover:bg-white/10 rounded-lg p-2"
+                      >
+                        {showCardDetails ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                      </Button>
                     </div>
-                  </CardHeader>
-                  <CardContent className="space-y-10 p-8">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                      <div className="space-y-3 group">
-                        <label className="text-sm font-bold text-slate-500 uppercase tracking-widest">Plan actuel</label>
-                        <p className="text-2xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors duration-300">{subscription.plan}</p>
-                      </div>
-                      <div className="space-y-3 group">
-                        <label className="text-sm font-bold text-slate-500 uppercase tracking-widest">Cycle de facturation</label>
-                        <p className="text-2xl font-bold text-slate-900 capitalize group-hover:text-blue-600 transition-colors duration-300">{subscription.billingCycle}</p>
-                      </div>
-                      <div className="space-y-3 group">
-                        <label className="text-sm font-bold text-slate-500 uppercase tracking-widest">Date de début</label>
-                        <p className="text-2xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors duration-300">{subscription.startDate}</p>
-                      </div>
-                      <div className="space-y-3 group">
-                        <label className="text-sm font-bold text-slate-500 uppercase tracking-widest">Catégorie</label>
-                        <p className="text-2xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors duration-300">{subscription.category}</p>
-                      </div>
+                    <div>
+                      <p className="text-lg font-mono tracking-wider mb-2">
+                        {showCardDetails ? `•••• •••• •••• ${paymentMethod.last4}` : '•••• •••• •••• ••••'}
+                      </p>
+                      <p className="text-white/70 text-sm">
+                        Expire {showCardDetails ? paymentMethod.expiry : '••/••'}
+                      </p>
                     </div>
-                    
-                    {/* Features Section */}
-                    <div className="space-y-6 pt-6 border-t border-slate-200/60">
-                      <label className="text-sm font-bold text-slate-500 uppercase tracking-widest">Fonctionnalités incluses</label>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {subscription.features.map((feature, index) => (
-                          <div key={index} className="flex items-center gap-3 p-4 rounded-2xl bg-gradient-to-r from-emerald-50 to-emerald-50/50 hover:from-emerald-100 hover:to-emerald-100/50 transition-all duration-300 group">
-                            <div className="w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                              <CheckCircle2 className="w-4 h-4 text-white" />
-                            </div>
-                            <span className="text-slate-700 font-semibold">{feature}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
+                  </div>
+                  <Button className="w-full rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-medium">
+                    Modifier la méthode de paiement
+                  </Button>
+                </CardContent>
+              </Card>
 
-                {/* Enhanced Payment History */}
-                <Card className="border-0 shadow-xl bg-gradient-to-br from-white/90 to-slate-50/70 backdrop-blur-md rounded-3xl hover:shadow-2xl transition-all duration-500 animate-fade-in overflow-hidden">
-                  <CardHeader className="pb-6 bg-gradient-to-r from-slate-50/50 to-white/50">
-                    <CardTitle className="text-3xl font-bold text-slate-900 flex items-center gap-3">
-                      <BarChart3 className="w-8 h-8 text-purple-600" />
-                      Historique des paiements
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="p-0">
-                    <div className="overflow-hidden">
-                      <Table>
-                        <TableHeader className="bg-gradient-to-r from-slate-50/80 to-slate-100/80">
-                          <TableRow className="border-slate-200/60 hover:bg-transparent">
-                            <TableHead className="font-bold text-slate-700 py-6 text-base">Date</TableHead>
-                            <TableHead className="font-bold text-slate-700 text-base">Description</TableHead>
-                            <TableHead className="font-bold text-slate-700 text-base">Montant</TableHead>
-                            <TableHead className="font-bold text-slate-700 text-base">Statut</TableHead>
-                            <TableHead className="font-bold text-slate-700 text-base">Actions</TableHead>
-                          </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                          {paymentHistory.map((payment, index) => {
-                            const paymentStatus = getPaymentStatusInfo(payment.status);
-                            return (
-                              <TableRow 
-                                key={payment.id} 
-                                className="hover:bg-gradient-to-r hover:from-slate-50/50 hover:to-white/50 transition-all duration-300 border-slate-200/40 group"
-                                style={{ animationDelay: `${index * 100}ms` }}
-                              >
-                                <TableCell className="font-semibold text-slate-900 py-6 text-base">{payment.date}</TableCell>
-                                <TableCell className="text-slate-700 text-base">{payment.description}</TableCell>
-                                <TableCell className="font-bold text-slate-900 text-lg">
-                                  {payment.amount} {subscription.currency}
-                                </TableCell>
-                                <TableCell>
-                                  <Badge 
-                                    variant="secondary"
-                                    className={`px-4 py-2 rounded-xl text-sm font-semibold border-2 ${paymentStatus.bgColor} ${paymentStatus.color} ${paymentStatus.borderColor} group-hover:scale-105 transition-transform duration-300`}
-                                  >
-                                    {paymentStatus.label}
-                                  </Badge>
-                                </TableCell>
-                                <TableCell>
-                                  <Button variant="ghost" size="sm" className="rounded-2xl hover:bg-slate-100 hover:scale-110 transition-all duration-300 p-3">
-                                    <Download className="w-5 h-5" />
-                                  </Button>
-                                </TableCell>
-                              </TableRow>
-                            );
-                          })}
-                        </TableBody>
-                      </Table>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
+              {/* Clean Quick Actions */}
+              <Card className="border-0 shadow-sm bg-white rounded-2xl">
+                <CardHeader className="pb-4">
+                  <CardTitle className="text-lg font-bold text-gray-900 flex items-center gap-3">
+                    <Zap className="w-5 h-5 text-purple-600" />
+                    Actions rapides
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <Button variant="outline" className="w-full justify-start rounded-xl border-gray-200 hover:bg-gray-50">
+                    <Calendar className="w-4 h-4 mr-3" />
+                    Modifier la facturation
+                  </Button>
+                  <Button variant="outline" className="w-full justify-start rounded-xl border-gray-200 hover:bg-gray-50">
+                    <Download className="w-4 h-4 mr-3" />
+                    Télécharger les factures
+                  </Button>
+                  <Button variant="outline" className="w-full justify-start rounded-xl border-red-200 text-red-600 hover:bg-red-50">
+                    <AlertCircle className="w-4 h-4 mr-3" />
+                    Signaler un problème
+                  </Button>
+                </CardContent>
+              </Card>
 
-              {/* Enhanced Right Sidebar */}
-              <div className="xl:col-span-4 space-y-8">
-                
-                {/* Enhanced Payment Method Card */}
-                <Card className="border-0 shadow-xl bg-gradient-to-br from-white/90 to-blue-50/70 backdrop-blur-md rounded-3xl hover:shadow-2xl transition-all duration-500 animate-fade-in overflow-hidden">
-                  <CardHeader className="pb-6">
-                    <CardTitle className="text-2xl font-bold text-slate-900 flex items-center gap-3">
-                      <CreditCard className="w-7 h-7 text-blue-600" />
-                      Méthode de paiement
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-6">
-                    <div className="relative p-8 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-3xl text-white overflow-hidden group hover:scale-105 transition-transform duration-500 shadow-2xl">
-                      <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-purple-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                      <div className="absolute top-4 right-4 w-12 h-8 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-lg flex items-center justify-center">
-                        <span className="text-xs font-bold text-slate-900">VISA</span>
-                      </div>
-                      <div className="relative z-10">
-                        <div className="flex items-center justify-between mb-8">
-                          <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center">
-                              <CreditCard className="w-6 h-6 text-white" />
-                            </div>
-                            <div>
-                              <div className="flex items-center gap-3">
-                                <span className="font-bold text-lg">{paymentMethod.type}</span>
-                                {paymentMethod.isDefault && (
-                                  <Badge variant="outline" className="text-xs px-3 py-1 border-white/30 text-white/90 rounded-full">
-                                    Défaut
-                                  </Badge>
-                                )}
-                              </div>
-                            </div>
-                          </div>
-                          <Button 
-                            variant="ghost" 
-                            size="sm"
-                            onClick={() => setShowCardDetails(!showCardDetails)}
-                            className="rounded-2xl hover:bg-white/10 text-white hover:text-white p-3"
-                          >
-                            {showCardDetails ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                          </Button>
-                        </div>
-                        <div className="space-y-4">
-                          <p className="text-2xl font-mono tracking-wider">
-                            {showCardDetails ? `•••• •••• •••• ${paymentMethod.last4}` : '•••• •••• •••• ••••'}
-                          </p>
-                          <p className="text-base text-white/80">
-                            Expire {showCardDetails ? paymentMethod.expiry : '••/••'}
-                          </p>
-                        </div>
-                      </div>
+              {/* Clean Usage Stats */}
+              <Card className="border-0 shadow-sm bg-white rounded-2xl">
+                <CardHeader className="pb-4">
+                  <CardTitle className="text-lg font-bold text-gray-900 flex items-center gap-3">
+                    <BarChart3 className="w-5 h-5 text-emerald-600" />
+                    Utilisation ce mois
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div>
+                    <div className="flex justify-between text-sm mb-2">
+                      <span className="text-gray-600">API Calls</span>
+                      <span className="font-medium text-gray-900">2,847 / 5,000</span>
                     </div>
-                    <Button className="w-full rounded-2xl bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold py-4 text-base hover:shadow-xl transition-all duration-300 hover:scale-105">
-                      Modifier la méthode de paiement
-                    </Button>
-                  </CardContent>
-                </Card>
-
-                {/* Enhanced Quick Actions */}
-                <Card className="border-0 shadow-xl bg-gradient-to-br from-white/90 to-slate-50/70 backdrop-blur-md rounded-3xl hover:shadow-2xl transition-all duration-500 animate-fade-in overflow-hidden">
-                  <CardHeader className="pb-6">
-                    <CardTitle className="text-2xl font-bold text-slate-900 flex items-center gap-3">
-                      <Zap className="w-7 h-7 text-purple-600" />
-                      Actions rapides
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <Button variant="outline" className="w-full justify-start rounded-2xl hover:bg-slate-50 hover:shadow-lg transition-all duration-300 group py-4 text-base font-semibold border-2">
-                      <Calendar className="w-5 h-5 mr-4 group-hover:scale-110 transition-transform duration-300 text-blue-600" />
-                      Modifier la facturation
-                    </Button>
-                    <Button variant="outline" className="w-full justify-start rounded-2xl hover:bg-emerald-50 hover:border-emerald-200 hover:shadow-lg transition-all duration-300 group py-4 text-base font-semibold border-2">
-                      <Download className="w-5 h-5 mr-4 group-hover:scale-110 transition-transform duration-300 text-emerald-600" />
-                      Télécharger les factures
-                    </Button>
-                    <Button variant="outline" className="w-full justify-start rounded-2xl text-red-600 border-red-200 hover:bg-red-50 hover:shadow-lg transition-all duration-300 group py-4 text-base font-semibold border-2">
-                      <AlertCircle className="w-5 h-5 mr-4 group-hover:scale-110 transition-transform duration-300 text-red-600" />
-                      Signaler un problème
-                    </Button>
-                  </CardContent>
-                </Card>
-
-                {/* Usage Statistics */}
-                <Card className="border-0 shadow-xl bg-gradient-to-br from-white/90 to-emerald-50/70 backdrop-blur-md rounded-3xl hover:shadow-2xl transition-all duration-500 animate-fade-in overflow-hidden">
-                  <CardHeader className="pb-6">
-                    <CardTitle className="text-2xl font-bold text-slate-900 flex items-center gap-3">
-                      <BarChart3 className="w-7 h-7 text-emerald-600" />
-                      Utilisation ce mois
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-6">
-                    <div className="space-y-4">
-                      <div className="flex justify-between items-center">
-                        <span className="text-slate-600 font-semibold">API Calls</span>
-                        <span className="text-slate-900 font-bold">2,847 / 5,000</span>
-                      </div>
-                      <div className="w-full bg-slate-200 rounded-full h-3">
-                        <div className="bg-gradient-to-r from-emerald-500 to-emerald-600 h-3 rounded-full" style={{ width: '57%' }}></div>
-                      </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div className="bg-emerald-500 h-2 rounded-full" style={{ width: '57%' }}></div>
                     </div>
-                    <div className="space-y-4">
-                      <div className="flex justify-between items-center">
-                        <span className="text-slate-600 font-semibold">Storage</span>
-                        <span className="text-slate-900 font-bold">12.3 GB / 50 GB</span>
-                      </div>
-                      <div className="w-full bg-slate-200 rounded-full h-3">
-                        <div className="bg-gradient-to-r from-blue-500 to-blue-600 h-3 rounded-full" style={{ width: '25%' }}></div>
-                      </div>
+                  </div>
+                  <div>
+                    <div className="flex justify-between text-sm mb-2">
+                      <span className="text-gray-600">Storage</span>
+                      <span className="font-medium text-gray-900">12.3 GB / 50 GB</span>
                     </div>
-                  </CardContent>
-                </Card>
-              </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div className="bg-blue-500 h-2 rounded-full" style={{ width: '25%' }}></div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </div>
