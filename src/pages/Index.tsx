@@ -7,16 +7,6 @@ import { Subscriptions } from "@/components/Subscriptions";
 import { PaymentMethods } from "@/components/PaymentMethods";
 import { Addresses } from "@/components/Addresses";
 import { Settings } from "@/components/Settings";
-import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { Separator } from "@/components/ui/separator";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
 
 const Index = () => {
   const location = useLocation();
@@ -42,17 +32,6 @@ const Index = () => {
     document.title = titles[activeSection as keyof typeof titles] || "Payzoo";
   }, [activeSection]);
 
-  const getSectionTitle = () => {
-    const titles = {
-      dashboard: "Activité",
-      subscriptions: "Abonnements",
-      payments: "Portefeuille",
-      addresses: "Adresses",
-      settings: "Paramètres",
-    };
-    return titles[activeSection as keyof typeof titles] || "Activité";
-  };
-
   const renderContent = () => {
     switch (activeSection) {
       case "dashboard":
@@ -71,38 +50,17 @@ const Index = () => {
   };
 
   return (
-    <SidebarProvider>
-      <div className="min-h-screen flex w-full bg-gray-50">
-        <AppSidebar 
-          activeSection={activeSection} 
-          onSectionChange={setActiveSection} 
-        />
-        <SidebarInset className="bg-white rounded-tl-2xl shadow-sm border-l border-gray-100">
-          <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 border-b border-gray-100">
-            <div className="flex items-center gap-2 px-6">
-              <SidebarTrigger className="-ml-1 hover:bg-gray-50 transition-colors rounded-lg" />
-              <Separator orientation="vertical" className="mr-2 h-4 bg-gray-200" />
-              <Breadcrumb>
-                <BreadcrumbList>
-                  <BreadcrumbItem className="hidden md:block">
-                    <BreadcrumbLink href="#" className="text-gray-500 hover:text-gray-700 text-sm">
-                      Payzoo
-                    </BreadcrumbLink>
-                  </BreadcrumbItem>
-                  <BreadcrumbSeparator className="hidden md:block" />
-                  <BreadcrumbItem>
-                    <BreadcrumbPage className="font-semibold text-gray-900 text-sm">{getSectionTitle()}</BreadcrumbPage>
-                  </BreadcrumbItem>
-                </BreadcrumbList>
-              </Breadcrumb>
-            </div>
-          </header>
-          <div className="flex flex-1 flex-col gap-6 p-6">
-            {renderContent()}
-          </div>
-        </SidebarInset>
+    <div className="min-h-screen flex w-full bg-gray-50">
+      <AppSidebar 
+        activeSection={activeSection} 
+        onSectionChange={setActiveSection} 
+      />
+      <div className="flex-1 ml-64 bg-white rounded-tl-2xl shadow-sm border-l border-gray-100">
+        <div className="flex flex-1 flex-col gap-6 p-6">
+          {renderContent()}
+        </div>
       </div>
-    </SidebarProvider>
+    </div>
   );
 };
 
