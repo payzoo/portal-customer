@@ -34,22 +34,22 @@ const typeInfoMap = {
   visa: {
     label: "Visa",
     icon: CreditCard,
-    color: "text-blue-600",
+    gradient: "from-blue-500 to-blue-700",
   },
   mastercard: {
     label: "Mastercard",
     icon: CreditCard,
-    color: "text-red-600",
+    gradient: "from-red-500 to-red-700",
   },
   paypal: {
     label: "PayPal",
     icon: Shield,
-    color: "text-yellow-600",
+    gradient: "from-yellow-500 to-yellow-700",
   },
   other: {
     label: "Autre",
     icon: Smartphone,
-    color: "text-green-600",
+    gradient: "from-green-500 to-green-700",
   }
 };
 
@@ -65,48 +65,42 @@ export function PaymentCard({
 
   return (
     <Card 
-      className={`group relative overflow-hidden border border-gray-100 bg-white hover:border-gray-200 transition-all duration-500 hover:-translate-y-1 ${
-        isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+      className={`group relative overflow-hidden border-0 bg-white hover:bg-gray-50 transition-all duration-500 hover:scale-102 hover:shadow-2xl shadow-lg ${
+        isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
       }`}
-      style={{ animationDelay: `${index * 100}ms` }}
+      style={{ transitionDelay: `${index * 100 + 600}ms` }}
       role="article"
       aria-label={`Moyen de paiement ${typeInfo.label}`}
     >
-      <CardContent className="p-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div className="flex items-center gap-4 flex-1 min-w-0">
-            <div className="w-12 h-12 bg-gray-50 rounded-2xl flex items-center justify-center transition-colors duration-300 group-hover:bg-black group-hover:text-white flex-shrink-0">
-              <typeInfo.icon className="w-6 h-6" aria-hidden="true" />
+      <CardContent className="p-8">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          <div className="flex items-center gap-6 flex-1 min-w-0">
+            <div className={`w-16 h-16 bg-gradient-to-br ${typeInfo.gradient} rounded-3xl flex items-center justify-center transition-all duration-300 group-hover:scale-110 shadow-lg flex-shrink-0`}>
+              <typeInfo.icon className="w-8 h-8 text-white" aria-hidden="true" />
             </div>
             <div className="flex-1 min-w-0">
-              <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-2">
-                <h3 className="text-lg font-medium text-black tracking-tight truncate">{typeInfo.label}</h3>
+              <div className="flex flex-col lg:flex-row lg:items-center gap-3 mb-3">
+                <h3 className="text-xl font-semibold text-black tracking-tight truncate">{typeInfo.label}</h3>
                 {paymentMethod.isDefault && (
-                  <Badge className="px-3 py-1 rounded-full text-xs bg-black text-white border-0 self-start">
-                    <Star className="w-3 h-3 mr-1 fill-current" aria-hidden="true" />
+                  <Badge className="px-4 py-2 rounded-full text-xs bg-black text-white border-0 self-start lg:self-auto">
+                    <Star className="w-3 h-3 mr-2 fill-current" aria-hidden="true" />
                     Par défaut
                   </Badge>
                 )}
               </div>
-              <div className="text-base font-medium text-gray-700 mb-1 truncate">
-                {paymentMethod.accountNumber}
+              <div className="text-base font-medium text-gray-700 mb-2 truncate font-mono">
+                •••• •••• •••• {paymentMethod.accountNumber.slice(-4)}
               </div>
               {paymentMethod.expiryDate && (
                 <div className="text-sm text-gray-500 font-medium">
-                  Expire: {paymentMethod.expiryDate}
+                  Expire le {paymentMethod.expiryDate}
                 </div>
               )}
             </div>
           </div>
           
-          <div className="flex items-center justify-between sm:justify-end gap-3">
-            <Badge 
-              className={`px-4 py-2 rounded-xl text-sm bg-gray-50 text-gray-700 border-0 transition-all duration-300 group-hover:bg-gray-100`}
-            >
-              {typeInfo.label}
-            </Badge>
-            
-            <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
+          <div className="flex items-center justify-between lg:justify-end gap-4">
+            <div className="flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-all duration-300">
               <Button 
                 variant="ghost" 
                 size="sm" 
@@ -114,48 +108,48 @@ export function PaymentCard({
                   e.stopPropagation();
                   onEdit(paymentMethod);
                 }}
-                className="w-10 h-10 rounded-xl hover:bg-gray-50 transition-all duration-300"
+                className="w-12 h-12 rounded-2xl hover:bg-gray-100 transition-all duration-300"
                 aria-label={`Modifier ${paymentMethod.type}`}
               >
-                <Edit className="w-4 h-4" />
+                <Edit className="w-5 h-5" />
               </Button>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button 
                     variant="ghost" 
                     size="sm" 
-                    className="w-10 h-10 rounded-xl hover:bg-gray-50 transition-all duration-300"
+                    className="w-12 h-12 rounded-2xl hover:bg-gray-100 transition-all duration-300"
                     onClick={(e) => e.stopPropagation()}
                     aria-label={`Actions pour ${paymentMethod.type}`}
                   >
-                    <MoreVertical className="w-4 h-4" />
+                    <MoreVertical className="w-5 h-5" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent 
                   align="end" 
-                  className="w-56 bg-white border border-gray-100 rounded-2xl p-2"
+                  className="w-60 bg-white border-0 rounded-3xl p-3 shadow-2xl"
                 >
                   <DropdownMenuItem 
                     onClick={() => onEdit(paymentMethod)}
-                    className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 rounded-xl transition-colors duration-200 cursor-pointer"
+                    className="flex items-center gap-4 px-5 py-4 hover:bg-gray-50 rounded-2xl transition-colors duration-200 cursor-pointer"
                   >
-                    <Edit className="w-4 h-4 text-gray-600" />
-                    <span className="text-gray-700">Modifier</span>
+                    <Edit className="w-5 h-5 text-gray-600" />
+                    <span className="text-gray-700 font-medium">Modifier</span>
                   </DropdownMenuItem>
                   <DropdownMenuItem 
                     onClick={() => onToggleDefault(paymentMethod)}
-                    className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 rounded-xl transition-colors duration-200 cursor-pointer"
+                    className="flex items-center gap-4 px-5 py-4 hover:bg-gray-50 rounded-2xl transition-colors duration-200 cursor-pointer"
                   >
-                    <Star className={`w-4 h-4 ${paymentMethod.isDefault ? 'text-black fill-current' : 'text-gray-400'}`} />
-                    <span className="text-gray-700">{paymentMethod.isDefault ? 'Retirer par défaut' : 'Définir par défaut'}</span>
+                    <Star className={`w-5 h-5 ${paymentMethod.isDefault ? 'text-black fill-current' : 'text-gray-400'}`} />
+                    <span className="text-gray-700 font-medium">{paymentMethod.isDefault ? 'Retirer par défaut' : 'Définir par défaut'}</span>
                   </DropdownMenuItem>
-                  <DropdownMenuSeparator className="my-2" />
+                  <DropdownMenuSeparator className="my-3" />
                   <DropdownMenuItem 
                     onClick={() => onDelete(paymentMethod)}
-                    className="flex items-center gap-3 px-4 py-3 hover:bg-red-50 rounded-xl transition-colors duration-200 cursor-pointer"
+                    className="flex items-center gap-4 px-5 py-4 hover:bg-red-50 rounded-2xl transition-colors duration-200 cursor-pointer"
                   >
-                    <Trash2 className="w-4 h-4 text-red-500" />
-                    <span className="text-red-600">Supprimer</span>
+                    <Trash2 className="w-5 h-5 text-red-500" />
+                    <span className="text-red-600 font-medium">Supprimer</span>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>

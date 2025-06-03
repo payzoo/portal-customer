@@ -44,7 +44,7 @@ export function PaymentMethods() {
   ]);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoaded(true), 100);
+    const timer = setTimeout(() => setIsLoaded(true), 150);
     return () => clearTimeout(timer);
   }, []);
 
@@ -81,8 +81,8 @@ export function PaymentMethods() {
   };
 
   return (
-    <main className="min-h-screen bg-gray-50" role="main">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50" role="main">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-12">
         <PaymentHeader 
           onAddPayment={() => setIsAddModalOpen(true)}
           isLoaded={isLoaded}

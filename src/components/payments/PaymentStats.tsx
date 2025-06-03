@@ -22,7 +22,7 @@ export function PaymentStats({ paymentMethods, isLoaded }: PaymentStatsProps) {
 
   return (
     <section 
-      className={`grid grid-cols-2 lg:grid-cols-4 gap-6 mb-8 transition-all duration-500 delay-200 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+      className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12 transition-all duration-700 delay-200 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
       aria-label="Statistiques des moyens de paiement"
     >
       <PaymentStatCard
