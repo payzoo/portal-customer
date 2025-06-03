@@ -112,27 +112,29 @@ export function Settings() {
           action: () => console.log("Privacy settings")
         },
       ]
-    }
-  ];
-
-  const supportItems = [
-    { 
-      icon: HelpCircle, 
-      title: "Centre d'aide", 
-      description: "FAQ et guides détaillés",
-      action: () => console.log("Help center")
     },
-    { 
-      icon: MessageCircle, 
-      title: "Chat en direct", 
-      description: "Support instantané 24/7",
-      action: () => console.log("Live chat")
-    },
-    { 
-      icon: Users, 
-      title: "Communauté", 
-      description: "Forum et discussions",
-      action: () => console.log("Community")
+    {
+      category: "Support",
+      items: [
+        { 
+          icon: HelpCircle, 
+          title: "Centre d'aide", 
+          description: "FAQ et guides détaillés",
+          action: () => console.log("Help center")
+        },
+        { 
+          icon: MessageCircle, 
+          title: "Chat en direct", 
+          description: "Support instantané 24/7",
+          action: () => console.log("Live chat")
+        },
+        { 
+          icon: Users, 
+          title: "Communauté", 
+          description: "Forum et discussions",
+          action: () => console.log("Community")
+        }
+      ]
     }
   ];
 
@@ -143,59 +145,47 @@ export function Settings() {
     )
   );
 
-  const filteredSupportItems = supportItems.filter(item =>
-    item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    item.description.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const animationDelay = (index: number) => ({ animationDelay: `${index * 100}ms` });
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Background decorations */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-20 left-10 w-32 h-32 border border-blue-200/20 rounded-3xl rotate-12 animate-pulse"></div>
-        <div className="absolute bottom-32 right-16 w-24 h-24 border border-purple-200/30 rounded-2xl -rotate-12 animate-pulse opacity-60"></div>
-        <div className="absolute top-1/2 left-1/4 w-16 h-16 border border-blue-300/25 rounded-xl rotate-45 animate-pulse"></div>
+    <div className="min-h-screen bg-background relative">
+      {/* Minimal background decoration */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-30">
+        <div className="absolute top-20 right-10 w-32 h-32 border border-black/10 rounded-3xl rotate-12"></div>
+        <div className="absolute bottom-32 left-16 w-24 h-24 border border-black/5 rounded-2xl -rotate-12"></div>
       </div>
 
       <div className="payzoo-page-container relative z-10">
         
-        {/* Header section */}
+        {/* Clean header */}
         <div className={`mb-8 transition-all duration-500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-          <div className="space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="p-2.5 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl shadow-lg">
-                <User className="w-6 h-6 text-white" />
-              </div>
-              <div className="flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-foreground" />
-                <span className="text-sm font-medium text-foreground">Smart Settings</span>
-              </div>
+          <div className="flex items-center gap-4 mb-6">
+            <div className="w-12 h-12 bg-black rounded-2xl flex items-center justify-center shadow-lg">
+              <User className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-foreground mb-2">Paramètres</h1>
-              <p className="text-muted-foreground flex items-center gap-2">
+              <h1 className="text-2xl font-bold text-foreground mb-1">Paramètres</h1>
+              <p className="text-sm text-muted-foreground flex items-center gap-2">
                 <Brain className="w-4 h-4" />
                 Gérez votre compte et personnalisez votre expérience
               </p>
             </div>
           </div>
-        </div>
 
-        {/* Search bar */}
-        <div className={`mb-6 transition-all duration-500 delay-100 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-          <div className="relative max-w-md">
+          {/* Minimal search */}
+          <div className="relative max-w-sm">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
             <Input
               type="text"
-              placeholder="Rechercher dans les paramètres..."
+              placeholder="Rechercher..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10 h-11 bg-card/80 backdrop-blur-sm border-border/50 focus:border-blue-500/50 transition-colors"
+              className="pl-10 h-10 bg-background border-border/30 focus:border-black transition-colors"
             />
           </div>
         </div>
 
-        <div className="space-y-6">
+        <div className="space-y-4">
           
           {/* Profile Card */}
           <ProfileCard currentUserData={currentUserData} isLoaded={isLoaded} />
@@ -203,17 +193,18 @@ export function Settings() {
           {/* KYC Section */}
           <KYCSection kycSettings={kycSettings} isLoaded={isLoaded} />
 
-          {/* Settings Sections */}
+          {/* Settings Sections - Consolidated */}
           {filteredCategories.map((category, categoryIndex) => (
             <Card 
               key={category.category} 
-              className={`border-0 bg-card/80 backdrop-blur-sm shadow-sm transition-all duration-500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+              className={`border-0 bg-card/50 backdrop-blur-sm shadow-sm transition-all duration-500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+              style={animationDelay(categoryIndex + 2)}
             >
-              <CardContent className="p-6">
-                <h3 className="text-lg font-semibold text-foreground mb-4">
+              <CardContent className="p-5">
+                <h3 className="text-base font-semibold text-foreground mb-3 tracking-tight">
                   {category.category}
                 </h3>
-                <div className="space-y-1">
+                <div className="space-y-0">
                   {category.items.filter(item => 
                     item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                     item.description.toLowerCase().includes(searchTerm.toLowerCase())
@@ -221,26 +212,26 @@ export function Settings() {
                     <div 
                       key={itemIndex}
                       onClick={item.action}
-                      className="group flex items-center justify-between py-3 px-4 hover:bg-background/80 rounded-lg transition-all duration-200 cursor-pointer"
+                      className="group flex items-center justify-between py-3 px-3 hover:bg-background/60 rounded-lg transition-all duration-200 cursor-pointer"
                     >
-                      <div className="flex items-center gap-3 flex-1">
-                        <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-muted/50 group-hover:bg-muted transition-colors">
-                          <item.icon className="w-4 h-4 text-foreground" />
+                      <div className="flex items-center gap-3 flex-1 min-w-0">
+                        <div className="w-9 h-9 bg-black rounded-lg flex items-center justify-center shadow-sm">
+                          <item.icon className="w-4 h-4 text-white" />
                         </div>
-                        <div className="flex-1">
-                          <p className="font-medium text-sm text-foreground">{item.title}</p>
-                          <p className="text-xs text-muted-foreground">{item.description}</p>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-medium text-sm text-foreground truncate">{item.title}</p>
+                          <p className="text-xs text-muted-foreground truncate">{item.description}</p>
                         </div>
                       </div>
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-3 flex-shrink-0">
                         {item.toggle && (
                           <Switch 
                             checked={item.title.includes('2FA') ? twoFactorEnabled : false} 
                             onCheckedChange={item.title.includes('2FA') ? setTwoFactorEnabled : undefined}
-                            className="data-[state=checked]:bg-blue-600"
+                            className="data-[state=checked]:bg-black"
                           />
                         )}
-                        <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground group-hover:translate-x-1 transition-all" />
+                        <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground group-hover:translate-x-0.5 transition-all" />
                       </div>
                     </div>
                   ))}
@@ -248,35 +239,6 @@ export function Settings() {
               </CardContent>
             </Card>
           ))}
-
-          {/* Support Section */}
-          {filteredSupportItems.length > 0 && (
-            <Card className={`border-0 bg-card/80 backdrop-blur-sm shadow-sm transition-all duration-500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-              <CardContent className="p-6">
-                <h3 className="text-lg font-semibold text-foreground mb-4">
-                  Support
-                </h3>
-                <div className="space-y-1">
-                  {filteredSupportItems.map((item, index) => (
-                    <div 
-                      key={index}
-                      onClick={item.action}
-                      className="group flex items-center gap-3 py-3 px-4 hover:bg-background/80 rounded-lg transition-all duration-200 cursor-pointer"
-                    >
-                      <div className="w-10 h-10 bg-muted/50 rounded-lg flex items-center justify-center group-hover:bg-muted transition-colors">
-                        <item.icon className="w-4 h-4 text-foreground" />
-                      </div>
-                      <div className="flex-1">
-                        <p className="font-medium text-sm text-foreground">{item.title}</p>
-                        <p className="text-xs text-muted-foreground">{item.description}</p>
-                      </div>
-                      <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground group-hover:translate-x-1 transition-all" />
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          )}
         </div>
       </div>
 
