@@ -266,7 +266,7 @@ export function Addresses() {
           </Card>
         </div>
 
-        {/* Modern search and filters */}
+        {/* Improved search and filters with uniform height */}
         <div className={`mb-8 transition-all duration-700 delay-300 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
           <div className="flex gap-4">
             <div className="relative flex-1">
@@ -276,14 +276,14 @@ export function Addresses() {
                 placeholder="Rechercher une adresse..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 bg-card/50 backdrop-blur-sm border border-border/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-foreground/20 focus:border-foreground/50 transition-all duration-300 text-foreground placeholder:text-muted-foreground"
+                className="w-full h-12 pl-12 pr-4 bg-card/50 backdrop-blur-sm border border-border/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-foreground/20 focus:border-foreground/50 transition-all duration-300 text-foreground placeholder:text-muted-foreground"
               />
             </div>
             <Select value={filterType} onValueChange={setFilterType}>
-              <SelectTrigger className="w-48 bg-card/50 backdrop-blur-sm border border-border/50 rounded-xl h-12 focus:ring-2 focus:ring-foreground/20 focus:border-foreground/50 transition-all duration-300">
+              <SelectTrigger className="w-48 h-12 bg-card/50 backdrop-blur-sm border border-border/50 rounded-xl focus:ring-2 focus:ring-foreground/20 focus:border-foreground/50 transition-all duration-300">
                 <SelectValue placeholder="Type" />
               </SelectTrigger>
-              <SelectContent className="bg-card/95 backdrop-blur-md border border-border/50 rounded-xl shadow-xl">
+              <SelectContent className="bg-card/95 backdrop-blur-md border border-border/50 rounded-xl shadow-xl animate-in slide-in-from-top-2 duration-200">
                 <SelectItem value="all">Tous types</SelectItem>
                 <SelectItem value="home">Domicile</SelectItem>
                 <SelectItem value="work">Travail</SelectItem>
@@ -294,7 +294,7 @@ export function Addresses() {
         </div>
 
         {/* Enhanced addresses list */}
-        <div className={`space-y-4 mb-12 transition-all duration-700 delay-400 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+        <div className={`space-y-4 transition-all duration-700 delay-400 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
           {filteredAddresses.length === 0 ? (
             <Card className="bg-card/50 backdrop-blur-sm border-border/50">
               <CardContent className="p-12 text-center">
@@ -376,7 +376,7 @@ export function Addresses() {
                             </DropdownMenuTrigger>
                             <DropdownMenuContent 
                               align="end" 
-                              className="w-48 bg-card/95 backdrop-blur-md border border-border/50 rounded-xl shadow-xl"
+                              className="w-48 bg-card/95 backdrop-blur-md border border-border/50 rounded-xl shadow-xl animate-in slide-in-from-top-2 duration-200"
                             >
                               <DropdownMenuItem 
                                 onClick={() => handleEdit(address)}
@@ -425,26 +425,6 @@ export function Addresses() {
             })
           )}
         </div>
-
-        {/* Modern CTA for adding address */}
-        <Card 
-          className={`group border-2 border-dashed border-border/50 bg-card/30 hover:border-foreground/30 hover:bg-card/50 transition-all duration-300 cursor-pointer hover:shadow-lg hover:-translate-y-1 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
-          style={{ animationDelay: '500ms' }}
-        >
-          <CardContent className="p-12">
-            <div className="flex flex-col items-center text-center">
-              <div className="w-16 h-16 bg-foreground/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-foreground/20 group-hover:scale-110 transition-all duration-300">
-                <Plus className="w-8 h-8 text-foreground group-hover:rotate-90 transition-transform duration-300" />
-              </div>
-              <h3 className="text-xl font-semibold text-foreground mb-3 group-hover:text-foreground/90 transition-colors duration-300">
-                Ajouter une adresse
-              </h3>
-              <p className="text-muted-foreground max-w-md group-hover:text-foreground/70 transition-colors duration-300">
-                Créez une nouvelle adresse pour simplifier vos commandes
-              </p>
-            </div>
-          </CardContent>
-        </Card>
       </div>
     </div>
   );
