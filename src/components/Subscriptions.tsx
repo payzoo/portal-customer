@@ -1,10 +1,12 @@
 
 import { useState, useEffect } from "react";
+import { DollarSign, Users, TrendingUp, Activity } from "lucide-react";
 import { AddSubscriptionCard } from "@/components/AddSubscriptionCard";
 import { SubscriptionsHeader } from "@/components/subscriptions/SubscriptionsHeader";
-import { SubscriptionsStats } from "@/components/subscriptions/SubscriptionsStats";
+import { StatCard } from "@/components/subscriptions/StatCard";
 import { SearchBar } from "@/components/subscriptions/SearchBar";
-import { SubscriptionsList } from "@/components/subscriptions/SubscriptionsList";
+import { SubscriptionCard } from "@/components/subscriptions/SubscriptionCard";
+import { EmptyState } from "@/components/subscriptions/EmptyState";
 import { useToast } from "@/hooks/use-toast";
 
 export function Subscriptions() {
@@ -19,7 +21,7 @@ export function Subscriptions() {
       name: "Netflix",
       amount: "12.99",
       currency: "€",
-      billingCycle: "mensuel",
+      billingCycle: "mois",
       nextPaymentDate: "15/07/2024",
       category: "Divertissement",
       status: "active",
@@ -31,7 +33,7 @@ export function Subscriptions() {
       name: "Spotify",
       amount: "9.99",
       currency: "€",
-      billingCycle: "mensuel",
+      billingCycle: "mois",
       nextPaymentDate: "22/07/2024",
       category: "Musique",
       status: "active",
@@ -43,7 +45,7 @@ export function Subscriptions() {
       name: "iCloud",
       amount: "2.99",
       currency: "€",
-      billingCycle: "mensuel",
+      billingCycle: "mois",
       nextPaymentDate: "01/08/2024",
       category: "Stockage",
       status: "active",
@@ -55,7 +57,7 @@ export function Subscriptions() {
       name: "Payzoo Premium",
       amount: "4.99",
       currency: "€",
-      billingCycle: "mensuel",
+      billingCycle: "mois",
       nextPaymentDate: "10/08/2024",
       category: "Productivité",
       status: "trial",
@@ -73,6 +75,11 @@ export function Subscriptions() {
     subscription.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     subscription.category.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const activeSubscriptions = subscriptions.filter(sub => sub.status === 'active').length;
+  const trialSubscriptions = subscriptions.filter(sub => sub.status === 'trial').length;
+  const totalMonthlyCost = subscriptions.reduce((acc, sub) => acc + parseFloat(sub.amount), 0);
+  const totalServices = subscriptions.length;
 
   const handleAddSubscription = (newSubscription: any) => {
     const subscription = {
@@ -110,19 +117,49 @@ export function Subscriptions() {
 
   return (
     <main className="min-h-screen bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-6xl mx-auto px-6 py-8 space-y-8">
         
         <SubscriptionsHeader 
           isLoaded={isLoaded}
           onAddClick={() => setIsAddModalOpen(true)}
         />
 
-        <SubscriptionsStats 
-          subscriptions={subscriptions}
-          isLoaded={isLoaded}
-        />
+        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <StatCard
+            icon={DollarSign}
+            title="Coût mensuel"
+            value={`${totalMonthlyCost.toFixed(2)} €`}
+            subtitle="Total par mois"
+            delay={100}
+            isLoaded={isLoaded}
+          />
+          <StatCard
+            icon={Users}
+            title="Services actifs"
+            value={activeSubscriptions.toString()}
+            subtitle="En cours"
+            delay={200}
+            isLoaded={isLoaded}
+          />
+          <StatCard
+            icon={Activity}
+            title="En essai"
+            value={trialSubscriptions.toString()}
+            subtitle="Périodes d'essai"
+            delay={300}
+            isLoaded={isLoaded}
+          />
+          <StatCard
+            icon={TrendingUp}
+            title="Total services"
+            value={totalServices.toString()}
+            subtitle="Configurés"
+            delay={400}
+            isLoaded={isLoaded}
+          />
+        </section>
 
-        <div className="mb-8 flex justify-center">
+        <div className="flex justify-between items-center">
           <SearchBar 
             searchTerm={searchTerm}
             onSearchChange={setSearchTerm}
@@ -130,12 +167,25 @@ export function Subscriptions() {
           />
         </div>
 
-        <SubscriptionsList 
-          subscriptions={filteredSubscriptions}
-          isLoaded={isLoaded}
-          onEditSubscription={handleEditSubscription}
-          onDeleteSubscription={handleDeleteSubscription}
-        />
+        <section className="space-y-3">
+          {filteredSubscriptions.length === 0 ? (
+            <EmptyState 
+              isLoaded={isLoaded} 
+              onAddClick={() => setIsAddModalOpen(true)}
+            />
+          ) : (
+            filteredSubscriptions.map((subscription, index) => (
+              <SubscriptionCard 
+                key={subscription.id} 
+                subscription={subscription} 
+                index={index}
+                isLoaded={isLoaded}
+                onEdit={handleEditSubscription}
+                onDelete={handleDeleteSubscription}
+              />
+            ))
+          )}
+        </section>
       </div>
 
       <AddSubscriptionCard 

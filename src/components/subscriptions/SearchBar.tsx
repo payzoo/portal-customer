@@ -10,24 +10,24 @@ interface SearchBarProps {
 
 export function SearchBar({ searchTerm, onSearchChange, isLoaded = false }: SearchBarProps) {
   return (
-    <div className={`relative w-full max-w-2xl transition-all duration-500 delay-300 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-      <div className="relative">
-        <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+    <div className={`transition-all duration-500 delay-300 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+      <div className="relative max-w-md">
+        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
         <input
           type="text"
-          placeholder="Rechercher un abonnement ou une catégorie..."
+          placeholder="Rechercher..."
           value={searchTerm}
           onChange={(e) => onSearchChange(e.target.value)}
-          className="w-full pl-12 pr-12 py-4 border border-gray-300 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all duration-200 text-base"
+          className="w-full pl-10 pr-10 py-2.5 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all duration-200 text-sm"
         />
         {searchTerm && (
           <Button
             variant="ghost"
             size="sm"
-            className="absolute right-3 top-1/2 transform -translate-y-1/2 h-8 w-8 p-0 hover:bg-gray-100 rounded-lg"
+            className="absolute right-2 top-1/2 transform -translate-y-1/2 h-6 w-6 p-0 hover:bg-gray-100 rounded-md"
             onClick={() => onSearchChange('')}
           >
-            <X className="w-4 h-4" />
+            <X className="w-3 h-3" />
           </Button>
         )}
       </div>

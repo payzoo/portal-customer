@@ -21,20 +21,21 @@ export function StatCard({
 }: StatCardProps) {
   return (
     <Card 
-      className={`group relative border border-gray-200 bg-white hover:shadow-xl transition-all duration-500 hover:-translate-y-2 ${
+      className={`border border-gray-200 bg-white hover:shadow-md transition-all duration-300 ${
         isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
       }`} 
       style={{ transitionDelay: `${delay}ms` }}
     >
       <CardContent className="p-6">
-        <div className="flex items-center justify-between mb-4">
-          <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center group-hover:bg-black group-hover:text-white transition-colors duration-300">
-            <Icon className="w-6 h-6" />
+        <div className="flex items-center gap-4">
+          <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
+            <Icon className="w-6 h-6 text-gray-700" />
           </div>
-        </div>
-        <div className="space-y-2">
-          <div className="text-2xl font-bold text-black">{value}</div>
-          <div className="text-sm text-gray-600">{subtitle}</div>
+          <div className="space-y-1">
+            <p className="text-sm font-medium text-gray-600">{title}</p>
+            <p className="text-2xl font-bold text-black">{value}</p>
+            <p className="text-xs text-gray-500">{subtitle}</p>
+          </div>
         </div>
       </CardContent>
     </Card>
