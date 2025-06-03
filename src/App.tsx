@@ -12,6 +12,7 @@ import VerifyOTP from "./pages/VerifyOTP";
 import SubscriptionDetails from "./pages/SubscriptionDetails";
 import ProtectedRoute from "./components/ProtectedRoute";
 import NotFound from "./pages/NotFound";
+import MainLayout from "./layouts/MainLayout";
 
 const queryClient = new QueryClient();
 
@@ -30,7 +31,9 @@ const App = () => (
               path="/" 
               element={
                 <ProtectedRoute>
-                  <Index />
+                  <MainLayout>
+                    <Index />
+                  </MainLayout>
                 </ProtectedRoute>
               } 
             />
@@ -38,7 +41,9 @@ const App = () => (
               path="/subscription/:id" 
               element={
                 <ProtectedRoute>
-                  <SubscriptionDetails />
+                  <MainLayout initialSection="subscriptions">
+                    <SubscriptionDetails />
+                  </MainLayout>
                 </ProtectedRoute>
               } 
             />

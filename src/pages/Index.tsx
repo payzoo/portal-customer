@@ -1,7 +1,6 @@
 
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { AppSidebar } from "@/components/AppSidebar";
 import { Dashboard } from "@/components/Dashboard";
 import { Subscriptions } from "@/components/Subscriptions";
 import { PaymentMethods } from "@/components/PaymentMethods";
@@ -48,16 +47,8 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen flex w-full bg-gradient-to-br from-background via-background to-muted/5">
-      <AppSidebar 
-        activeSection={activeSection} 
-        onSectionChange={setActiveSection} 
-      />
-      <div className="flex-1 ml-72 bg-transparent">
-        <div className="flex flex-1 flex-col gap-6 p-8 payzoo-fade-in">
-          {renderContent()}
-        </div>
-      </div>
+    <div className="flex flex-1 flex-col gap-6 p-8 payzoo-fade-in">
+      {renderContent()}
     </div>
   );
 };
