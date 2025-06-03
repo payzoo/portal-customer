@@ -1,11 +1,10 @@
 
 import { User, Shield, Bell, HelpCircle, Globe, Key, Smartphone, FileText, MessageCircle, Users } from "lucide-react";
 import { useState, useEffect } from "react";
-import { ProfileCard } from "@/components/settings/ProfileCard";
-import { KYCSection } from "@/components/settings/KYCSection";
 import { SettingsHeader } from "@/components/settings/SettingsHeader";
-import { SettingsMenuSection } from "@/components/settings/SettingsMenuSection";
-import { SettingsBackground } from "@/components/settings/SettingsBackground";
+import { ProfileSection } from "@/components/settings/ProfileSection";
+import { KYCCard } from "@/components/settings/KYCCard";
+import { SettingsSection } from "@/components/settings/SettingsSection";
 import { SettingsModals } from "@/components/settings/SettingsModals";
 
 export function Settings() {
@@ -64,9 +63,9 @@ export function Settings() {
     },
   ];
 
-  const menuItems = [
+  const menuSections = [
     {
-      category: "Compte",
+      title: "Compte",
       items: [
         { 
           icon: User, 
@@ -83,7 +82,7 @@ export function Settings() {
       ]
     },
     {
-      category: "Sécurité",
+      title: "Sécurité",
       items: [
         { 
           icon: Key, 
@@ -106,7 +105,7 @@ export function Settings() {
       ]
     },
     {
-      category: "Préférences",
+      title: "Préférences",
       items: [
         { 
           icon: Bell, 
@@ -123,7 +122,7 @@ export function Settings() {
       ]
     },
     {
-      category: "Support",
+      title: "Support",
       items: [
         { 
           icon: HelpCircle, 
@@ -147,18 +146,16 @@ export function Settings() {
     }
   ];
 
-  const filteredCategories = menuItems.filter(category =>
-    category.items.some(item => 
+  const filteredSections = menuSections.filter(section =>
+    section.items.some(item => 
       item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.description.toLowerCase().includes(searchTerm.toLowerCase())
     )
   );
 
   return (
-    <div className="min-h-screen bg-background relative">
-      <SettingsBackground />
-
-      <div className="payzoo-page-container relative z-10">
+    <div className="min-h-screen bg-gray-50">
+      <div className="payzoo-page-container relative">
         <SettingsHeader 
           searchTerm={searchTerm}
           onSearchChange={setSearchTerm}
@@ -166,16 +163,17 @@ export function Settings() {
         />
 
         <div className="space-y-6">
-          <ProfileCard currentUserData={currentUserData} isLoaded={isLoaded} />
-          <KYCSection kycSettings={kycSettings} isLoaded={isLoaded} />
+          <ProfileSection currentUserData={currentUserData} isLoaded={isLoaded} />
+          <KYCCard kycSettings={kycSettings} isLoaded={isLoaded} />
 
-          {filteredCategories.map((category, categoryIndex) => (
-            <SettingsMenuSection
-              key={category.category}
-              category={category}
-              categoryIndex={categoryIndex}
+          {filteredSections.map((section, sectionIndex) => (
+            <SettingsSection
+              key={section.title}
+              title={section.title}
+              items={section.items}
               searchTerm={searchTerm}
               isLoaded={isLoaded}
+              delay={200 + (sectionIndex * 100)}
             />
           ))}
         </div>
