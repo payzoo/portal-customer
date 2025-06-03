@@ -1,21 +1,10 @@
 
 import { useState, useEffect } from "react";
-import { 
-  Plus, 
-  Calendar, 
-  DollarSign, 
-  TrendingUp, 
-  Play,
-  Zap,
-  ArrowUpRight,
-  Sparkles
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { AddSubscriptionCard } from "@/components/AddSubscriptionCard";
-import { StatCard } from "@/components/subscriptions/StatCard";
-import { SubscriptionCard } from "@/components/subscriptions/SubscriptionCard";
+import { SubscriptionsHeader } from "@/components/subscriptions/SubscriptionsHeader";
+import { SubscriptionsStats } from "@/components/subscriptions/SubscriptionsStats";
 import { SearchBar } from "@/components/subscriptions/SearchBar";
-import { EmptyState } from "@/components/subscriptions/EmptyState";
+import { SubscriptionsList } from "@/components/subscriptions/SubscriptionsList";
 
 export function Subscriptions() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -72,12 +61,8 @@ export function Subscriptions() {
     },
   ]);
 
-  const activeSubscriptions = subscriptions.filter(sub => sub.status === 'active').length;
-  const trialSubscriptions = subscriptions.filter(sub => sub.status === 'trial').length;
-  const totalMonthlyCost = subscriptions.reduce((acc, sub) => acc + parseFloat(sub.amount), 0);
-
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoaded(true), 300);
+    const timer = setTimeout(() => setIsLoaded(true), 200);
     return () => clearTimeout(timer);
   }, []);
 
@@ -87,110 +72,38 @@ export function Subscriptions() {
   );
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50/50 relative overflow-hidden">
+    <main className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50/30 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
-        <div className="absolute top-32 left-20 w-96 h-96 bg-blue-100/20 rounded-full blur-3xl animate-pulse opacity-70" />
-        <div className="absolute bottom-32 right-20 w-80 h-80 bg-purple-100/20 rounded-full blur-3xl animate-pulse opacity-70" style={{ animationDelay: '3s' }} />
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-blue-50/10 to-purple-50/10 rounded-full blur-3xl animate-pulse opacity-50" style={{ animationDelay: '1.5s' }} />
+        <div className="absolute top-20 left-10 w-72 h-72 bg-blue-100/15 rounded-full blur-3xl animate-pulse opacity-60" />
+        <div className="absolute bottom-20 right-10 w-64 h-64 bg-purple-100/15 rounded-full blur-3xl animate-pulse opacity-60" style={{ animationDelay: '2s' }} />
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-gradient-to-r from-blue-50/8 to-purple-50/8 rounded-full blur-3xl animate-pulse opacity-40" style={{ animationDelay: '1s' }} />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-16">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
-        {/* Header */}
-        <header className={`mb-12 lg:mb-16 transition-all duration-1000 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
-          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 lg:gap-0">
-            <div className="space-y-6 lg:space-y-8">
-              <div className="flex items-center gap-3 lg:gap-4">
-                <div className="p-3 lg:p-4 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl lg:rounded-3xl shadow-2xl">
-                  <Calendar className="w-6 h-6 lg:w-7 lg:h-7 text-white" />
-                </div>
-                <div className="flex items-center gap-2 lg:gap-3">
-                  <div className="w-2.5 h-2.5 lg:w-3 lg:h-3 bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-full animate-pulse shadow-lg" />
-                  <span className="text-sm lg:text-base font-semibold text-emerald-600 tracking-wide">Live Tracking</span>
-                </div>
-              </div>
-              <div className="space-y-2 lg:space-y-3">
-                <h1 className="text-3xl lg:text-5xl font-light text-gray-900 tracking-tight">Abonnements</h1>
-                <p className="text-lg lg:text-xl text-gray-600 font-medium">Gérez tous vos abonnements en un seul endroit</p>
-              </div>
-            </div>
-            
-            <Button 
-              className="group bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-0 px-6 lg:px-8 py-3 lg:py-4 rounded-2xl lg:rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500 hover:-translate-y-2 text-base lg:text-lg font-medium w-full sm:w-auto"
-              onClick={() => setIsAddModalOpen(true)}
-            >
-              <Plus className="w-5 h-5 lg:w-6 lg:h-6 mr-2 lg:mr-3 group-hover:rotate-90 transition-transform duration-500" />
-              Ajouter
-              <ArrowUpRight className="w-4 h-4 lg:w-5 lg:h-5 ml-2 lg:ml-3 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-500" />
-            </Button>
-          </div>
-        </header>
+        <SubscriptionsHeader 
+          isLoaded={isLoaded}
+          onAddClick={() => setIsAddModalOpen(true)}
+        />
 
-        {/* Stats */}
-        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8 mb-12 lg:mb-16">
-          <StatCard
-            icon={DollarSign}
-            title="Total mensuel"
-            value={`${totalMonthlyCost.toFixed(2)} €`}
-            subtitle="Coût total"
-            delay={100}
-            color="emerald"
-            isLoaded={isLoaded}
-          />
-          <StatCard
-            icon={Play}
-            title="Actifs"
-            value={activeSubscriptions.toString()}
-            subtitle="Abonnements"
-            delay={200}
-            color="blue"
-            isLoaded={isLoaded}
-          />
-          <StatCard
-            icon={Zap}
-            title="En essai"
-            value={trialSubscriptions.toString()}
-            subtitle="Gratuits"
-            delay={300}
-            color="amber"
-            isLoaded={isLoaded}
-          />
-          <StatCard
-            icon={TrendingUp}
-            title="Tendance"
-            value="+12%"
-            subtitle="Ce mois"
-            delay={400}
-            color="purple"
-            isLoaded={isLoaded}
-          />
-        </section>
+        <SubscriptionsStats 
+          subscriptions={subscriptions}
+          isLoaded={isLoaded}
+        />
 
-        {/* Search */}
-        <section className="mb-8 lg:mb-12">
+        <div className="mb-6">
           <SearchBar 
             searchTerm={searchTerm}
             onSearchChange={setSearchTerm}
             isLoaded={isLoaded}
           />
-        </section>
+        </div>
 
-        {/* Subscriptions list */}
-        <section className="space-y-4 lg:space-y-6">
-          {filteredSubscriptions.length === 0 ? (
-            <EmptyState isLoaded={isLoaded} />
-          ) : (
-            filteredSubscriptions.map((subscription, index) => (
-              <SubscriptionCard 
-                key={subscription.id} 
-                subscription={subscription} 
-                index={index}
-                isLoaded={isLoaded}
-              />
-            ))
-          )}
-        </section>
+        <SubscriptionsList 
+          subscriptions={filteredSubscriptions}
+          isLoaded={isLoaded}
+        />
       </div>
 
       <AddSubscriptionCard 
