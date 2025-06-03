@@ -67,38 +67,40 @@ const RegisterPage = () => {
     <div className="min-h-screen bg-background relative overflow-hidden">
       <RegisterHeader isLoaded={isLoaded} mousePosition={mousePosition} />
 
-      {/* Main content */}
-      <div className="relative z-10 min-h-screen flex items-center justify-center p-6">
-        <div className={`w-full max-w-md transform transition-all duration-1000 ease-out ${
+      {/* Contenu principal */}
+      <div className="relative z-10 min-h-screen flex items-center justify-center p-4">
+        <div className={`w-full max-w-sm transform transition-all duration-700 ease-out ${
           isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
         }`}>
 
           {/* Formulaire d'inscription */}
-          <div className={`space-y-6 transform transition-all duration-700 ease-out ${
+          <div className={`space-y-4 transform transition-all duration-500 ease-out ${
             isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
-          }`} style={{ transitionDelay: '600ms' }}>
+          }`} style={{ transitionDelay: '400ms' }}>
             
-            <FormField
-              id="firstName"
-              label="Prénom"
-              type="text"
-              placeholder="Votre prénom"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              icon={User}
-              isValid={validateName(firstName)}
-            />
+            <div className="grid grid-cols-2 gap-3">
+              <FormField
+                id="firstName"
+                label="Prénom"
+                type="text"
+                placeholder="Prénom"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                icon={User}
+                isValid={validateName(firstName)}
+              />
 
-            <FormField
-              id="lastName"
-              label="Nom"
-              type="text"
-              placeholder="Votre nom"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              icon={User}
-              isValid={validateName(lastName)}
-            />
+              <FormField
+                id="lastName"
+                label="Nom"
+                type="text"
+                placeholder="Nom"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                icon={User}
+                isValid={validateName(lastName)}
+              />
+            </div>
 
             <FormField
               id="email"
@@ -115,7 +117,7 @@ const RegisterPage = () => {
               id="phone"
               label="Numéro de téléphone"
               type="tel"
-              placeholder="Votre numéro de téléphone"
+              placeholder="Votre numéro"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               icon={Phone}
@@ -126,14 +128,14 @@ const RegisterPage = () => {
             />
 
             {/* Conditions d'utilisation */}
-            <div className="text-center py-2">
-              <p className="payzoo-body-sm text-muted-foreground leading-relaxed">
+            <div className="py-3">
+              <p className="text-xs text-muted-foreground text-center leading-relaxed">
                 En continuant, vous acceptez nos{" "}
-                <button className="text-foreground hover:underline transition-colors underline-offset-2">
+                <button className="text-foreground hover:underline transition-colors">
                   Conditions d'utilisation
                 </button>{" "}
                 et notre{" "}
-                <button className="text-foreground hover:underline transition-colors underline-offset-2">
+                <button className="text-foreground hover:underline transition-colors">
                   Politique de confidentialité
                 </button>.
               </p>
@@ -143,12 +145,12 @@ const RegisterPage = () => {
             <Button
               onClick={handleRegister}
               disabled={!isFormValid}
-              className={`w-full h-14 bg-foreground text-background font-medium rounded-2xl transition-all duration-300 hover:bg-foreground/90 active:scale-[0.98] group ${
-                !isFormValid ? 'opacity-40 cursor-not-allowed' : 'hover:shadow-lg hover:shadow-foreground/10'
+              className={`w-full h-12 bg-foreground text-background font-medium rounded-xl transition-all duration-200 hover:bg-foreground/90 active:scale-[0.98] group ${
+                !isFormValid ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-md'
               }`}
             >
               <span className="mr-2">Créer mon compte</span>
-              <ArrowRight className="w-5 h-5 transition-transform duration-200 group-hover:translate-x-1" />
+              <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
             </Button>
           </div>
 
