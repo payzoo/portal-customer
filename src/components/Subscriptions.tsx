@@ -1,4 +1,5 @@
-import { Building2, Plus, Clock, TrendingUp, TrendingDown, CreditCard, Calendar, MoreVertical, Search, Filter, ArrowUpRight, CheckCircle2, Pause, AlertCircle, Eye, EyeOff, BarChart3, DollarSign, Activity, Settings, Edit, Trash2, Copy, Archive, RefreshCw, Sparkles, Zap, Brain, Cpu, Stars, Target } from "lucide-react";
+
+import { Building2, Plus, Clock, TrendingUp, TrendingDown, CreditCard, Calendar, MoreVertical, Search, Filter, ArrowUpRight, CheckCircle2, Pause, AlertCircle, Eye, EyeOff, BarChart3, DollarSign, Activity, Settings, Edit, Trash2, Copy, Archive, RefreshCw, Brain, Stars } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -188,13 +189,13 @@ export function Subscriptions() {
 
       <div className="payzoo-page-container relative z-10">
         
-        {/* Clean header with modern CTA */}
-        <div className={`mb-12 transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+        {/* Header section optimized */}
+        <div className={`mb-8 transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
           <div className="flex items-start justify-between">
-            <div className="space-y-4">
+            <div className="space-y-3">
               <div className="flex items-center gap-3">
-                <div className="p-2.5 bg-foreground rounded-xl shadow-sm">
-                  <CreditCard className="w-6 h-6 text-background" />
+                <div className="p-2 bg-foreground rounded-lg shadow-sm">
+                  <CreditCard className="w-5 h-5 text-background" />
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse"></div>
@@ -202,7 +203,7 @@ export function Subscriptions() {
                 </div>
               </div>
               <div>
-                <h1 className="text-3xl font-bold text-foreground mb-2">Abonnements</h1>
+                <h1 className="text-3xl font-bold text-foreground mb-1">Abonnements</h1>
                 <p className="text-muted-foreground flex items-center gap-2">
                   <Brain className="w-4 h-4" />
                   Gérez tous vos services intelligemment
@@ -210,9 +211,8 @@ export function Subscriptions() {
               </div>
             </div>
             
-            {/* Minimal modern CTA */}
             <Button 
-              className="group bg-foreground hover:bg-foreground/90 text-background px-5 py-2.5 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg border-0"
+              className="group bg-foreground hover:bg-foreground/90 text-background px-4 py-2 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg"
             >
               <Plus className="w-4 h-4 mr-2 group-hover:rotate-90 transition-transform duration-300" />
               Nouvel abonnement
@@ -221,8 +221,8 @@ export function Subscriptions() {
           </div>
         </div>
 
-        {/* Enhanced search and filters with matching heights */}
-        <div className={`mb-10 transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '100ms' }}>
+        {/* Search and filters optimized */}
+        <div className={`mb-6 transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '100ms' }}>
           <div className="flex gap-4">
             <div className="relative flex-1 max-w-md group">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-foreground transition-colors" />
@@ -231,17 +231,17 @@ export function Subscriptions() {
                 placeholder="Rechercher..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full h-11 pl-10 pr-4 bg-background border border-border rounded-xl focus:border-foreground focus:outline-none transition-all duration-300 text-foreground placeholder:text-muted-foreground hover:border-muted-foreground"
+                className="w-full h-10 pl-10 pr-4 bg-background border border-border rounded-lg focus:border-foreground focus:outline-none transition-all duration-300 text-foreground placeholder:text-muted-foreground hover:border-muted-foreground"
               />
             </div>
             <Select value={filterStatus} onValueChange={setFilterStatus}>
-              <SelectTrigger className="w-40 h-11 bg-background border border-border rounded-xl focus:border-foreground transition-all duration-300">
+              <SelectTrigger className="w-40 h-10 bg-background border border-border rounded-lg focus:border-foreground transition-all duration-300">
                 <div className="flex items-center gap-2">
                   <Filter className="w-4 h-4" />
                   <SelectValue />
                 </div>
               </SelectTrigger>
-              <SelectContent className="bg-background border border-border rounded-xl shadow-xl">
+              <SelectContent className="bg-background border border-border rounded-lg shadow-xl">
                 <SelectItem value="all">Tous</SelectItem>
                 <SelectItem value="active">Actifs</SelectItem>
                 <SelectItem value="paused">En pause</SelectItem>
@@ -251,9 +251,9 @@ export function Subscriptions() {
           </div>
         </div>
 
-        {/* Clean metrics */}
-        <div className={`grid grid-cols-1 md:grid-cols-4 gap-6 mb-10 transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '200ms' }}>
-          <Card className="p-6 border border-border hover:border-foreground/20 transition-all duration-300 hover:shadow-lg group">
+        {/* Metrics cards optimized */}
+        <div className={`grid grid-cols-1 md:grid-cols-4 gap-4 mb-6 transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '200ms' }}>
+          <Card className="p-4 border border-border hover:border-foreground/20 transition-all duration-300 hover:shadow-md">
             <div className="flex items-center justify-between mb-3">
               <div className="p-2 bg-emerald-100 rounded-lg">
                 <DollarSign className="w-4 h-4 text-emerald-600" />
@@ -262,79 +262,79 @@ export function Subscriptions() {
                 variant="ghost"
                 size="sm"
                 onClick={() => setShowAnalytics(!showAnalytics)}
-                className="w-8 h-8 p-0 hover:bg-muted rounded-lg"
+                className="w-7 h-7 p-0 hover:bg-muted rounded-md"
               >
-                {showAnalytics ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
+                {showAnalytics ? <Eye className="w-3 h-3" /> : <EyeOff className="w-3 h-3" />}
               </Button>
             </div>
             {showAnalytics ? (
               <>
-                <div className="text-2xl font-bold text-foreground mb-1">{totalMonthly.toFixed(0)}€</div>
+                <div className="text-xl font-bold text-foreground">{totalMonthly.toFixed(0)}€</div>
                 <div className="text-sm text-muted-foreground">Total mensuel</div>
               </>
             ) : (
               <>
-                <div className="text-2xl font-bold text-muted-foreground mb-1">●●●</div>
+                <div className="text-xl font-bold text-muted-foreground">●●●</div>
                 <div className="text-sm text-muted-foreground">Total mensuel</div>
               </>
             )}
           </Card>
 
-          <Card className="p-6 border border-border hover:border-foreground/20 transition-all duration-300 hover:shadow-lg">
+          <Card className="p-4 border border-border hover:border-foreground/20 transition-all duration-300 hover:shadow-md">
             <div className="flex items-center justify-between mb-3">
               <div className="p-2 bg-blue-100 rounded-lg">
                 <Activity className="w-4 h-4 text-blue-600" />
               </div>
               <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
             </div>
-            <div className="text-2xl font-bold text-foreground mb-1">{activeCount}</div>
+            <div className="text-xl font-bold text-foreground">{activeCount}</div>
             <div className="text-sm text-muted-foreground">Actifs</div>
           </Card>
 
-          <Card className="p-6 border border-border hover:border-foreground/20 transition-all duration-300 hover:shadow-lg">
+          <Card className="p-4 border border-border hover:border-foreground/20 transition-all duration-300 hover:shadow-md">
             <div className="flex items-center justify-between mb-3">
               <div className="p-2 bg-amber-100 rounded-lg">
                 <Pause className="w-4 h-4 text-amber-600" />
               </div>
               <div className="w-2 h-2 bg-amber-500 rounded-full"></div>
             </div>
-            <div className="text-2xl font-bold text-foreground mb-1">{pausedCount}</div>
+            <div className="text-xl font-bold text-foreground">{pausedCount}</div>
             <div className="text-sm text-muted-foreground">En pause</div>
           </Card>
 
-          <Card className="p-6 border border-border hover:border-foreground/20 transition-all duration-300 hover:shadow-lg">
+          <Card className="p-4 border border-border hover:border-foreground/20 transition-all duration-300 hover:shadow-md">
             <div className="flex items-center justify-between mb-3">
               <div className="p-2 bg-red-100 rounded-lg">
                 <AlertCircle className="w-4 h-4 text-red-600" />
               </div>
               <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
             </div>
-            <div className="text-2xl font-bold text-foreground mb-1">{expiringCount}</div>
+            <div className="text-xl font-bold text-foreground">{expiringCount}</div>
             <div className="text-sm text-muted-foreground">À renouveler</div>
           </Card>
         </div>
 
-        {/* Category filters */}
-        <div className={`mb-8 transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '300ms' }}>
+        {/* Category filters optimized */}
+        <div className={`mb-6 transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '300ms' }}>
           <div className="flex flex-wrap gap-2">
             <button 
               onClick={() => setSelectedCategory("all")}
-              className={`px-4 py-2 text-sm font-medium transition-all duration-300 rounded-lg ${
+              className={`px-3 py-1.5 text-sm font-medium transition-all duration-300 rounded-lg ${
                 selectedCategory === "all" 
-                  ? "bg-foreground text-background shadow-md" 
+                  ? "bg-foreground text-background shadow-sm" 
                   : "bg-background border border-border text-muted-foreground hover:border-foreground hover:text-foreground"
               }`}
             >
-              <Stars className="w-4 h-4 inline mr-2" />
+              <Stars className="w-3 h-3 inline mr-1" />
               Toutes
             </button>
             {categories.map((category) => (
               <button 
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-4 py-2 text-sm font-medium transition-all duration-300 rounded-lg ${
+                className={`px-3 py-1.5 text-sm font-medium transition-all duration-300 rounded-lg ${
                   selectedCategory === category
-                    ? "bg-foreground text-background shadow-md"
+                    ? "bg-foreground text-background shadow-sm"
                     : "bg-background border border-border text-muted-foreground hover:border-foreground hover:text-foreground"
                 }`}
               >
@@ -344,14 +344,14 @@ export function Subscriptions() {
           </div>
         </div>
 
-        {/* Subscription list */}
-        <div className={`space-y-4 transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '400ms' }}>
+        {/* Subscription list optimized */}
+        <div className={`space-y-3 transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '400ms' }}>
           {filteredSubscriptions.length === 0 ? (
-            <div className="py-20 text-center">
-              <div className="w-16 h-16 bg-muted rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <Search className="w-8 h-8 text-muted-foreground" />
+            <div className="py-16 text-center">
+              <div className="w-12 h-12 bg-muted rounded-lg flex items-center justify-center mx-auto mb-3">
+                <Search className="w-6 h-6 text-muted-foreground" />
               </div>
-              <h3 className="text-lg font-medium text-foreground mb-2">Aucun résultat</h3>
+              <h3 className="text-lg font-medium text-foreground mb-1">Aucun résultat</h3>
               <p className="text-muted-foreground">Aucun abonnement ne correspond à vos critères.</p>
             </div>
           ) : (
@@ -361,17 +361,17 @@ export function Subscriptions() {
               return (
                 <Card 
                   key={subscription.id} 
-                  className={`group border border-border hover:border-foreground/30 transition-all duration-300 hover:shadow-lg cursor-pointer bg-background hover:-translate-y-1 animate-fade-in`}
+                  className="group border border-border hover:border-foreground/30 transition-all duration-300 hover:shadow-md cursor-pointer bg-background hover:-translate-y-0.5 animate-fade-in"
                   style={{ animationDelay: `${400 + index * 50}ms` }}
                   onClick={() => navigate(`/subscription/${subscription.id}`)}
                 >
-                  <CardContent className="p-6">
+                  <CardContent className="p-4">
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-4">
-                        <div className={`relative w-12 h-12 ${subscription.color} rounded-xl flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform duration-300`}>
-                          <span className="font-bold text-white">{subscription.logo}</span>
-                          <div className="absolute -top-1 -right-1">
-                            <div className={`w-3 h-3 ${statusInfo.dotColor} rounded-full border-2 border-white shadow-sm`}></div>
+                      <div className="flex items-center gap-3">
+                        <div className={`relative w-10 h-10 ${subscription.color} rounded-lg flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform duration-300`}>
+                          <span className="font-bold text-white text-sm">{subscription.logo}</span>
+                          <div className="absolute -top-0.5 -right-0.5">
+                            <div className={`w-2.5 h-2.5 ${statusInfo.dotColor} rounded-full border border-white shadow-sm`}></div>
                           </div>
                         </div>
                         <div className="space-y-1">
@@ -379,11 +379,11 @@ export function Subscriptions() {
                             <h3 className="font-semibold text-foreground group-hover:text-foreground/80 transition-colors">
                               {subscription.name}
                             </h3>
-                            <Badge variant="secondary" className="text-xs bg-muted/80">
+                            <Badge variant="secondary" className="text-xs bg-muted/80 px-2 py-0.5">
                               {subscription.plan}
                             </Badge>
                           </div>
-                          <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                          <div className="flex items-center gap-2 text-xs text-muted-foreground">
                             <span className="flex items-center gap-1">
                               <Building2 className="w-3 h-3" />
                               {subscription.category}
@@ -394,13 +394,13 @@ export function Subscriptions() {
                         </div>
                       </div>
                       
-                      <div className="flex items-center gap-6">
+                      <div className="flex items-center gap-4">
                         <div className="text-right space-y-1">
                           <div className="flex items-center gap-2">
-                            <span className="font-bold text-foreground text-lg">
+                            <span className="font-bold text-foreground">
                               {subscription.amount} {subscription.currency}
                             </span>
-                            <div className={`flex items-center gap-1 px-2 py-1 rounded-md text-xs font-medium ${
+                            <div className={`flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium ${
                               subscription.trend.startsWith('+') 
                                 ? 'bg-emerald-50 text-emerald-600' 
                                 : subscription.trend.startsWith('-')
@@ -416,16 +416,16 @@ export function Subscriptions() {
                               {subscription.trend}
                             </div>
                           </div>
-                          <div className="text-sm text-muted-foreground flex items-center gap-1">
+                          <div className="text-xs text-muted-foreground flex items-center gap-1">
                             <Calendar className="w-3 h-3" />
                             {subscription.nextBilling}
                           </div>
                         </div>
                         
-                        <div className="flex items-center gap-3">
-                          <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border transition-all duration-300 ${statusInfo.bgColor}`}>
-                            <statusInfo.icon className={`w-4 h-4 ${statusInfo.color}`} />
-                            <span className={`text-sm font-medium ${statusInfo.color}`}>
+                        <div className="flex items-center gap-2">
+                          <div className={`flex items-center gap-2 px-2 py-1 rounded-lg border transition-all duration-300 ${statusInfo.bgColor}`}>
+                            <statusInfo.icon className={`w-3 h-3 ${statusInfo.color}`} />
+                            <span className={`text-xs font-medium ${statusInfo.color}`}>
                               {statusInfo.label}
                             </span>
                           </div>
@@ -436,35 +436,35 @@ export function Subscriptions() {
                                 <Button 
                                   variant="ghost" 
                                   size="sm" 
-                                  className="w-8 h-8 p-0 hover:bg-muted rounded-lg"
+                                  className="w-7 h-7 p-0 hover:bg-muted rounded-md"
                                   onClick={(e) => e.stopPropagation()}
                                 >
-                                  <MoreVertical className="w-4 h-4" />
+                                  <MoreVertical className="w-3 h-3" />
                                 </Button>
                               </DropdownMenuTrigger>
                               <DropdownMenuContent 
                                 align="end" 
-                                className="w-48 bg-background border border-border rounded-xl shadow-xl"
+                                className="w-44 bg-background border border-border rounded-lg shadow-xl"
                               >
-                                <DropdownMenuItem className="flex items-center gap-2 px-3 py-2 rounded-lg">
-                                  <Edit className="w-4 h-4" />
+                                <DropdownMenuItem className="flex items-center gap-2 px-3 py-2 rounded">
+                                  <Edit className="w-3 h-3" />
                                   Modifier
                                 </DropdownMenuItem>
-                                <DropdownMenuItem className="flex items-center gap-2 px-3 py-2 rounded-lg">
-                                  <Copy className="w-4 h-4" />
+                                <DropdownMenuItem className="flex items-center gap-2 px-3 py-2 rounded">
+                                  <Copy className="w-3 h-3" />
                                   Dupliquer
                                 </DropdownMenuItem>
-                                <DropdownMenuItem className="flex items-center gap-2 px-3 py-2 rounded-lg">
-                                  <RefreshCw className="w-4 h-4" />
+                                <DropdownMenuItem className="flex items-center gap-2 px-3 py-2 rounded">
+                                  <RefreshCw className="w-3 h-3" />
                                   Renouveler
                                 </DropdownMenuItem>
                                 <DropdownMenuSeparator />
-                                <DropdownMenuItem className="flex items-center gap-2 px-3 py-2 text-muted-foreground rounded-lg">
-                                  <Archive className="w-4 h-4" />
+                                <DropdownMenuItem className="flex items-center gap-2 px-3 py-2 text-muted-foreground rounded">
+                                  <Archive className="w-3 h-3" />
                                   Archiver
                                 </DropdownMenuItem>
-                                <DropdownMenuItem className="flex items-center gap-2 px-3 py-2 text-red-500 rounded-lg">
-                                  <Trash2 className="w-4 h-4" />
+                                <DropdownMenuItem className="flex items-center gap-2 px-3 py-2 text-red-500 rounded">
+                                  <Trash2 className="w-3 h-3" />
                                   Supprimer
                                 </DropdownMenuItem>
                               </DropdownMenuContent>
