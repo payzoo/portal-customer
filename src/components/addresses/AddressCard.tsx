@@ -42,25 +42,25 @@ export function AddressCard({
         return {
           label: "Domicile",
           icon: Home,
-          color: "bg-gray-100",
+          color: "bg-gray-50",
         };
       case "work":
         return {
           label: "Travail",
           icon: Building2,
-          color: "bg-gray-100",
+          color: "bg-gray-50",
         };
       case "other":
         return {
           label: "Autre",
           icon: MapPin,
-          color: "bg-gray-100",
+          color: "bg-gray-50",
         };
       default:
         return {
           label: "Inconnu",
           icon: MapPin,
-          color: "bg-gray-100",
+          color: "bg-gray-50",
         };
     }
   };
@@ -69,31 +69,31 @@ export function AddressCard({
 
   return (
     <Card 
-      className="group relative overflow-hidden border-0 bg-white shadow-sm hover:shadow-lg transition-all duration-500 rounded-3xl max-w-md mx-auto"
+      className="group relative overflow-hidden border-0 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-xl transition-all duration-700 rounded-2xl hover:scale-[1.02]"
       style={{ animationDelay: `${index * 100}ms` }}
     >
-      <CardContent className="p-8">
-        <div className="text-center space-y-6">
-          <div className={`w-16 h-16 ${typeInfo.color} rounded-2xl flex items-center justify-center mx-auto transition-transform duration-300 group-hover:scale-110`}>
-            <typeInfo.icon className="w-8 h-8 text-gray-600" />
+      <CardContent className="p-10">
+        <div className="text-center space-y-8">
+          <div className={`w-20 h-20 ${typeInfo.color} rounded-2xl flex items-center justify-center mx-auto transition-transform duration-500 group-hover:scale-110 group-hover:bg-black`}>
+            <typeInfo.icon className="w-10 h-10 text-gray-600 group-hover:text-white transition-colors duration-500" />
           </div>
           
-          <div className="space-y-4">
+          <div className="space-y-5">
             <div className="flex items-center justify-center gap-3 flex-wrap">
-              <h3 className="text-xl font-bold text-black tracking-tight">{address.label}</h3>
+              <h3 className="text-2xl font-bold text-black tracking-tight">{address.label}</h3>
               {address.isFavorite && (
                 <Star className="w-5 h-5 text-black fill-current" />
               )}
             </div>
             
             {address.isDefault && (
-              <Badge className="px-4 py-1 rounded-full text-xs bg-black text-white border-0 font-bold tracking-wide">
+              <Badge className="px-6 py-2 rounded-full text-xs bg-black text-white border-0 font-bold tracking-wide">
                 PAR DÉFAUT
               </Badge>
             )}
             
-            <div className="space-y-2">
-              <div className="text-gray-800 font-semibold">
+            <div className="space-y-3">
+              <div className="text-gray-800 font-semibold text-lg">
                 {address.street}
               </div>
               <div className="text-gray-600 font-medium">
@@ -105,13 +105,13 @@ export function AddressCard({
             </div>
             
             <Badge 
-              className="px-4 py-2 rounded-full text-sm font-medium bg-gray-50 text-gray-700 border-0"
+              className="px-6 py-3 rounded-full text-sm font-medium bg-gray-50 text-gray-700 border-0"
             >
               {typeInfo.label}
             </Badge>
           </div>
           
-          <div className="flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100 transition-all duration-300">
+          <div className="flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-all duration-500">
             <Button 
               variant="ghost" 
               size="sm" 
@@ -119,10 +119,10 @@ export function AddressCard({
                 e.stopPropagation();
                 onEdit(address);
               }}
-              className="h-10 w-10 rounded-full hover:bg-gray-50 transition-all duration-300"
+              className="h-12 w-12 rounded-full hover:bg-gray-50 transition-all duration-300"
               aria-label={`Modifier ${address.label}`}
             >
-              <Edit className="w-4 h-4" />
+              <Edit className="w-5 h-5" />
             </Button>
             
             <DropdownMenu>
@@ -130,49 +130,49 @@ export function AddressCard({
                 <Button 
                   variant="ghost" 
                   size="sm" 
-                  className="h-10 w-10 rounded-full hover:bg-gray-50 transition-all duration-300"
+                  className="h-12 w-12 rounded-full hover:bg-gray-50 transition-all duration-300"
                   onClick={(e) => e.stopPropagation()}
                   aria-label={`Actions pour ${address.label}`}
                 >
-                  <MoreVertical className="w-4 h-4" />
+                  <MoreVertical className="w-5 h-5" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent 
                 align="end" 
-                className="w-56 bg-white border border-gray-100 rounded-2xl shadow-xl p-3"
+                className="w-60 bg-white border border-gray-100 rounded-2xl shadow-xl p-4"
               >
                 <DropdownMenuItem 
                   onClick={() => onEdit(address)}
-                  className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 rounded-xl transition-colors duration-200 cursor-pointer font-medium"
+                  className="flex items-center gap-4 px-5 py-4 hover:bg-gray-50 rounded-xl transition-colors duration-200 cursor-pointer font-medium"
                 >
                   <Edit className="w-4 h-4" />
                   <span>Modifier</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem 
                   onClick={() => onCopy(address)}
-                  className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 rounded-xl transition-colors duration-200 cursor-pointer font-medium"
+                  className="flex items-center gap-4 px-5 py-4 hover:bg-gray-50 rounded-xl transition-colors duration-200 cursor-pointer font-medium"
                 >
                   <Copy className="w-4 h-4" />
                   <span>Copier</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem 
                   onClick={() => onToggleFavorite(address)}
-                  className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 rounded-xl transition-colors duration-200 cursor-pointer font-medium"
+                  className="flex items-center gap-4 px-5 py-4 hover:bg-gray-50 rounded-xl transition-colors duration-200 cursor-pointer font-medium"
                 >
                   <Star className={`w-4 h-4 ${address.isFavorite ? 'text-black fill-current' : 'text-gray-400'}`} />
                   <span>{address.isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris'}</span>
                 </DropdownMenuItem>
-                <DropdownMenuSeparator className="mx-2 my-2" />
+                <DropdownMenuSeparator className="mx-2 my-3" />
                 <DropdownMenuItem 
                   onClick={() => onArchive(address)}
-                  className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 rounded-xl transition-colors duration-200 cursor-pointer font-medium"
+                  className="flex items-center gap-4 px-5 py-4 hover:bg-gray-50 rounded-xl transition-colors duration-200 cursor-pointer font-medium"
                 >
                   <Archive className="w-4 h-4 text-gray-600" />
                   <span className="text-gray-700">Archiver</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem 
                   onClick={() => onDelete(address)}
-                  className="flex items-center gap-3 px-4 py-3 hover:bg-red-50 rounded-xl transition-colors duration-200 cursor-pointer font-medium"
+                  className="flex items-center gap-4 px-5 py-4 hover:bg-red-50 rounded-xl transition-colors duration-200 cursor-pointer font-medium"
                 >
                   <Trash2 className="w-4 h-4 text-red-500" />
                   <span className="text-red-600">Supprimer</span>
