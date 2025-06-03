@@ -373,7 +373,7 @@ export function Subscriptions() {
               return (
                 <Card 
                   key={subscription.id} 
-                  className="group border border-border hover:border-foreground/30 transition-all duration-300 hover:shadow-md cursor-pointer bg-background hover:-translate-y-0.5 animate-fade-in"
+                  className="group border border-border hover:border-foreground/30 transition-all duration-300 hover:shadow-md cursor-pointer bg-background hover:-translate-y-0.5 animate-fade-in relative"
                   style={{ animationDelay: `${400 + index * 50}ms` }}
                   onClick={() => handleCardClick(subscription.id)}
                 >
@@ -442,9 +442,9 @@ export function Subscriptions() {
                             </span>
                           </div>
                           
-                          {/* Fixed dropdown positioning and animation */}
-                          <div className="opacity-0 group-hover:opacity-100 transition-all duration-300 relative">
-                            <DropdownMenu>
+                          {/* Dropdown menu avec positionnement corrigé */}
+                          <div className="opacity-0 group-hover:opacity-100 transition-all duration-300">
+                            <DropdownMenu modal={false}>
                               <DropdownMenuTrigger asChild>
                                 <Button 
                                   variant="ghost" 
@@ -461,27 +461,34 @@ export function Subscriptions() {
                               <DropdownMenuContent 
                                 align="end" 
                                 side="bottom"
-                                alignOffset={0}
-                                sideOffset={4}
-                                className="min-w-[180px] z-[100] bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2"
+                                alignOffset={-4}
+                                sideOffset={8}
+                                className="min-w-[180px] z-[999] bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl p-1"
+                                style={{ 
+                                  position: 'fixed',
+                                  maxHeight: 'var(--radix-dropdown-menu-content-available-height)',
+                                  maxWidth: 'var(--radix-dropdown-menu-content-available-width)'
+                                }}
                                 onCloseAutoFocus={(e) => e.preventDefault()}
+                                avoidCollisions={true}
+                                collisionPadding={8}
                               >
                                 <DropdownMenuItem 
-                                  className="flex items-center gap-2 px-3 py-2 text-sm cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+                                  className="flex items-center gap-2 px-3 py-2 text-sm cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 rounded-md"
                                   onClick={(e) => handleDropdownAction('edit', subscription.id, e)}
                                 >
                                   <Edit className="w-4 h-4" />
                                   Modifier
                                 </DropdownMenuItem>
                                 <DropdownMenuItem 
-                                  className="flex items-center gap-2 px-3 py-2 text-sm cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+                                  className="flex items-center gap-2 px-3 py-2 text-sm cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 rounded-md"
                                   onClick={(e) => handleDropdownAction('duplicate', subscription.id, e)}
                                 >
                                   <Copy className="w-4 h-4" />
                                   Dupliquer
                                 </DropdownMenuItem>
                                 <DropdownMenuItem 
-                                  className="flex items-center gap-2 px-3 py-2 text-sm cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+                                  className="flex items-center gap-2 px-3 py-2 text-sm cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 rounded-md"
                                   onClick={(e) => handleDropdownAction('renew', subscription.id, e)}
                                 >
                                   <RefreshCw className="w-4 h-4" />
@@ -489,14 +496,14 @@ export function Subscriptions() {
                                 </DropdownMenuItem>
                                 <DropdownMenuSeparator className="my-1 h-px bg-gray-200 dark:bg-gray-700" />
                                 <DropdownMenuItem 
-                                  className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-400 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+                                  className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-400 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 rounded-md"
                                   onClick={(e) => handleDropdownAction('archive', subscription.id, e)}
                                 >
                                   <Archive className="w-4 h-4" />
                                   Archiver
                                 </DropdownMenuItem>
                                 <DropdownMenuItem 
-                                  className="flex items-center gap-2 px-3 py-2 text-sm text-red-600 cursor-pointer hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors duration-200"
+                                  className="flex items-center gap-2 px-3 py-2 text-sm text-red-600 cursor-pointer hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors duration-200 rounded-md"
                                   onClick={(e) => handleDropdownAction('delete', subscription.id, e)}
                                 >
                                   <Trash2 className="w-4 h-4" />
