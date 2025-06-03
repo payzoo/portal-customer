@@ -88,35 +88,46 @@ export function PaymentMethods() {
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
       {/* Geometric floating elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 right-20 w-32 h-32 bg-gradient-to-br from-foreground/5 to-foreground/10 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-40 left-10 w-24 h-24 bg-gradient-to-tr from-muted/20 to-muted/5 rounded-full blur-2xl" style={{ animationDelay: '2s' }} />
-        <div className="absolute top-1/2 left-1/3 w-16 h-16 bg-foreground/5 rotate-45 blur-xl animate-pulse" />
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-20 left-10 w-32 h-32 border border-border/20 rounded-3xl rotate-12 animate-[float_6s_ease-in-out_infinite]"></div>
+        <div className="absolute bottom-32 right-16 w-24 h-24 border border-border/30 rounded-2xl -rotate-12 animate-[float_8s_ease-in-out_infinite] opacity-60" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute top-1/2 left-1/4 w-16 h-16 border border-border/25 rounded-xl rotate-45 animate-[float_7s_ease-in-out_infinite]" style={{ animationDelay: '4s' }}></div>
+        <div className="absolute top-32 right-1/3 w-20 h-20 border border-border/20 rounded-full animate-[float_9s_ease-in-out_infinite] opacity-40" style={{ animationDelay: '1s' }}></div>
       </div>
 
-      <div className="relative z-10 payzoo-page-container">
-        {/* Enhanced header */}
-        <div className={`flex items-center justify-between mb-12 transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-6'}`}>
-          <div className="space-y-3">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-foreground to-foreground/80 rounded-xl flex items-center justify-center">
-                <Wallet className="w-5 h-5 text-background" />
+      <div className="payzoo-page-container relative z-10">
+        
+        {/* Clean header with modern CTA - identical to Subscriptions */}
+        <div className={`mb-12 transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+          <div className="flex items-start justify-between">
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="p-2.5 bg-foreground rounded-xl shadow-sm">
+                  <Wallet className="w-6 h-6 text-background" />
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse"></div>
+                  <span className="text-sm font-medium text-blue-600">Smart Management</span>
+                </div>
               </div>
               <div>
-                <h1 className="payzoo-page-title flex items-center gap-3">
-                  Portefeuille
-                  <Sparkles className="w-6 h-6 text-foreground/60 animate-pulse" />
-                </h1>
-                <p className="payzoo-subtitle">Gérez vos moyens de paiement et suivez vos dépenses</p>
+                <h1 className="text-3xl font-bold text-foreground mb-2">Portefeuille</h1>
+                <p className="text-muted-foreground flex items-center gap-2">
+                  <Brain className="w-4 h-4" />
+                  Gérez vos moyens de paiement et suivez vos dépenses
+                </p>
               </div>
             </div>
+            
+            {/* Minimal modern CTA */}
+            <Button 
+              className="group bg-foreground hover:bg-foreground/90 text-background px-5 py-2.5 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg border-0"
+            >
+              <Plus className="w-4 h-4 mr-2 group-hover:rotate-90 transition-transform duration-300" />
+              Ajouter
+              <ArrowUpRight className="w-4 h-4 ml-2 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
+            </Button>
           </div>
-          
-          {/* Modern CTA */}
-          <Button className="group bg-foreground hover:bg-foreground/90 text-background px-5 py-2.5 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg border-0">
-            <Plus className="w-4 h-4 mr-2 group-hover:rotate-90 transition-transform duration-300" />
-            Ajouter
-          </Button>
         </div>
 
         {/* Wallet overview cards */}
