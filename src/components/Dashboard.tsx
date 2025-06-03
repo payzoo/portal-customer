@@ -1,3 +1,4 @@
+
 import { TrendingUp, Send, Calendar, Target, Plus, Eye, EyeOff, PiggyBank, TrendingDown, Coffee, ShoppingBag, Car, Home, ArrowUpRight, Shield, Zap, Activity, Sparkles, Brain, Cpu, Stars } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -195,16 +196,26 @@ export function Dashboard() {
           {/* Main section */}
           <div className="col-span-2 payzoo-section">
             
-            {/* Categories with enhanced animations */}
+            {/* Enhanced categories with futuristic design */}
             <div className={`transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ animationDelay: '400ms' }}>
               <div className="flex items-center justify-between mb-8">
-                <h2 className="payzoo-section-title flex items-center gap-3">
-                  Dépenses par catégorie
-                  <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full animate-pulse"></div>
-                </h2>
-                <Button className="payzoo-btn-ghost group">
-                  Voir détails
-                  <ArrowUpRight className="w-4 h-4 ml-1 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
+                <div className="flex items-center gap-4">
+                  <h2 className="payzoo-section-title flex items-center gap-3">
+                    Dépenses par catégorie
+                    <div className="flex items-center gap-1">
+                      <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full animate-pulse"></div>
+                      <div className="w-1.5 h-1.5 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full animate-pulse" style={{ animationDelay: '0.3s' }}></div>
+                      <div className="w-1 h-1 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full animate-pulse" style={{ animationDelay: '0.6s' }}></div>
+                    </div>
+                  </h2>
+                  <div className="px-3 py-1 bg-gradient-to-r from-foreground/5 to-foreground/10 rounded-full border border-foreground/10">
+                    <span className="text-xs font-medium text-foreground/70">4 catégories actives</span>
+                  </div>
+                </div>
+                <Button className="payzoo-btn-ghost group relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-cyan-500/5 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-500"></div>
+                  <span className="relative z-10">Voir détails</span>
+                  <ArrowUpRight className="w-4 h-4 ml-1 relative z-10 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
                 </Button>
               </div>
               
@@ -212,41 +223,113 @@ export function Dashboard() {
                 {expenseCategories.map((category, index) => (
                   <Card 
                     key={category.name} 
-                    className="payzoo-card-interactive relative overflow-hidden group"
+                    className="payzoo-card-interactive relative overflow-hidden group cursor-pointer border-0 bg-gradient-to-br from-card/50 via-card/80 to-card/50 backdrop-blur-sm hover:shadow-2xl hover:shadow-foreground/10"
                     onMouseEnter={() => setHoveredCategory(category.name)}
                     onMouseLeave={() => setHoveredCategory(null)}
                     style={{ animationDelay: `${600 + index * 100}ms` }}
                   >
-                    <div className={`absolute inset-0 bg-gradient-to-r ${category.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}></div>
+                    {/* Enhanced background effects */}
+                    <div className={`absolute inset-0 bg-gradient-to-br ${category.color} opacity-0 group-hover:opacity-10 transition-all duration-700`}></div>
+                    <div className={`absolute inset-0 bg-gradient-to-r ${category.color} opacity-0 group-hover:opacity-5 translate-x-[-100%] group-hover:translate-x-0 transition-all duration-1000`}></div>
+                    
+                    {/* Animated border */}
+                    <div className={`absolute inset-0 rounded-xl border border-gradient-to-r ${category.color.replace('from-', 'from-').replace('to-', 'to-')} opacity-0 group-hover:opacity-30 transition-opacity duration-500`}></div>
+                    
+                    {/* Floating particles */}
+                    {hoveredCategory === category.name && (
+                      <>
+                        <div className="absolute top-4 right-6 w-1 h-1 bg-white/60 rounded-full animate-ping"></div>
+                        <div className="absolute bottom-6 left-8 w-0.5 h-0.5 bg-white/40 rounded-full animate-pulse" style={{ animationDelay: '500ms' }}></div>
+                        <div className="absolute top-1/3 right-1/4 w-0.5 h-0.5 bg-white/50 rounded-full animate-bounce" style={{ animationDelay: '800ms' }}></div>
+                      </>
+                    )}
+                    
+                    {/* Shimmer effect */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-200%] group-hover:translate-x-200 transition-transform duration-1500 ease-in-out"></div>
+                    
                     <CardContent className="payzoo-card-content relative z-10">
-                      <div className="flex items-center justify-between mb-4">
-                        <div className={`w-12 h-12 bg-gradient-to-r ${category.color} rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                          <category.icon className="w-6 h-6 text-white" />
+                      <div className="flex items-center justify-between mb-6">
+                        <div className="relative">
+                          {/* Enhanced icon container */}
+                          <div className={`w-14 h-14 bg-gradient-to-br ${category.color} rounded-2xl flex items-center justify-center shadow-2xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 border border-white/20`}>
+                            <category.icon className="w-7 h-7 text-white transition-transform duration-300 group-hover:scale-110" />
+                          </div>
+                          
+                          {/* Orbital ring */}
+                          <div className={`absolute inset-0 border-2 border-gradient-to-r ${category.color.replace('bg-', 'border-')} rounded-2xl opacity-0 group-hover:opacity-40 transition-opacity duration-500 animate-spin`} style={{ animationDuration: '8s' }}></div>
+                          
+                          {/* Status indicator */}
+                          <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse">
+                            <div className="absolute inset-1 bg-white rounded-full"></div>
+                          </div>
                         </div>
-                        <span className={`payzoo-caption font-medium px-3 py-1.5 rounded-full transition-all duration-300 ${
+                        
+                        {/* Enhanced trend indicator */}
+                        <div className={`px-3 py-2 rounded-xl transition-all duration-500 backdrop-blur-sm border ${
                           category.isPositive 
-                            ? 'bg-green-50 text-green-600 group-hover:bg-green-100' 
-                            : 'bg-red-50 text-red-600 group-hover:bg-red-100'
+                            ? 'bg-gradient-to-r from-green-500/10 to-emerald-500/10 border-green-500/20 text-green-600 group-hover:from-green-500/20 group-hover:to-emerald-500/20' 
+                            : 'bg-gradient-to-r from-red-500/10 to-orange-500/10 border-red-500/20 text-red-600 group-hover:from-red-500/20 group-hover:to-orange-500/20'
                         }`}>
-                          {category.trend}
-                        </span>
-                      </div>
-                      <div className="space-y-4">
-                        <div>
-                          <p className="payzoo-body-sm text-muted-foreground">{category.name}</p>
-                          <p className="payzoo-subsection-title text-foreground">{category.amount.toLocaleString('fr-FR', { minimumFractionDigits: 2 })}€</p>
+                          <div className="flex items-center gap-2">
+                            {category.isPositive ? (
+                              <TrendingDown className="w-3 h-3 animate-pulse" />
+                            ) : (
+                              <TrendingUp className="w-3 h-3 animate-pulse" />
+                            )}
+                            <span className="payzoo-caption font-bold">{category.trend}</span>
+                          </div>
                         </div>
-                        <div className="space-y-2">
-                          <div className="relative">
+                      </div>
+                      
+                      <div className="space-y-5">
+                        <div>
+                          <p className="payzoo-body-sm text-muted-foreground mb-2 group-hover:text-muted-foreground/80 transition-colors duration-300">{category.name}</p>
+                          <p className="payzoo-subsection-title text-foreground group-hover:scale-105 transition-transform duration-300 origin-left">
+                            {category.amount.toLocaleString('fr-FR', { minimumFractionDigits: 2 })}€
+                          </p>
+                        </div>
+                        
+                        {/* Enhanced progress section */}
+                        <div className="space-y-3">
+                          <div className="relative overflow-hidden rounded-full">
                             <Progress 
-                              value={hoveredCategory === category.name ? category.percentage + 5 : category.percentage} 
-                              className="h-1.5 bg-muted transition-all duration-500" 
+                              value={hoveredCategory === category.name ? Math.min(category.percentage + 8, 100) : category.percentage} 
+                              className="h-2 bg-muted/50 transition-all duration-700" 
                             />
                             {hoveredCategory === category.name && (
-                              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer"></div>
+                              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent animate-shimmer"></div>
                             )}
+                            {/* Progress glow effect */}
+                            <div className={`absolute inset-0 bg-gradient-to-r ${category.color} opacity-20 blur-sm scale-110 transition-opacity duration-500 ${hoveredCategory === category.name ? 'opacity-40' : 'opacity-0'}`}></div>
                           </div>
-                          <p className="payzoo-caption text-muted-foreground">{category.percentage}% du budget</p>
+                          
+                          <div className="flex items-center justify-between">
+                            <p className="payzoo-caption text-muted-foreground group-hover:text-muted-foreground/80 transition-colors duration-300">
+                              {category.percentage}% du budget
+                            </p>
+                            
+                            {/* Category status */}
+                            <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                              <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
+                              <span className="text-xs font-medium text-muted-foreground">Suivi</span>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        {/* Enhanced insights on hover */}
+                        <div className={`transition-all duration-500 transform ${hoveredCategory === category.name ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'}`}>
+                          <div className="pt-4 border-t border-border/30">
+                            <div className="flex items-center justify-between text-xs">
+                              <div className="flex items-center gap-2 text-muted-foreground/70">
+                                <Activity className="w-3 h-3" />
+                                <span>Activité récente</span>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <Zap className="w-3 h-3 text-blue-500" />
+                                <span className="font-medium text-blue-600">Analysé</span>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </CardContent>
