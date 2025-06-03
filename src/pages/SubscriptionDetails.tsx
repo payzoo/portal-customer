@@ -100,7 +100,10 @@ const SubscriptionDetails = () => {
   };
 
   const handleBackToSubscriptions = () => {
-    navigate('/', { state: { activeSection: 'subscriptions' } });
+    navigate('/', { 
+      state: { activeSection: 'subscriptions' },
+      replace: false 
+    });
   };
 
   const tabs = [

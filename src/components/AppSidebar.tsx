@@ -1,5 +1,5 @@
-
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { 
   LayoutDashboard, 
   CreditCard, 
@@ -25,6 +25,7 @@ interface AppSidebarProps {
 export function AppSidebar({ activeSection, onSectionChange }: AppSidebarProps) {
   const { logout, user } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const { toast } = useToast();
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
@@ -39,7 +40,17 @@ export function AppSidebar({ activeSection, onSectionChange }: AppSidebarProps) 
   };
 
   const handleSectionChange = (sectionId: string) => {
-    onSectionChange(sectionId);
+    // Si on est sur une page de détail et qu'on clique sur subscriptions, 
+    // naviguer vers la page principale
+    if (location.pathname.startsWith('/subscription/') && sectionId === 'subscriptions') {
+      navigate('/', { state: { activeSection: sectionId } });
+    } else if (location.pathname !== '/') {
+      // Si on n'est pas sur la page principale, y naviguer avec la section
+      navigate('/', { state: { activeSection: sectionId } });
+    } else {
+      // Sinon, juste changer la section
+      onSectionChange(sectionId);
+    }
   };
 
   const menuItems = [
