@@ -1,4 +1,3 @@
-
 import { User, Shield, Bell, HelpCircle, Globe, Key, Smartphone, FileText, MessageCircle, Search, ChevronRight, Users, Brain, Sparkles } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
