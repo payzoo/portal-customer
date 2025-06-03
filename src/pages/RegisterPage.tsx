@@ -158,8 +158,10 @@ const RegisterPage = () => {
           isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
         }`}>
 
+          <RegisterHeader isLoaded={isLoaded} mousePosition={mousePosition} />
+
           <form onSubmit={(e) => { e.preventDefault(); handleRegister(); }} className="space-y-6" noValidate>
-            <div className={`space-y-6 transform transition-all duration-500 ease-out ${
+            <fieldset className={`space-y-6 transform transition-all duration-500 ease-out ${
               isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
             }`} style={{ transitionDelay: '400ms' }}>
               
@@ -307,7 +309,7 @@ const RegisterPage = () => {
                   </>
                 )}
               </Button>
-            </div>
+            </fieldset>
           </form>
 
           <RegisterFooter isLoaded={isLoaded} onLoginRedirect={handleLoginRedirect} />

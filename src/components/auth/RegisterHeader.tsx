@@ -39,19 +39,19 @@ const RegisterHeader = ({ isLoaded, mousePosition }: RegisterHeaderProps) => {
         ></div>
       </div>
 
-      <div className="text-center mb-8">
+      <div className="text-center mb-6">
         <div className={`transform transition-all duration-500 ease-out ${
           isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
         }`} style={{ transitionDelay: '200ms' }}>
           
-          <div className="relative mb-6">
+          <div className="relative mb-4">
             <h1 className="text-3xl font-light text-foreground tracking-tight">
               Payzoo
               <Sparkles className="inline-block ml-2 w-5 h-5 text-foreground/30" />
             </h1>
           </div>
 
-          <div className="mb-4">
+          <div className="mb-3">
             <p className="text-xs uppercase tracking-wider font-medium text-muted-foreground mb-2">
               Rejoignez-nous
             </p>
