@@ -1,3 +1,4 @@
+
 import { User, Shield, Bell, HelpCircle, Globe, Key, Smartphone, FileText, MessageCircle, Search, ChevronRight, Users, Brain, Sparkles } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -167,7 +168,7 @@ export function Settings() {
               </div>
               <div className="flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-black" />
-                <span className="text-sm font-medium bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Smart Settings</span>
+                <span className="text-sm font-medium text-black">Smart Settings</span>
               </div>
             </div>
             <div>
