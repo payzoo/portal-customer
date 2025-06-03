@@ -7,15 +7,19 @@ import { PaymentMethods } from "@/components/PaymentMethods";
 import { Addresses } from "@/components/Addresses";
 import { Settings } from "@/components/Settings";
 
-const Index = () => {
+interface IndexProps {
+  activeSection: string;
+  onSectionChange: (section: string) => void;
+}
+
+const Index = ({ activeSection, onSectionChange }: IndexProps) => {
   const location = useLocation();
-  const [activeSection, setActiveSection] = useState("dashboard");
 
   useEffect(() => {
     if (location.state?.activeSection) {
-      setActiveSection(location.state.activeSection);
+      onSectionChange(location.state.activeSection);
     }
-  }, [location.state]);
+  }, [location.state, onSectionChange]);
 
   useEffect(() => {
     const titles = {

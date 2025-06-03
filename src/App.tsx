@@ -32,7 +32,9 @@ const App = () => (
               element={
                 <ProtectedRoute>
                   <MainLayout>
-                    <Index />
+                    {({ activeSection, onSectionChange }) => (
+                      <Index activeSection={activeSection} onSectionChange={onSectionChange} />
+                    )}
                   </MainLayout>
                 </ProtectedRoute>
               } 

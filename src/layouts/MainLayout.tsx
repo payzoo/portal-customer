@@ -17,7 +17,7 @@ export const MainLayout = ({ children, initialSection = "dashboard" }: MainLayou
         onSectionChange={setActiveSection} 
       />
       <div className="flex-1 ml-72 bg-transparent">
-        {children}
+        {typeof children === 'function' ? children({ activeSection, onSectionChange: setActiveSection }) : children}
       </div>
     </div>
   );

@@ -38,6 +38,10 @@ export function AppSidebar({ activeSection, onSectionChange }: AppSidebarProps) 
     navigate("/auth");
   };
 
+  const handleSectionChange = (sectionId: string) => {
+    onSectionChange(sectionId);
+  };
+
   const menuItems = [
     { id: "dashboard", label: "Activité", icon: LayoutDashboard, color: "from-blue-500 to-cyan-500" },
     { id: "subscriptions", label: "Abonnements", icon: Calendar, color: "from-purple-500 to-pink-500" },
@@ -138,7 +142,7 @@ export function AppSidebar({ activeSection, onSectionChange }: AppSidebarProps) 
             return (
               <li key={item.id} style={{ animationDelay: `${index * 100}ms` }} className="animate-fade-in">
                 <button
-                  onClick={() => onSectionChange(item.id)}
+                  onClick={() => handleSectionChange(item.id)}
                   onMouseEnter={() => setHoveredItem(item.id)}
                   onMouseLeave={() => setHoveredItem(null)}
                   className={`w-full group relative flex items-center ${isCollapsed ? 'justify-center px-3' : 'px-4'} py-4 rounded-xl text-left transition-all duration-300 transform hover:scale-[1.02] ${
