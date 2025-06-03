@@ -6,19 +6,21 @@ import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useState, useEffect } from "react";
+import { AddPaymentMethodModal } from "@/components/modals/AddPaymentMethodModal";
 
 export function PaymentMethods() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterType, setFilterType] = useState("all");
   const [showSensitive, setShowSensitive] = useState(true);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoaded(true), 100);
     return () => clearTimeout(timer);
   }, []);
 
-  const paymentMethods = [
+  const [paymentMethods, setPaymentMethods] = useState([
     {
       id: 1,
       type: "Carte de crédit",
@@ -71,7 +73,7 @@ export function PaymentMethods() {
       icon: CreditCard,
       description: "À renouveler"
     }
-  ];
+  ]);
 
   const filteredMethods = paymentMethods.filter(method => {
     const matchesSearch = method.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
@@ -121,6 +123,11 @@ export function PaymentMethods() {
     console.log(`Action ${action} pour le moyen de paiement ${methodId}`);
   };
 
+  const handleAddPaymentMethod = (newMethod: any) => {
+    setPaymentMethods(prev => [...prev, newMethod]);
+    console.log('Nouveau moyen de paiement ajouté:', newMethod);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20 relative overflow-hidden">
       {/* Simplified background elements */}
@@ -156,7 +163,10 @@ export function PaymentMethods() {
               <p className="text-lg text-muted-foreground">Gérez vos moyens de paiement</p>
             </div>
             
-            <Button className="group bg-gradient-to-r from-black to-gray-800 hover:from-gray-800 hover:to-black text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 h-12 px-6">
+            <Button 
+              onClick={() => setIsAddModalOpen(true)}
+              className="group bg-gradient-to-r from-black to-gray-800 hover:from-gray-800 hover:to-black text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 h-12 px-6"
+            >
               <Plus className="w-5 h-5 mr-2 group-hover:rotate-90 transition-transform duration-300" />
               Ajouter
               <ArrowUpRight className="w-4 h-4 ml-2 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
@@ -193,7 +203,6 @@ export function PaymentMethods() {
           </div>
         </div>
 
-        {/* Enhanced metrics cards */}
         <div className={`grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 transition-all duration-500 delay-200 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
           <Card className="relative p-6 bg-white/80 backdrop-blur-sm border border-border/50 hover:border-black/20 transition-all duration-300 hover:shadow-lg group overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-br from-emerald-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -238,7 +247,6 @@ export function PaymentMethods() {
           </Card>
         </div>
 
-        {/* Privacy toggle */}
         <div className={`mb-8 transition-all duration-500 delay-300 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -257,7 +265,6 @@ export function PaymentMethods() {
           </div>
         </div>
 
-        {/* Redesigned payment method cards */}
         <div className={`space-y-4 transition-all duration-500 delay-400 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
           {filteredMethods.length === 0 ? (
             <div className="py-20 text-center">
@@ -404,6 +411,13 @@ export function PaymentMethods() {
           )}
         </div>
       </div>
+
+      {/* Add Payment Method Modal */}
+      <AddPaymentMethodModal
+        isOpen={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
+        onAdd={handleAddPaymentMethod}
+      />
     </div>
   );
 }
