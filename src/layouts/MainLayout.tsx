@@ -3,7 +3,7 @@ import { useState, ReactNode } from "react";
 import { AppSidebar } from "@/components/AppSidebar";
 
 interface MainLayoutProps {
-  children: ReactNode;
+  children: ReactNode | (({ activeSection, onSectionChange }: { activeSection: string; onSectionChange: (section: string) => void }) => ReactNode);
   initialSection?: string;
 }
 
