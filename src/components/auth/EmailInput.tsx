@@ -46,7 +46,7 @@ const EmailInput = ({
       <div className="space-y-8">
         {/* Enhanced email input */}
         <div className="relative">
-          <div className="glass-card rounded-2xl p-6 border border-gray-300/50 backdrop-blur-sm bg-background/60">
+          <div className="glass-card rounded-2xl p-6 border border-gray-300/80 backdrop-blur-sm bg-background/60">
             <div className="relative flex items-center">
               <div className="absolute left-4 z-10">
                 <Mail className="w-5 h-5 text-muted-foreground transition-colors duration-200" />

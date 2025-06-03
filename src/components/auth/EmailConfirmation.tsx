@@ -17,7 +17,7 @@ const EmailConfirmation = ({ email, onConnection, onRemoveEmail, isLoaded }: Ema
       <div className="space-y-8 animate-fade-in">
         {/* Enhanced email confirmation card */}
         <div className="group cursor-pointer" onClick={onConnection}>
-          <div className="glass-card rounded-2xl p-6 border border-gray-300/50 backdrop-blur-sm bg-background/60 hover:shadow-lg hover:shadow-foreground/5">
+          <div className="glass-card rounded-2xl p-6 border border-gray-300/80 backdrop-blur-sm bg-background/60 hover:shadow-lg hover:shadow-foreground/5">
             <div className="flex items-center space-x-4">
               <div className="w-14 h-14 bg-foreground rounded-2xl flex items-center justify-center text-background font-semibold text-xl flex-shrink-0 transition-transform duration-200 group-hover:scale-105">
                 {email.charAt(0).toUpperCase()}
