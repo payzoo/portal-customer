@@ -7,38 +7,28 @@ interface HeaderProps {
 
 const Header = ({ isLoaded }: HeaderProps) => {
   return (
-    <div className="text-center mb-12">
-      <div className={`transform transition-all duration-700 ease-out ${
+    <div className="text-center mb-8">
+      <div className={`transform transition-all duration-500 ease-out ${
         isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
-      }`} style={{ transitionDelay: '400ms' }}>
+      }`} style={{ transitionDelay: '200ms' }}>
         
-        {/* Logo with animated elements */}
-        <div className="relative mb-8">
-          <h1 className="payzoo-page-title relative inline-block">
+        {/* Logo simplifié et cohérent */}
+        <div className="relative mb-6">
+          <h1 className="text-3xl font-light text-foreground tracking-tight">
             Payzoo
-            <Sparkles className="absolute -top-2 -right-8 w-6 h-6 text-foreground/40 animate-pulse" />
+            <Sparkles className="inline-block ml-2 w-5 h-5 text-foreground/30" />
           </h1>
         </div>
 
-        {/* Status indicator with modern styling */}
-        <div className="flex items-center justify-center space-x-4 mb-6">
-          <div className="flex items-center space-x-2">
-            <div className="w-2 h-2 bg-foreground rounded-full animate-pulse"></div>
-            <div className="w-1 h-1 bg-foreground/60 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
-          </div>
-          <div className="relative">
-            <p className="payzoo-caption uppercase tracking-[0.2em] font-medium text-muted-foreground">
-              Gestion Simplifiée
-            </p>
-            <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-8 h-px bg-foreground/20"></div>
-          </div>
-          <div className="flex items-center space-x-2">
-            <div className="w-1 h-1 bg-foreground/60 rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
-            <div className="w-2 h-2 bg-foreground rounded-full animate-pulse" style={{ animationDelay: '1.5s' }}></div>
-          </div>
+        {/* Section d'en-tête simplifiée */}
+        <div className="mb-4">
+          <p className="text-xs uppercase tracking-wider font-medium text-muted-foreground mb-2">
+            Connexion
+          </p>
+          <div className="w-8 h-px bg-foreground/20 mx-auto"></div>
         </div>
         
-        <p className="payzoo-subtitle">Connectez-vous à votre espace personnel</p>
+        <p className="text-muted-foreground text-sm">Accédez à votre espace personnel</p>
       </div>
     </div>
   );

@@ -18,47 +18,41 @@ const AnimatedBackground = () => {
 
   return (
     <div className="absolute inset-0 pointer-events-none">
-      {/* Floating geometric shapes */}
+      {/* Formes géométriques simplifiées */}
       <div 
-        className="absolute w-32 h-32 border border-border/20 rounded-full animate-float"
+        className="absolute w-24 h-24 border border-border/10 rounded-full animate-pulse"
         style={{
-          top: '10%',
-          left: '5%',
-          animationDelay: '0s',
-          transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)`
-        }}
-      ></div>
-      <div 
-        className="absolute w-24 h-24 border border-border/30 rounded-lg rotate-45 animate-float"
-        style={{
-          top: '20%',
-          right: '8%',
-          animationDelay: '2s',
-          transform: `translate(${mousePosition.x * -0.015}px, ${mousePosition.y * 0.015}px)`
-        }}
-      ></div>
-      <div 
-        className="absolute w-16 h-16 bg-foreground/5 rounded-full animate-float"
-        style={{
-          bottom: '15%',
+          top: '15%',
           left: '10%',
-          animationDelay: '4s',
-          transform: `translate(${mousePosition.x * 0.025}px, ${mousePosition.y * -0.02}px)`
+          animationDelay: '0s',
+          animationDuration: '4s',
+          transform: `translate(${mousePosition.x * 0.01}px, ${mousePosition.y * 0.01}px)`
         }}
       ></div>
       <div 
-        className="absolute w-20 h-20 border-2 border-foreground/10 rounded-full animate-float"
+        className="absolute w-16 h-16 border border-border/15 rounded-lg rotate-45 animate-pulse"
         style={{
-          bottom: '25%',
+          top: '25%',
           right: '15%',
-          animationDelay: '1s',
-          transform: `translate(${mousePosition.x * -0.02}px, ${mousePosition.y * 0.03}px)`
+          animationDelay: '2s',
+          animationDuration: '6s',
+          transform: `translate(${mousePosition.x * -0.01}px, ${mousePosition.y * 0.01}px)`
+        }}
+      ></div>
+      <div 
+        className="absolute w-12 h-12 bg-foreground/5 rounded-full animate-pulse"
+        style={{
+          bottom: '20%',
+          left: '15%',
+          animationDelay: '4s',
+          animationDuration: '5s',
+          transform: `translate(${mousePosition.x * 0.015}px, ${mousePosition.y * -0.01}px)`
         }}
       ></div>
 
-      {/* Subtle grid pattern */}
+      {/* Grille subtile */}
       <div 
-        className="absolute inset-0 opacity-[0.02]"
+        className="absolute inset-0 opacity-[0.01]"
         style={{
           backgroundImage: `
             linear-gradient(to right, currentColor 1px, transparent 1px),

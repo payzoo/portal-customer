@@ -11,48 +11,47 @@ interface EmailConfirmationProps {
 
 const EmailConfirmation = ({ email, onConnection, onRemoveEmail, isLoaded }: EmailConfirmationProps) => {
   return (
-    <div className={`space-y-8 transform transition-all duration-700 ease-out ${
-      isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
-    }`} style={{ transitionDelay: '600ms' }}>
-      <div className="space-y-8 animate-fade-in">
-        {/* Enhanced email confirmation card */}
-        <div className="group cursor-pointer" onClick={onConnection}>
-          <div className="glass-card rounded-2xl p-6 border border-gray-300/80 backdrop-blur-sm bg-background/60 hover:shadow-lg hover:shadow-foreground/5">
-            <div className="flex items-center space-x-4">
-              <div className="w-14 h-14 bg-foreground rounded-2xl flex items-center justify-center text-background font-semibold text-xl flex-shrink-0 transition-transform duration-200 group-hover:scale-105">
-                {email.charAt(0).toUpperCase()}
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="payzoo-body font-medium break-words text-foreground">{email}</p>
-                <div className="flex items-center space-x-2 mt-2">
-                  <div className="w-2 h-2 bg-foreground rounded-full animate-pulse"></div>
-                  <p className="payzoo-body-sm text-muted-foreground">Prêt à se connecter</p>
-                  <Zap className="w-3 h-3 text-foreground/40" />
-                </div>
-              </div>
-              <button 
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onRemoveEmail();
-                }}
-                className="w-8 h-8 flex items-center justify-center rounded-lg text-muted-foreground hover:text-foreground hover:bg-background/50 transition-all duration-200 flex-shrink-0"
-                aria-label="Supprimer l'email"
-              >
-                ×
-              </button>
+    <div className={`space-y-6 transform transition-all duration-500 ease-out ${
+      isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
+    }`} style={{ transitionDelay: '400ms' }}>
+      
+      {/* Carte de confirmation email améliorée */}
+      <div className="group cursor-pointer" onClick={onConnection}>
+        <div className="border border-input rounded-xl p-4 bg-background hover:border-foreground/20 transition-all duration-200 hover:shadow-sm">
+          <div className="flex items-center space-x-3">
+            <div className="w-12 h-12 bg-foreground rounded-xl flex items-center justify-center text-background font-semibold text-lg flex-shrink-0 transition-transform duration-200 group-hover:scale-105">
+              {email.charAt(0).toUpperCase()}
             </div>
+            <div className="flex-1 min-w-0">
+              <p className="font-medium text-foreground break-words">{email}</p>
+              <div className="flex items-center space-x-2 mt-1">
+                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                <p className="text-sm text-muted-foreground">Prêt à se connecter</p>
+                <Zap className="w-3 h-3 text-foreground/40" />
+              </div>
+            </div>
+            <button 
+              onClick={(e) => {
+                e.stopPropagation();
+                onRemoveEmail();
+              }}
+              className="w-8 h-8 flex items-center justify-center rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all duration-200 flex-shrink-0"
+              aria-label="Supprimer l'email"
+            >
+              ×
+            </button>
           </div>
         </div>
-
-        {/* Enhanced connection button */}
-        <Button
-          onClick={onConnection}
-          className="w-full h-14 bg-foreground text-background font-medium rounded-2xl transition-all duration-300 hover:bg-foreground/90 active:scale-[0.98] group hover:shadow-lg hover:shadow-foreground/10"
-        >
-          <span className="mr-2">Se connecter</span>
-          <ArrowRight className="w-5 h-5 transition-transform duration-200 group-hover:translate-x-1" />
-        </Button>
       </div>
+
+      {/* Bouton de connexion cohérent */}
+      <Button
+        onClick={onConnection}
+        className="w-full h-12 bg-foreground text-background font-medium rounded-xl transition-all duration-200 hover:bg-foreground/90 active:scale-[0.98] group"
+      >
+        <span className="mr-2">Se connecter</span>
+        <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
+      </Button>
     </div>
   );
 };
