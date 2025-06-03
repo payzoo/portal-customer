@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
-import { CreditCard, Plus, Building2, Shield, Check, Star } from "lucide-react";
+import { CreditCard, Plus, Building2, Shield, Check, Star, Smartphone, Wallet } from "lucide-react";
 
 interface AddPaymentMethodModalProps {
   isOpen: boolean;
@@ -35,6 +35,20 @@ const paymentTypes = [
     icon: Building2, 
     color: "bg-purple-500",
     description: "Virement SEPA"
+  },
+  { 
+    value: "mobile", 
+    label: "Mobile Money", 
+    icon: Smartphone, 
+    color: "bg-orange-500",
+    description: "Orange Money, MTN, etc."
+  },
+  { 
+    value: "wallet", 
+    label: "Portefeuille numérique", 
+    icon: Wallet, 
+    color: "bg-indigo-500",
+    description: "PayPal, Apple Pay, Google Pay"
   }
 ];
 
@@ -50,6 +64,41 @@ const cardProviders = [
   "CIC",
   "Crédit Mutuel"
 ];
+
+const mobileMoneyProviders = [
+  "Orange Money",
+  "MTN Mobile Money",
+  "Moov Money",
+  "Wave",
+  "Free Money",
+  "Airtel Money",
+  "Vodafone Cash",
+  "Tigo Cash"
+];
+
+const walletProviders = [
+  "PayPal",
+  "Apple Pay",
+  "Google Pay",
+  "Samsung Pay",
+  "Revolut",
+  "N26",
+  "Wise",
+  "Skrill",
+  "Neteller",
+  "Paysafecard"
+];
+
+const getProvidersForType = (type: string) => {
+  switch (type) {
+    case "mobile":
+      return mobileMoneyProviders;
+    case "wallet":
+      return walletProviders;
+    default:
+      return cardProviders;
+  }
+};
 
 export function AddPaymentMethodModal({ isOpen, onClose, onAdd }: AddPaymentMethodModalProps) {
   const [formData, setFormData] = useState({
@@ -71,13 +120,20 @@ export function AddPaymentMethodModal({ isOpen, onClose, onAdd }: AddPaymentMeth
     if (!formData.name.trim()) newErrors.name = "Le nom est requis";
     if (!formData.provider.trim()) newErrors.provider = "Le fournisseur est requis";
     
-    if (formData.type !== "bank") {
+    if (formData.type === "credit" || formData.type === "debit") {
       if (!formData.cardNumber.trim()) newErrors.cardNumber = "Le numéro de carte est requis";
       if (formData.cardNumber.replace(/\s/g, '').length < 16) newErrors.cardNumber = "Numéro de carte invalide";
       if (!formData.expiryMonth) newErrors.expiryMonth = "Le mois d'expiration est requis";
       if (!formData.expiryYear) newErrors.expiryYear = "L'année d'expiration est requise";
       if (!formData.cvv.trim()) newErrors.cvv = "Le CVV est requis";
       if (formData.cvv.length < 3) newErrors.cvv = "CVV invalide";
+    } else if (formData.type === "bank") {
+      if (!formData.cardNumber.trim()) newErrors.cardNumber = "Le numéro IBAN est requis";
+    } else if (formData.type === "mobile") {
+      if (!formData.cardNumber.trim()) newErrors.cardNumber = "Le numéro de téléphone est requis";
+      if (formData.cardNumber.replace(/\s/g, '').length < 8) newErrors.cardNumber = "Numéro de téléphone invalide";
+    } else if (formData.type === "wallet") {
+      if (!formData.cardNumber.trim()) newErrors.cardNumber = "L'identifiant du portefeuille est requis";
     }
     
     setErrors(newErrors);
@@ -89,13 +145,22 @@ export function AddPaymentMethodModal({ isOpen, onClose, onAdd }: AddPaymentMeth
     
     if (!validateForm()) return;
     
+    const getTypeLabel = (type: string) => {
+      switch (type) {
+        case "mobile": return "Mobile Money";
+        case "wallet": return "Portefeuille numérique";
+        case "bank": return "Compte bancaire";
+        default: return "Carte de crédit";
+      }
+    };
+    
     const newPaymentMethod = {
       id: Date.now(),
-      type: formData.type === "bank" ? "Compte bancaire" : "Carte de crédit",
+      type: getTypeLabel(formData.type),
       provider: formData.provider,
-      last4: formData.type === "bank" ? formData.cardNumber.slice(-4) : formData.cardNumber.replace(/\s/g, '').slice(-4),
+      last4: formData.cardNumber.replace(/\s/g, '').slice(-4),
       name: formData.name,
-      expiry: formData.type === "bank" ? null : `${formData.expiryMonth}/${formData.expiryYear}`,
+      expiry: (formData.type === "credit" || formData.type === "debit") ? `${formData.expiryMonth}/${formData.expiryYear}` : null,
       isDefault: formData.isDefault,
       status: "active",
       color: paymentTypes.find(type => type.value === formData.type)?.color || "bg-gray-500",
@@ -123,7 +188,11 @@ export function AddPaymentMethodModal({ isOpen, onClose, onAdd }: AddPaymentMeth
   };
 
   const updateFormData = (field: string, value: string | boolean) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData(prev => ({ 
+      ...prev, 
+      [field]: value,
+      ...(field === 'type' ? { provider: "" } : {}) // Reset provider when type changes
+    }));
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: "" }));
     }
@@ -144,15 +213,46 @@ export function AddPaymentMethodModal({ isOpen, onClose, onAdd }: AddPaymentMeth
     }
   };
 
+  const formatPhoneNumber = (value: string) => {
+    const v = value.replace(/\s+/g, '').replace(/[^0-9+]/gi, '');
+    return v;
+  };
+
   const handleCardNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const formatted = formatCardNumber(e.target.value);
-    updateFormData('cardNumber', formatted);
+    if (formData.type === "mobile") {
+      const formatted = formatPhoneNumber(e.target.value);
+      updateFormData('cardNumber', formatted);
+    } else if (formData.type === "credit" || formData.type === "debit") {
+      const formatted = formatCardNumber(e.target.value);
+      updateFormData('cardNumber', formatted);
+    } else {
+      updateFormData('cardNumber', e.target.value);
+    }
+  };
+
+  const getInputPlaceholder = (type: string) => {
+    switch (type) {
+      case "mobile": return "+33 6 12 34 56 78";
+      case "wallet": return "utilisateur@email.com";
+      case "bank": return "FR76 1234 5678 9012 3456 7890 123";
+      default: return "1234 5678 9012 3456";
+    }
+  };
+
+  const getInputLabel = (type: string) => {
+    switch (type) {
+      case "mobile": return "Numéro de téléphone *";
+      case "wallet": return "Identifiant du portefeuille *";
+      case "bank": return "Numéro de compte (IBAN) *";
+      default: return "Numéro de carte *";
+    }
   };
 
   const selectedType = paymentTypes.find(type => type.value === formData.type);
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 10 }, (_, i) => currentYear + i);
   const months = Array.from({ length: 12 }, (_, i) => String(i + 1).padStart(2, '0'));
+  const availableProviders = getProvidersForType(formData.type);
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
@@ -167,7 +267,7 @@ export function AddPaymentMethodModal({ isOpen, onClose, onAdd }: AddPaymentMeth
                 Nouveau moyen de paiement
               </DialogTitle>
               <p className="text-sm text-muted-foreground">
-                Ajoutez une carte ou un compte bancaire
+                Ajoutez une carte, un compte ou un portefeuille
               </p>
             </div>
           </div>
@@ -179,7 +279,7 @@ export function AddPaymentMethodModal({ isOpen, onClose, onAdd }: AddPaymentMeth
             <label className="text-sm font-medium text-foreground mb-3 block">
               Type de moyen de paiement
             </label>
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
               {paymentTypes.map((type) => (
                 <button
                   key={type.value}
@@ -195,7 +295,7 @@ export function AddPaymentMethodModal({ isOpen, onClose, onAdd }: AddPaymentMeth
                     <div className={`w-8 h-8 ${type.color} rounded-lg flex items-center justify-center`}>
                       <type.icon className="w-4 h-4 text-white" />
                     </div>
-                    <span className="text-sm font-medium">{type.label}</span>
+                    <span className="text-sm font-medium text-center">{type.label}</span>
                     <span className="text-xs text-muted-foreground text-center">{type.description}</span>
                   </div>
                 </button>
@@ -212,7 +312,7 @@ export function AddPaymentMethodModal({ isOpen, onClose, onAdd }: AddPaymentMeth
               <Input
                 value={formData.name}
                 onChange={(e) => updateFormData('name', e.target.value)}
-                placeholder="Ex: Carte principale, Compte épargne..."
+                placeholder="Ex: Carte principale, Orange Money..."
                 className={`h-11 ${errors.name ? 'border-red-400 focus:border-red-400' : 'border-border/30 focus:border-black'}`}
               />
               {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
@@ -227,7 +327,7 @@ export function AddPaymentMethodModal({ isOpen, onClose, onAdd }: AddPaymentMeth
                   <SelectValue placeholder="Sélectionnez un fournisseur" />
                 </SelectTrigger>
                 <SelectContent>
-                  {cardProviders.map((provider) => (
+                  {availableProviders.map((provider) => (
                     <SelectItem key={provider} value={provider}>
                       {provider}
                     </SelectItem>
@@ -237,88 +337,71 @@ export function AddPaymentMethodModal({ isOpen, onClose, onAdd }: AddPaymentMeth
               {errors.provider && <p className="text-red-500 text-xs mt-1">{errors.provider}</p>}
             </div>
 
-            {formData.type !== "bank" && (
-              <>
+            <div>
+              <label className="text-sm font-medium text-foreground mb-2 block">
+                {getInputLabel(formData.type)}
+              </label>
+              <Input
+                value={formData.cardNumber}
+                onChange={handleCardNumberChange}
+                placeholder={getInputPlaceholder(formData.type)}
+                maxLength={formData.type === "mobile" ? 20 : formData.type === "wallet" ? 50 : 27}
+                className={`h-11 font-mono ${errors.cardNumber ? 'border-red-400 focus:border-red-400' : 'border-border/30 focus:border-black'}`}
+              />
+              {errors.cardNumber && <p className="text-red-500 text-xs mt-1">{errors.cardNumber}</p>}
+            </div>
+
+            {(formData.type === "credit" || formData.type === "debit") && (
+              <div className="grid grid-cols-3 gap-4">
                 <div>
                   <label className="text-sm font-medium text-foreground mb-2 block">
-                    Numéro de carte *
+                    Mois *
+                  </label>
+                  <Select value={formData.expiryMonth} onValueChange={(value) => updateFormData('expiryMonth', value)}>
+                    <SelectTrigger className={`h-11 ${errors.expiryMonth ? 'border-red-400 focus:border-red-400' : 'border-border/30 focus:border-black'}`}>
+                      <SelectValue placeholder="MM" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {months.map((month) => (
+                        <SelectItem key={month} value={month}>
+                          {month}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  {errors.expiryMonth && <p className="text-red-500 text-xs mt-1">{errors.expiryMonth}</p>}
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-foreground mb-2 block">
+                    Année *
+                  </label>
+                  <Select value={formData.expiryYear} onValueChange={(value) => updateFormData('expiryYear', value)}>
+                    <SelectTrigger className={`h-11 ${errors.expiryYear ? 'border-red-400 focus:border-red-400' : 'border-border/30 focus:border-black'}`}>
+                      <SelectValue placeholder="AAAA" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {years.map((year) => (
+                        <SelectItem key={year} value={year.toString()}>
+                          {year}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  {errors.expiryYear && <p className="text-red-500 text-xs mt-1">{errors.expiryYear}</p>}
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-foreground mb-2 block">
+                    CVV *
                   </label>
                   <Input
-                    value={formData.cardNumber}
-                    onChange={handleCardNumberChange}
-                    placeholder="1234 5678 9012 3456"
-                    maxLength={19}
-                    className={`h-11 font-mono ${errors.cardNumber ? 'border-red-400 focus:border-red-400' : 'border-border/30 focus:border-black'}`}
+                    value={formData.cvv}
+                    onChange={(e) => updateFormData('cvv', e.target.value.replace(/\D/g, '').slice(0, 4))}
+                    placeholder="123"
+                    maxLength={4}
+                    className={`h-11 font-mono ${errors.cvv ? 'border-red-400 focus:border-red-400' : 'border-border/30 focus:border-black'}`}
                   />
-                  {errors.cardNumber && <p className="text-red-500 text-xs mt-1">{errors.cardNumber}</p>}
+                  {errors.cvv && <p className="text-red-500 text-xs mt-1">{errors.cvv}</p>}
                 </div>
-
-                <div className="grid grid-cols-3 gap-4">
-                  <div>
-                    <label className="text-sm font-medium text-foreground mb-2 block">
-                      Mois *
-                    </label>
-                    <Select value={formData.expiryMonth} onValueChange={(value) => updateFormData('expiryMonth', value)}>
-                      <SelectTrigger className={`h-11 ${errors.expiryMonth ? 'border-red-400 focus:border-red-400' : 'border-border/30 focus:border-black'}`}>
-                        <SelectValue placeholder="MM" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {months.map((month) => (
-                          <SelectItem key={month} value={month}>
-                            {month}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    {errors.expiryMonth && <p className="text-red-500 text-xs mt-1">{errors.expiryMonth}</p>}
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-foreground mb-2 block">
-                      Année *
-                    </label>
-                    <Select value={formData.expiryYear} onValueChange={(value) => updateFormData('expiryYear', value)}>
-                      <SelectTrigger className={`h-11 ${errors.expiryYear ? 'border-red-400 focus:border-red-400' : 'border-border/30 focus:border-black'}`}>
-                        <SelectValue placeholder="AAAA" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {years.map((year) => (
-                          <SelectItem key={year} value={year.toString()}>
-                            {year}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    {errors.expiryYear && <p className="text-red-500 text-xs mt-1">{errors.expiryYear}</p>}
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-foreground mb-2 block">
-                      CVV *
-                    </label>
-                    <Input
-                      value={formData.cvv}
-                      onChange={(e) => updateFormData('cvv', e.target.value.replace(/\D/g, '').slice(0, 4))}
-                      placeholder="123"
-                      maxLength={4}
-                      className={`h-11 font-mono ${errors.cvv ? 'border-red-400 focus:border-red-400' : 'border-border/30 focus:border-black'}`}
-                    />
-                    {errors.cvv && <p className="text-red-500 text-xs mt-1">{errors.cvv}</p>}
-                  </div>
-                </div>
-              </>
-            )}
-
-            {formData.type === "bank" && (
-              <div>
-                <label className="text-sm font-medium text-foreground mb-2 block">
-                  Numéro de compte (IBAN) *
-                </label>
-                <Input
-                  value={formData.cardNumber}
-                  onChange={(e) => updateFormData('cardNumber', e.target.value)}
-                  placeholder="FR76 1234 5678 9012 3456 7890 123"
-                  className={`h-11 font-mono ${errors.cardNumber ? 'border-red-400 focus:border-red-400' : 'border-border/30 focus:border-black'}`}
-                />
-                {errors.cardNumber && <p className="text-red-500 text-xs mt-1">{errors.cardNumber}</p>}
               </div>
             )}
 
