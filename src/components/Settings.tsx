@@ -142,66 +142,66 @@ export function Settings() {
     )
   );
 
-  const animationDelay = (index: number) => ({ animationDelay: `${index * 50}ms` });
+  const animationDelay = (index: number) => ({ animationDelay: `${index * 100}ms` });
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="payzoo-page-container max-w-5xl mx-auto">
+    <div className="min-h-screen bg-background relative">
+      {/* Minimal background decoration */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-20">
+        <div className="absolute top-20 right-10 w-32 h-32 border border-black/5 rounded-3xl rotate-12"></div>
+        <div className="absolute bottom-32 left-16 w-24 h-24 border border-black/5 rounded-2xl -rotate-12"></div>
+      </div>
+
+      <div className="payzoo-page-container relative z-10">
         
-        {/* Header simplifié */}
-        <div className={`mb-10 transition-all duration-300 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}>
-          <div className="flex items-center justify-between mb-8">
+        {/* Clean header */}
+        <div className={`mb-8 transition-all duration-500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+          <div className="flex items-center gap-4 mb-6">
+            <div className="w-12 h-12 bg-black rounded-2xl flex items-center justify-center shadow-lg">
+              <User className="w-6 h-6 text-white" />
+            </div>
             <div>
-              <h1 className="text-3xl font-bold text-foreground mb-2">Paramètres</h1>
-              <p className="text-muted-foreground flex items-center gap-2">
+              <h1 className="text-2xl font-bold text-foreground mb-1">Paramètres</h1>
+              <p className="text-sm text-muted-foreground flex items-center gap-2">
                 <Brain className="w-4 h-4" />
                 Gérez votre compte et personnalisez votre expérience
               </p>
             </div>
           </div>
 
-          {/* Barre de recherche épurée */}
-          <div className="relative max-w-md">
+          {/* Minimal search */}
+          <div className="relative max-w-sm">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
             <Input
               type="text"
-              placeholder="Rechercher dans les paramètres..."
+              placeholder="Rechercher..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10 h-11 bg-white border-border/40 focus:border-primary/60 transition-all duration-200 shadow-sm"
+              className="pl-10 h-10 bg-background border-border/30 focus:border-black transition-colors"
             />
           </div>
         </div>
 
-        <div className="space-y-8">
+        <div className="space-y-6">
           
-          {/* Profile Card simplifié */}
-          <div className={`transition-all duration-300 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`} style={animationDelay(0)}>
-            <ProfileCard currentUserData={currentUserData} isLoaded={isLoaded} />
-          </div>
+          {/* Profile Card */}
+          <ProfileCard currentUserData={currentUserData} isLoaded={isLoaded} />
 
           {/* KYC Section */}
-          <div className={`transition-all duration-300 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`} style={animationDelay(1)}>
-            <KYCSection kycSettings={kycSettings} isLoaded={isLoaded} />
-          </div>
+          <KYCSection kycSettings={kycSettings} isLoaded={isLoaded} />
 
-          {/* Sections de paramètres épurées */}
+          {/* Settings Sections */}
           {filteredCategories.map((category, categoryIndex) => (
             <Card 
               key={category.category} 
-              className={`border-0 bg-white shadow-sm hover:shadow-md transition-all duration-200 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}
+              className={`border-0 bg-card/40 backdrop-blur-sm shadow-sm transition-all duration-500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
               style={animationDelay(categoryIndex + 2)}
             >
-              <CardContent className="p-0">
-                {/* En-tête de catégorie */}
-                <div className="px-6 py-4 border-b border-border/30">
-                  <h3 className="text-lg font-semibold text-foreground">
-                    {category.category}
-                  </h3>
-                </div>
-                
-                {/* Items de la catégorie */}
-                <div className="divide-y divide-border/20">
+              <CardContent className="p-6">
+                <h3 className="text-lg font-semibold text-foreground mb-4">
+                  {category.category}
+                </h3>
+                <div className="space-y-2">
                   {category.items.filter(item => 
                     item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                     item.description.toLowerCase().includes(searchTerm.toLowerCase())
@@ -209,18 +209,18 @@ export function Settings() {
                     <div 
                       key={itemIndex}
                       onClick={item.action}
-                      className="group flex items-center justify-between px-6 py-4 hover:bg-muted/30 transition-all duration-150 cursor-pointer"
+                      className="group flex items-center justify-between p-4 hover:bg-background/60 rounded-xl transition-all duration-200 cursor-pointer"
                     >
                       <div className="flex items-center gap-4 flex-1 min-w-0">
-                        <div className="w-10 h-10 bg-muted/40 rounded-xl flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-150">
-                          <item.icon className="w-5 h-5" />
+                        <div className="w-10 h-10 bg-black rounded-xl flex items-center justify-center">
+                          <item.icon className="w-5 h-5 text-white" />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="font-medium text-foreground mb-1">{item.title}</p>
+                          <p className="font-medium text-foreground">{item.title}</p>
                           <p className="text-sm text-muted-foreground">{item.description}</p>
                         </div>
                       </div>
-                      <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground group-hover:translate-x-0.5 transition-all duration-150" />
+                      <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground group-hover:translate-x-0.5 transition-all" />
                     </div>
                   ))}
                 </div>
