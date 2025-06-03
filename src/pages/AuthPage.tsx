@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import AnimatedBackground from "@/components/auth/AnimatedBackground";
+import StartupElements from "@/components/auth/StartupElements";
 import Header from "@/components/auth/Header";
 import EmailInput from "@/components/auth/EmailInput";
 import EmailConfirmation from "@/components/auth/EmailConfirmation";
@@ -46,8 +47,9 @@ const AuthPage = () => {
 
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
-      {/* Dynamic background elements */}
+      {/* Background elements avec startup vibe */}
       <AnimatedBackground />
+      <StartupElements isLoaded={isLoaded} />
 
       {/* Main content */}
       <div className="relative z-10 min-h-screen flex items-center justify-center p-6">
@@ -55,10 +57,10 @@ const AuthPage = () => {
           isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
         }`}>
           
-          {/* Header with modern typography and icons */}
+          {/* Header with startup elements */}
           <Header isLoaded={isLoaded} />
 
-          {/* Form section with glassmorphism */}
+          {/* Form section */}
           {!showEmailTag ? (
             <EmailInput
               email={email}
@@ -78,7 +80,7 @@ const AuthPage = () => {
             />
           )}
 
-          {/* Footer with modern styling */}
+          {/* Footer with startup messaging */}
           <Footer onRegisterRedirect={handleRegisterRedirect} isLoaded={isLoaded} />
         </div>
       </div>
