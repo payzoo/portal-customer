@@ -1,24 +1,12 @@
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useAuth } from "@/contexts/AuthContext";
-import { ArrowRight, Mail, Phone, User, Check, Sparkles } from "lucide-react";
-
-const countries = [
-  { code: "+1", country: "US", flag: "🇺🇸", name: "États-Unis" },
-  { code: "+33", country: "FR", flag: "🇫🇷", name: "France" },
-  { code: "+44", country: "GB", flag: "🇬🇧", name: "Royaume-Uni" },
-  { code: "+49", country: "DE", flag: "🇩🇪", name: "Allemagne" },
-  { code: "+39", country: "IT", flag: "🇮🇹", name: "Italie" },
-  { code: "+34", country: "ES", flag: "🇪🇸", name: "Espagne" },
-  { code: "+1", country: "CA", flag: "🇨🇦", name: "Canada" },
-  { code: "+81", country: "JP", flag: "🇯🇵", name: "Japon" },
-  { code: "+86", country: "CN", flag: "🇨🇳", name: "Chine" },
-  { code: "+91", country: "IN", flag: "🇮🇳", name: "Inde" },
-];
+import { ArrowRight, Mail, Phone, User } from "lucide-react";
+import FormField from "@/components/auth/FormField";
+import RegisterHeader from "@/components/auth/RegisterHeader";
+import RegisterFooter from "@/components/auth/RegisterFooter";
 
 const RegisterPage = () => {
   const [email, setEmail] = useState("");
@@ -74,194 +62,15 @@ const RegisterPage = () => {
     navigate("/auth");
   };
 
-  const FormField = ({ 
-    id, 
-    label, 
-    type, 
-    placeholder, 
-    value, 
-    onChange, 
-    icon: Icon, 
-    isValid, 
-    isPhone = false
-  }: {
-    id: string;
-    label: string;
-    type: string;
-    placeholder: string;
-    value: string;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    icon: any;
-    isValid: boolean;
-    isPhone?: boolean;
-  }) => (
-    <div className="space-y-3">
-      <Label htmlFor={id} className="payzoo-body-sm font-medium text-muted-foreground">
-        {label}
-      </Label>
-      <div className="relative">
-        {isPhone ? (
-          <div className="glass-card rounded-2xl border border-gray-300/50 backdrop-blur-sm bg-background/60">
-            <div className="flex">
-              <div className="flex-shrink-0">
-                <Select value={countryCode} onValueChange={setCountryCode}>
-                  <SelectTrigger className="w-24 h-14 border-0 bg-transparent focus:ring-0 rounded-l-2xl">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent className="z-50 bg-background border border-gray-300/50 shadow-xl">
-                    {countries.map((country) => (
-                      <SelectItem key={`${country.code}-${country.country}`} value={country.code}>
-                        <div className="flex items-center space-x-2">
-                          <span>{country.flag}</span>
-                          <span className="text-sm">{country.code}</span>
-                        </div>
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="flex-1 relative">
-                <Icon className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
-                <Input
-                  id={id}
-                  type={type}
-                  placeholder={placeholder}
-                  value={value}
-                  onChange={onChange}
-                  className="w-full h-14 pl-12 pr-12 border-0 bg-transparent focus:ring-0 focus:border-0 placeholder:text-muted-foreground/60 text-foreground text-base rounded-l-none rounded-r-2xl"
-                />
-                <div className={`absolute right-4 top-1/2 transform -translate-y-1/2 transition-all duration-500 ${
-                  isValid ? 'scale-100 opacity-100 rotate-0' : 'scale-0 opacity-0 rotate-90'
-                }`}>
-                  <div className="w-6 h-6 bg-foreground rounded-full flex items-center justify-center">
-                    <Check className="w-3 h-3 text-background" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        ) : (
-          <div className="glass-card rounded-2xl border border-gray-300/50 backdrop-blur-sm bg-background/60">
-            <div className="relative flex items-center">
-              <Icon className="absolute left-4 text-muted-foreground w-5 h-5" />
-              <Input
-                id={id}
-                type={type}
-                placeholder={placeholder}
-                value={value}
-                onChange={onChange}
-                className="w-full h-14 pl-12 pr-12 border-0 bg-transparent focus:ring-0 focus:border-0 placeholder:text-muted-foreground/60 text-foreground text-base"
-              />
-              <div className={`absolute right-4 transition-all duration-500 ${
-                isValid ? 'scale-100 opacity-100 rotate-0' : 'scale-0 opacity-0 rotate-90'
-              }`}>
-                <div className="w-6 h-6 bg-foreground rounded-full flex items-center justify-center">
-                  <Check className="w-3 h-3 text-background" />
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
-      {/* Dynamic background elements - style harmonisé avec AuthPage */}
-      <div className="absolute inset-0 pointer-events-none">
-        {/* Floating geometric shapes */}
-        <div 
-          className="absolute w-32 h-32 border border-border/20 rounded-full animate-float"
-          style={{
-            top: '10%',
-            left: '5%',
-            animationDelay: '0s',
-            transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)`
-          }}
-        ></div>
-        <div 
-          className="absolute w-24 h-24 border border-border/30 rounded-lg rotate-45 animate-float"
-          style={{
-            top: '20%',
-            right: '8%',
-            animationDelay: '2s',
-            transform: `translate(${mousePosition.x * -0.015}px, ${mousePosition.y * 0.015}px)`
-          }}
-        ></div>
-        <div 
-          className="absolute w-16 h-16 bg-foreground/5 rounded-full animate-float"
-          style={{
-            bottom: '15%',
-            left: '10%',
-            animationDelay: '4s',
-            transform: `translate(${mousePosition.x * 0.025}px, ${mousePosition.y * -0.02}px)`
-          }}
-        ></div>
-        <div 
-          className="absolute w-20 h-20 border-2 border-foreground/10 rounded-full animate-float"
-          style={{
-            bottom: '25%',
-            right: '15%',
-            animationDelay: '1s',
-            transform: `translate(${mousePosition.x * -0.02}px, ${mousePosition.y * 0.03}px)`
-          }}
-        ></div>
-
-        {/* Subtle grid pattern */}
-        <div 
-          className="absolute inset-0 opacity-[0.02]"
-          style={{
-            backgroundImage: `
-              linear-gradient(to right, currentColor 1px, transparent 1px),
-              linear-gradient(to bottom, currentColor 1px, transparent 1px)
-            `,
-            backgroundSize: '60px 60px'
-          }}
-        ></div>
-      </div>
+      <RegisterHeader isLoaded={isLoaded} mousePosition={mousePosition} />
 
       {/* Main content */}
       <div className="relative z-10 min-h-screen flex items-center justify-center p-6">
         <div className={`w-full max-w-md transform transition-all duration-1000 ease-out ${
           isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
         }`}>
-          
-          {/* Header - style harmonisé avec AuthPage */}
-          <div className="text-center mb-12">
-            <div className={`transform transition-all duration-700 ease-out ${
-              isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
-            }`} style={{ transitionDelay: '400ms' }}>
-              
-              {/* Logo avec éléments animés */}
-              <div className="relative mb-8">
-                <h1 className="payzoo-page-title relative inline-block">
-                  Payzoo
-                  <Sparkles className="absolute -top-2 -right-8 w-6 h-6 text-foreground/40 animate-pulse" />
-                </h1>
-              </div>
-
-              {/* Indicateur de statut avec style moderne */}
-              <div className="flex items-center justify-center space-x-4 mb-6">
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-foreground rounded-full animate-pulse"></div>
-                  <div className="w-1 h-1 bg-foreground/60 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
-                </div>
-                <div className="relative">
-                  <p className="payzoo-caption uppercase tracking-[0.2em] font-medium text-muted-foreground">
-                    Rejoignez-nous
-                  </p>
-                  <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-8 h-px bg-foreground/20"></div>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <div className="w-1 h-1 bg-foreground/60 rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
-                  <div className="w-2 h-2 bg-foreground rounded-full animate-pulse" style={{ animationDelay: '1.5s' }}></div>
-                </div>
-              </div>
-              
-              <p className="payzoo-subtitle">Créez votre compte et découvrez l'avenir des paiements</p>
-            </div>
-          </div>
 
           {/* Formulaire d'inscription */}
           <div className={`space-y-6 transform transition-all duration-700 ease-out ${
@@ -300,6 +109,8 @@ const RegisterPage = () => {
               icon={Phone}
               isValid={validatePhone(phone)}
               isPhone={true}
+              countryCode={countryCode}
+              setCountryCode={setCountryCode}
             />
 
             {/* Conditions d'utilisation */}
@@ -316,7 +127,7 @@ const RegisterPage = () => {
               </p>
             </div>
 
-            {/* Bouton d'inscription - style harmonisé avec AuthPage */}
+            {/* Bouton d'inscription */}
             <Button
               onClick={handleRegister}
               disabled={!isFormValid}
@@ -327,39 +138,10 @@ const RegisterPage = () => {
               <span className="mr-2">Créer mon compte</span>
               <ArrowRight className="w-5 h-5 transition-transform duration-200 group-hover:translate-x-1" />
             </Button>
-
-            {/* Redirection vers la connexion */}
-            <div className="text-center">
-              <p className="payzoo-body-sm mb-6 text-muted-foreground">
-                Déjà membre ?{" "}
-                <button
-                  onClick={handleLoginRedirect}
-                  className="text-foreground font-medium hover:underline transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-foreground/20 focus:ring-offset-2 rounded-sm px-1"
-                >
-                  Se connecter
-                </button>
-              </p>
-            </div>
           </div>
 
-          {/* Footer - style harmonisé avec AuthPage */}
-          <div className={`text-center space-y-8 mt-12 transform transition-all duration-700 ease-out ${
-            isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
-          }`} style={{ transitionDelay: '800ms' }}>
-            
-            {/* Indicateurs de statut modernes */}
-            <div className="flex justify-center space-x-4">
-              {[1, 2, 3].map((i) => (
-                <div 
-                  key={i} 
-                  className="w-2 h-2 bg-foreground/60 rounded-full hover:bg-foreground hover:scale-125 transition-all duration-300 cursor-pointer"
-                  style={{ animationDelay: `${i * 0.2}s` }}
-                ></div>
-              ))}
-            </div>
-            
-            <p className="payzoo-caption opacity-50 tracking-wider">© 2024 Payzoo</p>
-          </div>
+          {/* Footer */}
+          <RegisterFooter isLoaded={isLoaded} onLoginRedirect={handleLoginRedirect} />
         </div>
       </div>
     </div>
