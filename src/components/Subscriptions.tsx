@@ -6,6 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { AddSubscriptionModal } from "@/components/modals/AddSubscriptionModal";
 
 export function Subscriptions() {
   const navigate = useNavigate();
@@ -14,13 +15,14 @@ export function Subscriptions() {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [showAnalytics, setShowAnalytics] = useState(true);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoaded(true), 100);
     return () => clearTimeout(timer);
   }, []);
 
-  const subscriptions = [
+  const [subscriptions, setSubscriptions] = useState([
     {
       id: 1,
       name: "StackBlitz Inc",
@@ -117,7 +119,7 @@ export function Subscriptions() {
       trend: "-5%",
       description: "Musique en streaming illimitée"
     }
-  ];
+  ]);
 
   const filteredSubscriptions = subscriptions.filter(sub => {
     const matchesSearch = sub.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
@@ -189,6 +191,11 @@ export function Subscriptions() {
     console.log(`Action ${action} pour l'abonnement ${subscriptionId}`);
   };
 
+  const handleAddSubscription = (newSubscription: any) => {
+    setSubscriptions(prev => [...prev, newSubscription]);
+    console.log('Nouvel abonnement ajouté:', newSubscription);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20 relative overflow-hidden">
       {/* Simplified background elements */}
@@ -224,7 +231,10 @@ export function Subscriptions() {
               <p className="text-lg text-muted-foreground">Optimisez vos dépenses récurrentes</p>
             </div>
             
-            <Button className="group bg-gradient-to-r from-black to-gray-800 hover:from-gray-800 hover:to-black text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 h-12 px-6">
+            <Button 
+              onClick={() => setIsAddModalOpen(true)}
+              className="group bg-gradient-to-r from-black to-gray-800 hover:from-gray-800 hover:to-black text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 h-12 px-6"
+            >
               <Plus className="w-5 h-5 mr-2 group-hover:rotate-90 transition-transform duration-300" />
               Ajouter
               <ArrowUpRight className="w-4 h-4 ml-2 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
@@ -525,6 +535,12 @@ export function Subscriptions() {
           )}
         </div>
       </div>
+
+      <AddSubscriptionModal 
+        isOpen={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
+        onAdd={handleAddSubscription}
+      />
     </div>
   );
 }
