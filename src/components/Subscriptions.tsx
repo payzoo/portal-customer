@@ -5,8 +5,7 @@ import { AddSubscriptionCard } from "@/components/AddSubscriptionCard";
 import { SubscriptionsHeader } from "@/components/subscriptions/SubscriptionsHeader";
 import { StatCard } from "@/components/subscriptions/StatCard";
 import { SearchBar } from "@/components/subscriptions/SearchBar";
-import { SubscriptionCard } from "@/components/subscriptions/SubscriptionCard";
-import { EmptyState } from "@/components/subscriptions/EmptyState";
+import { SubscriptionsList } from "@/components/subscriptions/SubscriptionsList";
 import { useToast } from "@/hooks/use-toast";
 
 export function Subscriptions() {
@@ -115,16 +114,26 @@ export function Subscriptions() {
     }
   };
 
+  const handleViewSubscription = (id: number) => {
+    const subscription = subscriptions.find(sub => sub.id === id);
+    if (subscription) {
+      toast({
+        title: "Détails",
+        description: `Affichage des détails de ${subscription.name} (fonctionnalité à venir)`,
+      });
+    }
+  };
+
   return (
-    <main className="min-h-screen bg-white">
-      <div className="max-w-6xl mx-auto px-6 py-8 space-y-8">
+    <main className="min-h-screen bg-gray-50">
+      <div className="max-w-7xl mx-auto px-6 py-8 space-y-8">
         
         <SubscriptionsHeader 
           isLoaded={isLoaded}
           onAddClick={() => setIsAddModalOpen(true)}
         />
 
-        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           <StatCard
             icon={DollarSign}
             title="Coût mensuel"
@@ -167,25 +176,13 @@ export function Subscriptions() {
           />
         </div>
 
-        <section className="space-y-3">
-          {filteredSubscriptions.length === 0 ? (
-            <EmptyState 
-              isLoaded={isLoaded} 
-              onAddClick={() => setIsAddModalOpen(true)}
-            />
-          ) : (
-            filteredSubscriptions.map((subscription, index) => (
-              <SubscriptionCard 
-                key={subscription.id} 
-                subscription={subscription} 
-                index={index}
-                isLoaded={isLoaded}
-                onEdit={handleEditSubscription}
-                onDelete={handleDeleteSubscription}
-              />
-            ))
-          )}
-        </section>
+        <SubscriptionsList 
+          subscriptions={filteredSubscriptions}
+          isLoaded={isLoaded}
+          onEditSubscription={handleEditSubscription}
+          onDeleteSubscription={handleDeleteSubscription}
+          onViewSubscription={handleViewSubscription}
+        />
       </div>
 
       <AddSubscriptionCard 
