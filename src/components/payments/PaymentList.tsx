@@ -15,6 +15,7 @@ interface PaymentListProps {
   onEdit: (paymentMethod: PaymentMethod) => void;
   onToggleDefault: (paymentMethod: PaymentMethod) => void;
   onDelete: (paymentMethod: PaymentMethod) => void;
+  onAddPayment?: () => void;
   isLoaded: boolean;
 }
 
@@ -23,31 +24,34 @@ export function PaymentList({
   onEdit, 
   onToggleDefault, 
   onDelete, 
+  onAddPayment,
   isLoaded 
 }: PaymentListProps) {
   if (paymentMethods.length === 0) {
-    return <PaymentEmptyState isLoaded={isLoaded} />;
+    return <PaymentEmptyState isLoaded={isLoaded} onAddPayment={onAddPayment} />;
   }
 
   return (
-    <section 
-      className={`space-y-6 transition-all duration-700 delay-600 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
-      aria-label="Liste des moyens de paiement"
-    >
-      <div className="text-sm font-semibold text-gray-700 mb-6 tracking-wide">
-        {paymentMethods.length} moyen{paymentMethods.length > 1 ? 's' : ''} de paiement
+    <div className={`transition-all duration-500 delay-400 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-xl font-semibold text-gray-900">
+          Moyens de paiement ({paymentMethods.length})
+        </h2>
       </div>
-      {paymentMethods.map((paymentMethod, index) => (
-        <PaymentCard
-          key={paymentMethod.id}
-          paymentMethod={paymentMethod}
-          index={index}
-          onEdit={onEdit}
-          onToggleDefault={onToggleDefault}
-          onDelete={onDelete}
-          isLoaded={isLoaded}
-        />
-      ))}
-    </section>
+      
+      <div className="space-y-4">
+        {paymentMethods.map((paymentMethod, index) => (
+          <PaymentCard
+            key={paymentMethod.id}
+            paymentMethod={paymentMethod}
+            index={index}
+            onEdit={onEdit}
+            onToggleDefault={onToggleDefault}
+            onDelete={onDelete}
+            isLoaded={isLoaded}
+          />
+        ))}
+      </div>
+    </div>
   );
 }

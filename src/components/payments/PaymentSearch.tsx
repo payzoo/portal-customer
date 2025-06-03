@@ -1,5 +1,7 @@
 
-import { Search, Filter } from "lucide-react";
+import { Search, Filter, SortAsc } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface PaymentSearchProps {
@@ -7,49 +9,53 @@ interface PaymentSearchProps {
   onSearchChange: (value: string) => void;
   filterType: string;
   onFilterChange: (value: string) => void;
-  isLoaded?: boolean;
+  isLoaded: boolean;
 }
 
-export function PaymentSearch({ 
-  searchTerm, 
-  onSearchChange, 
-  filterType, 
+export function PaymentSearch({
+  searchTerm,
+  onSearchChange,
+  filterType,
   onFilterChange,
-  isLoaded = false 
+  isLoaded
 }: PaymentSearchProps) {
   return (
-    <section className={`mb-10 transition-all duration-700 delay-400 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
-      <div className="flex flex-col lg:flex-row gap-4">
+    <div className={`mb-8 transition-all duration-500 delay-300 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+      <div className="flex flex-col sm:flex-row gap-4">
         <div className="relative flex-1">
-          <Search 
-            className="absolute left-5 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" 
-            aria-hidden="true"
-          />
-          <input
-            type="text"
+          <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+          <Input
             placeholder="Rechercher un moyen de paiement..."
             value={searchTerm}
             onChange={(e) => onSearchChange(e.target.value)}
-            className="w-full pl-14 pr-6 py-5 bg-white border-0 rounded-3xl focus:outline-none focus:ring-2 focus:ring-black transition-all duration-300 text-base placeholder:text-gray-400 shadow-lg hover:shadow-xl"
-            aria-label="Rechercher un moyen de paiement"
+            className="pl-11 h-12 bg-white border-gray-200 rounded-xl focus:border-black focus:ring-0"
           />
         </div>
-        <div className="relative lg:w-64">
-          <Filter className="absolute left-5 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none z-10" />
+        
+        <div className="flex gap-3">
           <Select value={filterType} onValueChange={onFilterChange}>
-            <SelectTrigger className="w-full pl-14 pr-6 py-5 h-auto bg-white border-0 rounded-3xl focus:ring-2 focus:ring-black transition-all duration-300 text-base shadow-lg hover:shadow-xl">
-              <SelectValue placeholder="Filtrer par type" />
+            <SelectTrigger className="w-[140px] h-12 bg-white border-gray-200 rounded-xl">
+              <Filter className="w-4 h-4 mr-2 text-gray-500" />
+              <SelectValue placeholder="Type" />
             </SelectTrigger>
-            <SelectContent className="bg-white border-0 rounded-2xl shadow-2xl">
-              <SelectItem value="all">Tous types</SelectItem>
+            <SelectContent>
+              <SelectItem value="all">Tous</SelectItem>
               <SelectItem value="visa">Visa</SelectItem>
               <SelectItem value="mastercard">Mastercard</SelectItem>
               <SelectItem value="paypal">PayPal</SelectItem>
-              <SelectItem value="other">Autre</SelectItem>
+              <SelectItem value="other">Autres</SelectItem>
             </SelectContent>
           </Select>
+          
+          <Button 
+            variant="outline" 
+            size="sm"
+            className="h-12 px-4 border-gray-200 rounded-xl hover:bg-gray-50"
+          >
+            <SortAsc className="w-4 h-4" />
+          </Button>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

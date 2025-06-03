@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { AddPaymentMethodModal } from "@/components/modals/AddPaymentMethodModal";
 import { PaymentHeader } from "@/components/payments/PaymentHeader";
-import { PaymentStats } from "@/components/payments/PaymentStats";
+import { PaymentQuickStats } from "@/components/payments/PaymentQuickStats";
 import { PaymentSearch } from "@/components/payments/PaymentSearch";
 import { PaymentList } from "@/components/payments/PaymentList";
 
@@ -44,7 +44,7 @@ export function PaymentMethods() {
   ]);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoaded(true), 150);
+    const timer = setTimeout(() => setIsLoaded(true), 100);
     return () => clearTimeout(timer);
   }, []);
 
@@ -80,15 +80,19 @@ export function PaymentMethods() {
     console.log(`Supprimer le moyen de paiement ${paymentMethod.type}`);
   };
 
+  const handleAddPayment = () => {
+    setIsAddModalOpen(true);
+  };
+
   return (
-    <main className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50" role="main">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-12">
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-6xl mx-auto px-6 py-8">
         <PaymentHeader 
-          onAddPayment={() => setIsAddModalOpen(true)}
+          onAddPayment={handleAddPayment}
           isLoaded={isLoaded}
         />
         
-        <PaymentStats 
+        <PaymentQuickStats 
           paymentMethods={paymentMethods}
           isLoaded={isLoaded}
         />
@@ -106,6 +110,7 @@ export function PaymentMethods() {
           onEdit={handleEdit}
           onToggleDefault={handleToggleDefault}
           onDelete={handleDelete}
+          onAddPayment={handleAddPayment}
           isLoaded={isLoaded}
         />
       </div>
@@ -115,6 +120,6 @@ export function PaymentMethods() {
         onClose={() => setIsAddModalOpen(false)}
         onAdd={handleAddPaymentMethod}
       />
-    </main>
+    </div>
   );
 }

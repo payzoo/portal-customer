@@ -34,22 +34,26 @@ const typeInfoMap = {
   visa: {
     label: "Visa",
     icon: CreditCard,
-    gradient: "from-blue-500 to-blue-700",
+    color: "bg-blue-600",
+    pattern: "bg-gradient-to-br from-blue-500 to-blue-600"
   },
   mastercard: {
-    label: "Mastercard",
+    label: "Mastercard", 
     icon: CreditCard,
-    gradient: "from-red-500 to-red-700",
+    color: "bg-red-600",
+    pattern: "bg-gradient-to-br from-red-500 to-red-600"
   },
   paypal: {
     label: "PayPal",
     icon: Shield,
-    gradient: "from-yellow-500 to-yellow-700",
+    color: "bg-yellow-600",
+    pattern: "bg-gradient-to-br from-yellow-500 to-yellow-600"
   },
   other: {
     label: "Autre",
     icon: Smartphone,
-    gradient: "from-green-500 to-green-700",
+    color: "bg-gray-600",
+    pattern: "bg-gradient-to-br from-gray-500 to-gray-600"
   }
 };
 
@@ -65,95 +69,86 @@ export function PaymentCard({
 
   return (
     <Card 
-      className={`group relative overflow-hidden border-0 bg-white hover:bg-gray-50 transition-all duration-500 hover:scale-102 hover:shadow-2xl shadow-lg ${
-        isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+      className={`group bg-white border border-gray-100 rounded-2xl hover:shadow-lg transition-all duration-300 hover:-translate-y-1 ${
+        isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
       }`}
-      style={{ transitionDelay: `${index * 100 + 600}ms` }}
-      role="article"
-      aria-label={`Moyen de paiement ${typeInfo.label}`}
+      style={{ transitionDelay: `${index * 100 + 400}ms` }}
     >
-      <CardContent className="p-8">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-          <div className="flex items-center gap-6 flex-1 min-w-0">
-            <div className={`w-16 h-16 bg-gradient-to-br ${typeInfo.gradient} rounded-3xl flex items-center justify-center transition-all duration-300 group-hover:scale-110 shadow-lg flex-shrink-0`}>
-              <typeInfo.icon className="w-8 h-8 text-white" aria-hidden="true" />
+      <CardContent className="p-6">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-4 flex-1">
+            <div className={`w-14 h-14 ${typeInfo.pattern} rounded-2xl flex items-center justify-center shadow-lg`}>
+              <typeInfo.icon className="w-7 h-7 text-white" />
             </div>
+            
             <div className="flex-1 min-w-0">
-              <div className="flex flex-col lg:flex-row lg:items-center gap-3 mb-3">
-                <h3 className="text-xl font-semibold text-black tracking-tight truncate">{typeInfo.label}</h3>
+              <div className="flex items-center gap-3 mb-2">
+                <h3 className="text-lg font-semibold text-gray-900">{typeInfo.label}</h3>
                 {paymentMethod.isDefault && (
-                  <Badge className="px-4 py-2 rounded-full text-xs bg-black text-white border-0 self-start lg:self-auto">
-                    <Star className="w-3 h-3 mr-2 fill-current" aria-hidden="true" />
-                    Par défaut
+                  <Badge className="px-2 py-1 bg-black text-white text-xs rounded-lg">
+                    <Star className="w-3 h-3 mr-1 fill-current" />
+                    Principal
                   </Badge>
                 )}
               </div>
-              <div className="text-base font-medium text-gray-700 mb-2 truncate font-mono">
+              
+              <div className="text-gray-600 font-mono text-sm mb-1">
                 •••• •••• •••• {paymentMethod.accountNumber.slice(-4)}
               </div>
+              
               {paymentMethod.expiryDate && (
-                <div className="text-sm text-gray-500 font-medium">
-                  Expire le {paymentMethod.expiryDate}
+                <div className="text-xs text-gray-500">
+                  Expire {paymentMethod.expiryDate}
                 </div>
               )}
             </div>
           </div>
           
-          <div className="flex items-center justify-between lg:justify-end gap-4">
-            <div className="flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-all duration-300">
-              <Button 
-                variant="ghost" 
-                size="sm" 
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onEdit(paymentMethod);
-                }}
-                className="w-12 h-12 rounded-2xl hover:bg-gray-100 transition-all duration-300"
-                aria-label={`Modifier ${paymentMethod.type}`}
-              >
-                <Edit className="w-5 h-5" />
-              </Button>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    className="w-12 h-12 rounded-2xl hover:bg-gray-100 transition-all duration-300"
-                    onClick={(e) => e.stopPropagation()}
-                    aria-label={`Actions pour ${paymentMethod.type}`}
-                  >
-                    <MoreVertical className="w-5 h-5" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent 
-                  align="end" 
-                  className="w-60 bg-white border-0 rounded-3xl p-3 shadow-2xl"
+          <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+            <Button 
+              variant="ghost" 
+              size="sm"
+              onClick={() => onEdit(paymentMethod)}
+              className="w-9 h-9 rounded-xl hover:bg-gray-100"
+            >
+              <Edit className="w-4 h-4" />
+            </Button>
+            
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button 
+                  variant="ghost" 
+                  size="sm"
+                  className="w-9 h-9 rounded-xl hover:bg-gray-100"
                 >
-                  <DropdownMenuItem 
-                    onClick={() => onEdit(paymentMethod)}
-                    className="flex items-center gap-4 px-5 py-4 hover:bg-gray-50 rounded-2xl transition-colors duration-200 cursor-pointer"
-                  >
-                    <Edit className="w-5 h-5 text-gray-600" />
-                    <span className="text-gray-700 font-medium">Modifier</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem 
-                    onClick={() => onToggleDefault(paymentMethod)}
-                    className="flex items-center gap-4 px-5 py-4 hover:bg-gray-50 rounded-2xl transition-colors duration-200 cursor-pointer"
-                  >
-                    <Star className={`w-5 h-5 ${paymentMethod.isDefault ? 'text-black fill-current' : 'text-gray-400'}`} />
-                    <span className="text-gray-700 font-medium">{paymentMethod.isDefault ? 'Retirer par défaut' : 'Définir par défaut'}</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator className="my-3" />
-                  <DropdownMenuItem 
-                    onClick={() => onDelete(paymentMethod)}
-                    className="flex items-center gap-4 px-5 py-4 hover:bg-red-50 rounded-2xl transition-colors duration-200 cursor-pointer"
-                  >
-                    <Trash2 className="w-5 h-5 text-red-500" />
-                    <span className="text-red-600 font-medium">Supprimer</span>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
+                  <MoreVertical className="w-4 h-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48 bg-white border-gray-100 rounded-xl shadow-xl">
+                <DropdownMenuItem 
+                  onClick={() => onEdit(paymentMethod)}
+                  className="px-4 py-2.5 hover:bg-gray-50 rounded-lg cursor-pointer"
+                >
+                  <Edit className="w-4 h-4 mr-3 text-gray-500" />
+                  Modifier
+                </DropdownMenuItem>
+                <DropdownMenuItem 
+                  onClick={() => onToggleDefault(paymentMethod)}
+                  className="px-4 py-2.5 hover:bg-gray-50 rounded-lg cursor-pointer"
+                >
+                  <Star className={`w-4 h-4 mr-3 ${paymentMethod.isDefault ? 'text-yellow-500 fill-current' : 'text-gray-400'}`} />
+                  {paymentMethod.isDefault ? 'Retirer principal' : 'Définir principal'}
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem 
+                  onClick={() => onDelete(paymentMethod)}
+                  className="px-4 py-2.5 hover:bg-red-50 text-red-600 rounded-lg cursor-pointer"
+                >
+                  <Trash2 className="w-4 h-4 mr-3" />
+                  Supprimer
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
       </CardContent>
