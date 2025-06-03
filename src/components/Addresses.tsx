@@ -21,6 +21,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { AddAddressModal } from "@/components/modals/AddAddressModal";
 
 interface Address {
   id: number;
@@ -38,6 +39,7 @@ export function Addresses() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterType, setFilterType] = useState("all");
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [addresses, setAddresses] = useState<Address[]>([
     {
       id: 1,
@@ -129,6 +131,11 @@ export function Addresses() {
     }
   };
 
+  const handleAddAddress = (newAddress: Address) => {
+    setAddresses(prev => [...prev, newAddress]);
+    console.log('Nouvelle adresse ajoutée:', newAddress);
+  };
+
   const handleEdit = (address: Address) => {
     console.log(`Modifier l'adresse ${address.label}`);
   };
@@ -182,7 +189,10 @@ export function Addresses() {
               </div>
             </div>
             
-            <Button className="payzoo-btn-primary group">
+            <Button 
+              className="payzoo-btn-primary group"
+              onClick={() => setIsAddModalOpen(true)}
+            >
               <Plus className="w-4 h-4 group-hover:rotate-90 transition-transform duration-300" />
               Ajouter
               <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
@@ -416,6 +426,12 @@ export function Addresses() {
           )}
         </section>
       </div>
+
+      <AddAddressModal
+        isOpen={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
+        onAdd={handleAddAddress}
+      />
     </main>
   );
 }
