@@ -1,4 +1,3 @@
-
 import { Building2, Plus, Clock, TrendingUp, TrendingDown, CreditCard, Calendar, MoreVertical, Search, Filter, ArrowUpRight, CheckCircle2, Pause, AlertCircle, Eye, EyeOff, BarChart3, DollarSign, Activity, Settings, Edit, Trash2, Copy, Archive, RefreshCw, Brain, Stars } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -181,7 +180,11 @@ export function Subscriptions() {
     navigate(`/subscription/${subscriptionId}`);
   };
 
-  const handleDropdownAction = (action: string, subscriptionId: number) => {
+  const handleDropdownAction = (action: string, subscriptionId: number, event?: React.MouseEvent) => {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
     console.log(`Action ${action} pour l'abonnement ${subscriptionId}`);
     // Ici vous pourrez ajouter la logique pour chaque action
   };
@@ -439,57 +442,64 @@ export function Subscriptions() {
                             </span>
                           </div>
                           
-                          <div className="opacity-0 group-hover:opacity-100 transition-all duration-300">
+                          {/* Fixed dropdown positioning and animation */}
+                          <div className="opacity-0 group-hover:opacity-100 transition-all duration-300 relative">
                             <DropdownMenu>
                               <DropdownMenuTrigger asChild>
                                 <Button 
                                   variant="ghost" 
                                   size="sm" 
-                                  className="w-7 h-7 p-0 hover:bg-muted rounded-md"
-                                  onClick={(e) => e.stopPropagation()}
+                                  className="w-8 h-8 p-0 hover:bg-muted rounded-md transition-colors duration-200"
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                  }}
                                 >
-                                  <MoreVertical className="w-3 h-3" />
+                                  <MoreVertical className="w-4 h-4" />
                                 </Button>
                               </DropdownMenuTrigger>
                               <DropdownMenuContent 
                                 align="end" 
-                                className="w-44 z-50 bg-background border border-border rounded-lg shadow-xl"
-                                onClick={(e) => e.stopPropagation()}
+                                side="bottom"
+                                alignOffset={0}
+                                sideOffset={4}
+                                className="min-w-[180px] z-[100] bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2"
+                                onCloseAutoFocus={(e) => e.preventDefault()}
                               >
                                 <DropdownMenuItem 
-                                  className="flex items-center gap-2 px-3 py-2 rounded cursor-pointer"
-                                  onClick={() => handleDropdownAction('edit', subscription.id)}
+                                  className="flex items-center gap-2 px-3 py-2 text-sm cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+                                  onClick={(e) => handleDropdownAction('edit', subscription.id, e)}
                                 >
-                                  <Edit className="w-3 h-3" />
+                                  <Edit className="w-4 h-4" />
                                   Modifier
                                 </DropdownMenuItem>
                                 <DropdownMenuItem 
-                                  className="flex items-center gap-2 px-3 py-2 rounded cursor-pointer"
-                                  onClick={() => handleDropdownAction('duplicate', subscription.id)}
+                                  className="flex items-center gap-2 px-3 py-2 text-sm cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+                                  onClick={(e) => handleDropdownAction('duplicate', subscription.id, e)}
                                 >
-                                  <Copy className="w-3 h-3" />
+                                  <Copy className="w-4 h-4" />
                                   Dupliquer
                                 </DropdownMenuItem>
                                 <DropdownMenuItem 
-                                  className="flex items-center gap-2 px-3 py-2 rounded cursor-pointer"
-                                  onClick={() => handleDropdownAction('renew', subscription.id)}
+                                  className="flex items-center gap-2 px-3 py-2 text-sm cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+                                  onClick={(e) => handleDropdownAction('renew', subscription.id, e)}
                                 >
-                                  <RefreshCw className="w-3 h-3" />
+                                  <RefreshCw className="w-4 h-4" />
                                   Renouveler
                                 </DropdownMenuItem>
-                                <DropdownMenuSeparator />
+                                <DropdownMenuSeparator className="my-1 h-px bg-gray-200 dark:bg-gray-700" />
                                 <DropdownMenuItem 
-                                  className="flex items-center gap-2 px-3 py-2 text-muted-foreground rounded cursor-pointer"
-                                  onClick={() => handleDropdownAction('archive', subscription.id)}
+                                  className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-400 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+                                  onClick={(e) => handleDropdownAction('archive', subscription.id, e)}
                                 >
-                                  <Archive className="w-3 h-3" />
+                                  <Archive className="w-4 h-4" />
                                   Archiver
                                 </DropdownMenuItem>
                                 <DropdownMenuItem 
-                                  className="flex items-center gap-2 px-3 py-2 text-red-500 rounded cursor-pointer"
-                                  onClick={() => handleDropdownAction('delete', subscription.id)}
+                                  className="flex items-center gap-2 px-3 py-2 text-sm text-red-600 cursor-pointer hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors duration-200"
+                                  onClick={(e) => handleDropdownAction('delete', subscription.id, e)}
                                 >
-                                  <Trash2 className="w-3 h-3" />
+                                  <Trash2 className="w-4 h-4" />
                                   Supprimer
                                 </DropdownMenuItem>
                               </DropdownMenuContent>
