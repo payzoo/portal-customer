@@ -1,29 +1,22 @@
 
-import { Plus } from "lucide-react";
+import { AddSubscriptionModal } from "@/components/modals/AddSubscriptionModal";
 
-export function AddSubscriptionCard() {
-  const handleAddSubscription = () => {
-    console.log("Ajouter un nouvel abonnement");
+interface AddSubscriptionCardProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export function AddSubscriptionCard({ isOpen, onClose }: AddSubscriptionCardProps) {
+  const handleAddSubscription = (subscription: any) => {
+    console.log("Nouvel abonnement ajouté:", subscription);
+    // Here you would typically update the subscriptions list
   };
 
   return (
-    <div 
-      className="group py-12 border-b border-gray-50 hover:bg-gray-50/50 transition-colors cursor-pointer"
-      onClick={handleAddSubscription}
-    >
-      <div className="flex items-center justify-center">
-        <div className="flex items-center gap-6">
-          <div className="w-12 h-12 bg-black rounded-lg flex items-center justify-center group-hover:scale-105 transition-transform">
-            <Plus className="w-6 h-6 text-white" />
-          </div>
-          <div>
-            <h3 className="font-medium text-black mb-1">Ajouter un service</h3>
-            <p className="text-sm text-gray-400">
-              Nouveau service en quelques clics
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
+    <AddSubscriptionModal
+      isOpen={isOpen}
+      onClose={onClose}
+      onAdd={handleAddSubscription}
+    />
   );
 }
