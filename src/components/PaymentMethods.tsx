@@ -1,4 +1,4 @@
-import { CreditCard, Plus, MoreVertical, Wallet, TrendingUp, TrendingDown, Eye, EyeOff, Settings, Edit, Trash2, Shield, Zap, Sparkles, ArrowUpRight, CheckCircle2, AlertCircle, Clock, DollarSign, Activity, Star, Target, Brain, Cpu } from "lucide-react";
+import { CreditCard, Plus, MoreVertical, Wallet, TrendingUp, TrendingDown, Eye, EyeOff, Settings, Edit, Trash2, Shield, Zap, Sparkles, ArrowUpRight, CheckCircle2, AlertCircle, Clock, DollarSign, Activity, Star, Target, Brain, Cpu, ArrowRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -83,6 +83,39 @@ export function PaymentMethods() {
       default: return "Inconnue";
     }
   };
+
+  const quickActions = [
+    {
+      id: 1,
+      title: "Ajouter une carte",
+      description: "Nouvelle carte bancaire",
+      icon: CreditCard,
+      color: "from-blue-500/5 to-blue-600/10",
+      iconBg: "from-blue-500/10 to-blue-600/20",
+      iconColor: "text-blue-600",
+      accent: "border-blue-200/50"
+    },
+    {
+      id: 2,
+      title: "Compte bancaire",
+      description: "Connecter votre banque",
+      icon: Wallet,
+      color: "from-green-500/5 to-green-600/10",
+      iconBg: "from-green-500/10 to-green-600/20",
+      iconColor: "text-green-600",
+      accent: "border-green-200/50"
+    },
+    {
+      id: 3,
+      title: "Paramètres sécurité",
+      description: "Gérer la protection",
+      icon: Shield,
+      color: "from-purple-500/5 to-purple-600/10",
+      iconBg: "from-purple-500/10 to-purple-600/20",
+      iconColor: "text-purple-600",
+      accent: "border-purple-200/50"
+    }
+  ];
 
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
@@ -297,39 +330,72 @@ export function PaymentMethods() {
           </div>
         </div>
 
-        {/* Quick actions */}
-        <div className={`mt-12 transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '400ms' }}>
-          <h3 className="payzoo-subsection-title mb-6">Actions rapides</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Card className="group payzoo-card-interactive border-0 bg-gradient-to-br from-background to-blue-50/50 hover:shadow-lg transition-all duration-300 hover:scale-[1.02] cursor-pointer">
-              <CardContent className="payzoo-card-compact text-center">
-                <div className="w-12 h-12 bg-gradient-to-br from-blue-500/10 to-blue-600/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <CreditCard className="w-6 h-6 text-blue-600" />
-                </div>
-                <h4 className="font-medium text-foreground mb-2">Ajouter une carte</h4>
-                <p className="text-sm text-muted-foreground">Connectez une nouvelle carte bancaire</p>
-              </CardContent>
-            </Card>
-
-            <Card className="group payzoo-card-interactive border-0 bg-gradient-to-br from-background to-green-50/50 hover:shadow-lg transition-all duration-300 hover:scale-[1.02] cursor-pointer">
-              <CardContent className="payzoo-card-compact text-center">
-                <div className="w-12 h-12 bg-gradient-to-br from-green-500/10 to-green-600/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <Wallet className="w-6 h-6 text-green-600" />
-                </div>
-                <h4 className="font-medium text-foreground mb-2">Compte bancaire</h4>
-                <p className="text-sm text-muted-foreground">Connectez votre compte bancaire</p>
-              </CardContent>
-            </Card>
-
-            <Card className="group payzoo-card-interactive border-0 bg-gradient-to-br from-background to-purple-50/50 hover:shadow-lg transition-all duration-300 hover:scale-[1.02] cursor-pointer">
-              <CardContent className="payzoo-card-compact text-center">
-                <div className="w-12 h-12 bg-gradient-to-br from-purple-500/10 to-purple-600/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <Shield className="w-6 h-6 text-purple-600" />
-                </div>
-                <h4 className="font-medium text-foreground mb-2">Sécurité</h4>
-                <p className="text-sm text-muted-foreground">Gérez la sécurité de vos paiements</p>
-              </CardContent>
-            </Card>
+        {/* Innovative Quick Actions */}
+        <div className={`mt-16 transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '400ms' }}>
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <h3 className="payzoo-subsection-title mb-2">Actions rapides</h3>
+              <p className="text-sm text-muted-foreground">Ajoutez facilement de nouveaux moyens de paiement</p>
+            </div>
+            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+              Sécurisé
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {quickActions.map((action, index) => (
+              <Card 
+                key={action.id}
+                className={`group relative overflow-hidden border-0 bg-gradient-to-br ${action.color} backdrop-blur-sm transition-all duration-500 hover:scale-[1.03] hover:shadow-xl cursor-pointer ${action.accent}`}
+                style={{ animationDelay: `${500 + index * 100}ms` }}
+              >
+                <CardContent className="p-6 relative">
+                  {/* Subtle background pattern */}
+                  <div className="absolute inset-0 opacity-5">
+                    <div className="absolute top-2 right-2 w-16 h-16 border border-current rounded-2xl rotate-12"></div>
+                    <div className="absolute bottom-2 left-2 w-12 h-12 border border-current rounded-xl -rotate-12"></div>
+                  </div>
+                  
+                  <div className="relative space-y-4">
+                    <div className="flex items-start justify-between">
+                      <div className={`w-14 h-14 bg-gradient-to-br ${action.iconBg} rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+                        <action.icon className={`w-7 h-7 ${action.iconColor}`} />
+                      </div>
+                      <ArrowRight className="w-5 h-5 text-muted-foreground/60 group-hover:text-foreground group-hover:translate-x-1 transition-all duration-300" />
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <h4 className="font-semibold text-foreground group-hover:text-foreground/90 transition-colors">
+                        {action.title}
+                      </h4>
+                      <p className="text-sm text-muted-foreground/80 group-hover:text-muted-foreground transition-colors">
+                        {action.description}
+                      </p>
+                    </div>
+                    
+                    {/* Progress indicator */}
+                    <div className="pt-2">
+                      <div className="h-1 bg-muted/30 rounded-full overflow-hidden">
+                        <div className="h-full bg-gradient-to-r from-foreground/20 to-foreground/40 rounded-full w-0 group-hover:w-full transition-all duration-700 ease-out"></div>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+          
+          {/* Additional info */}
+          <div className="mt-8 p-4 bg-muted/20 rounded-2xl border border-border/50">
+            <div className="flex items-center gap-3 text-sm text-muted-foreground">
+              <Shield className="w-4 h-4 text-green-600" />
+              <span>Toutes vos données sont protégées par un chiffrement de niveau bancaire</span>
+              <div className="ml-auto flex items-center gap-1">
+                <Sparkles className="w-4 h-4 text-yellow-500" />
+                <span className="text-xs">Powered by AI</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
