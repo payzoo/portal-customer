@@ -1,5 +1,6 @@
 
-import { Search } from "lucide-react";
+import { Search, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface SearchBarProps {
   searchTerm: string;
@@ -9,20 +10,26 @@ interface SearchBarProps {
 
 export function SearchBar({ searchTerm, onSearchChange, isLoaded = false }: SearchBarProps) {
   return (
-    <div className={`relative w-full max-w-2xl mx-auto transition-all duration-700 delay-300 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+    <div className={`relative w-full max-w-lg transition-all duration-500 delay-300 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
       <div className="relative">
-        <Search 
-          className="absolute left-4 lg:left-5 top-1/2 transform -translate-y-1/2 w-4 h-4 lg:w-5 lg:h-5 text-gray-400 pointer-events-none" 
-          aria-hidden="true"
-        />
+        <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
         <input
           type="text"
           placeholder="Rechercher un abonnement..."
           value={searchTerm}
           onChange={(e) => onSearchChange(e.target.value)}
-          className="w-full pl-12 lg:pl-14 pr-4 lg:pr-6 py-4 lg:py-5 bg-white/70 backdrop-blur-xl border-0 rounded-2xl lg:rounded-3xl shadow-lg focus:shadow-2xl focus:bg-white/90 transition-all duration-500 outline-none focus:ring-2 focus:ring-blue-500/20 text-base lg:text-lg placeholder:text-gray-400"
-          aria-label="Rechercher un abonnement"
+          className="w-full pl-12 pr-12 py-3 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all duration-200"
         />
+        {searchTerm && (
+          <Button
+            variant="ghost"
+            size="sm"
+            className="absolute right-2 top-1/2 transform -translate-y-1/2 h-8 w-8 p-0 hover:bg-gray-100"
+            onClick={() => onSearchChange('')}
+          >
+            <X className="w-4 h-4" />
+          </Button>
+        )}
       </div>
     </div>
   );

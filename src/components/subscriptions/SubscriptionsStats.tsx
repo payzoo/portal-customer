@@ -1,5 +1,5 @@
 
-import { DollarSign, Play, Zap, TrendingUp } from "lucide-react";
+import { DollarSign, Users, TrendingUp, Activity } from "lucide-react";
 import { StatCard } from "@/components/subscriptions/StatCard";
 
 interface Subscription {
@@ -24,43 +24,40 @@ export function SubscriptionsStats({ subscriptions, isLoaded }: SubscriptionsSta
   const activeSubscriptions = subscriptions.filter(sub => sub.status === 'active').length;
   const trialSubscriptions = subscriptions.filter(sub => sub.status === 'trial').length;
   const totalMonthlyCost = subscriptions.reduce((acc, sub) => acc + parseFloat(sub.amount), 0);
+  const totalServices = subscriptions.length;
 
   return (
     <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
       <StatCard
         icon={DollarSign}
-        title="Total mensuel"
+        title="Coût mensuel"
         value={`${totalMonthlyCost.toFixed(2)} €`}
-        subtitle="Coût total"
+        subtitle="Total par mois"
         delay={100}
-        color="emerald"
         isLoaded={isLoaded}
       />
       <StatCard
-        icon={Play}
-        title="Actifs"
+        icon={Users}
+        title="Services actifs"
         value={activeSubscriptions.toString()}
-        subtitle="Abonnements"
+        subtitle="En cours"
         delay={200}
-        color="blue"
         isLoaded={isLoaded}
       />
       <StatCard
-        icon={Zap}
+        icon={Activity}
         title="En essai"
         value={trialSubscriptions.toString()}
         subtitle="Gratuits"
         delay={300}
-        color="amber"
         isLoaded={isLoaded}
       />
       <StatCard
         icon={TrendingUp}
-        title="Tendance"
-        value="+12%"
-        subtitle="Ce mois"
+        title="Total services"
+        value={totalServices.toString()}
+        subtitle="Configurés"
         delay={400}
-        color="purple"
         isLoaded={isLoaded}
       />
     </section>

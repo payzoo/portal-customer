@@ -18,9 +18,16 @@ interface Subscription {
 interface SubscriptionsListProps {
   subscriptions: Subscription[];
   isLoaded: boolean;
+  onEditSubscription?: (id: number) => void;
+  onDeleteSubscription?: (id: number) => void;
 }
 
-export function SubscriptionsList({ subscriptions, isLoaded }: SubscriptionsListProps) {
+export function SubscriptionsList({ 
+  subscriptions, 
+  isLoaded,
+  onEditSubscription,
+  onDeleteSubscription 
+}: SubscriptionsListProps) {
   if (subscriptions.length === 0) {
     return <EmptyState isLoaded={isLoaded} />;
   }
@@ -33,6 +40,8 @@ export function SubscriptionsList({ subscriptions, isLoaded }: SubscriptionsList
           subscription={subscription} 
           index={index}
           isLoaded={isLoaded}
+          onEdit={onEditSubscription}
+          onDelete={onDeleteSubscription}
         />
       ))}
     </section>

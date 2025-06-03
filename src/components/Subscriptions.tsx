@@ -5,11 +5,14 @@ import { SubscriptionsHeader } from "@/components/subscriptions/SubscriptionsHea
 import { SubscriptionsStats } from "@/components/subscriptions/SubscriptionsStats";
 import { SearchBar } from "@/components/subscriptions/SearchBar";
 import { SubscriptionsList } from "@/components/subscriptions/SubscriptionsList";
+import { useToast } from "@/hooks/use-toast";
 
 export function Subscriptions() {
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoaded, setIsLoaded] = useState(false);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const { toast } = useToast();
+
   const [subscriptions, setSubscriptions] = useState([
     {
       id: 1,
@@ -71,16 +74,43 @@ export function Subscriptions() {
     subscription.category.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50/30 relative overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-blue-100/15 rounded-full blur-3xl animate-pulse opacity-60" />
-        <div className="absolute bottom-20 right-10 w-64 h-64 bg-purple-100/15 rounded-full blur-3xl animate-pulse opacity-60" style={{ animationDelay: '2s' }} />
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-gradient-to-r from-blue-50/8 to-purple-50/8 rounded-full blur-3xl animate-pulse opacity-40" style={{ animationDelay: '1s' }} />
-      </div>
+  const handleAddSubscription = (newSubscription: any) => {
+    const subscription = {
+      ...newSubscription,
+      id: Date.now(),
+    };
+    setSubscriptions(prev => [...prev, subscription]);
+    setIsAddModalOpen(false);
+    toast({
+      title: "Abonnement ajouté",
+      description: `${subscription.name} a été ajouté avec succès.`,
+    });
+  };
 
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  const handleEditSubscription = (id: number) => {
+    const subscription = subscriptions.find(sub => sub.id === id);
+    if (subscription) {
+      toast({
+        title: "Édition",
+        description: `Édition de ${subscription.name} (fonctionnalité à venir)`,
+      });
+    }
+  };
+
+  const handleDeleteSubscription = (id: number) => {
+    const subscription = subscriptions.find(sub => sub.id === id);
+    if (subscription) {
+      setSubscriptions(prev => prev.filter(sub => sub.id !== id));
+      toast({
+        title: "Abonnement supprimé",
+        description: `${subscription.name} a été supprimé.`,
+      });
+    }
+  };
+
+  return (
+    <main className="min-h-screen bg-white">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
         <SubscriptionsHeader 
           isLoaded={isLoaded}
@@ -92,7 +122,7 @@ export function Subscriptions() {
           isLoaded={isLoaded}
         />
 
-        <div className="mb-6">
+        <div className="mb-8">
           <SearchBar 
             searchTerm={searchTerm}
             onSearchChange={setSearchTerm}
@@ -103,6 +133,8 @@ export function Subscriptions() {
         <SubscriptionsList 
           subscriptions={filteredSubscriptions}
           isLoaded={isLoaded}
+          onEditSubscription={handleEditSubscription}
+          onDeleteSubscription={handleDeleteSubscription}
         />
       </div>
 

@@ -1,22 +1,33 @@
 
-import { Search } from "lucide-react";
+import { Search, Plus } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 interface EmptyStateProps {
   isLoaded?: boolean;
+  onAddClick?: () => void;
 }
 
-export function EmptyState({ isLoaded = false }: EmptyStateProps) {
+export function EmptyState({ isLoaded = false, onAddClick }: EmptyStateProps) {
   return (
-    <Card className={`border-0 bg-white/70 backdrop-blur-xl transition-all duration-700 delay-400 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-      <CardContent className="p-12 lg:p-16 text-center">
-        <div className="w-16 h-16 lg:w-20 lg:h-20 bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl lg:rounded-3xl flex items-center justify-center mx-auto mb-6 lg:mb-8 shadow-lg">
-          <Search className="w-8 h-8 lg:w-10 lg:h-10 text-gray-400" aria-hidden="true" />
+    <Card className={`border border-gray-200 bg-white transition-all duration-500 delay-400 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+      <CardContent className="p-12 text-center">
+        <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-6">
+          <Search className="w-8 h-8 text-gray-400" />
         </div>
-        <h3 className="text-xl lg:text-2xl font-light text-gray-900 mb-3 lg:mb-4 tracking-tight">Aucun résultat</h3>
-        <p className="text-gray-600 text-base lg:text-lg font-medium max-w-md mx-auto">
-          Aucun abonnement ne correspond à votre recherche.
+        <h3 className="text-xl font-semibold text-black mb-2">Aucun abonnement trouvé</h3>
+        <p className="text-gray-600 mb-6 max-w-md mx-auto">
+          Commencez par ajouter votre premier abonnement pour suivre vos dépenses.
         </p>
+        {onAddClick && (
+          <Button 
+            className="bg-black hover:bg-gray-800 text-white px-6"
+            onClick={onAddClick}
+          >
+            <Plus className="w-4 h-4 mr-2" />
+            Ajouter un abonnement
+          </Button>
+        )}
       </CardContent>
     </Card>
   );
