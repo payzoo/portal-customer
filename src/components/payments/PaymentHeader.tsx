@@ -1,5 +1,5 @@
 
-import { Wallet, Plus, ArrowUpRight } from "lucide-react";
+import { Wallet, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface PaymentHeaderProps {
@@ -10,10 +10,10 @@ interface PaymentHeaderProps {
 export function PaymentHeader({ onAddPayment, isLoaded }: PaymentHeaderProps) {
   return (
     <header className={`mb-8 transition-all duration-500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-        <div className="space-y-4">
+      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+        <div className="space-y-6">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-black rounded-xl flex items-center justify-center">
+            <div className="w-12 h-12 bg-black rounded-2xl flex items-center justify-center">
               <Wallet className="w-6 h-6 text-white" />
             </div>
             <div className="flex items-center gap-2">
@@ -30,12 +30,11 @@ export function PaymentHeader({ onAddPayment, isLoaded }: PaymentHeaderProps) {
         </div>
         
         <Button 
-          className="group px-6 py-3 bg-black hover:bg-gray-800 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 self-start"
+          className="group px-8 py-4 bg-black hover:bg-gray-800 text-white rounded-2xl transition-all duration-300 transform hover:-translate-y-1 self-start lg:self-end"
           onClick={onAddPayment}
         >
           <Plus className="w-5 h-5 group-hover:rotate-90 transition-transform duration-300" />
-          <span className="text-base font-medium">Ajouter</span>
-          <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
+          <span className="text-base font-medium">Ajouter un moyen</span>
         </Button>
       </div>
     </header>

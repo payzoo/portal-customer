@@ -65,7 +65,7 @@ export function PaymentCard({
 
   return (
     <Card 
-      className={`group relative overflow-hidden border border-gray-200 bg-white hover:shadow-lg transition-all duration-500 hover:-translate-y-1 ${
+      className={`group relative overflow-hidden border border-gray-100 bg-white hover:border-gray-200 transition-all duration-500 hover:-translate-y-1 ${
         isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
       }`}
       style={{ animationDelay: `${index * 100}ms` }}
@@ -75,7 +75,7 @@ export function PaymentCard({
       <CardContent className="p-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-4 flex-1 min-w-0">
-            <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center transition-colors duration-300 group-hover:bg-black group-hover:text-white flex-shrink-0">
+            <div className="w-12 h-12 bg-gray-50 rounded-2xl flex items-center justify-center transition-colors duration-300 group-hover:bg-black group-hover:text-white flex-shrink-0">
               <typeInfo.icon className="w-6 h-6" aria-hidden="true" />
             </div>
             <div className="flex-1 min-w-0">
@@ -101,7 +101,7 @@ export function PaymentCard({
           
           <div className="flex items-center justify-between sm:justify-end gap-3">
             <Badge 
-              className={`px-4 py-2 rounded-xl text-sm bg-gray-100 text-gray-700 border-0 transition-all duration-300 group-hover:bg-gray-200`}
+              className={`px-4 py-2 rounded-xl text-sm bg-gray-50 text-gray-700 border-0 transition-all duration-300 group-hover:bg-gray-100`}
             >
               {typeInfo.label}
             </Badge>
@@ -114,7 +114,7 @@ export function PaymentCard({
                   e.stopPropagation();
                   onEdit(paymentMethod);
                 }}
-                className="w-10 h-10 rounded-xl hover:bg-gray-100 transition-all duration-300"
+                className="w-10 h-10 rounded-xl hover:bg-gray-50 transition-all duration-300"
                 aria-label={`Modifier ${paymentMethod.type}`}
               >
                 <Edit className="w-4 h-4" />
@@ -124,7 +124,7 @@ export function PaymentCard({
                   <Button 
                     variant="ghost" 
                     size="sm" 
-                    className="w-10 h-10 rounded-xl hover:bg-gray-100 transition-all duration-300"
+                    className="w-10 h-10 rounded-xl hover:bg-gray-50 transition-all duration-300"
                     onClick={(e) => e.stopPropagation()}
                     aria-label={`Actions pour ${paymentMethod.type}`}
                   >
@@ -133,7 +133,7 @@ export function PaymentCard({
                 </DropdownMenuTrigger>
                 <DropdownMenuContent 
                   align="end" 
-                  className="w-56 bg-white border border-gray-200 rounded-xl shadow-xl p-2"
+                  className="w-56 bg-white border border-gray-100 rounded-2xl p-2"
                 >
                   <DropdownMenuItem 
                     onClick={() => onEdit(paymentMethod)}

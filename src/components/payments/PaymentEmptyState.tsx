@@ -8,9 +8,9 @@ interface PaymentEmptyStateProps {
 
 export function PaymentEmptyState({ isLoaded = false }: PaymentEmptyStateProps) {
   return (
-    <Card className={`border border-gray-200 bg-white transition-all duration-500 delay-400 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+    <Card className={`border border-gray-100 bg-white transition-all duration-500 delay-400 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
       <CardContent className="p-12 text-center">
-        <div className="w-16 h-16 bg-gray-100 rounded-xl flex items-center justify-center mx-auto mb-6">
+        <div className="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
           <Search className="w-8 h-8 text-gray-400" aria-hidden="true" />
         </div>
         <h3 className="text-xl font-light text-black mb-3">Aucun résultat</h3>

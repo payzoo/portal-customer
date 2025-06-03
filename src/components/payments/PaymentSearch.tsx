@@ -30,15 +30,15 @@ export function PaymentSearch({
             placeholder="Rechercher un moyen de paiement..."
             value={searchTerm}
             onChange={(e) => onSearchChange(e.target.value)}
-            className="w-full pl-12 pr-4 py-4 bg-white border border-gray-200 rounded-xl shadow-sm focus:shadow-md focus:border-black transition-all duration-300 outline-none text-base placeholder:text-gray-400"
+            className="w-full pl-12 pr-4 py-4 bg-white border border-gray-100 rounded-2xl focus:border-black focus:outline-none transition-all duration-300 text-base placeholder:text-gray-400"
             aria-label="Rechercher un moyen de paiement"
           />
         </div>
         <Select value={filterType} onValueChange={onFilterChange}>
-          <SelectTrigger className="w-full sm:w-56 h-14 bg-white border border-gray-200 rounded-xl shadow-sm focus:shadow-md focus:border-black transition-all duration-300 text-base">
+          <SelectTrigger className="w-full sm:w-56 h-14 bg-white border border-gray-100 rounded-2xl focus:border-black transition-all duration-300 text-base">
             <SelectValue placeholder="Type de moyen" />
           </SelectTrigger>
-          <SelectContent className="bg-white border border-gray-200 rounded-xl shadow-xl">
+          <SelectContent className="bg-white border border-gray-100 rounded-2xl">
             <SelectItem value="all">Tous types</SelectItem>
             <SelectItem value="visa">Visa</SelectItem>
             <SelectItem value="mastercard">Mastercard</SelectItem>
