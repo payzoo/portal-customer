@@ -1,7 +1,6 @@
 
 import { LucideIcon } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Sparkles } from "lucide-react";
 
 interface AddressStatCardProps {
   icon: LucideIcon;
@@ -21,20 +20,24 @@ export function AddressStatCard({
   isLoaded = false 
 }: AddressStatCardProps) {
   return (
-    <Card className={`group relative overflow-hidden border-0 bg-white/60 backdrop-blur-xl hover:bg-white/80 transition-all duration-700 hover:shadow-2xl hover:-translate-y-2 ${
-      isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-    }`} 
-    style={{ transitionDelay: `${delay}ms` }}>
-      <CardContent className="p-8">
-        <div className="flex items-center justify-between mb-6">
-          <div className={`p-4 rounded-3xl bg-gradient-to-br from-${color}-50/80 to-${color}-100/80 group-hover:scale-110 transition-transform duration-500 shadow-lg`}>
-            <Icon className={`w-6 h-6 text-${color}-600`} />
+    <Card 
+      className={`group relative overflow-hidden border border-gray-200 bg-white hover:shadow-lg transition-all duration-500 hover:-translate-y-1 ${
+        isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+      }`} 
+      style={{ transitionDelay: `${delay}ms` }}
+      role="region"
+      aria-label={`Statistique ${label}: ${value}`}
+    >
+      <CardContent className="p-6">
+        <div className="flex items-center justify-between mb-4">
+          <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center group-hover:bg-black group-hover:text-white transition-colors duration-300">
+            <Icon className="w-6 h-6" aria-hidden="true" />
           </div>
-          <Sparkles className={`w-4 h-4 text-${color}-500/60 animate-pulse group-hover:opacity-100 transition-opacity duration-500`} />
+          <div className="w-2 h-2 rounded-full bg-black opacity-20 group-hover:opacity-100 transition-opacity duration-300" />
         </div>
-        <div className="space-y-2">
-          <div className="text-3xl font-light text-gray-900 tracking-tight">{value}</div>
-          <div className="text-sm font-medium text-gray-500 uppercase tracking-wider">{label}</div>
+        <div className="space-y-1">
+          <div className="text-2xl font-light text-black">{value}</div>
+          <div className="text-sm font-medium text-gray-500 uppercase tracking-wide">{label}</div>
         </div>
       </CardContent>
     </Card>

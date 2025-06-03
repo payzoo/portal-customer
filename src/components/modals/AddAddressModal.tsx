@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -15,9 +16,9 @@ interface AddAddressModalProps {
 }
 
 const addressTypes = [
-  { value: "home", label: "Domicile", icon: Home, color: "bg-blue-500" },
-  { value: "work", label: "Travail", icon: Building2, color: "bg-purple-500" },
-  { value: "other", label: "Autre", icon: MapPin, color: "bg-green-500" }
+  { value: "home", label: "Domicile", icon: Home, color: "bg-black" },
+  { value: "work", label: "Travail", icon: Building2, color: "bg-black" },
+  { value: "other", label: "Autre", icon: MapPin, color: "bg-black" }
 ];
 
 const countries = [
@@ -97,17 +98,17 @@ export function AddAddressModal({ isOpen, onClose, onAdd }: AddAddressModalProps
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="max-w-xl bg-white/95 backdrop-blur-sm border border-border/50 rounded-2xl shadow-2xl">
+      <DialogContent className="max-w-xl bg-white border border-gray-200 rounded-2xl shadow-2xl">
         <DialogHeader className="space-y-4 pb-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-black to-gray-800 rounded-xl flex items-center justify-center">
+            <div className="w-10 h-10 bg-black rounded-xl flex items-center justify-center">
               <MapPin className="w-5 h-5 text-white" />
             </div>
             <div>
-              <DialogTitle className="text-xl font-bold text-foreground">
+              <DialogTitle className="text-xl font-bold text-black">
                 Nouvelle adresse
               </DialogTitle>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-gray-600">
                 Ajoutez une adresse à votre carnet
               </p>
             </div>
@@ -115,67 +116,66 @@ export function AddAddressModal({ isOpen, onClose, onAdd }: AddAddressModalProps
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Informations principales */}
           <div className="space-y-4">
             <div>
-              <label className="text-sm font-medium text-foreground mb-2 block">
+              <Label className="text-sm font-medium text-black mb-2 block">
                 Libellé *
-              </label>
+              </Label>
               <Input
                 value={formData.label}
                 onChange={(e) => updateFormData('label', e.target.value)}
                 placeholder="Ex: Maison, Bureau, Chez mes parents..."
-                className={`h-11 ${errors.label ? 'border-red-400 focus:border-red-400' : 'border-border/30 focus:border-black'}`}
+                className={`h-11 ${errors.label ? 'border-red-400 focus:border-red-400' : 'border-gray-200 focus:border-black'}`}
               />
               {errors.label && <p className="text-red-500 text-xs mt-1">{errors.label}</p>}
             </div>
 
             <div>
-              <label className="text-sm font-medium text-foreground mb-2 block">
+              <Label className="text-sm font-medium text-black mb-2 block">
                 Adresse complète *
-              </label>
+              </Label>
               <Input
                 value={formData.street}
                 onChange={(e) => updateFormData('street', e.target.value)}
                 placeholder="Numéro et nom de rue"
-                className={`h-11 ${errors.street ? 'border-red-400 focus:border-red-400' : 'border-border/30 focus:border-black'}`}
+                className={`h-11 ${errors.street ? 'border-red-400 focus:border-red-400' : 'border-gray-200 focus:border-black'}`}
               />
               {errors.street && <p className="text-red-500 text-xs mt-1">{errors.street}</p>}
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="text-sm font-medium text-foreground mb-2 block">
+                <Label className="text-sm font-medium text-black mb-2 block">
                   Ville *
-                </label>
+                </Label>
                 <Input
                   value={formData.city}
                   onChange={(e) => updateFormData('city', e.target.value)}
                   placeholder="Ville"
-                  className={`h-11 ${errors.city ? 'border-red-400 focus:border-red-400' : 'border-border/30 focus:border-black'}`}
+                  className={`h-11 ${errors.city ? 'border-red-400 focus:border-red-400' : 'border-gray-200 focus:border-black'}`}
                 />
                 {errors.city && <p className="text-red-500 text-xs mt-1">{errors.city}</p>}
               </div>
               <div>
-                <label className="text-sm font-medium text-foreground mb-2 block">
+                <Label className="text-sm font-medium text-black mb-2 block">
                   Code postal *
-                </label>
+                </Label>
                 <Input
                   value={formData.zipCode}
                   onChange={(e) => updateFormData('zipCode', e.target.value)}
                   placeholder="Code postal"
-                  className={`h-11 ${errors.zipCode ? 'border-red-400 focus:border-red-400' : 'border-border/30 focus:border-black'}`}
+                  className={`h-11 ${errors.zipCode ? 'border-red-400 focus:border-red-400' : 'border-gray-200 focus:border-black'}`}
                 />
                 {errors.zipCode && <p className="text-red-500 text-xs mt-1">{errors.zipCode}</p>}
               </div>
             </div>
 
             <div>
-              <label className="text-sm font-medium text-foreground mb-2 block">
+              <Label className="text-sm font-medium text-black mb-2 block">
                 Pays
-              </label>
+              </Label>
               <Select value={formData.country} onValueChange={(value) => updateFormData('country', value)}>
-                <SelectTrigger className="h-11 border-border/30 focus:border-black">
+                <SelectTrigger className="h-11 border-gray-200 focus:border-black">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -189,9 +189,9 @@ export function AddAddressModal({ isOpen, onClose, onAdd }: AddAddressModalProps
             </div>
 
             <div>
-              <label className="text-sm font-medium text-foreground mb-3 block">
+              <Label className="text-sm font-medium text-black mb-3 block">
                 Type d'adresse
-              </label>
+              </Label>
               <div className="grid grid-cols-3 gap-3">
                 {addressTypes.map((type) => (
                   <button
@@ -201,7 +201,7 @@ export function AddAddressModal({ isOpen, onClose, onAdd }: AddAddressModalProps
                     className={`p-4 rounded-xl border-2 transition-all duration-200 hover:scale-105 ${
                       formData.type === type.value
                         ? 'border-black bg-black/5'
-                        : 'border-border/30 hover:border-border/50'
+                        : 'border-gray-200 hover:border-gray-300'
                     }`}
                   >
                     <div className="flex flex-col items-center gap-2">
@@ -215,7 +215,6 @@ export function AddAddressModal({ isOpen, onClose, onAdd }: AddAddressModalProps
               </div>
             </div>
 
-            {/* Options */}
             <div className="space-y-3 pt-2">
               <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
                 <div className="flex items-center gap-3">
@@ -241,7 +240,6 @@ export function AddAddressModal({ isOpen, onClose, onAdd }: AddAddressModalProps
             </div>
           </div>
 
-          {/* Aperçu */}
           {formData.label && formData.street && (
             <div className="p-4 bg-gray-50 rounded-xl border border-gray-200">
               <p className="text-sm font-medium text-gray-600 mb-3">Aperçu</p>
@@ -251,17 +249,17 @@ export function AddAddressModal({ isOpen, onClose, onAdd }: AddAddressModalProps
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="font-semibold text-foreground">{formData.label}</span>
+                    <span className="font-semibold text-black">{formData.label}</span>
                     {formData.isDefault && (
                       <Badge variant="secondary" className="text-xs">
                         Par défaut
                       </Badge>
                     )}
                     {formData.isFavorite && (
-                      <Star className="w-3 h-3 text-yellow-500 fill-current" />
+                      <Star className="w-3 h-3 text-black fill-current" />
                     )}
                   </div>
-                  <div className="text-sm text-muted-foreground">
+                  <div className="text-sm text-gray-600">
                     {formData.street}
                     {formData.city && `, ${formData.city}`}
                     {formData.zipCode && ` ${formData.zipCode}`}
@@ -271,8 +269,7 @@ export function AddAddressModal({ isOpen, onClose, onAdd }: AddAddressModalProps
             </div>
           )}
 
-          {/* Actions */}
-          <div className="flex items-center justify-end gap-3 pt-4 border-t border-border/20">
+          <div className="flex items-center justify-end gap-3 pt-4 border-t border-gray-200">
             <Button
               type="button"
               variant="ghost"
@@ -283,7 +280,7 @@ export function AddAddressModal({ isOpen, onClose, onAdd }: AddAddressModalProps
             </Button>
             <Button
               type="submit"
-              className="h-11 px-6 bg-gradient-to-r from-black to-gray-800 hover:from-gray-800 hover:to-black text-white"
+              className="h-11 px-6 bg-black hover:bg-gray-800 text-white"
             >
               <Plus className="w-4 h-4 mr-2" />
               Ajouter

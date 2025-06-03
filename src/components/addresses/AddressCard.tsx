@@ -42,33 +42,25 @@ export function AddressCard({
         return {
           label: "Domicile",
           icon: Home,
-          color: "bg-blue-500",
-          bgColor: "bg-blue-50",
-          textColor: "text-blue-700",
+          color: "bg-black",
         };
       case "work":
         return {
           label: "Travail",
           icon: Building2,
-          color: "bg-purple-500",
-          bgColor: "bg-purple-50",
-          textColor: "text-purple-700",
+          color: "bg-black",
         };
       case "other":
         return {
           label: "Autre",
           icon: MapPin,
-          color: "bg-green-500",
-          bgColor: "bg-green-50",
-          textColor: "text-green-700",
+          color: "bg-black",
         };
       default:
         return {
           label: "Inconnu",
           icon: MapPin,
-          color: "bg-gray-500",
-          bgColor: "bg-gray-50",
-          textColor: "text-gray-700",
+          color: "bg-black",
         };
     }
   };
@@ -77,25 +69,25 @@ export function AddressCard({
 
   return (
     <Card 
-      className="group relative overflow-hidden border-0 bg-white/70 backdrop-blur-xl hover:bg-white/90 transition-all duration-500 hover:shadow-2xl hover:-translate-y-1 animate-fade-in"
+      className="group relative overflow-hidden border border-gray-200 bg-white hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
       style={{ animationDelay: `${index * 100}ms` }}
     >
-      <CardContent className="p-8">
+      <CardContent className="p-6">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-6 flex-1">
-            <div className={`w-14 h-14 ${typeInfo.color} rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:shadow-xl transition-all duration-500`}>
-              <typeInfo.icon className="w-7 h-7 text-white" />
+          <div className="flex items-center gap-4 flex-1">
+            <div className={`w-12 h-12 ${typeInfo.color} rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110`}>
+              <typeInfo.icon className="w-6 h-6 text-white" />
             </div>
             <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-4 mb-3">
-                <h3 className="text-xl font-semibold text-gray-900 tracking-tight">{address.label}</h3>
+              <div className="flex items-center gap-3 mb-2">
+                <h3 className="text-lg font-semibold text-black tracking-tight">{address.label}</h3>
                 {address.isDefault && (
-                  <Badge className="px-3 py-1 rounded-full text-xs bg-gray-900/10 text-gray-900 border-0 font-medium">
+                  <Badge className="px-3 py-1 rounded-full text-xs bg-black text-white border-0 font-medium">
                     Par défaut
                   </Badge>
                 )}
                 {address.isFavorite && (
-                  <Star className="w-5 h-5 text-yellow-500 fill-current animate-pulse" />
+                  <Star className="w-4 h-4 text-black fill-current" />
                 )}
               </div>
               <div className="text-gray-700 font-medium mb-1">
@@ -107,14 +99,14 @@ export function AddressCard({
             </div>
           </div>
           
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <Badge 
-              className={`px-4 py-2 rounded-full text-sm font-medium ${typeInfo.bgColor} ${typeInfo.textColor} border-0 shadow-sm group-hover:scale-105 transition-transform duration-300`}
+              className="px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-700 border-0"
             >
               {typeInfo.label}
             </Badge>
             
-            <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-2 group-hover:translate-x-0">
+            <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
               <Button 
                 variant="ghost" 
                 size="sm" 
@@ -122,7 +114,7 @@ export function AddressCard({
                   e.stopPropagation();
                   onEdit(address);
                 }}
-                className="h-10 w-10 rounded-xl hover:bg-gray-100/80 hover:scale-110 transition-all duration-300"
+                className="h-9 w-9 rounded-xl hover:bg-gray-100 transition-all duration-300"
                 aria-label={`Modifier ${address.label}`}
               >
                 <Edit className="w-4 h-4" />
@@ -132,7 +124,7 @@ export function AddressCard({
                   <Button 
                     variant="ghost" 
                     size="sm" 
-                    className="h-10 w-10 rounded-xl hover:bg-gray-100/80 hover:scale-110 transition-all duration-300"
+                    className="h-9 w-9 rounded-xl hover:bg-gray-100 transition-all duration-300"
                     onClick={(e) => e.stopPropagation()}
                     aria-label={`Actions pour ${address.label}`}
                   >
@@ -141,40 +133,40 @@ export function AddressCard({
                 </DropdownMenuTrigger>
                 <DropdownMenuContent 
                   align="end" 
-                  className="w-48 bg-white/95 backdrop-blur-xl border border-gray-200/50 rounded-2xl shadow-2xl"
+                  className="w-48 bg-white border border-gray-200 rounded-xl shadow-xl p-2"
                 >
                   <DropdownMenuItem 
                     onClick={() => onEdit(address)}
-                    className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50/80 rounded-xl transition-colors duration-200 m-1"
+                    className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 rounded-xl transition-colors duration-200 cursor-pointer"
                   >
                     <Edit className="w-4 h-4" />
                     <span>Modifier</span>
                   </DropdownMenuItem>
                   <DropdownMenuItem 
                     onClick={() => onCopy(address)}
-                    className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50/80 rounded-xl transition-colors duration-200 m-1"
+                    className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 rounded-xl transition-colors duration-200 cursor-pointer"
                   >
                     <Copy className="w-4 h-4" />
                     <span>Copier</span>
                   </DropdownMenuItem>
                   <DropdownMenuItem 
                     onClick={() => onToggleFavorite(address)}
-                    className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50/80 rounded-xl transition-colors duration-200 m-1"
+                    className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 rounded-xl transition-colors duration-200 cursor-pointer"
                   >
-                    <Star className={`w-4 h-4 ${address.isFavorite ? 'text-yellow-500 fill-current' : 'text-gray-400'}`} />
+                    <Star className={`w-4 h-4 ${address.isFavorite ? 'text-black fill-current' : 'text-gray-400'}`} />
                     <span>{address.isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris'}</span>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator className="mx-2" />
                   <DropdownMenuItem 
                     onClick={() => onArchive(address)}
-                    className="flex items-center gap-3 px-4 py-3 hover:bg-yellow-50/80 rounded-xl transition-colors duration-200 m-1"
+                    className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 rounded-xl transition-colors duration-200 cursor-pointer"
                   >
-                    <Archive className="w-4 h-4 text-yellow-600" />
-                    <span className="text-yellow-700">Archiver</span>
+                    <Archive className="w-4 h-4 text-gray-600" />
+                    <span className="text-gray-700">Archiver</span>
                   </DropdownMenuItem>
                   <DropdownMenuItem 
                     onClick={() => onDelete(address)}
-                    className="flex items-center gap-3 px-4 py-3 hover:bg-red-50/80 rounded-xl transition-colors duration-200 m-1"
+                    className="flex items-center gap-3 px-4 py-3 hover:bg-red-50 rounded-xl transition-colors duration-200 cursor-pointer"
                   >
                     <Trash2 className="w-4 h-4 text-red-500" />
                     <span className="text-red-600">Supprimer</span>
