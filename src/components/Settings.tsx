@@ -1,5 +1,5 @@
 
-import { User, Shield, Bell, HelpCircle, LogOut, Globe, CheckCircle, AlertCircle, MapPin, CreditCard, Key, Smartphone, FileText, MessageCircle, Mail, Phone, Search, ChevronRight, Users, Lock, Eye, EyeOff } from "lucide-react";
+import { User, Shield, Bell, HelpCircle, LogOut, Globe, CheckCircle, AlertCircle, MapPin, CreditCard, Key, Smartphone, FileText, MessageCircle, Mail, Phone, Search, ChevronRight, Users, Lock, Eye, EyeOff, Brain, ArrowUpRight, Plus, Sparkles } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
@@ -115,33 +115,60 @@ export function Settings() {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/5">
-      <div className="max-w-4xl mx-auto p-8 space-y-8">
+    <div className="min-h-screen bg-background relative overflow-hidden">
+      {/* Floating geometric elements - consistent with other components */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-20 left-10 w-32 h-32 border border-border/20 rounded-3xl rotate-12 animate-[float_6s_ease-in-out_infinite]"></div>
+        <div className="absolute bottom-32 right-16 w-24 h-24 border border-border/30 rounded-2xl -rotate-12 animate-[float_8s_ease-in-out_infinite] opacity-60" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute top-1/2 left-1/4 w-16 h-16 border border-border/25 rounded-xl rotate-45 animate-[float_7s_ease-in-out_infinite]" style={{ animationDelay: '4s' }}></div>
+        <div className="absolute top-32 right-1/3 w-20 h-20 border border-border/20 rounded-full animate-[float_9s_ease-in-out_infinite] opacity-40" style={{ animationDelay: '1s' }}></div>
+      </div>
+
+      <div className="payzoo-page-container relative z-10">
         
-        {/* Enhanced Modern Header */}
-        <div className={`transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
-          <div className="flex items-center justify-between mb-8">
-            <div className="space-y-2">
-              <h1 className="text-4xl font-light text-foreground tracking-tight leading-tight">
-                Paramètres
-              </h1>
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                Gérez votre compte et personnalisez votre expérience
-              </p>
+        {/* Modern header section - consistent with other components */}
+        <div className={`mb-12 transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+          <div className="flex items-start justify-between">
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="p-2.5 bg-foreground rounded-xl shadow-sm">
+                  <User className="w-6 h-6 text-background" />
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 bg-purple-500 rounded-full animate-pulse"></div>
+                  <span className="text-sm font-medium text-purple-600">Smart Settings</span>
+                </div>
+              </div>
+              <div>
+                <h1 className="text-3xl font-bold text-foreground mb-2">Paramètres</h1>
+                <p className="text-muted-foreground flex items-center gap-2">
+                  <Brain className="w-4 h-4" />
+                  Gérez votre compte et personnalisez votre expérience
+                </p>
+              </div>
             </div>
-            <div className="w-16 h-16 bg-gradient-to-br from-foreground to-foreground/80 rounded-2xl flex items-center justify-center text-background font-bold text-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
-              {currentUserData.avatar}
-            </div>
+            
+            {/* Minimal modern CTA */}
+            <Button 
+              className="group bg-foreground hover:bg-foreground/90 text-background px-5 py-2.5 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg border-0"
+            >
+              <Plus className="w-4 h-4 mr-2 group-hover:rotate-90 transition-transform duration-300" />
+              Ajouter
+              <ArrowUpRight className="w-4 h-4 ml-2 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
+            </Button>
           </div>
-          
-          {/* Enhanced Search Bar */}
+        </div>
+
+        {/* Search bar - consistent with other components */}
+        <div className={`mb-8 transition-all duration-700 delay-100 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
           <div className="relative max-w-md">
             <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
-            <Input
+            <input
+              type="text"
               placeholder="Rechercher dans les paramètres..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="h-12 pl-12 pr-4 bg-card/50 backdrop-blur-sm border border-border/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-foreground/20 focus:border-foreground/50 transition-all duration-300"
+              className="w-full h-12 pl-12 pr-4 bg-card/50 backdrop-blur-sm border border-border/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-foreground/20 focus:border-foreground/50 transition-all duration-300 text-foreground placeholder:text-muted-foreground"
             />
           </div>
         </div>
@@ -149,7 +176,7 @@ export function Settings() {
         <div className="space-y-8">
           
           {/* Enhanced Profile Card */}
-          <Card className={`group border border-border/50 bg-card/50 backdrop-blur-sm hover:bg-card/70 hover:border-border/70 transition-all duration-500 hover:shadow-xl hover:-translate-y-1 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '100ms' }}>
+          <Card className={`group border-0 bg-card/50 backdrop-blur-sm hover:bg-card/80 hover:border-border/70 transition-all duration-500 hover:shadow-xl hover:-translate-y-1 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '200ms' }}>
             <CardContent className="p-8">
               <div className="flex items-center gap-6 mb-6">
                 <div className="w-20 h-20 bg-gradient-to-br from-foreground to-foreground/80 rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl group-hover:scale-105 transition-all duration-300">
@@ -170,7 +197,7 @@ export function Settings() {
                     </div>
                   </div>
                 </div>
-                <Button className="payzoo-btn-secondary group-hover:bg-foreground group-hover:text-background transition-all duration-300">
+                <Button className="bg-foreground/10 hover:bg-foreground hover:text-background text-foreground border-0 group-hover:bg-foreground group-hover:text-background transition-all duration-300">
                   Modifier le profil
                 </Button>
               </div>
@@ -178,7 +205,7 @@ export function Settings() {
           </Card>
 
           {/* Enhanced KYC Section */}
-          <Card className={`border border-border/50 bg-card/50 backdrop-blur-sm hover:bg-card/70 hover:border-border/70 transition-all duration-500 hover:shadow-xl ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '200ms' }}>
+          <Card className={`border-0 bg-card/50 backdrop-blur-sm hover:bg-card/80 hover:border-border/70 transition-all duration-500 hover:shadow-xl ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '300ms' }}>
             <CardContent className="p-8">
               <div className="flex items-center justify-between mb-8">
                 <div>
@@ -192,7 +219,7 @@ export function Settings() {
                       <div className="h-full bg-foreground rounded-full transition-all duration-1000 ease-out" style={{ width: '53%' }}></div>
                     </div>
                   </div>
-                  <Button className="payzoo-btn-primary hover:scale-105 transition-transform duration-200">
+                  <Button className="bg-foreground hover:bg-foreground/90 text-background hover:scale-105 transition-transform duration-200 border-0">
                     Continuer
                   </Button>
                 </div>
@@ -231,7 +258,7 @@ export function Settings() {
 
           {/* Enhanced Settings Sections */}
           {filteredCategories.map((category, categoryIndex) => (
-            <Card key={category.category} className={`border border-border/50 bg-card/50 backdrop-blur-sm hover:bg-card/70 hover:border-border/70 transition-all duration-500 hover:shadow-xl ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: `${300 + categoryIndex * 100}ms` }}>
+            <Card key={category.category} className={`border-0 bg-card/50 backdrop-blur-sm hover:bg-card/80 hover:border-border/70 transition-all duration-500 hover:shadow-xl ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: `${400 + categoryIndex * 100}ms` }}>
               <CardContent className="p-8">
                 <h3 className="text-xl font-light text-foreground mb-6 tracking-tight">
                   {category.category}
@@ -272,7 +299,7 @@ export function Settings() {
           ))}
 
           {/* Enhanced Support Section */}
-          <Card className={`border border-border/50 bg-card/50 backdrop-blur-sm hover:bg-card/70 hover:border-border/70 transition-all duration-500 hover:shadow-xl ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '600ms' }}>
+          <Card className={`border-0 bg-card/50 backdrop-blur-sm hover:bg-card/80 hover:border-border/70 transition-all duration-500 hover:shadow-xl ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '700ms' }}>
             <CardContent className="p-8">
               <h3 className="text-xl font-light text-foreground mb-6 tracking-tight">
                 Support
@@ -302,7 +329,7 @@ export function Settings() {
           </Card>
 
           {/* Enhanced Actions Section */}
-          <Card className={`border border-border/50 bg-card/50 backdrop-blur-sm hover:bg-card/70 hover:border-border/70 transition-all duration-500 hover:shadow-xl ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '700ms' }}>
+          <Card className={`border-0 bg-card/50 backdrop-blur-sm hover:bg-card/80 hover:border-border/70 transition-all duration-500 hover:shadow-xl ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '800ms' }}>
             <CardContent className="p-8">
               <h3 className="text-xl font-light text-foreground mb-6 tracking-tight">
                 Actions
