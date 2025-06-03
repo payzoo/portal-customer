@@ -11,7 +11,8 @@ import RegisterFooter from "@/components/auth/RegisterFooter";
 const RegisterPage = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [fullName, setFullName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [countryCode, setCountryCode] = useState("+33");
   const [isFormValid, setIsFormValid] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -42,14 +43,14 @@ const RegisterPage = () => {
     return phone.length >= 10;
   };
 
-  const validateFullName = (name: string) => {
+  const validateName = (name: string) => {
     return name.trim().length >= 2;
   };
 
   useEffect(() => {
-    const isValid = validateEmail(email) && validatePhone(phone) && validateFullName(fullName);
+    const isValid = validateEmail(email) && validatePhone(phone) && validateName(firstName) && validateName(lastName);
     setIsFormValid(isValid);
-  }, [email, phone, fullName]);
+  }, [email, phone, firstName, lastName]);
 
   const handleRegister = () => {
     if (isFormValid) {
@@ -78,14 +79,25 @@ const RegisterPage = () => {
           }`} style={{ transitionDelay: '600ms' }}>
             
             <FormField
-              id="fullName"
-              label="Nom complet"
+              id="firstName"
+              label="Prénom"
               type="text"
-              placeholder="Votre nom complet"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
+              placeholder="Votre prénom"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
               icon={User}
-              isValid={validateFullName(fullName)}
+              isValid={validateName(firstName)}
+            />
+
+            <FormField
+              id="lastName"
+              label="Nom"
+              type="text"
+              placeholder="Votre nom"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              icon={User}
+              isValid={validateName(lastName)}
             />
 
             <FormField
