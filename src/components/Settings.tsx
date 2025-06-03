@@ -1,4 +1,3 @@
-
 import { User, Shield, Bell, HelpCircle, Globe, CheckCircle, AlertCircle, MapPin, CreditCard, Key, Smartphone, FileText, MessageCircle, Mail, Phone, Search, ChevronRight, Users, Brain } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -54,9 +53,8 @@ export function Settings() {
     {
       category: "Compte",
       items: [
-        { icon: User, title: "Profil", description: "Informations personnelles" },
-        { icon: Mail, title: "Email", description: currentUserData.email },
-        { icon: Phone, title: "Téléphone", description: currentUserData.phone },
+        { icon: User, title: "Informations personnelles", description: "Gérer vos données de profil" },
+        { icon: Globe, title: "Préférences de langue", description: "Français (France)" },
       ]
     },
     {
@@ -70,8 +68,8 @@ export function Settings() {
     {
       category: "Préférences",
       items: [
-        { icon: Globe, title: "Langue", description: "Français" },
-        { icon: Bell, title: "Notifications", description: "Gérer les alertes" },
+        { icon: Bell, title: "Notifications", description: "Gérer les alertes et communications" },
+        { icon: FileText, title: "Confidentialité", description: "Paramètres de confidentialité" },
       ]
     }
   ];
@@ -199,7 +197,7 @@ export function Settings() {
             </CardContent>
           </Card>
 
-          {/* KYC Section - remove hover effects */}
+          {/* KYC Section */}
           <Card className={`border-0 bg-card/50 backdrop-blur-sm transition-all duration-500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '300ms' }}>
             <CardContent className="p-8">
               <div className="flex items-center justify-between mb-8">
@@ -251,7 +249,7 @@ export function Settings() {
             </CardContent>
           </Card>
 
-          {/* Settings Sections - remove hover effects */}
+          {/* Settings Sections */}
           {filteredCategories.map((category, categoryIndex) => (
             <Card key={category.category} className={`border-0 bg-card/50 backdrop-blur-sm transition-all duration-500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: `${400 + categoryIndex * 100}ms` }}>
               <CardContent className="p-8">
@@ -293,7 +291,7 @@ export function Settings() {
             </Card>
           ))}
 
-          {/* Support Section - remove hover effects */}
+          {/* Support Section */}
           {filteredSupportItems.length > 0 && (
             <Card className={`border-0 bg-card/50 backdrop-blur-sm transition-all duration-500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '700ms' }}>
               <CardContent className="p-8">
