@@ -6,7 +6,7 @@ import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export function Settings() {
   const [pushNotifications, setPushNotifications] = useState(true);
@@ -14,6 +14,14 @@ export function Settings() {
   const [transactionAlerts, setTransactionAlerts] = useState(true);
   const [twoFactorEnabled, setTwoFactorEnabled] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   const currentUserData = {
     firstName: "John",
@@ -99,114 +107,121 @@ export function Settings() {
     }
   };
 
+  const filteredCategories = menuItems.filter(category =>
+    category.items.some(item => 
+      item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.description.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  );
+
   return (
-    <div className="min-h-screen bg-white">
-      <div className="max-w-4xl mx-auto p-6">
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/5">
+      <div className="max-w-4xl mx-auto p-8 space-y-8">
         
-        {/* Header unifié */}
-        <div className="mb-12">
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <h1 className="text-3xl font-bold payzoo-secondary-text mb-2">
+        {/* Enhanced Modern Header */}
+        <div className={`transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+          <div className="flex items-center justify-between mb-8">
+            <div className="space-y-2">
+              <h1 className="text-4xl font-light text-foreground tracking-tight leading-tight">
                 Paramètres
               </h1>
-              <p className="payzoo-subtitle text-base">
-                Gérez votre compte et vos préférences
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                Gérez votre compte et personnalisez votre expérience
               </p>
             </div>
-            <div className="w-12 h-12 payzoo-secondary-bg rounded-xl flex items-center justify-center text-white font-bold shadow-sm">
+            <div className="w-16 h-16 bg-gradient-to-br from-foreground to-foreground/80 rounded-2xl flex items-center justify-center text-background font-bold text-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
               {currentUserData.avatar}
             </div>
           </div>
           
-          {/* Search Bar */}
-          <div className="relative max-w-sm">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+          {/* Enhanced Search Bar */}
+          <div className="relative max-w-md">
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
             <Input
-              placeholder="Rechercher..."
+              placeholder="Rechercher dans les paramètres..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10 h-10 bg-gray-50 border-0 focus:bg-white payzoo-focus rounded-lg"
+              className="h-12 pl-12 pr-4 bg-card/50 backdrop-blur-sm border border-border/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-foreground/20 focus:border-foreground/50 transition-all duration-300"
             />
           </div>
         </div>
 
-        <div className="space-y-6">
+        <div className="space-y-8">
           
-          {/* Profile Card avec palette unifiée */}
-          <Card className="border-0 shadow-sm bg-gray-50">
-            <CardContent className="p-6">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-16 h-16 payzoo-secondary-bg rounded-2xl flex items-center justify-center shadow-sm">
-                  <span className="text-white font-bold text-xl">{currentUserData.avatar}</span>
+          {/* Enhanced Profile Card */}
+          <Card className={`group border border-border/50 bg-card/50 backdrop-blur-sm hover:bg-card/70 hover:border-border/70 transition-all duration-500 hover:shadow-xl hover:-translate-y-1 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '100ms' }}>
+            <CardContent className="p-8">
+              <div className="flex items-center gap-6 mb-6">
+                <div className="w-20 h-20 bg-gradient-to-br from-foreground to-foreground/80 rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl group-hover:scale-105 transition-all duration-300">
+                  <span className="text-background font-bold text-2xl">{currentUserData.avatar}</span>
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-xl font-bold payzoo-secondary-text mb-1">
+                  <h3 className="text-2xl font-light text-foreground mb-2 tracking-tight">
                     {currentUserData.firstName} {currentUserData.lastName}
                   </h3>
-                  <div className="space-y-1">
-                    <div className="flex items-center gap-2 text-sm payzoo-subtitle">
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-3 text-muted-foreground">
                       <Mail className="w-4 h-4" />
-                      <span>{currentUserData.email}</span>
+                      <span className="text-sm">{currentUserData.email}</span>
                     </div>
-                    <div className="flex items-center gap-2 text-sm payzoo-subtitle">
+                    <div className="flex items-center gap-3 text-muted-foreground">
                       <Phone className="w-4 h-4" />
-                      <span>{currentUserData.phone}</span>
+                      <span className="text-sm">{currentUserData.phone}</span>
                     </div>
                   </div>
                 </div>
-                <Button className="payzoo-btn-outline">
-                  Modifier
+                <Button className="payzoo-btn-secondary group-hover:bg-foreground group-hover:text-background transition-all duration-300">
+                  Modifier le profil
                 </Button>
               </div>
             </CardContent>
           </Card>
 
-          {/* KYC Section avec progression */}
-          <Card className="payzoo-card">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-6">
+          {/* Enhanced KYC Section */}
+          <Card className={`border border-border/50 bg-card/50 backdrop-blur-sm hover:bg-card/70 hover:border-border/70 transition-all duration-500 hover:shadow-xl ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '200ms' }}>
+            <CardContent className="p-8">
+              <div className="flex items-center justify-between mb-8">
                 <div>
-                  <h3 className="font-bold payzoo-secondary-text text-xl mb-1">Vérification KYC</h3>
-                  <p className="payzoo-subtitle text-sm">Augmentez vos limites de transaction</p>
+                  <h3 className="text-2xl font-light text-foreground mb-2 tracking-tight">Vérification KYC</h3>
+                  <p className="text-muted-foreground">Augmentez vos limites de transaction</p>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-4">
                   <div className="text-right">
-                    <div className="text-sm font-medium payzoo-secondary-text">53% terminé</div>
-                    <div className="w-16 h-1 bg-gray-200 rounded-full mt-1">
-                      <div className="h-full payzoo-secondary-bg rounded-full transition-all duration-500" style={{ width: '53%' }}></div>
+                    <div className="text-sm font-medium text-foreground">53% terminé</div>
+                    <div className="w-20 h-2 bg-muted rounded-full mt-1 overflow-hidden">
+                      <div className="h-full bg-foreground rounded-full transition-all duration-1000 ease-out" style={{ width: '53%' }}></div>
                     </div>
                   </div>
-                  <Button className="payzoo-btn-primary">
+                  <Button className="payzoo-btn-primary hover:scale-105 transition-transform duration-200">
                     Continuer
                   </Button>
                 </div>
               </div>
               
-              <div className="space-y-3">
+              <div className="space-y-4">
                 {kycSettings.map((item, index) => (
-                  <div key={index} className="flex items-center justify-between p-4 rounded-xl border border-gray-100 hover:border-gray-200 transition-all duration-200">
+                  <div key={index} className="group flex items-center justify-between p-6 rounded-2xl border border-border/30 bg-background/50 hover:bg-background/80 hover:border-border/50 transition-all duration-300 cursor-pointer hover:shadow-md hover:-translate-y-0.5">
                     <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center">
-                        <item.icon className="w-5 h-5 text-gray-600" />
+                      <div className="w-12 h-12 rounded-2xl bg-muted/50 flex items-center justify-center group-hover:bg-muted group-hover:scale-110 transition-all duration-300">
+                        <item.icon className="w-5 h-5 text-foreground" />
                       </div>
                       <div>
-                        <div className="flex items-center gap-2 mb-1">
-                          <p className="font-medium payzoo-secondary-text text-sm">{item.title}</p>
+                        <div className="flex items-center gap-3 mb-1">
+                          <p className="font-medium text-foreground">{item.title}</p>
                           {getStatusIcon(item.status)}
                         </div>
-                        <p className="text-xs payzoo-text-muted">{item.description}</p>
+                        <p className="text-sm text-muted-foreground">{item.description}</p>
                       </div>
                     </div>
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-4">
                       {getStatusBadge(item.status)}
-                      <div className="w-12 h-1 bg-gray-200 rounded-full">
+                      <div className="w-16 h-2 bg-muted rounded-full overflow-hidden">
                         <div 
-                          className="h-full payzoo-secondary-bg rounded-full transition-all duration-500"
+                          className="h-full bg-foreground rounded-full transition-all duration-1000 ease-out"
                           style={{ width: `${item.progress}%` }}
                         ></div>
                       </div>
-                      <ChevronRight className="w-4 h-4 text-gray-400" />
+                      <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground group-hover:translate-x-1 transition-all duration-200" />
                     </div>
                   </div>
                 ))}
@@ -214,26 +229,29 @@ export function Settings() {
             </CardContent>
           </Card>
 
-          {/* Sections de paramètres */}
-          {menuItems.map((category, categoryIndex) => (
-            <Card key={category.category} className="payzoo-card">
-              <CardContent className="p-6">
-                <h3 className="font-bold payzoo-secondary-text mb-4 text-lg">
+          {/* Enhanced Settings Sections */}
+          {filteredCategories.map((category, categoryIndex) => (
+            <Card key={category.category} className={`border border-border/50 bg-card/50 backdrop-blur-sm hover:bg-card/70 hover:border-border/70 transition-all duration-500 hover:shadow-xl ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: `${300 + categoryIndex * 100}ms` }}>
+              <CardContent className="p-8">
+                <h3 className="text-xl font-light text-foreground mb-6 tracking-tight">
                   {category.category}
                 </h3>
                 <div className="space-y-2">
-                  {category.items.map((item, itemIndex) => (
+                  {category.items.filter(item => 
+                    item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    item.description.toLowerCase().includes(searchTerm.toLowerCase())
+                  ).map((item, itemIndex) => (
                     <div 
                       key={itemIndex}
-                      className="flex items-center justify-between py-3 px-4 hover:bg-gray-50 rounded-xl transition-all duration-200 cursor-pointer group"
+                      className="group flex items-center justify-between py-4 px-6 hover:bg-background/50 rounded-2xl transition-all duration-300 cursor-pointer hover:shadow-sm hover:-translate-y-0.5"
                     >
-                      <div className="flex items-center gap-3 flex-1">
-                        <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-gray-100 group-hover:bg-gray-200 transition-colors">
-                          <item.icon className="w-5 h-5 text-gray-600" />
+                      <div className="flex items-center gap-4 flex-1">
+                        <div className="w-12 h-12 rounded-2xl flex items-center justify-center bg-muted/50 group-hover:bg-muted group-hover:scale-110 transition-all duration-300">
+                          <item.icon className="w-5 h-5 text-foreground" />
                         </div>
                         <div className="flex-1">
-                          <p className="font-medium payzoo-secondary-text">{item.title}</p>
-                          <p className="text-sm payzoo-text-muted">{item.description}</p>
+                          <p className="font-medium text-foreground group-hover:text-foreground/90 transition-colors duration-200">{item.title}</p>
+                          <p className="text-sm text-muted-foreground group-hover:text-muted-foreground/80 transition-colors duration-200">{item.description}</p>
                         </div>
                       </div>
                       <div className="flex items-center gap-3">
@@ -241,10 +259,10 @@ export function Settings() {
                           <Switch 
                             checked={item.title.includes('2FA') ? twoFactorEnabled : false} 
                             onCheckedChange={item.title.includes('2FA') ? setTwoFactorEnabled : undefined}
-                            className="data-[state=checked]:payzoo-secondary-bg"
+                            className="data-[state=checked]:bg-foreground transition-all duration-200"
                           />
                         )}
-                        <ChevronRight className="w-4 h-4 text-gray-400" />
+                        <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground group-hover:translate-x-1 transition-all duration-200" />
                       </div>
                     </div>
                   ))}
@@ -253,51 +271,49 @@ export function Settings() {
             </Card>
           ))}
 
-          {/* Support */}
-          <Card className="payzoo-card">
-            <CardContent className="p-6">
-              <h3 className="font-bold payzoo-secondary-text mb-4 text-lg">
+          {/* Enhanced Support Section */}
+          <Card className={`border border-border/50 bg-card/50 backdrop-blur-sm hover:bg-card/70 hover:border-border/70 transition-all duration-500 hover:shadow-xl ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '600ms' }}>
+            <CardContent className="p-8">
+              <h3 className="text-xl font-light text-foreground mb-6 tracking-tight">
                 Support
               </h3>
               <div className="space-y-2">
                 {[
-                  { icon: HelpCircle, title: "Centre d'aide", desc: "FAQ et guides" },
-                  { icon: MessageCircle, title: "Chat en direct", desc: "Support instantané" },
-                  { icon: Users, title: "Communauté", desc: "Forum utilisateurs" }
+                  { icon: HelpCircle, title: "Centre d'aide", desc: "FAQ et guides détaillés" },
+                  { icon: MessageCircle, title: "Chat en direct", desc: "Support instantané 24/7" },
+                  { icon: Users, title: "Communauté", desc: "Forum et discussions" }
                 ].map((item, index) => (
-                  <Button 
+                  <div 
                     key={index}
-                    className="payzoo-btn-ghost w-full h-auto justify-start text-left p-3"
+                    className="group flex items-center gap-4 py-4 px-6 hover:bg-background/50 rounded-2xl transition-all duration-300 cursor-pointer hover:shadow-sm hover:-translate-y-0.5"
                   >
-                    <div className="flex items-center gap-3 w-full">
-                      <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center">
-                        <item.icon className="w-4 h-4 text-gray-600" />
-                      </div>
-                      <div className="flex-1">
-                        <p className="font-medium payzoo-secondary-text text-sm">{item.title}</p>
-                        <p className="text-xs payzoo-text-muted">{item.desc}</p>
-                      </div>
-                      <ChevronRight className="w-4 h-4 text-gray-400" />
+                    <div className="w-12 h-12 bg-muted/50 rounded-2xl flex items-center justify-center group-hover:bg-muted group-hover:scale-110 transition-all duration-300">
+                      <item.icon className="w-5 h-5 text-foreground" />
                     </div>
-                  </Button>
+                    <div className="flex-1">
+                      <p className="font-medium text-foreground group-hover:text-foreground/90 transition-colors duration-200">{item.title}</p>
+                      <p className="text-sm text-muted-foreground group-hover:text-muted-foreground/80 transition-colors duration-200">{item.desc}</p>
+                    </div>
+                    <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground group-hover:translate-x-1 transition-all duration-200" />
+                  </div>
                 ))}
               </div>
             </CardContent>
           </Card>
 
-          {/* Actions compte */}
-          <Card className="payzoo-card">
-            <CardContent className="p-6">
-              <h3 className="font-bold payzoo-secondary-text mb-4 text-lg">
+          {/* Enhanced Actions Section */}
+          <Card className={`border border-border/50 bg-card/50 backdrop-blur-sm hover:bg-card/70 hover:border-border/70 transition-all duration-500 hover:shadow-xl ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '700ms' }}>
+            <CardContent className="p-8">
+              <h3 className="text-xl font-light text-foreground mb-6 tracking-tight">
                 Actions
               </h3>
-              <div className="space-y-3">
-                <Button className="payzoo-btn-ghost w-full justify-start">
-                  <LogOut className="w-4 h-4 mr-3" />
+              <div className="space-y-4">
+                <Button className="w-full justify-start h-12 bg-background/50 hover:bg-background text-foreground border border-border/50 rounded-2xl transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
+                  <LogOut className="w-5 h-5 mr-3" />
                   <span className="font-medium">Se déconnecter</span>
                 </Button>
                 
-                <Button variant="outline" className="w-full justify-start text-red-500 h-10 rounded-lg border-red-100 hover:bg-red-50 hover:border-red-200">
+                <Button className="w-full justify-start h-12 bg-red-50/50 hover:bg-red-100/50 text-red-600 border border-red-200/50 hover:border-red-300/50 rounded-2xl transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
                   <span className="font-medium">Supprimer le compte</span>
                 </Button>
               </div>
