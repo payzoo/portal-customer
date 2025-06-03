@@ -4,13 +4,28 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useAuth } from "@/contexts/AuthContext";
 import { ArrowRight, Mail, Phone, User, Check, Sparkles } from "lucide-react";
+
+const countries = [
+  { code: "+1", country: "US", flag: "🇺🇸", name: "États-Unis" },
+  { code: "+33", country: "FR", flag: "🇫🇷", name: "France" },
+  { code: "+44", country: "GB", flag: "🇬🇧", name: "Royaume-Uni" },
+  { code: "+49", country: "DE", flag: "🇩🇪", name: "Allemagne" },
+  { code: "+39", country: "IT", flag: "🇮🇹", name: "Italie" },
+  { code: "+34", country: "ES", flag: "🇪🇸", name: "Espagne" },
+  { code: "+1", country: "CA", flag: "🇨🇦", name: "Canada" },
+  { code: "+81", country: "JP", flag: "🇯🇵", name: "Japon" },
+  { code: "+86", country: "CN", flag: "🇨🇳", name: "Chine" },
+  { code: "+91", country: "IN", flag: "🇮🇳", name: "Inde" },
+];
 
 const RegisterPage = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [fullName, setFullName] = useState("");
+  const [countryCode, setCountryCode] = useState("+33");
   const [isFormValid, setIsFormValid] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [focusedField, setFocusedField] = useState<string | null>(null);
@@ -59,7 +74,7 @@ const RegisterPage = () => {
     onChange, 
     icon: Icon, 
     isValid, 
-    prefix 
+    isPhone = false
   }: {
     id: string;
     label: string;
@@ -69,7 +84,7 @@ const RegisterPage = () => {
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     icon: any;
     isValid: boolean;
-    prefix?: string;
+    isPhone?: boolean;
   }) => (
     <div className="space-y-2">
       <Label htmlFor={id} className="text-sm font-medium text-gray-700">
@@ -80,13 +95,26 @@ const RegisterPage = () => {
         <div className="relative bg-white/80 backdrop-blur-sm rounded-xl border border-gray-200/60 shadow-lg overflow-hidden group-hover:shadow-xl transition-all duration-500">
           <div className={`absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent transform -translate-x-full transition-transform duration-1000 ${focusedField === id ? 'translate-x-full' : ''}`}></div>
           <div className="relative flex items-center">
-            {prefix && (
-              <div className="absolute left-4 flex items-center space-x-2 z-10">
-                <span className="text-sm">🇺🇸</span>
-                <span className="text-gray-600 text-sm">+1</span>
+            {isPhone && (
+              <div className="absolute left-4 z-10">
+                <Select value={countryCode} onValueChange={setCountryCode}>
+                  <SelectTrigger className="w-20 h-8 border-0 bg-transparent focus:ring-0 p-1">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {countries.map((country) => (
+                      <SelectItem key={`${country.code}-${country.country}`} value={country.code}>
+                        <div className="flex items-center space-x-2">
+                          <span>{country.flag}</span>
+                          <span className="text-sm">{country.code}</span>
+                        </div>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
             )}
-            <Icon className={`absolute ${prefix ? 'left-20' : 'left-4'} text-gray-400 w-5 h-5 transition-all duration-300 group-focus-within:text-blue-500 group-focus-within:scale-110 z-10`} />
+            <Icon className={`absolute ${isPhone ? 'left-28' : 'left-4'} text-gray-400 w-5 h-5 transition-all duration-300 group-focus-within:text-blue-500 group-focus-within:scale-110 z-10`} />
             <Input
               id={id}
               type={type}
@@ -95,7 +123,7 @@ const RegisterPage = () => {
               onChange={onChange}
               onFocus={() => setFocusedField(id)}
               onBlur={() => setFocusedField(null)}
-              className={`w-full h-14 ${prefix ? 'pl-28' : 'pl-14'} pr-14 border-0 bg-transparent text-base placeholder:text-gray-400 focus:ring-0 focus:outline-none font-light`}
+              className={`w-full h-14 ${isPhone ? 'pl-36' : 'pl-14'} pr-14 border-0 bg-transparent text-base placeholder:text-gray-400 focus:ring-0 focus:outline-none font-light`}
             />
             <div className={`absolute right-4 transition-all duration-500 z-10 ${
               isValid ? 'scale-100 opacity-100 rotate-0' : 'scale-0 opacity-0 rotate-90'
@@ -177,7 +205,7 @@ const RegisterPage = () => {
             onChange={(e) => setPhone(e.target.value)}
             icon={Phone}
             isValid={validatePhone(phone)}
-            prefix="+1"
+            isPhone={true}
           />
 
           {/* Terms */}
@@ -194,23 +222,21 @@ const RegisterPage = () => {
             </p>
           </div>
 
-          {/* Register button */}
-          <div className="relative group">
-            <div className={`absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 rounded-xl blur-lg opacity-0 group-hover:opacity-70 transition-all duration-500 ${isFormValid ? 'group-hover:opacity-70' : ''}`}></div>
-            <Button
-              onClick={handleRegister}
-              disabled={!isFormValid}
-              className={`relative w-full h-14 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-xl font-medium text-base shadow-xl disabled:opacity-40 disabled:cursor-not-allowed disabled:from-gray-400 disabled:to-gray-400 group overflow-hidden transition-all duration-300 ${
-                isFormValid ? 'hover:scale-[1.02] hover:-translate-y-1' : ''
-              }`}
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-              <span className="relative flex items-center justify-center font-medium tracking-wide">
-                Créer mon compte
-                <ArrowRight className="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform duration-300" />
-              </span>
-            </Button>
-          </div>
+          {/* Register button - style harmonisé avec la page de connexion */}
+          <Button
+            onClick={handleRegister}
+            disabled={!isFormValid}
+            className={`w-full h-12 text-white font-medium text-base transition-all duration-200 ${
+              isFormValid 
+                ? 'bg-black hover:bg-gray-800 active:bg-gray-900' 
+                : 'bg-gray-300 cursor-not-allowed'
+            }`}
+          >
+            <span className="flex items-center justify-center">
+              Créer mon compte
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </span>
+          </Button>
 
           {/* Login redirect */}
           <div className="text-center">
