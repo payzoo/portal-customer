@@ -1,4 +1,5 @@
-import { Building2, Plus, Clock, TrendingUp, TrendingDown, CreditCard, Calendar, MoreVertical, Search, Filter, ArrowUpRight, CheckCircle2, Pause, AlertCircle, Eye, EyeOff, BarChart3, DollarSign, Activity, Settings, Edit, Trash2, Copy, Archive, RefreshCw, Brain, Stars } from "lucide-react";
+
+import { Building2, Plus, Clock, TrendingUp, TrendingDown, CreditCard, Calendar, MoreVertical, Search, Filter, ArrowUpRight, CheckCircle2, Pause, AlertCircle, Eye, EyeOff, DollarSign, Activity, Settings, Edit, Trash2, Copy, Archive, RefreshCw, Brain, Stars } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -16,7 +17,8 @@ export function Subscriptions() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    setIsLoaded(true);
+    const timer = setTimeout(() => setIsLoaded(true), 100);
+    return () => clearTimeout(timer);
   }, []);
 
   const subscriptions = [
@@ -186,23 +188,23 @@ export function Subscriptions() {
       event.stopPropagation();
     }
     console.log(`Action ${action} pour l'abonnement ${subscriptionId}`);
-    // Ici vous pourrez ajouter la logique pour chaque action
   };
 
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
-      {/* Geometric floating elements */}
+      {/* Background decorative elements */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-20 left-10 w-32 h-32 border border-border/20 rounded-3xl rotate-12 animate-[float_6s_ease-in-out_infinite]"></div>
-        <div className="absolute bottom-32 right-16 w-24 h-24 border border-border/30 rounded-2xl -rotate-12 animate-[float_8s_ease-in-out_infinite] opacity-60" style={{ animationDelay: '2s' }}></div>
-        <div className="absolute top-1/2 left-1/4 w-16 h-16 border border-border/25 rounded-xl rotate-45 animate-[float_7s_ease-in-out_infinite]" style={{ animationDelay: '4s' }}></div>
-        <div className="absolute top-32 right-1/3 w-20 h-20 border border-border/20 rounded-full animate-[float_9s_ease-in-out_infinite] opacity-40" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute bottom-32 right-16 w-24 h-24 border border-border/30 rounded-2xl -rotate-12 animate-[float_8s_ease-in-out_infinite_2s]"></div>
+        <div className="absolute top-1/2 left-1/4 w-16 h-16 border border-border/25 rounded-xl rotate-45 animate-[float_7s_ease-in-out_infinite_4s]"></div>
+        <div className="absolute top-32 right-1/3 w-20 h-20 border border-border/20 rounded-full animate-[float_9s_ease-in-out_infinite_1s]"></div>
       </div>
 
-      <div className="payzoo-page-container relative z-10">
+      {/* Main content */}
+      <div className="relative z-10 payzoo-page-container">
         
-        {/* Header section optimized */}
-        <div className={`mb-8 transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+        {/* Header section */}
+        <div className={`mb-8 transition-all duration-700 ease-out ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
           <div className="flex items-start justify-between">
             <div className="space-y-3">
               <div className="flex items-center gap-3">
@@ -223,9 +225,7 @@ export function Subscriptions() {
               </div>
             </div>
             
-            <Button 
-              className="group bg-foreground hover:bg-foreground/90 text-background px-4 py-2 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg"
-            >
+            <Button className="group bg-foreground hover:bg-foreground/90 text-background transition-all duration-300 hover:scale-105 hover:shadow-lg">
               <Plus className="w-4 h-4 mr-2 group-hover:rotate-90 transition-transform duration-300" />
               Nouvel abonnement
               <ArrowUpRight className="w-4 h-4 ml-2 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
@@ -233,8 +233,8 @@ export function Subscriptions() {
           </div>
         </div>
 
-        {/* Search and filters optimized */}
-        <div className={`mb-6 transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '100ms' }}>
+        {/* Search and filters */}
+        <div className={`mb-6 transition-all duration-700 ease-out delay-100 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
           <div className="flex gap-4">
             <div className="relative flex-1 max-w-md group">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-foreground transition-colors" />
@@ -253,7 +253,7 @@ export function Subscriptions() {
                   <SelectValue />
                 </div>
               </SelectTrigger>
-              <SelectContent className="z-50 bg-background border border-border rounded-lg shadow-xl">
+              <SelectContent className="bg-background border border-border rounded-lg shadow-xl">
                 <SelectItem value="all">Tous</SelectItem>
                 <SelectItem value="active">Actifs</SelectItem>
                 <SelectItem value="paused">En pause</SelectItem>
@@ -263,8 +263,8 @@ export function Subscriptions() {
           </div>
         </div>
 
-        {/* Metrics cards optimized */}
-        <div className={`grid grid-cols-1 md:grid-cols-4 gap-4 mb-6 transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '200ms' }}>
+        {/* Metrics cards */}
+        <div className={`grid grid-cols-1 md:grid-cols-4 gap-4 mb-6 transition-all duration-700 ease-out delay-200 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
           <Card className="p-4 border border-border hover:border-foreground/20 transition-all duration-300 hover:shadow-md">
             <div className="flex items-center justify-between mb-3">
               <div className="p-2 bg-emerald-100 rounded-lg">
@@ -326,8 +326,8 @@ export function Subscriptions() {
           </Card>
         </div>
 
-        {/* Category filters optimized */}
-        <div className={`mb-6 transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '300ms' }}>
+        {/* Category filters */}
+        <div className={`mb-6 transition-all duration-700 ease-out delay-300 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
           <div className="flex flex-wrap gap-2">
             <button 
               onClick={() => setSelectedCategory("all")}
@@ -356,8 +356,8 @@ export function Subscriptions() {
           </div>
         </div>
 
-        {/* Subscription list optimized */}
-        <div className={`space-y-3 transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '400ms' }}>
+        {/* Subscription list */}
+        <div className={`space-y-3 transition-all duration-700 ease-out delay-400 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
           {filteredSubscriptions.length === 0 ? (
             <div className="py-16 text-center">
               <div className="w-12 h-12 bg-muted rounded-lg flex items-center justify-center mx-auto mb-3">
@@ -373,7 +373,7 @@ export function Subscriptions() {
               return (
                 <Card 
                   key={subscription.id} 
-                  className="group border border-border hover:border-foreground/30 transition-all duration-300 hover:shadow-md cursor-pointer bg-background hover:-translate-y-0.5 animate-fade-in relative"
+                  className="group border border-border hover:border-foreground/30 transition-all duration-300 hover:shadow-md cursor-pointer bg-background hover:-translate-y-0.5 animate-fade-in"
                   style={{ animationDelay: `${400 + index * 50}ms` }}
                   onClick={() => handleCardClick(subscription.id)}
                 >
@@ -391,7 +391,7 @@ export function Subscriptions() {
                             <h3 className="font-semibold text-foreground group-hover:text-foreground/80 transition-colors">
                               {subscription.name}
                             </h3>
-                            <Badge variant="secondary" className="text-xs bg-muted/80 px-2 py-0.5">
+                            <Badge variant="secondary" className="text-xs bg-muted/80">
                               {subscription.plan}
                             </Badge>
                           </div>
@@ -442,14 +442,13 @@ export function Subscriptions() {
                             </span>
                           </div>
                           
-                          {/* Dropdown menu avec positionnement corrigé */}
-                          <div className="opacity-0 group-hover:opacity-100 transition-all duration-300">
-                            <DropdownMenu modal={false}>
+                          <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <DropdownMenu>
                               <DropdownMenuTrigger asChild>
                                 <Button 
                                   variant="ghost" 
                                   size="sm" 
-                                  className="w-8 h-8 p-0 hover:bg-muted rounded-md transition-colors duration-200"
+                                  className="w-8 h-8 p-0 hover:bg-muted rounded-md"
                                   onClick={(e) => {
                                     e.preventDefault();
                                     e.stopPropagation();
@@ -460,50 +459,40 @@ export function Subscriptions() {
                               </DropdownMenuTrigger>
                               <DropdownMenuContent 
                                 align="end" 
-                                side="bottom"
-                                alignOffset={-4}
-                                sideOffset={8}
-                                className="min-w-[180px] z-[999] bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl p-1"
-                                style={{ 
-                                  position: 'fixed',
-                                  maxHeight: 'var(--radix-dropdown-menu-content-available-height)',
-                                  maxWidth: 'var(--radix-dropdown-menu-content-available-width)'
-                                }}
-                                onCloseAutoFocus={(e) => e.preventDefault()}
-                                avoidCollisions={true}
-                                collisionPadding={8}
+                                className="w-48 bg-background border border-border rounded-lg shadow-xl p-1"
+                                onClick={(e) => e.stopPropagation()}
                               >
                                 <DropdownMenuItem 
-                                  className="flex items-center gap-2 px-3 py-2 text-sm cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 rounded-md"
+                                  className="flex items-center gap-2 px-3 py-2 text-sm cursor-pointer hover:bg-muted transition-colors rounded-md"
                                   onClick={(e) => handleDropdownAction('edit', subscription.id, e)}
                                 >
                                   <Edit className="w-4 h-4" />
                                   Modifier
                                 </DropdownMenuItem>
                                 <DropdownMenuItem 
-                                  className="flex items-center gap-2 px-3 py-2 text-sm cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 rounded-md"
+                                  className="flex items-center gap-2 px-3 py-2 text-sm cursor-pointer hover:bg-muted transition-colors rounded-md"
                                   onClick={(e) => handleDropdownAction('duplicate', subscription.id, e)}
                                 >
                                   <Copy className="w-4 h-4" />
                                   Dupliquer
                                 </DropdownMenuItem>
                                 <DropdownMenuItem 
-                                  className="flex items-center gap-2 px-3 py-2 text-sm cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 rounded-md"
+                                  className="flex items-center gap-2 px-3 py-2 text-sm cursor-pointer hover:bg-muted transition-colors rounded-md"
                                   onClick={(e) => handleDropdownAction('renew', subscription.id, e)}
                                 >
                                   <RefreshCw className="w-4 h-4" />
                                   Renouveler
                                 </DropdownMenuItem>
-                                <DropdownMenuSeparator className="my-1 h-px bg-gray-200 dark:bg-gray-700" />
+                                <DropdownMenuSeparator className="my-1 h-px bg-border" />
                                 <DropdownMenuItem 
-                                  className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-400 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 rounded-md"
+                                  className="flex items-center gap-2 px-3 py-2 text-sm text-muted-foreground cursor-pointer hover:bg-muted transition-colors rounded-md"
                                   onClick={(e) => handleDropdownAction('archive', subscription.id, e)}
                                 >
                                   <Archive className="w-4 h-4" />
                                   Archiver
                                 </DropdownMenuItem>
                                 <DropdownMenuItem 
-                                  className="flex items-center gap-2 px-3 py-2 text-sm text-red-600 cursor-pointer hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors duration-200 rounded-md"
+                                  className="flex items-center gap-2 px-3 py-2 text-sm text-red-600 cursor-pointer hover:bg-red-50 transition-colors rounded-md"
                                   onClick={(e) => handleDropdownAction('delete', subscription.id, e)}
                                 >
                                   <Trash2 className="w-4 h-4" />
