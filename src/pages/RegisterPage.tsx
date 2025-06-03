@@ -102,14 +102,14 @@ const RegisterPage = () => {
       </Label>
       <div className="relative">
         {isPhone ? (
-          <div className="glass-card hover:glass-card rounded-2xl border border-border/50 backdrop-blur-sm bg-background/60 transition-all duration-300 hover:bg-background/80 hover:border-border/80">
+          <div className="glass-card hover:glass-card rounded-2xl border border-gray-200/30 backdrop-blur-sm bg-background/60 transition-all duration-300 hover:bg-background/80 hover:border-gray-300/50">
             <div className="flex">
               <div className="flex-shrink-0">
                 <Select value={countryCode} onValueChange={setCountryCode}>
                   <SelectTrigger className="w-24 h-14 border-0 bg-transparent focus:ring-0 rounded-l-2xl">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="z-50 bg-background border border-border/20 shadow-xl">
+                  <SelectContent className="z-50 bg-background border border-gray-200/30 shadow-xl">
                     {countries.map((country) => (
                       <SelectItem key={`${country.code}-${country.country}`} value={country.code}>
                         <div className="flex items-center space-x-2">
@@ -142,7 +142,7 @@ const RegisterPage = () => {
             </div>
           </div>
         ) : (
-          <div className="glass-card hover:glass-card rounded-2xl border border-border/50 backdrop-blur-sm bg-background/60 transition-all duration-300 hover:bg-background/80 hover:border-border/80">
+          <div className="glass-card hover:glass-card rounded-2xl border border-gray-200/30 backdrop-blur-sm bg-background/60 transition-all duration-300 hover:bg-background/80 hover:border-gray-300/50">
             <div className="relative flex items-center">
               <Icon className="absolute left-4 text-muted-foreground w-5 h-5" />
               <Input
