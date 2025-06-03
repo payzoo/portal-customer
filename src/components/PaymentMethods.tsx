@@ -1,14 +1,17 @@
 
-import { CreditCard, Plus, MoreVertical, Wallet, TrendingDown, Eye, EyeOff, Settings, Edit, Trash2, Shield, ArrowUpRight, CheckCircle2, Clock, DollarSign, Activity, Star, Target, Brain } from "lucide-react";
+import { CreditCard, Plus, Building2, Calendar, Shield, MoreVertical, Search, Filter, Eye, EyeOff, ArrowUpRight, Zap, Stars, CheckCircle2, AlertCircle, Settings, Edit, Trash2, Copy, Archive } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useState, useEffect } from "react";
 
 export function PaymentMethods() {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterType, setFilterType] = useState("all");
+  const [showSensitive, setShowSensitive] = useState(true);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [balanceVisible, setBalanceVisible] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoaded(true), 100);
@@ -18,340 +21,387 @@ export function PaymentMethods() {
   const paymentMethods = [
     {
       id: 1,
-      type: "card",
-      name: "Carte principale",
+      type: "Carte de crédit",
+      provider: "Visa",
       last4: "4242",
-      brand: "Visa",
+      name: "Carte principale",
+      expiry: "12/27",
       isDefault: true,
-      expiryMonth: 12,
-      expiryYear: 2026,
       status: "active",
-      transactions: 28,
-      spending: 1247.50
-    },
-    {
-      id: 2,
-      type: "card",
-      name: "Carte pro",
-      last4: "8888",
-      brand: "Mastercard",
-      isDefault: false,
-      expiryMonth: 8,
-      expiryYear: 2025,
-      status: "active",
-      transactions: 15,
-      spending: 892.30
-    },
-    {
-      id: 3,
-      type: "bank",
-      name: "Compte Crédit Agricole",
-      last4: "1234",
-      brand: "bank",
-      isDefault: false,
-      status: "pending",
-      transactions: 5,
-      spending: 245.80
-    }
-  ];
-
-  const walletStats = {
-    totalBalance: 2847.60,
-    monthlySpending: 2385.60,
-    activeCards: 2,
-    pendingTransactions: 3
-  };
-
-  const getCardIcon = (brand: string) => {
-    if (brand === "bank") return <Wallet className="w-5 h-5" />;
-    return <CreditCard className="w-5 h-5" />;
-  };
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "active": return "bg-green-100 text-green-700 border-green-200";
-      case "pending": return "bg-orange-100 text-orange-700 border-orange-200";
-      case "blocked": return "bg-red-100 text-red-700 border-red-200";
-      default: return "bg-gray-100 text-gray-700 border-gray-200";
-    }
-  };
-
-  const getStatusText = (status: string) => {
-    switch (status) {
-      case "active": return "Active";
-      case "pending": return "En attente";
-      case "blocked": return "Bloquée";
-      default: return "Inconnue";
-    }
-  };
-
-  const quickActions = [
-    {
-      id: 1,
-      title: "Ajouter une carte",
-      description: "Nouvelle carte bancaire",
+      color: "bg-gradient-to-br from-slate-600 to-slate-800",
       icon: CreditCard,
-      bgColor: "from-blue-50 to-blue-100",
-      iconColor: "text-blue-600"
+      description: "Carte de débit quotidienne"
     },
     {
       id: 2,
-      title: "Compte bancaire",
-      description: "Connecter votre banque",
-      icon: Wallet,
-      bgColor: "from-green-50 to-green-100",
-      iconColor: "text-green-600"
+      type: "Carte de crédit",
+      provider: "Mastercard",
+      last4: "5555",
+      name: "Carte business",
+      expiry: "08/26",
+      isDefault: false,
+      status: "active",
+      color: "bg-gradient-to-br from-amber-500 to-orange-600",
+      icon: CreditCard,
+      description: "Dépenses professionnelles"
     },
     {
       id: 3,
-      title: "Paramètres sécurité",
-      description: "Gérer la protection",
-      icon: Shield,
-      bgColor: "from-purple-50 to-purple-100",
-      iconColor: "text-purple-600"
+      type: "Compte bancaire",
+      provider: "Crédit Agricole",
+      last4: "1234",
+      name: "Compte courant",
+      expiry: null,
+      isDefault: false,
+      status: "active",
+      color: "bg-gradient-to-br from-emerald-500 to-teal-600",
+      icon: Building2,
+      description: "Virements automatiques"
+    },
+    {
+      id: 4,
+      type: "Carte de crédit",
+      provider: "American Express",
+      last4: "0005",
+      name: "Carte premium",
+      expiry: "03/25",
+      isDefault: false,
+      status: "expired",
+      color: "bg-gradient-to-br from-gray-400 to-gray-600",
+      icon: CreditCard,
+      description: "À renouveler"
     }
   ];
+
+  const filteredMethods = paymentMethods.filter(method => {
+    const matchesSearch = method.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                         method.provider.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesFilter = filterType === "all" || method.type.toLowerCase().includes(filterType.toLowerCase());
+    return matchesSearch && matchesFilter;
+  });
+
+  const activeCount = paymentMethods.filter(method => method.status === 'active').length;
+  const expiredCount = paymentMethods.filter(method => method.status === 'expired').length;
+  const defaultMethod = paymentMethods.find(method => method.isDefault);
+
+  const getStatusInfo = (status: string) => {
+    switch (status) {
+      case 'active':
+        return { 
+          icon: CheckCircle2, 
+          color: 'text-emerald-600', 
+          bgColor: 'bg-emerald-50 border-emerald-200', 
+          label: 'Actif',
+          dotColor: 'bg-emerald-500'
+        };
+      case 'expired':
+        return { 
+          icon: AlertCircle, 
+          color: 'text-red-600', 
+          bgColor: 'bg-red-50 border-red-200', 
+          label: 'Expiré',
+          dotColor: 'bg-red-500'
+        };
+      default:
+        return { 
+          icon: CheckCircle2, 
+          color: 'text-slate-600', 
+          bgColor: 'bg-slate-50 border-slate-200', 
+          label: 'Inconnu',
+          dotColor: 'bg-slate-500'
+        };
+    }
+  };
+
+  const handleDropdownAction = (action: string, methodId: number, event?: React.MouseEvent) => {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    console.log(`Action ${action} pour le moyen de paiement ${methodId}`);
+  };
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="payzoo-page-container">
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20 relative overflow-hidden">
+      {/* Simplified background elements */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-40">
+        <div className="absolute top-20 left-10 w-20 h-20 border border-slate-200 rounded-2xl rotate-12 animate-[float_8s_ease-in-out_infinite]"></div>
+        <div className="absolute bottom-32 right-16 w-16 h-16 border border-slate-200 rounded-xl -rotate-12 animate-[float_10s_ease-in-out_infinite_3s]"></div>
+        <div className="absolute top-1/3 right-1/4 w-12 h-12 border border-slate-200 rounded-full animate-[float_6s_ease-in-out_infinite_1s]"></div>
+      </div>
+
+      <div className="relative z-10 payzoo-page-container">
         
-        {/* Header simplifié */}
-        <div className={`mb-8 transition-all duration-500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-          <div className="flex items-start justify-between">
-            <div className="space-y-3">
+        {/* Modernized header */}
+        <div className={`mb-12 transition-all duration-500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+          <div className="flex items-center justify-between">
+            <div className="space-y-4">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-foreground rounded-lg">
-                  <Wallet className="w-5 h-5 text-background" />
+                <div className="relative">
+                  <div className="w-12 h-12 bg-gradient-to-br from-black to-gray-800 rounded-2xl flex items-center justify-center shadow-lg">
+                    <CreditCard className="w-6 h-6 text-white" />
+                  </div>
+                  <div className="absolute -top-1 -right-1 w-4 h-4 bg-emerald-400 rounded-full border-2 border-white animate-pulse"></div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                  <span className="text-sm font-medium text-blue-600">Smart Finance</span>
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-xs font-semibold text-black bg-gray-100 px-2 py-1 rounded-full">SECURE</span>
+                    <span className="text-xs text-muted-foreground">Portefeuille sécurisé</span>
+                  </div>
+                  <h1 className="text-4xl font-bold bg-gradient-to-r from-black to-gray-700 bg-clip-text text-transparent">
+                    Portefeuille
+                  </h1>
                 </div>
               </div>
-              <div>
-                <h1 className="text-2xl font-bold text-foreground mb-1">Portefeuille</h1>
-                <p className="text-muted-foreground flex items-center gap-2">
-                  <Brain className="w-4 h-4" />
-                  Gérez vos moyens de paiement et suivez vos dépenses
-                </p>
-              </div>
+              <p className="text-lg text-muted-foreground">Gérez vos moyens de paiement</p>
             </div>
             
-            <Button className="bg-foreground hover:bg-foreground/90 text-background">
-              <Plus className="w-4 h-4 mr-2" />
+            <Button className="group bg-gradient-to-r from-black to-gray-800 hover:from-gray-800 hover:to-black text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 h-12 px-6">
+              <Plus className="w-5 h-5 mr-2 group-hover:rotate-90 transition-transform duration-300" />
               Ajouter
-              <ArrowUpRight className="w-4 h-4 ml-2" />
+              <ArrowUpRight className="w-4 h-4 ml-2 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
             </Button>
           </div>
         </div>
 
-        {/* Statistiques du portefeuille */}
-        <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8 transition-all duration-500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-          <Card className="border-0 bg-gradient-to-br from-background to-muted/30 hover:shadow-md transition-all">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between mb-3">
-                <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-                  <DollarSign className="w-5 h-5 text-green-600" />
+        {/* Streamlined search and filters */}
+        <div className={`mb-8 transition-all duration-500 delay-100 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+          <div className="flex gap-3">
+            <div className="relative flex-1 max-w-lg">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+              <input
+                type="text"
+                placeholder="Rechercher un moyen de paiement..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full h-12 pl-12 pr-4 bg-white/80 backdrop-blur-sm border border-border/50 rounded-2xl focus:border-black focus:outline-none focus:ring-4 focus:ring-black/10 transition-all duration-300 text-foreground placeholder:text-muted-foreground shadow-sm"
+              />
+            </div>
+            <Select value={filterType} onValueChange={setFilterType}>
+              <SelectTrigger className="w-44 h-12 bg-white/80 backdrop-blur-sm border border-border/50 rounded-2xl focus:border-black shadow-sm">
+                <div className="flex items-center gap-2">
+                  <Filter className="w-4 h-4 text-black" />
+                  <SelectValue />
                 </div>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => setBalanceVisible(!balanceVisible)}
-                  className="w-8 h-8"
-                >
-                  {balanceVisible ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
-                </Button>
+              </SelectTrigger>
+              <SelectContent className="bg-white/95 backdrop-blur-sm border border-border/50 rounded-xl shadow-xl">
+                <SelectItem value="all">Tous les types</SelectItem>
+                <SelectItem value="carte">Cartes</SelectItem>
+                <SelectItem value="compte">Comptes</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+
+        {/* Enhanced metrics cards */}
+        <div className={`grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 transition-all duration-500 delay-200 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+          <Card className="relative p-6 bg-white/80 backdrop-blur-sm border border-border/50 hover:border-black/20 transition-all duration-300 hover:shadow-lg group overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-emerald-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="relative">
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-10 h-10 bg-gradient-to-br from-emerald-100 to-teal-100 rounded-xl flex items-center justify-center">
+                  <CheckCircle2 className="w-5 h-5 text-emerald-600" />
+                </div>
+                <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
               </div>
-              <div>
-                <p className="text-sm text-muted-foreground mb-1">Solde total</p>
-                <p className="text-xl font-bold text-foreground">
-                  {balanceVisible ? `${walletStats.totalBalance.toFixed(2)} €` : "••••••"}
-                </p>
-              </div>
-            </CardContent>
+              <div className="text-2xl font-bold text-foreground mb-1">{activeCount}</div>
+              <div className="text-sm text-muted-foreground">Moyens actifs</div>
+            </div>
           </Card>
 
-          <Card className="border-0 bg-gradient-to-br from-background to-muted/30 hover:shadow-md transition-all">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between mb-3">
-                <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                  <TrendingDown className="w-5 h-5 text-blue-600" />
+          <Card className="relative p-6 bg-white/80 backdrop-blur-sm border border-border/50 hover:border-amber-200 transition-all duration-300 hover:shadow-lg group overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-amber-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="relative">
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-10 h-10 bg-gradient-to-br from-amber-100 to-orange-100 rounded-xl flex items-center justify-center">
+                  <Stars className="w-5 h-5 text-amber-600" />
                 </div>
-                <ArrowUpRight className="w-4 h-4 text-muted-foreground" />
+                <div className="w-2 h-2 bg-amber-500 rounded-full"></div>
               </div>
-              <div>
-                <p className="text-sm text-muted-foreground mb-1">Dépenses du mois</p>
-                <p className="text-xl font-bold text-foreground">{walletStats.monthlySpending.toFixed(2)} €</p>
-              </div>
-            </CardContent>
+              <div className="text-2xl font-bold text-foreground mb-1">1</div>
+              <div className="text-sm text-muted-foreground">Méthode par défaut</div>
+            </div>
           </Card>
 
-          <Card className="border-0 bg-gradient-to-br from-background to-muted/30 hover:shadow-md transition-all">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between mb-3">
-                <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
-                  <CreditCard className="w-5 h-5 text-purple-600" />
+          <Card className="relative p-6 bg-white/80 backdrop-blur-sm border border-border/50 hover:border-red-200 transition-all duration-300 hover:shadow-lg group overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-red-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="relative">
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-10 h-10 bg-gradient-to-br from-red-100 to-rose-100 rounded-xl flex items-center justify-center">
+                  <AlertCircle className="w-5 h-5 text-red-600" />
                 </div>
-                <CheckCircle2 className="w-4 h-4 text-green-500" />
+                <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
               </div>
-              <div>
-                <p className="text-sm text-muted-foreground mb-1">Cartes actives</p>
-                <p className="text-xl font-bold text-foreground">{walletStats.activeCards}</p>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="border-0 bg-gradient-to-br from-background to-muted/30 hover:shadow-md transition-all">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between mb-3">
-                <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
-                  <Clock className="w-5 h-5 text-orange-600" />
-                </div>
-                <Activity className="w-4 h-4 text-muted-foreground" />
-              </div>
-              <div>
-                <p className="text-sm text-muted-foreground mb-1">En attente</p>
-                <p className="text-xl font-bold text-foreground">{walletStats.pendingTransactions}</p>
-              </div>
-            </CardContent>
+              <div className="text-2xl font-bold text-foreground mb-1">{expiredCount}</div>
+              <div className="text-sm text-muted-foreground">Expirés</div>
+            </div>
           </Card>
         </div>
 
-        {/* Liste des moyens de paiement */}
-        <div className={`space-y-4 transition-all duration-500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+        {/* Privacy toggle */}
+        <div className={`mb-8 transition-all duration-500 delay-300 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-foreground">Moyens de paiement</h2>
-            <Badge variant="secondary" className="bg-muted text-muted-foreground">
-              {paymentMethods.length} méthodes
-            </Badge>
+            <div className="flex items-center gap-2">
+              <Shield className="w-4 h-4 text-black" />
+              <span className="text-sm font-medium text-foreground">Affichage sécurisé</span>
+            </div>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setShowSensitive(!showSensitive)}
+              className="h-8 px-3 hover:bg-gray-100 rounded-lg"
+            >
+              {showSensitive ? <Eye className="w-4 h-4 mr-2" /> : <EyeOff className="w-4 h-4 mr-2" />}
+              {showSensitive ? 'Masquer' : 'Afficher'}
+            </Button>
           </div>
+        </div>
 
-          <div className="space-y-3">
-            {paymentMethods.map((method) => (
-              <Card 
-                key={method.id} 
-                className={`border-0 bg-gradient-to-r from-background to-muted/20 hover:shadow-md transition-all ${method.isDefault ? 'ring-1 ring-foreground/20' : ''}`}
-              >
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${method.brand === 'Visa' ? 'bg-blue-100' : method.brand === 'Mastercard' ? 'bg-red-100' : 'bg-gray-100'}`}>
-                        {getCardIcon(method.brand)}
-                      </div>
-                      
-                      <div className="space-y-1">
-                        <div className="flex items-center gap-2">
-                          <h3 className="font-medium text-foreground">{method.name}</h3>
-                          {method.isDefault && (
-                            <Badge className="bg-foreground text-background text-xs px-2 py-0.5">
-                              <Star className="w-3 h-3 mr-1" />
-                              Principale
-                            </Badge>
-                          )}
-                          <Badge className={`text-xs px-2 py-0.5 ${getStatusColor(method.status)}`}>
-                            {getStatusText(method.status)}
-                          </Badge>
+        {/* Redesigned payment method cards */}
+        <div className={`space-y-4 transition-all duration-500 delay-400 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+          {filteredMethods.length === 0 ? (
+            <div className="py-20 text-center">
+              <div className="w-16 h-16 bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <Search className="w-8 h-8 text-black" />
+              </div>
+              <h3 className="text-xl font-semibold text-foreground mb-2">Aucun résultat</h3>
+              <p className="text-muted-foreground max-w-md mx-auto">Aucun moyen de paiement ne correspond à vos critères de recherche.</p>
+            </div>
+          ) : (
+            filteredMethods.map((method, index) => {
+              const statusInfo = getStatusInfo(method.status);
+              const IconComponent = method.icon;
+              
+              return (
+                <Card 
+                  key={method.id} 
+                  className="group relative bg-white/80 backdrop-blur-sm border border-border/50 hover:border-black/20 transition-all duration-300 hover:shadow-xl cursor-pointer rounded-2xl overflow-hidden animate-fade-in"
+                  style={{ animationDelay: `${400 + index * 100}ms` }}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-gray-50/0 via-gray-50/20 to-gray-50/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  
+                  <CardContent className="relative p-6">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-4">
+                        <div className={`relative w-14 h-10 ${method.color} rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                          <IconComponent className="w-6 h-6 text-white" />
+                          <div className="absolute -top-1 -right-1">
+                            <div className={`w-3 h-3 ${statusInfo.dotColor} rounded-full border-2 border-white shadow-sm`}></div>
+                          </div>
                         </div>
                         
-                        <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                          <span className="flex items-center gap-1">
-                            <Target className="w-3 h-3" />
-                            •••• {method.last4}
-                          </span>
-                          {method.type === "card" && (
-                            <span>{method.expiryMonth}/{method.expiryYear}</span>
+                        <div className="space-y-2">
+                          <div className="flex items-center gap-3">
+                            <h3 className="text-lg font-semibold text-foreground group-hover:text-black transition-colors">
+                              {method.name}
+                            </h3>
+                            {method.isDefault && (
+                              <Badge variant="secondary" className="text-xs bg-black text-white border-black">
+                                Par défaut
+                              </Badge>
+                            )}
+                          </div>
+                          <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                            <span className="flex items-center gap-1.5">
+                              <Building2 className="w-4 h-4" />
+                              {method.provider}
+                            </span>
+                            <span className="w-1 h-1 bg-muted-foreground rounded-full"></span>
+                            <span className="italic">{method.description}</span>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-center gap-6">
+                        <div className="text-right space-y-2">
+                          <div className="flex items-center gap-3">
+                            <span className="text-xl font-bold text-foreground font-mono">
+                              {showSensitive ? `•••• ${method.last4}` : '•••• ••••'}
+                            </span>
+                          </div>
+                          {method.expiry && (
+                            <div className="text-sm text-muted-foreground flex items-center gap-1.5">
+                              <Calendar className="w-4 h-4" />
+                              Expire: {showSensitive ? method.expiry : '••/••'}
+                            </div>
                           )}
-                          <span className="flex items-center gap-1">
-                            <Activity className="w-3 h-3" />
-                            {method.transactions} transactions
-                          </span>
-                          <span className="flex items-center gap-1 font-medium">
-                            <DollarSign className="w-3 h-3" />
-                            {method.spending.toFixed(2)} €
-                          </span>
+                        </div>
+                        
+                        <div className="flex items-center gap-3">
+                          <div className={`flex items-center gap-2 px-3 py-2 rounded-xl border transition-all duration-300 ${statusInfo.bgColor}`}>
+                            <statusInfo.icon className={`w-4 h-4 ${statusInfo.color}`} />
+                            <span className={`text-sm font-medium ${statusInfo.color}`}>
+                              {statusInfo.label}
+                            </span>
+                          </div>
+                          
+                          <div className="opacity-0 group-hover:opacity-100 transition-all duration-300">
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button 
+                                  variant="ghost" 
+                                  size="sm" 
+                                  className="w-10 h-10 p-0 hover:bg-gray-100 rounded-xl transition-colors"
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                  }}
+                                >
+                                  <MoreVertical className="w-5 h-5 text-muted-foreground" />
+                                </Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent 
+                                align="end" 
+                                className="w-48 bg-white/95 backdrop-blur-sm border border-border/50 rounded-xl shadow-2xl"
+                                onClick={(e) => e.stopPropagation()}
+                              >
+                                <DropdownMenuItem 
+                                  className="flex items-center gap-3 px-3 py-2.5 text-sm cursor-pointer hover:bg-gray-50 transition-colors rounded-lg m-1"
+                                  onClick={(e) => handleDropdownAction('edit', method.id, e)}
+                                >
+                                  <Edit className="w-4 h-4 text-black" />
+                                  Modifier
+                                </DropdownMenuItem>
+                                <DropdownMenuItem 
+                                  className="flex items-center gap-3 px-3 py-2.5 text-sm cursor-pointer hover:bg-gray-50 transition-colors rounded-lg m-1"
+                                  onClick={(e) => handleDropdownAction('default', method.id, e)}
+                                >
+                                  <Stars className="w-4 h-4 text-black" />
+                                  Définir par défaut
+                                </DropdownMenuItem>
+                                <DropdownMenuItem 
+                                  className="flex items-center gap-3 px-3 py-2.5 text-sm cursor-pointer hover:bg-gray-50 transition-colors rounded-lg m-1"
+                                  onClick={(e) => handleDropdownAction('duplicate', method.id, e)}
+                                >
+                                  <Copy className="w-4 h-4 text-black" />
+                                  Dupliquer
+                                </DropdownMenuItem>
+                                <DropdownMenuSeparator className="my-1 h-px bg-border/50" />
+                                <DropdownMenuItem 
+                                  className="flex items-center gap-3 px-3 py-2.5 text-sm text-muted-foreground cursor-pointer hover:bg-slate-50 transition-colors rounded-lg m-1"
+                                  onClick={(e) => handleDropdownAction('archive', method.id, e)}
+                                >
+                                  <Archive className="w-4 h-4" />
+                                  Archiver
+                                </DropdownMenuItem>
+                                <DropdownMenuItem 
+                                  className="flex items-center gap-3 px-3 py-2.5 text-sm text-red-600 cursor-pointer hover:bg-red-50 transition-colors rounded-lg m-1"
+                                  onClick={(e) => handleDropdownAction('delete', method.id, e)}
+                                >
+                                  <Trash2 className="w-4 h-4" />
+                                  Supprimer
+                                </DropdownMenuItem>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                          </div>
                         </div>
                       </div>
                     </div>
-
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon" className="w-8 h-8">
-                          <MoreVertical className="w-4 h-4" />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end" className="w-48">
-                        <DropdownMenuItem>
-                          <Eye className="w-4 h-4 mr-2" />
-                          Voir les détails
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                          <Edit className="w-4 h-4 mr-2" />
-                          Modifier
-                        </DropdownMenuItem>
-                        {!method.isDefault && (
-                          <DropdownMenuItem>
-                            <Star className="w-4 h-4 mr-2" />
-                            Définir par défaut
-                          </DropdownMenuItem>
-                        )}
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem>
-                          <Settings className="w-4 h-4 mr-2" />
-                          Paramètres
-                        </DropdownMenuItem>
-                        <DropdownMenuItem className="text-red-600">
-                          <Trash2 className="w-4 h-4 mr-2" />
-                          Supprimer
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-
-        {/* Actions rapides simplifiées */}
-        <div className={`mt-12 transition-all duration-500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-          <div className="mb-6">
-            <h3 className="text-lg font-semibold text-foreground mb-1">Actions rapides</h3>
-            <p className="text-sm text-muted-foreground">Ajoutez facilement de nouveaux moyens de paiement</p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {quickActions.map((action) => (
-              <Card 
-                key={action.id}
-                className="border-0 bg-gradient-to-br from-background to-muted/30 hover:shadow-md transition-all cursor-pointer"
-              >
-                <CardContent className="p-4">
-                  <div className="space-y-3">
-                    <div className="flex items-start justify-between">
-                      <div className={`w-12 h-12 bg-gradient-to-br ${action.bgColor} rounded-lg flex items-center justify-center`}>
-                        <action.icon className={`w-6 h-6 ${action.iconColor}`} />
-                      </div>
-                      <ArrowUpRight className="w-4 h-4 text-muted-foreground" />
-                    </div>
-                    
-                    <div>
-                      <h4 className="font-medium text-foreground mb-1">{action.title}</h4>
-                      <p className="text-sm text-muted-foreground">{action.description}</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-          
-          {/* Info sécurité */}
-          <div className="mt-6 p-3 bg-muted/30 rounded-lg border border-border/50">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Shield className="w-4 h-4 text-green-600" />
-              <span>Toutes vos données sont protégées par un chiffrement de niveau bancaire</span>
-            </div>
-          </div>
+                  </CardContent>
+                </Card>
+              );
+            })
+          )}
         </div>
       </div>
     </div>
