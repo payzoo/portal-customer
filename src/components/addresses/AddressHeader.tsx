@@ -9,38 +9,32 @@ interface AddressHeaderProps {
 
 export function AddressHeader({ onAddAddress, isLoaded }: AddressHeaderProps) {
   return (
-    <header className={`mb-12 transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
-      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
+    <header className={`mb-16 transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+      <div className="text-center space-y-8">
+        <div className="inline-flex items-center gap-3 px-6 py-3 bg-gray-50 rounded-full">
+          <div className="w-8 h-8 bg-black rounded-full flex items-center justify-center">
+            <MapPin className="w-4 h-4 text-white" />
+          </div>
+          <span className="text-sm font-semibold text-gray-700 tracking-wide">
+            SMART LOCATION
+          </span>
+        </div>
+        
         <div className="space-y-6">
-          <div className="flex items-center gap-4">
-            <div className="w-14 h-14 bg-black rounded-2xl flex items-center justify-center shadow-lg">
-              <MapPin className="w-7 h-7 text-white" />
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse shadow-lg shadow-green-500/30" />
-              <span className="text-sm font-semibold text-green-600 tracking-wide uppercase">
-                Smart Location
-              </span>
-            </div>
-          </div>
-          
-          <div className="space-y-3">
-            <h1 className="text-5xl lg:text-6xl font-extralight text-black tracking-tight leading-none">
-              Adresses
-            </h1>
-            <p className="text-xl text-gray-600 font-medium flex items-center gap-3 max-w-2xl">
-              <Sparkles className="w-6 h-6 text-gray-400" />
-              Organisez et gérez vos adresses en toute simplicité
-            </p>
-          </div>
+          <h1 className="text-6xl lg:text-7xl font-extralight text-black tracking-tight">
+            Adresses
+          </h1>
+          <p className="text-xl text-gray-500 font-light max-w-2xl mx-auto leading-relaxed">
+            Gérez vos adresses avec simplicité et élégance
+          </p>
         </div>
         
         <Button 
-          className="group h-14 px-8 bg-black hover:bg-gray-900 text-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 self-start lg:self-end"
+          className="h-12 px-8 bg-black hover:bg-gray-900 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
           onClick={onAddAddress}
         >
-          <Plus className="w-5 h-5 group-hover:rotate-90 transition-transform duration-300" />
-          <span className="text-lg font-semibold">Nouvelle adresse</span>
+          <Plus className="w-4 h-4 mr-2" />
+          <span className="font-medium">Nouvelle adresse</span>
         </Button>
       </div>
     </header>

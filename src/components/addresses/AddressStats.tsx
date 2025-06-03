@@ -53,11 +53,11 @@ export function AddressStats({ addresses, isLoaded }: AddressStatsProps) {
 
   return (
     <section 
-      className={`mb-12 transition-all duration-700 delay-200 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+      className={`mb-16 transition-all duration-700 delay-200 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
       aria-label="Statistiques des adresses"
     >
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-        {stats.map((stat, index) => (
+      <div className="grid grid-cols-4 gap-6 max-w-4xl mx-auto">
+        {stats.map((stat) => (
           <AddressStatCard
             key={stat.label}
             icon={stat.icon}

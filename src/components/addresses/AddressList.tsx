@@ -44,13 +44,13 @@ export function AddressList({
       className={`transition-all duration-700 delay-500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
       aria-label="Liste des adresses"
     >
-      <div className="flex items-center justify-between mb-8">
-        <h2 className="text-2xl font-bold text-black tracking-tight">
-          Mes adresses ({addresses.length})
+      <div className="text-center mb-12">
+        <h2 className="text-2xl font-light text-gray-600 tracking-wide">
+          {addresses.length} adresse{addresses.length > 1 ? 's' : ''} enregistrée{addresses.length > 1 ? 's' : ''}
         </h2>
       </div>
       
-      <div className="space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
         {addresses.map((address, index) => (
           <AddressCard
             key={address.id}

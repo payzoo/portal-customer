@@ -110,7 +110,7 @@ export function Addresses() {
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
-      <div className="max-w-7xl mx-auto px-8 py-12">
+      <div className="max-w-7xl mx-auto px-8 py-16">
         <AddressHeader
           onAddAddress={() => setIsAddModalOpen(true)}
           isLoaded={isLoaded}
