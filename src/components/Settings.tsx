@@ -51,21 +51,24 @@ export function Settings() {
       title: "Identité", 
       status: "verified" as const, 
       description: "Documents validés",
-      progress: 100
+      progress: 100,
+      action: () => {} // Identity verification already completed
     },
     { 
       icon: Globe, 
       title: "Domicile", 
       status: "pending" as const, 
       description: "En cours de vérification",
-      progress: 60
+      progress: 60,
+      action: () => {} // Will be handled by KYCSection component
     },
     { 
       icon: FileText, 
       title: "Revenus", 
       status: "missing" as const, 
       description: "Justificatifs requis",
-      progress: 0
+      progress: 0,
+      action: () => {} // Will be handled by KYCSection component
     },
   ];
 
