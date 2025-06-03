@@ -193,9 +193,9 @@ export function Subscriptions() {
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20 relative overflow-hidden">
       {/* Simplified background elements */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-40">
-        <div className="absolute top-20 left-10 w-20 h-20 border border-violet-200 rounded-2xl rotate-12 animate-[float_8s_ease-in-out_infinite]"></div>
-        <div className="absolute bottom-32 right-16 w-16 h-16 border border-blue-200 rounded-xl -rotate-12 animate-[float_10s_ease-in-out_infinite_3s]"></div>
-        <div className="absolute top-1/3 right-1/4 w-12 h-12 border border-emerald-200 rounded-full animate-[float_6s_ease-in-out_infinite_1s]"></div>
+        <div className="absolute top-20 left-10 w-20 h-20 border border-slate-200 rounded-2xl rotate-12 animate-[float_8s_ease-in-out_infinite]"></div>
+        <div className="absolute bottom-32 right-16 w-16 h-16 border border-slate-200 rounded-xl -rotate-12 animate-[float_10s_ease-in-out_infinite_3s]"></div>
+        <div className="absolute top-1/3 right-1/4 w-12 h-12 border border-slate-200 rounded-full animate-[float_6s_ease-in-out_infinite_1s]"></div>
       </div>
 
       <div className="relative z-10 payzoo-page-container">
@@ -206,17 +206,17 @@ export function Subscriptions() {
             <div className="space-y-4">
               <div className="flex items-center gap-3">
                 <div className="relative">
-                  <div className="w-12 h-12 bg-gradient-to-br from-violet-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg">
+                  <div className="w-12 h-12 bg-gradient-to-br from-black to-gray-800 rounded-2xl flex items-center justify-center shadow-lg">
                     <Zap className="w-6 h-6 text-white" />
                   </div>
                   <div className="absolute -top-1 -right-1 w-4 h-4 bg-emerald-400 rounded-full border-2 border-white animate-pulse"></div>
                 </div>
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-xs font-semibold text-violet-600 bg-violet-50 px-2 py-1 rounded-full">SMART</span>
+                    <span className="text-xs font-semibold text-black bg-gray-100 px-2 py-1 rounded-full">SMART</span>
                     <span className="text-xs text-muted-foreground">Gestion intelligente</span>
                   </div>
-                  <h1 className="text-4xl font-bold bg-gradient-to-r from-violet-600 to-purple-600 bg-clip-text text-transparent">
+                  <h1 className="text-4xl font-bold bg-gradient-to-r from-black to-gray-700 bg-clip-text text-transparent">
                     Abonnements
                   </h1>
                 </div>
@@ -224,7 +224,7 @@ export function Subscriptions() {
               <p className="text-lg text-muted-foreground">Optimisez vos dépenses récurrentes</p>
             </div>
             
-            <Button className="group bg-gradient-to-r from-violet-500 to-purple-600 hover:from-violet-600 hover:to-purple-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 h-12 px-6">
+            <Button className="group bg-gradient-to-r from-black to-gray-800 hover:from-gray-800 hover:to-black text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 h-12 px-6">
               <Plus className="w-5 h-5 mr-2 group-hover:rotate-90 transition-transform duration-300" />
               Ajouter
               <ArrowUpRight className="w-4 h-4 ml-2 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
@@ -242,13 +242,13 @@ export function Subscriptions() {
                 placeholder="Rechercher un service..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full h-12 pl-12 pr-4 bg-white/80 backdrop-blur-sm border border-border/50 rounded-2xl focus:border-violet-300 focus:outline-none focus:ring-4 focus:ring-violet-100 transition-all duration-300 text-foreground placeholder:text-muted-foreground shadow-sm"
+                className="w-full h-12 pl-12 pr-4 bg-white/80 backdrop-blur-sm border border-border/50 rounded-2xl focus:border-black focus:outline-none focus:ring-4 focus:ring-black/10 transition-all duration-300 text-foreground placeholder:text-muted-foreground shadow-sm"
               />
             </div>
             <Select value={filterStatus} onValueChange={setFilterStatus}>
-              <SelectTrigger className="w-44 h-12 bg-white/80 backdrop-blur-sm border border-border/50 rounded-2xl focus:border-violet-300 shadow-sm">
+              <SelectTrigger className="w-44 h-12 bg-white/80 backdrop-blur-sm border border-border/50 rounded-2xl focus:border-black shadow-sm">
                 <div className="flex items-center gap-2">
-                  <Filter className="w-4 h-4 text-violet-500" />
+                  <Filter className="w-4 h-4 text-black" />
                   <SelectValue />
                 </div>
               </SelectTrigger>
@@ -264,20 +264,20 @@ export function Subscriptions() {
 
         {/* Enhanced metrics cards */}
         <div className={`grid grid-cols-1 md:grid-cols-4 gap-6 mb-8 transition-all duration-500 delay-200 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-          <Card className="relative p-6 bg-white/80 backdrop-blur-sm border border-border/50 hover:border-violet-200 transition-all duration-300 hover:shadow-lg group overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-violet-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <Card className="relative p-6 bg-white/80 backdrop-blur-sm border border-border/50 hover:border-black/20 transition-all duration-300 hover:shadow-lg group overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-gray-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             <div className="relative">
               <div className="flex items-center justify-between mb-4">
-                <div className="w-10 h-10 bg-gradient-to-br from-violet-100 to-purple-100 rounded-xl flex items-center justify-center">
-                  <DollarSign className="w-5 h-5 text-violet-600" />
+                <div className="w-10 h-10 bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl flex items-center justify-center">
+                  <DollarSign className="w-5 h-5 text-black" />
                 </div>
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={() => setShowAnalytics(!showAnalytics)}
-                  className="w-8 h-8 p-0 hover:bg-violet-100 rounded-lg"
+                  className="w-8 h-8 p-0 hover:bg-gray-100 rounded-lg"
                 >
-                  {showAnalytics ? <Eye className="w-4 h-4 text-violet-600" /> : <EyeOff className="w-4 h-4 text-muted-foreground" />}
+                  {showAnalytics ? <Eye className="w-4 h-4 text-black" /> : <EyeOff className="w-4 h-4 text-muted-foreground" />}
                 </Button>
               </div>
               {showAnalytics ? (
@@ -344,8 +344,8 @@ export function Subscriptions() {
               onClick={() => setSelectedCategory("all")}
               className={`px-4 py-2 text-sm font-medium transition-all duration-300 rounded-xl ${
                 selectedCategory === "all" 
-                  ? "bg-gradient-to-r from-violet-500 to-purple-600 text-white shadow-lg" 
-                  : "bg-white/60 backdrop-blur-sm border border-border/50 text-muted-foreground hover:border-violet-200 hover:text-violet-600 hover:bg-violet-50"
+                  ? "bg-gradient-to-r from-black to-gray-800 text-white shadow-lg" 
+                  : "bg-white/60 backdrop-blur-sm border border-border/50 text-muted-foreground hover:border-black/20 hover:text-black hover:bg-gray-50"
               }`}
             >
               <Stars className="w-3 h-3 inline mr-1.5" />
@@ -357,8 +357,8 @@ export function Subscriptions() {
                 onClick={() => setSelectedCategory(category)}
                 className={`px-4 py-2 text-sm font-medium transition-all duration-300 rounded-xl ${
                   selectedCategory === category
-                    ? "bg-gradient-to-r from-violet-500 to-purple-600 text-white shadow-lg"
-                    : "bg-white/60 backdrop-blur-sm border border-border/50 text-muted-foreground hover:border-violet-200 hover:text-violet-600 hover:bg-violet-50"
+                    ? "bg-gradient-to-r from-black to-gray-800 text-white shadow-lg"
+                    : "bg-white/60 backdrop-blur-sm border border-border/50 text-muted-foreground hover:border-black/20 hover:text-black hover:bg-gray-50"
                 }`}
               >
                 {category}
@@ -371,8 +371,8 @@ export function Subscriptions() {
         <div className={`space-y-4 transition-all duration-500 delay-400 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
           {filteredSubscriptions.length === 0 ? (
             <div className="py-20 text-center">
-              <div className="w-16 h-16 bg-gradient-to-br from-violet-100 to-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <Search className="w-8 h-8 text-violet-500" />
+              <div className="w-16 h-16 bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <Search className="w-8 h-8 text-black" />
               </div>
               <h3 className="text-xl font-semibold text-foreground mb-2">Aucun résultat</h3>
               <p className="text-muted-foreground max-w-md mx-auto">Aucun abonnement ne correspond à vos critères de recherche.</p>
@@ -384,11 +384,11 @@ export function Subscriptions() {
               return (
                 <Card 
                   key={subscription.id} 
-                  className="group relative bg-white/80 backdrop-blur-sm border border-border/50 hover:border-violet-200 transition-all duration-300 hover:shadow-xl cursor-pointer rounded-2xl overflow-hidden animate-fade-in"
+                  className="group relative bg-white/80 backdrop-blur-sm border border-border/50 hover:border-black/20 transition-all duration-300 hover:shadow-xl cursor-pointer rounded-2xl overflow-hidden animate-fade-in"
                   style={{ animationDelay: `${400 + index * 100}ms` }}
                   onClick={() => handleCardClick(subscription.id)}
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-violet-50/0 via-violet-50/20 to-purple-50/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-gray-50/0 via-gray-50/20 to-gray-50/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   
                   <CardContent className="relative p-6">
                     <div className="flex items-center justify-between">
@@ -402,10 +402,10 @@ export function Subscriptions() {
                         
                         <div className="space-y-2">
                           <div className="flex items-center gap-3">
-                            <h3 className="text-lg font-semibold text-foreground group-hover:text-violet-700 transition-colors">
+                            <h3 className="text-lg font-semibold text-foreground group-hover:text-black transition-colors">
                               {subscription.name}
                             </h3>
-                            <Badge variant="secondary" className="text-xs bg-violet-50 text-violet-600 border-violet-200">
+                            <Badge variant="secondary" className="text-xs bg-gray-50 text-black border-gray-200">
                               {subscription.plan}
                             </Badge>
                           </div>
@@ -462,7 +462,7 @@ export function Subscriptions() {
                                 <Button 
                                   variant="ghost" 
                                   size="sm" 
-                                  className="w-10 h-10 p-0 hover:bg-violet-100 rounded-xl transition-colors"
+                                  className="w-10 h-10 p-0 hover:bg-gray-100 rounded-xl transition-colors"
                                   onClick={(e) => {
                                     e.preventDefault();
                                     e.stopPropagation();
@@ -477,24 +477,24 @@ export function Subscriptions() {
                                 onClick={(e) => e.stopPropagation()}
                               >
                                 <DropdownMenuItem 
-                                  className="flex items-center gap-3 px-3 py-2.5 text-sm cursor-pointer hover:bg-violet-50 transition-colors rounded-lg m-1"
+                                  className="flex items-center gap-3 px-3 py-2.5 text-sm cursor-pointer hover:bg-gray-50 transition-colors rounded-lg m-1"
                                   onClick={(e) => handleDropdownAction('edit', subscription.id, e)}
                                 >
-                                  <Edit className="w-4 h-4 text-violet-600" />
+                                  <Edit className="w-4 h-4 text-black" />
                                   Modifier
                                 </DropdownMenuItem>
                                 <DropdownMenuItem 
-                                  className="flex items-center gap-3 px-3 py-2.5 text-sm cursor-pointer hover:bg-violet-50 transition-colors rounded-lg m-1"
+                                  className="flex items-center gap-3 px-3 py-2.5 text-sm cursor-pointer hover:bg-gray-50 transition-colors rounded-lg m-1"
                                   onClick={(e) => handleDropdownAction('duplicate', subscription.id, e)}
                                 >
-                                  <Copy className="w-4 h-4 text-violet-600" />
+                                  <Copy className="w-4 h-4 text-black" />
                                   Dupliquer
                                 </DropdownMenuItem>
                                 <DropdownMenuItem 
-                                  className="flex items-center gap-3 px-3 py-2.5 text-sm cursor-pointer hover:bg-violet-50 transition-colors rounded-lg m-1"
+                                  className="flex items-center gap-3 px-3 py-2.5 text-sm cursor-pointer hover:bg-gray-50 transition-colors rounded-lg m-1"
                                   onClick={(e) => handleDropdownAction('renew', subscription.id, e)}
                                 >
-                                  <RefreshCw className="w-4 h-4 text-violet-600" />
+                                  <RefreshCw className="w-4 h-4 text-black" />
                                   Renouveler
                                 </DropdownMenuItem>
                                 <DropdownMenuSeparator className="my-1 h-px bg-border/50" />
