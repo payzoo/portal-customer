@@ -1,5 +1,4 @@
-
-import { Building2, Plus, Clock, TrendingUp, CreditCard, Calendar, MoreVertical, Search, Filter, ArrowUpRight, CheckCircle2, Pause, AlertCircle, Eye, BarChart3, DollarSign, Activity, Settings, Edit, Trash2, Copy, Archive, RefreshCw, Sparkles, Zap, Brain, Cpu, Stars, Target } from "lucide-react";
+import { Building2, Plus, Clock, TrendingUp, TrendingDown, CreditCard, Calendar, MoreVertical, Search, Filter, ArrowUpRight, CheckCircle2, Pause, AlertCircle, Eye, EyeOff, BarChart3, DollarSign, Activity, Settings, Edit, Trash2, Copy, Archive, RefreshCw, Sparkles, Zap, Brain, Cpu, Stars, Target } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
