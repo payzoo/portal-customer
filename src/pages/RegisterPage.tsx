@@ -28,12 +28,22 @@ const RegisterPage = () => {
   const [countryCode, setCountryCode] = useState("+33");
   const [isFormValid, setIsFormValid] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [focusedField, setFocusedField] = useState<string | null>(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const navigate = useNavigate();
   const { setPendingEmail } = useAuth();
 
   useEffect(() => {
     setIsLoaded(true);
+    
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({
+        x: (e.clientX / window.innerWidth) * 100,
+        y: (e.clientY / window.innerHeight) * 100
+      });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
   const validateEmail = (email: string) => {
@@ -86,22 +96,20 @@ const RegisterPage = () => {
     isValid: boolean;
     isPhone?: boolean;
   }) => (
-    <div className="space-y-2">
-      <Label htmlFor={id} className="text-sm font-medium text-gray-700">
+    <div className="space-y-3">
+      <Label htmlFor={id} className="payzoo-body-sm font-medium text-muted-foreground">
         {label}
       </Label>
-      <div className="relative group">
-        <div className={`absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-emerald-500/20 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-all duration-700 ${focusedField === id ? 'opacity-100 blur-md' : ''}`}></div>
-        <div className="relative bg-white/80 backdrop-blur-sm rounded-xl border border-gray-200/60 shadow-lg overflow-hidden group-hover:shadow-xl transition-all duration-500">
-          <div className={`absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent transform -translate-x-full transition-transform duration-1000 ${focusedField === id ? 'translate-x-full' : ''}`}></div>
-          <div className="relative flex items-center">
-            {isPhone && (
-              <div className="absolute left-4 z-10">
+      <div className="relative">
+        {isPhone ? (
+          <div className="glass-card hover:glass-card rounded-2xl border border-border/50 backdrop-blur-sm bg-background/60 transition-all duration-300 hover:bg-background/80 hover:border-border/80">
+            <div className="flex">
+              <div className="flex-shrink-0">
                 <Select value={countryCode} onValueChange={setCountryCode}>
-                  <SelectTrigger className="w-20 h-8 border-0 bg-transparent focus:ring-0 p-1">
+                  <SelectTrigger className="w-24 h-14 border-0 bg-transparent focus:ring-0 rounded-l-2xl">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="z-50 bg-background border border-border/20 shadow-xl">
                     {countries.map((country) => (
                       <SelectItem key={`${country.code}-${country.country}`} value={country.code}>
                         <div className="flex items-center space-x-2">
@@ -113,164 +121,246 @@ const RegisterPage = () => {
                   </SelectContent>
                 </Select>
               </div>
-            )}
-            <Icon className={`absolute ${isPhone ? 'left-28' : 'left-4'} text-gray-400 w-5 h-5 transition-all duration-300 group-focus-within:text-blue-500 group-focus-within:scale-110 z-10`} />
-            <Input
-              id={id}
-              type={type}
-              placeholder={placeholder}
-              value={value}
-              onChange={onChange}
-              onFocus={() => setFocusedField(id)}
-              onBlur={() => setFocusedField(null)}
-              className={`w-full h-14 ${isPhone ? 'pl-36' : 'pl-14'} pr-14 border-0 bg-transparent text-base placeholder:text-gray-400 focus:ring-0 focus:outline-none font-light`}
-            />
-            <div className={`absolute right-4 transition-all duration-500 z-10 ${
-              isValid ? 'scale-100 opacity-100 rotate-0' : 'scale-0 opacity-0 rotate-90'
-            }`}>
-              <div className="w-6 h-6 bg-gradient-to-r from-emerald-500 to-green-500 rounded-full flex items-center justify-center shadow-lg">
-                <Check className="w-3 h-3 text-white" />
+              <div className="flex-1 relative">
+                <Icon className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
+                <Input
+                  id={id}
+                  type={type}
+                  placeholder={placeholder}
+                  value={value}
+                  onChange={onChange}
+                  className="w-full h-14 pl-12 pr-12 border-0 bg-transparent focus:ring-0 focus:border-0 placeholder:text-muted-foreground/60 text-foreground text-base rounded-l-none rounded-r-2xl"
+                />
+                <div className={`absolute right-4 top-1/2 transform -translate-y-1/2 transition-all duration-500 ${
+                  isValid ? 'scale-100 opacity-100 rotate-0' : 'scale-0 opacity-0 rotate-90'
+                }`}>
+                  <div className="w-6 h-6 bg-foreground rounded-full flex items-center justify-center">
+                    <Check className="w-3 h-3 text-background" />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <div className="glass-card hover:glass-card rounded-2xl border border-border/50 backdrop-blur-sm bg-background/60 transition-all duration-300 hover:bg-background/80 hover:border-border/80">
+            <div className="relative flex items-center">
+              <Icon className="absolute left-4 text-muted-foreground w-5 h-5" />
+              <Input
+                id={id}
+                type={type}
+                placeholder={placeholder}
+                value={value}
+                onChange={onChange}
+                className="w-full h-14 pl-12 pr-12 border-0 bg-transparent focus:ring-0 focus:border-0 placeholder:text-muted-foreground/60 text-foreground text-base"
+              />
+              <div className={`absolute right-4 transition-all duration-500 ${
+                isValid ? 'scale-100 opacity-100 rotate-0' : 'scale-0 opacity-0 rotate-90'
+              }`}>
+                <div className="w-6 h-6 bg-foreground rounded-full flex items-center justify-center">
+                  <Check className="w-3 h-3 text-background" />
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50/30 flex items-center justify-center p-4 relative overflow-hidden">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-400/20 to-purple-400/10 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '4s' }}></div>
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-emerald-400/20 to-cyan-400/10 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '6s', animationDelay: '2s' }}></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-radial from-indigo-400/5 via-transparent to-transparent rounded-full animate-float"></div>
+    <div className="min-h-screen bg-background relative overflow-hidden">
+      {/* Dynamic background elements - style harmonisé avec AuthPage */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Floating geometric shapes */}
+        <div 
+          className="absolute w-32 h-32 border border-border/20 rounded-full animate-float"
+          style={{
+            top: '10%',
+            left: '5%',
+            animationDelay: '0s',
+            transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)`
+          }}
+        ></div>
+        <div 
+          className="absolute w-24 h-24 border border-border/30 rounded-lg rotate-45 animate-float"
+          style={{
+            top: '20%',
+            right: '8%',
+            animationDelay: '2s',
+            transform: `translate(${mousePosition.x * -0.015}px, ${mousePosition.y * 0.015}px)`
+          }}
+        ></div>
+        <div 
+          className="absolute w-16 h-16 bg-foreground/5 rounded-full animate-float"
+          style={{
+            bottom: '15%',
+            left: '10%',
+            animationDelay: '4s',
+            transform: `translate(${mousePosition.x * 0.025}px, ${mousePosition.y * -0.02}px)`
+          }}
+        ></div>
+        <div 
+          className="absolute w-20 h-20 border-2 border-foreground/10 rounded-full animate-float"
+          style={{
+            bottom: '25%',
+            right: '15%',
+            animationDelay: '1s',
+            transform: `translate(${mousePosition.x * -0.02}px, ${mousePosition.y * 0.03}px)`
+          }}
+        ></div>
+
+        {/* Subtle grid pattern */}
+        <div 
+          className="absolute inset-0 opacity-[0.02]"
+          style={{
+            backgroundImage: `
+              linear-gradient(to right, currentColor 1px, transparent 1px),
+              linear-gradient(to bottom, currentColor 1px, transparent 1px)
+            `,
+            backgroundSize: '60px 60px'
+          }}
+        ></div>
       </div>
 
-      <div className={`w-full max-w-md space-y-8 relative z-10 transform transition-all duration-1000 ease-out ${
-        isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-      }`}>
-        {/* Header */}
-        <div className="text-center space-y-4">
-          <div className={`transform transition-all duration-700 ease-out ${
-            isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
-          }`} style={{ transitionDelay: '200ms' }}>
-            <div className="flex items-center justify-center mb-4">
-              <div className="flex items-center space-x-2 px-4 py-2 bg-white/60 backdrop-blur-sm rounded-full border border-gray-200/50 shadow-lg">
-                <Sparkles className="w-4 h-4 text-blue-500 animate-pulse" />
-                <span className="text-sm font-medium text-gray-700 tracking-wide">PAYZOO</span>
-                <Sparkles className="w-4 h-4 text-purple-500 animate-pulse" style={{ animationDelay: '0.5s' }} />
-              </div>
-            </div>
-            <h1 className="text-4xl font-light text-gray-900 tracking-tight mb-2">
-              Rejoignez l'innovation
-            </h1>
-            <p className="text-gray-600 text-base">Créez votre compte et découvrez l'avenir des paiements.</p>
-          </div>
-        </div>
-
-        {/* Registration form */}
-        <div className={`space-y-6 transform transition-all duration-700 ease-out ${
-          isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
-        }`} style={{ transitionDelay: '400ms' }}>
+      {/* Main content */}
+      <div className="relative z-10 min-h-screen flex items-center justify-center p-6">
+        <div className={`w-full max-w-md transform transition-all duration-1000 ease-out ${
+          isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+        }`}>
           
-          <FormField
-            id="fullName"
-            label="Nom complet"
-            type="text"
-            placeholder="Votre nom complet"
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
-            icon={User}
-            isValid={validateFullName(fullName)}
-          />
+          {/* Header - style harmonisé avec AuthPage */}
+          <div className="text-center mb-12">
+            <div className={`transform transition-all duration-700 ease-out ${
+              isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
+            }`} style={{ transitionDelay: '400ms' }}>
+              
+              {/* Logo avec éléments animés */}
+              <div className="relative mb-8">
+                <h1 className="payzoo-page-title relative inline-block">
+                  Payzoo
+                  <Sparkles className="absolute -top-2 -right-8 w-6 h-6 text-foreground/40 animate-pulse" />
+                </h1>
+              </div>
 
-          <FormField
-            id="email"
-            label="Adresse e-mail"
-            type="email"
-            placeholder="votre.email@exemple.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            icon={Mail}
-            isValid={validateEmail(email)}
-          />
-
-          <FormField
-            id="phone"
-            label="Numéro de téléphone"
-            type="tel"
-            placeholder="Votre numéro de téléphone"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            icon={Phone}
-            isValid={validatePhone(phone)}
-            isPhone={true}
-          />
-
-          {/* Terms */}
-          <div className="text-center py-2">
-            <p className="text-xs text-gray-500 leading-relaxed">
-              En continuant, vous acceptez nos{" "}
-              <button className="text-blue-600 hover:text-blue-800 underline underline-offset-2 transition-colors">
-                Conditions d'utilisation
-              </button>{" "}
-              et notre{" "}
-              <button className="text-blue-600 hover:text-blue-800 underline underline-offset-2 transition-colors">
-                Politique de confidentialité
-              </button>.
-            </p>
+              {/* Indicateur de statut avec style moderne */}
+              <div className="flex items-center justify-center space-x-4 mb-6">
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-foreground rounded-full animate-pulse"></div>
+                  <div className="w-1 h-1 bg-foreground/60 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+                </div>
+                <div className="relative">
+                  <p className="payzoo-caption uppercase tracking-[0.2em] font-medium text-muted-foreground">
+                    Rejoignez-nous
+                  </p>
+                  <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-8 h-px bg-foreground/20"></div>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <div className="w-1 h-1 bg-foreground/60 rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
+                  <div className="w-2 h-2 bg-foreground rounded-full animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+                </div>
+              </div>
+              
+              <p className="payzoo-subtitle">Créez votre compte et découvrez l'avenir des paiements</p>
+            </div>
           </div>
 
-          {/* Register button - style harmonisé avec la page de connexion */}
-          <Button
-            onClick={handleRegister}
-            disabled={!isFormValid}
-            className={`w-full h-12 text-white font-medium text-base transition-all duration-200 ${
-              isFormValid 
-                ? 'bg-black hover:bg-gray-800 active:bg-gray-900' 
-                : 'bg-gray-300 cursor-not-allowed'
-            }`}
-          >
-            <span className="flex items-center justify-center">
-              Créer mon compte
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </span>
-          </Button>
+          {/* Formulaire d'inscription */}
+          <div className={`space-y-6 transform transition-all duration-700 ease-out ${
+            isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
+          }`} style={{ transitionDelay: '600ms' }}>
+            
+            <FormField
+              id="fullName"
+              label="Nom complet"
+              type="text"
+              placeholder="Votre nom complet"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+              icon={User}
+              isValid={validateFullName(fullName)}
+            />
 
-          {/* Login redirect */}
-          <div className="text-center">
-            <p className="text-sm text-gray-600">
-              Déjà membre ?{" "}
-              <button
-                onClick={handleLoginRedirect}
-                className="text-blue-600 font-medium hover:text-blue-800 transition-colors duration-200 hover:underline underline-offset-2"
-              >
-                Se connecter
-              </button>
-            </p>
-          </div>
-        </div>
+            <FormField
+              id="email"
+              label="Adresse e-mail"
+              type="email"
+              placeholder="votre@email.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              icon={Mail}
+              isValid={validateEmail(email)}
+            />
 
-        {/* Footer */}
-        <div className={`text-center space-y-4 transform transition-all duration-700 ease-out ${
-          isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
-        }`} style={{ transitionDelay: '600ms' }}>
-          <div className="flex items-center justify-center space-x-6 text-xs text-gray-400">
-            <button className="hover:text-gray-600 transition-colors">Aide</button>
-            <button className="hover:text-gray-600 transition-colors">Support</button>
-            <button className="hover:text-gray-600 transition-colors">Contact</button>
+            <FormField
+              id="phone"
+              label="Numéro de téléphone"
+              type="tel"
+              placeholder="Votre numéro de téléphone"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              icon={Phone}
+              isValid={validatePhone(phone)}
+              isPhone={true}
+            />
+
+            {/* Conditions d'utilisation */}
+            <div className="text-center py-2">
+              <p className="payzoo-body-sm text-muted-foreground leading-relaxed">
+                En continuant, vous acceptez nos{" "}
+                <button className="text-foreground hover:underline transition-colors underline-offset-2">
+                  Conditions d'utilisation
+                </button>{" "}
+                et notre{" "}
+                <button className="text-foreground hover:underline transition-colors underline-offset-2">
+                  Politique de confidentialité
+                </button>.
+              </p>
+            </div>
+
+            {/* Bouton d'inscription - style harmonisé avec AuthPage */}
+            <Button
+              onClick={handleRegister}
+              disabled={!isFormValid}
+              className={`w-full h-14 bg-foreground text-background font-medium rounded-2xl transition-all duration-300 hover:bg-foreground/90 active:scale-[0.98] group ${
+                !isFormValid ? 'opacity-40 cursor-not-allowed' : 'hover:shadow-lg hover:shadow-foreground/10'
+              }`}
+            >
+              <span className="mr-2">Créer mon compte</span>
+              <ArrowRight className="w-5 h-5 transition-transform duration-200 group-hover:translate-x-1" />
+            </Button>
+
+            {/* Redirection vers la connexion */}
+            <div className="text-center">
+              <p className="payzoo-body-sm mb-6 text-muted-foreground">
+                Déjà membre ?{" "}
+                <button
+                  onClick={handleLoginRedirect}
+                  className="text-foreground font-medium hover:underline transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-foreground/20 focus:ring-offset-2 rounded-sm px-1"
+                >
+                  Se connecter
+                </button>
+              </p>
+            </div>
           </div>
-          <div className="flex justify-center space-x-2">
-            {[1, 2, 3].map((i) => (
-              <div 
-                key={i} 
-                className="w-1 h-1 bg-blue-500 rounded-full animate-pulse hover:scale-150 transition-all duration-300"
-                style={{ animationDelay: `${i * 0.3}s`, animationDuration: '2s' }}
-              ></div>
-            ))}
+
+          {/* Footer - style harmonisé avec AuthPage */}
+          <div className={`text-center space-y-8 mt-12 transform transition-all duration-700 ease-out ${
+            isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
+          }`} style={{ transitionDelay: '800ms' }}>
+            
+            {/* Indicateurs de statut modernes */}
+            <div className="flex justify-center space-x-4">
+              {[1, 2, 3].map((i) => (
+                <div 
+                  key={i} 
+                  className="w-2 h-2 bg-foreground/60 rounded-full hover:bg-foreground hover:scale-125 transition-all duration-300 cursor-pointer"
+                  style={{ animationDelay: `${i * 0.2}s` }}
+                ></div>
+              ))}
+            </div>
+            
+            <p className="payzoo-caption opacity-50 tracking-wider">© 2024 Payzoo</p>
           </div>
-          <p className="text-xs text-gray-400 font-light opacity-60">© 2024 Payzoo - L'avenir des paiements</p>
         </div>
       </div>
     </div>
