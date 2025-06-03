@@ -24,11 +24,16 @@ interface FormFieldProps {
   placeholder: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: () => void;
+  onKeyPress?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   icon: any;
   isValid: boolean;
   isPhone?: boolean;
   countryCode?: string;
   setCountryCode?: (code: string) => void;
+  disabled?: boolean;
+  required?: boolean;
+  "aria-describedby"?: string;
 }
 
 const FormField = ({ 
@@ -38,11 +43,16 @@ const FormField = ({
   placeholder, 
   value, 
   onChange, 
+  onBlur,
+  onKeyPress,
   icon: Icon, 
   isValid, 
   isPhone = false,
   countryCode,
-  setCountryCode
+  setCountryCode,
+  disabled = false,
+  required = false,
+  "aria-describedby": ariaDescribedBy
 }: FormFieldProps) => (
   <div className="space-y-2">
     <Label htmlFor={id} className="text-sm font-medium text-foreground">
@@ -51,7 +61,7 @@ const FormField = ({
     <div className="relative">
       {isPhone ? (
         <div className="flex border border-input rounded-xl overflow-hidden bg-background">
-          <Select value={countryCode} onValueChange={setCountryCode}>
+          <Select value={countryCode} onValueChange={setCountryCode} disabled={disabled}>
             <SelectTrigger className="w-20 h-12 border-0 bg-transparent focus:ring-0 rounded-none">
               <SelectValue />
             </SelectTrigger>
@@ -74,6 +84,11 @@ const FormField = ({
               placeholder={placeholder}
               value={value}
               onChange={onChange}
+              onBlur={onBlur}
+              onKeyPress={onKeyPress}
+              disabled={disabled}
+              required={required}
+              aria-describedby={ariaDescribedBy}
               className="h-12 pl-10 pr-10 border-0 bg-transparent focus:ring-0 focus:border-0 rounded-none"
             />
             {isValid && (
@@ -94,6 +109,11 @@ const FormField = ({
             placeholder={placeholder}
             value={value}
             onChange={onChange}
+            onBlur={onBlur}
+            onKeyPress={onKeyPress}
+            disabled={disabled}
+            required={required}
+            aria-describedby={ariaDescribedBy}
             className="h-12 pl-10 pr-10 border-input rounded-xl bg-background"
           />
           {isValid && (
