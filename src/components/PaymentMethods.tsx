@@ -1,431 +1,325 @@
-import { CreditCard, Plus, MoreHorizontal, Shield, Smartphone, Building2, Wallet, Star, Trash2, Pencil, CheckCircle2 } from "lucide-react";
+
+import { CreditCard, Plus, MoreVertical, Wallet, TrendingUp, TrendingDown, Eye, EyeOff, Settings, Edit, Trash2, Shield, Zap, Sparkles, ArrowUpRight, CheckCircle2, AlertCircle, Clock, DollarSign, Activity, Star, Target, Brain, Cpu } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useState } from "react";
-import { useToast } from "@/hooks/use-toast";
-
-type PaymentStatus = 'active' | 'inactive' | 'suspended';
-
-interface PaymentMethod {
-  id: number;
-  type: string;
-  provider: string;
-  displayName: string;
-  identifier: string;
-  isDefault: boolean;
-  status: PaymentStatus;
-  icon: any;
-  color: string;
-}
+import { useState, useEffect } from "react";
 
 export function PaymentMethods() {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [selectedType, setSelectedType] = useState("");
-  const { toast } = useToast();
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [balanceVisible, setBalanceVisible] = useState(true);
 
-  const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoaded(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const paymentMethods = [
     {
       id: 1,
       type: "card",
-      provider: "Visa",
-      displayName: "Carte principale",
-      identifier: "•••• 4242",
+      name: "Carte principale",
+      last4: "4242",
+      brand: "Visa",
       isDefault: true,
-      status: 'active',
-      icon: CreditCard,
-      color: "bg-black"
+      expiryMonth: 12,
+      expiryYear: 2026,
+      status: "active",
+      transactions: 28,
+      spending: 1247.50
     },
     {
       id: 2,
       type: "card",
-      provider: "Mastercard",
-      displayName: "Carte bureau",
-      identifier: "•••• 5555",
+      name: "Carte pro",
+      last4: "8888",
+      brand: "Mastercard",
       isDefault: false,
-      status: 'active',
-      icon: CreditCard,
-      color: "bg-gray-800"
+      expiryMonth: 8,
+      expiryYear: 2025,
+      status: "active",
+      transactions: 15,
+      spending: 892.30
     },
     {
       id: 3,
-      type: "mobile",
-      provider: "Orange Money",
-      displayName: "Mobile personnel",
-      identifier: "+33 6 •• •• •• 89",
-      isDefault: false,
-      status: 'suspended',
-      icon: Smartphone,
-      color: "bg-gray-600"
-    },
-    {
-      id: 4,
       type: "bank",
-      provider: "BNP Paribas",
-      displayName: "Compte courant",
-      identifier: "FR76 •••• •••• •••• 1234",
+      name: "Compte Crédit Agricole",
+      last4: "1234",
+      brand: "bank",
       isDefault: false,
-      status: 'inactive',
-      icon: Building2,
-      color: "bg-gray-400"
+      status: "pending",
+      transactions: 5,
+      spending: 245.80
     }
-  ]);
-
-  const paymentTypes = [
-    { type: "card", title: "Carte", icon: CreditCard },
-    { type: "mobile", title: "Mobile", icon: Smartphone },
-    { type: "bank", title: "Banque", icon: Building2 },
-    { type: "wallet", title: "Wallet", icon: Wallet }
   ];
 
-  const getStatusBadge = (status: PaymentStatus) => {
+  const walletStats = {
+    totalBalance: 2847.60,
+    monthlySpending: 2385.60,
+    activeCards: 2,
+    pendingTransactions: 3
+  };
+
+  const getCardIcon = (brand: string) => {
+    if (brand === "bank") return <Wallet className="w-5 h-5" />;
+    return <CreditCard className="w-5 h-5" />;
+  };
+
+  const getStatusColor = (status: string) => {
     switch (status) {
-      case 'active':
-        return (
-          <div className="flex items-center gap-1.5 text-xs">
-            <div className="w-1.5 h-1.5 bg-black rounded-full"></div>
-            <span className="text-black font-medium">Actif</span>
-          </div>
-        );
-      case 'inactive':
-        return (
-          <div className="flex items-center gap-1.5 text-xs">
-            <div className="w-1.5 h-1.5 bg-gray-400 rounded-full"></div>
-            <span className="text-gray-500">Inactif</span>
-          </div>
-        );
-      case 'suspended':
-        return (
-          <div className="flex items-center gap-1.5 text-xs">
-            <div className="w-1.5 h-1.5 bg-yellow-500 rounded-full"></div>
-            <span className="text-yellow-600">Suspendu</span>
-          </div>
-        );
-      default:
-        return null;
+      case "active": return "bg-green-500/10 text-green-700 border-green-200";
+      case "pending": return "bg-yellow-500/10 text-yellow-700 border-yellow-200";
+      case "blocked": return "bg-red-500/10 text-red-700 border-red-200";
+      default: return "bg-gray-500/10 text-gray-700 border-gray-200";
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    toast({
-      title: "Méthode ajoutée",
-      description: "Votre nouvelle méthode de paiement a été ajoutée.",
-    });
-    setIsDialogOpen(false);
-    setSelectedType("");
-  };
-
-  const handleSetDefault = (methodId: number) => {
-    setPaymentMethods(prev => prev.map(method => ({
-      ...method,
-      isDefault: method.id === methodId
-    })));
-    toast({
-      title: "Méthode par défaut",
-      description: "Cette méthode a été définie comme principale.",
-    });
-  };
-
-  const handleEdit = (methodId: number) => {
-    toast({
-      title: "Modifier",
-      description: "Fonctionnalité de modification à venir.",
-    });
-  };
-
-  const handleDelete = (methodId: number) => {
-    toast({
-      title: "Supprimer",
-      description: "Méthode supprimée avec succès.",
-      variant: "destructive",
-    });
-  };
-
-  const renderFormFields = () => {
-    switch (selectedType) {
-      case "card":
-        return (
-          <>
-            <div className="space-y-2">
-              <Label htmlFor="displayName" className="text-sm font-medium text-black">Nom</Label>
-              <Input id="displayName" placeholder="Carte principale" className="border-gray-200 focus:border-black" />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="cardNumber" className="text-sm font-medium text-black">Numéro</Label>
-              <Input id="cardNumber" placeholder="1234 5678 9012 3456" className="border-gray-200 focus:border-black" />
-            </div>
-            <div className="grid grid-cols-2 gap-3">
-              <div className="space-y-2">
-                <Label htmlFor="expiry" className="text-sm font-medium text-black">Expiration</Label>
-                <Input id="expiry" placeholder="MM/AA" className="border-gray-200 focus:border-black" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="cvv" className="text-sm font-medium text-black">CVV</Label>
-                <Input id="cvv" placeholder="123" className="border-gray-200 focus:border-black" />
-              </div>
-            </div>
-          </>
-        );
-      case "mobile":
-        return (
-          <>
-            <div className="space-y-2">
-              <Label htmlFor="displayName" className="text-sm font-medium text-black">Nom</Label>
-              <Input id="displayName" placeholder="Mobile personnel" className="border-gray-200 focus:border-black" />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="provider" className="text-sm font-medium text-black">Opérateur</Label>
-              <Select>
-                <SelectTrigger className="border-gray-200 focus:border-black">
-                  <SelectValue placeholder="Opérateur" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="orange">Orange Money</SelectItem>
-                  <SelectItem value="mtn">MTN Mobile Money</SelectItem>
-                  <SelectItem value="moov">Moov Money</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="phoneNumber" className="text-sm font-medium text-black">Numéro</Label>
-              <Input id="phoneNumber" placeholder="+33 6 12 34 56 78" className="border-gray-200 focus:border-black" />
-            </div>
-          </>
-        );
-      case "bank":
-        return (
-          <>
-            <div className="space-y-2">
-              <Label htmlFor="displayName" className="text-sm font-medium text-black">Nom</Label>
-              <Input id="displayName" placeholder="Compte courant" className="border-gray-200 focus:border-black" />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="bankName" className="text-sm font-medium text-black">Banque</Label>
-              <Input id="bankName" placeholder="BNP Paribas" className="border-gray-200 focus:border-black" />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="iban" className="text-sm font-medium text-black">IBAN</Label>
-              <Input id="iban" placeholder="FR76 1234 5678 9012 3456 7890 123" className="border-gray-200 focus:border-black" />
-            </div>
-          </>
-        );
-      case "wallet":
-        return (
-          <>
-            <div className="space-y-2">
-              <Label htmlFor="displayName" className="text-sm font-medium text-black">Nom</Label>
-              <Input id="displayName" placeholder="PayPal principal" className="border-gray-200 focus:border-black" />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="walletType" className="text-sm font-medium text-black">Type</Label>
-              <Select>
-                <SelectTrigger className="border-gray-200 focus:border-black">
-                  <SelectValue placeholder="Wallet" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="paypal">PayPal</SelectItem>
-                  <SelectItem value="applepay">Apple Pay</SelectItem>
-                  <SelectItem value="googlepay">Google Pay</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="walletEmail" className="text-sm font-medium text-black">Email</Label>
-              <Input id="walletEmail" placeholder="email@example.com" className="border-gray-200 focus:border-black" />
-            </div>
-          </>
-        );
-      default:
-        return null;
+  const getStatusText = (status: string) => {
+    switch (status) {
+      case "active": return "Active";
+      case "pending": return "En attente";
+      case "blocked": return "Bloquée";
+      default: return "Inconnue";
     }
   };
-
-  const activeMethods = paymentMethods.filter(method => method.status === 'active').length;
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="max-w-3xl mx-auto px-6 py-12">
-        
-        {/* En-tête ultra-minimaliste */}
-        <div className="mb-12">
-          <h1 className="text-4xl font-light text-black mb-3">
-            Paiements
-          </h1>
-          <p className="text-gray-500 text-lg">
-            Gérer vos moyens de paiement
-          </p>
-        </div>
+    <div className="min-h-screen bg-background relative overflow-hidden">
+      {/* Geometric floating elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 right-20 w-32 h-32 bg-gradient-to-br from-foreground/5 to-foreground/10 rounded-full blur-3xl animate-float" />
+        <div className="absolute bottom-40 left-10 w-24 h-24 bg-gradient-to-tr from-muted/20 to-muted/5 rounded-full blur-2xl" style={{ animationDelay: '2s' }} />
+        <div className="absolute top-1/2 left-1/3 w-16 h-16 bg-foreground/5 rotate-45 blur-xl animate-pulse" />
+      </div>
 
-        {/* Statistiques épurées */}
-        <div className="grid grid-cols-3 gap-8 mb-12">
-          <div className="text-center">
-            <div className="text-3xl font-light text-black mb-1">{activeMethods}</div>
-            <div className="text-sm text-gray-400 uppercase tracking-wide">Actives</div>
+      <div className="relative z-10 payzoo-page-container">
+        {/* Enhanced header */}
+        <div className={`flex items-center justify-between mb-12 transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-6'}`}>
+          <div className="space-y-3">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-foreground to-foreground/80 rounded-xl flex items-center justify-center">
+                <Wallet className="w-5 h-5 text-background" />
+              </div>
+              <div>
+                <h1 className="payzoo-page-title flex items-center gap-3">
+                  Portefeuille
+                  <Sparkles className="w-6 h-6 text-foreground/60 animate-pulse" />
+                </h1>
+                <p className="payzoo-subtitle">Gérez vos moyens de paiement et suivez vos dépenses</p>
+              </div>
+            </div>
           </div>
           
-          <div className="text-center border-l border-r border-gray-100">
-            <div className="text-3xl font-light text-black mb-1">{paymentMethods.length}</div>
-            <div className="text-sm text-gray-400 uppercase tracking-wide">Total</div>
-          </div>
-
-          <div className="text-center">
-            <div className="text-3xl font-light text-black mb-1">100%</div>
-            <div className="text-sm text-gray-400 uppercase tracking-wide">Sécurisé</div>
-          </div>
+          {/* Modern CTA */}
+          <Button className="group bg-foreground hover:bg-foreground/90 text-background px-5 py-2.5 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg border-0">
+            <Plus className="w-4 h-4 mr-2 group-hover:rotate-90 transition-transform duration-300" />
+            Ajouter
+          </Button>
         </div>
 
-        {/* Liste des méthodes ultra-épurée */}
-        <div className="space-y-1 mb-16">
-          {paymentMethods.map((method) => {
-            const IconComponent = method.icon;
-            return (
-              <div key={method.id} className="group py-6 border-b border-gray-50 hover:bg-gray-50/50 transition-colors">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-6">
-                    <div className={`w-10 h-10 ${method.color} rounded-full flex items-center justify-center`}>
-                      <IconComponent className="w-4 h-4 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="font-medium text-black">{method.displayName}</h3>
-                      <div className="flex items-center gap-4 mt-1">
-                        <span className="text-sm text-gray-400">{method.provider} {method.identifier}</span>
-                        {getStatusBadge(method.status)}
+        {/* Wallet overview cards */}
+        <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10 transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '100ms' }}>
+          <Card className="group payzoo-card border-0 bg-gradient-to-br from-background to-muted/20 hover:shadow-lg transition-all duration-300 hover:scale-[1.02]">
+            <CardContent className="payzoo-card-content">
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-green-500/10 to-green-600/20 rounded-xl flex items-center justify-center">
+                  <DollarSign className="w-6 h-6 text-green-600" />
+                </div>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setBalanceVisible(!balanceVisible)}
+                  className="w-8 h-8 hover:bg-muted/50"
+                >
+                  {balanceVisible ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
+                </Button>
+              </div>
+              <div className="space-y-2">
+                <p className="payzoo-body-sm text-muted-foreground">Solde total</p>
+                <p className="text-2xl font-bold text-foreground">
+                  {balanceVisible ? `${walletStats.totalBalance.toFixed(2)} €` : "••••••"}
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="group payzoo-card border-0 bg-gradient-to-br from-background to-muted/20 hover:shadow-lg transition-all duration-300 hover:scale-[1.02]">
+            <CardContent className="payzoo-card-content">
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-blue-500/10 to-blue-600/20 rounded-xl flex items-center justify-center">
+                  <TrendingDown className="w-6 h-6 text-blue-600" />
+                </div>
+                <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors" />
+              </div>
+              <div className="space-y-2">
+                <p className="payzoo-body-sm text-muted-foreground">Dépenses du mois</p>
+                <p className="text-2xl font-bold text-foreground">{walletStats.monthlySpending.toFixed(2)} €</p>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="group payzoo-card border-0 bg-gradient-to-br from-background to-muted/20 hover:shadow-lg transition-all duration-300 hover:scale-[1.02]">
+            <CardContent className="payzoo-card-content">
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-purple-500/10 to-purple-600/20 rounded-xl flex items-center justify-center">
+                  <CreditCard className="w-6 h-6 text-purple-600" />
+                </div>
+                <CheckCircle2 className="w-4 h-4 text-green-500" />
+              </div>
+              <div className="space-y-2">
+                <p className="payzoo-body-sm text-muted-foreground">Cartes actives</p>
+                <p className="text-2xl font-bold text-foreground">{walletStats.activeCards}</p>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="group payzoo-card border-0 bg-gradient-to-br from-background to-muted/20 hover:shadow-lg transition-all duration-300 hover:scale-[1.02]">
+            <CardContent className="payzoo-card-content">
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-orange-500/10 to-orange-600/20 rounded-xl flex items-center justify-center">
+                  <Clock className="w-6 h-6 text-orange-600" />
+                </div>
+                <Activity className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors" />
+              </div>
+              <div className="space-y-2">
+                <p className="payzoo-body-sm text-muted-foreground">En attente</p>
+                <p className="text-2xl font-bold text-foreground">{walletStats.pendingTransactions}</p>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Payment methods list */}
+        <div className={`space-y-6 transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '200ms' }}>
+          <div className="flex items-center justify-between">
+            <h2 className="payzoo-section-title">Moyens de paiement</h2>
+            <Badge variant="secondary" className="bg-muted/50 text-muted-foreground border-0">
+              {paymentMethods.length} méthodes
+            </Badge>
+          </div>
+
+          <div className="space-y-4">
+            {paymentMethods.map((method, index) => (
+              <Card 
+                key={method.id} 
+                className={`group payzoo-card-interactive border-0 bg-gradient-to-r from-background to-muted/10 hover:shadow-lg transition-all duration-500 hover:scale-[1.01] ${method.isDefault ? 'ring-2 ring-foreground/10' : ''}`}
+                style={{ animationDelay: `${300 + index * 100}ms` }}
+              >
+                <CardContent className="payzoo-card-content">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <div className={`w-14 h-14 rounded-xl flex items-center justify-center ${method.brand === 'Visa' ? 'bg-gradient-to-br from-blue-500/10 to-blue-600/20' : method.brand === 'Mastercard' ? 'bg-gradient-to-br from-red-500/10 to-red-600/20' : 'bg-gradient-to-br from-gray-500/10 to-gray-600/20'}`}>
+                        {getCardIcon(method.brand)}
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <div className="flex items-center gap-3">
+                          <h3 className="payzoo-subsection-title">{method.name}</h3>
+                          {method.isDefault && (
+                            <Badge className="bg-foreground text-background hover:bg-foreground/90 border-0 text-xs px-2 py-0.5">
+                              <Star className="w-3 h-3 mr-1" />
+                              Principale
+                            </Badge>
+                          )}
+                          <Badge className={`border text-xs px-2 py-0.5 ${getStatusColor(method.status)}`}>
+                            {getStatusText(method.status)}
+                          </Badge>
+                        </div>
+                        
+                        <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                          <span className="flex items-center gap-1">
+                            <Target className="w-3 h-3" />
+                            •••• {method.last4}
+                          </span>
+                          {method.type === "card" && (
+                            <span>{method.expiryMonth}/{method.expiryYear}</span>
+                          )}
+                          <span className="flex items-center gap-1">
+                            <Activity className="w-3 h-3" />
+                            {method.transactions} transactions
+                          </span>
+                          <span className="flex items-center gap-1 font-medium">
+                            <DollarSign className="w-3 h-3" />
+                            {method.spending.toFixed(2)} €
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  
-                  <div className="flex items-center gap-4">
-                    {method.isDefault && (
-                      <div className="flex items-center gap-1.5 text-xs">
-                        <Star className="w-3 h-3 text-black fill-black" />
-                        <span className="text-black font-medium">Principal</span>
-                      </div>
-                    )}
-                    
+
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="sm" className="w-8 h-8 p-0 opacity-0 group-hover:opacity-100 transition-opacity">
-                          <MoreHorizontal className="w-4 h-4" />
+                        <Button variant="ghost" size="icon" className="w-8 h-8 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                          <MoreVertical className="w-4 h-4" />
                         </Button>
                       </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end" className="bg-white border border-gray-200">
-                        <DropdownMenuItem onClick={() => handleEdit(method.id)}>
-                          <Pencil className="w-4 h-4 mr-2" />
+                      <DropdownMenuContent align="end" className="w-56 bg-background border border-border">
+                        <DropdownMenuItem className="flex items-center gap-2 hover:bg-muted cursor-pointer">
+                          <Eye className="w-4 h-4" />
+                          Voir les détails
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className="flex items-center gap-2 hover:bg-muted cursor-pointer">
+                          <Edit className="w-4 h-4" />
                           Modifier
                         </DropdownMenuItem>
-                        {!method.isDefault && method.status === 'active' && (
-                          <DropdownMenuItem onClick={() => handleSetDefault(method.id)}>
-                            <Star className="w-4 h-4 mr-2" />
-                            Par défaut
+                        {!method.isDefault && (
+                          <DropdownMenuItem className="flex items-center gap-2 hover:bg-muted cursor-pointer">
+                            <Star className="w-4 h-4" />
+                            Définir par défaut
                           </DropdownMenuItem>
                         )}
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem onClick={() => handleDelete(method.id)} className="text-red-600">
-                          <Trash2 className="w-4 h-4 mr-2" />
+                        <DropdownMenuItem className="flex items-center gap-2 hover:bg-muted cursor-pointer">
+                          <Settings className="w-4 h-4" />
+                          Paramètres
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className="flex items-center gap-2 text-red-600 hover:bg-red-50 cursor-pointer">
+                          <Trash2 className="w-4 h-4" />
                           Supprimer
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </div>
-                </div>
-              </div>
-            );
-          })}
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
 
-        {/* Section d'ajout minimaliste */}
-        <div className="text-center py-16 border-t border-gray-100">
-          <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center mx-auto mb-6">
-            <Plus className="w-5 h-5 text-white" />
-          </div>
-          <h3 className="text-xl font-light text-black mb-2">
-            Ajouter une méthode
-          </h3>
-          <p className="text-gray-400 mb-8 max-w-md mx-auto">
-            Connectez votre moyen de paiement en quelques clics
-          </p>
-
-          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-            <DialogTrigger asChild>
-              <Button className="bg-black text-white hover:bg-gray-800 px-8 py-3 rounded-full">
-                Nouvelle méthode
-              </Button>
-            </DialogTrigger>
-            
-            <DialogContent className="sm:max-w-lg bg-white">
-              <DialogHeader>
-                <DialogTitle className="text-xl font-light text-black">Ajouter une méthode</DialogTitle>
-              </DialogHeader>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="space-y-2">
-                  <Label htmlFor="paymentType" className="text-sm font-medium text-black">Type</Label>
-                  <Select value={selectedType} onValueChange={setSelectedType}>
-                    <SelectTrigger className="border-gray-200 focus:border-black">
-                      <SelectValue placeholder="Sélectionner" />
-                    </SelectTrigger>
-                    <SelectContent className="bg-white">
-                      {paymentTypes.map((type) => {
-                        const IconComponent = type.icon;
-                        return (
-                          <SelectItem key={type.type} value={type.type}>
-                            <div className="flex items-center gap-2">
-                              <IconComponent className="w-4 h-4" />
-                              <span>{type.title}</span>
-                            </div>
-                          </SelectItem>
-                        );
-                      })}
-                    </SelectContent>
-                  </Select>
+        {/* Quick actions */}
+        <div className={`mt-12 transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '400ms' }}>
+          <h3 className="payzoo-subsection-title mb-6">Actions rapides</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Card className="group payzoo-card-interactive border-0 bg-gradient-to-br from-background to-blue-50/50 hover:shadow-lg transition-all duration-300 hover:scale-[1.02] cursor-pointer">
+              <CardContent className="payzoo-card-compact text-center">
+                <div className="w-12 h-12 bg-gradient-to-br from-blue-500/10 to-blue-600/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <CreditCard className="w-6 h-6 text-blue-600" />
                 </div>
-                
-                {renderFormFields()}
-                
-                {selectedType && (
-                  <div className="flex gap-3 pt-6">
-                    <Button
-                      type="button"
-                      variant="outline"
-                      onClick={() => setIsDialogOpen(false)}
-                      className="flex-1 border-gray-200 hover:bg-gray-50"
-                    >
-                      Annuler
-                    </Button>
-                    <Button type="submit" className="flex-1 bg-black text-white hover:bg-gray-800">
-                      Ajouter
-                    </Button>
-                  </div>
-                )}
-              </form>
-            </DialogContent>
-          </Dialog>
+                <h4 className="font-medium text-foreground mb-2">Ajouter une carte</h4>
+                <p className="text-sm text-muted-foreground">Connectez une nouvelle carte bancaire</p>
+              </CardContent>
+            </Card>
 
-          {/* Types supportés - Version minimaliste */}
-          <div className="mt-12">
-            <div className="grid grid-cols-4 gap-6 max-w-md mx-auto">
-              {paymentTypes.map((type) => {
-                const IconComponent = type.icon;
-                return (
-                  <button 
-                    key={type.type}
-                    className="p-4 hover:bg-gray-50 rounded-lg transition-colors group"
-                    onClick={() => {
-                      setSelectedType(type.type);
-                      setIsDialogOpen(true);
-                    }}
-                  >
-                    <IconComponent className="w-5 h-5 text-gray-400 group-hover:text-black mx-auto mb-2 transition-colors" />
-                    <p className="text-xs text-gray-400 group-hover:text-black transition-colors">{type.title}</p>
-                  </button>
-                );
-              })}
-            </div>
+            <Card className="group payzoo-card-interactive border-0 bg-gradient-to-br from-background to-green-50/50 hover:shadow-lg transition-all duration-300 hover:scale-[1.02] cursor-pointer">
+              <CardContent className="payzoo-card-compact text-center">
+                <div className="w-12 h-12 bg-gradient-to-br from-green-500/10 to-green-600/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <Wallet className="w-6 h-6 text-green-600" />
+                </div>
+                <h4 className="font-medium text-foreground mb-2">Compte bancaire</h4>
+                <p className="text-sm text-muted-foreground">Connectez votre compte bancaire</p>
+              </CardContent>
+            </Card>
+
+            <Card className="group payzoo-card-interactive border-0 bg-gradient-to-br from-background to-purple-50/50 hover:shadow-lg transition-all duration-300 hover:scale-[1.02] cursor-pointer">
+              <CardContent className="payzoo-card-compact text-center">
+                <div className="w-12 h-12 bg-gradient-to-br from-purple-500/10 to-purple-600/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <Shield className="w-6 h-6 text-purple-600" />
+                </div>
+                <h4 className="font-medium text-foreground mb-2">Sécurité</h4>
+                <p className="text-sm text-muted-foreground">Gérez la sécurité de vos paiements</p>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </div>
