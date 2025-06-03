@@ -218,6 +218,10 @@ export function Subscriptions() {
     console.log(`Supprimer l'abonnement ${subscription.name}`);
   };
 
+  const handleAddSubscription = () => {
+    console.log('Ajouter un nouvel abonnement');
+  };
+
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
       {/* Animated background elements */}
@@ -229,24 +233,48 @@ export function Subscriptions() {
 
       <div className="payzoo-page-container relative z-10">
         
-        {/* Enhanced header with gradient effects */}
+        {/* Enhanced header with CTA button */}
         <div className={`mb-16 transition-all duration-1000 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <div className="flex items-center gap-4 mb-4">
-            <div className="p-3 bg-gradient-to-br from-foreground to-foreground/80 rounded-2xl">
-              <CreditCard className="w-8 h-8 text-background" />
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <div className="flex items-center gap-4 mb-4">
+                <div className="p-3 bg-gradient-to-br from-foreground to-foreground/80 rounded-2xl">
+                  <CreditCard className="w-8 h-8 text-background" />
+                </div>
+                <div className="flex items-center gap-2">
+                  <Sparkles className="w-5 h-5 text-blue-500 animate-pulse" />
+                  <span className="text-sm font-medium text-blue-500">Smart Management</span>
+                </div>
+              </div>
+              <h1 className="payzoo-page-title bg-gradient-to-r from-foreground via-foreground to-foreground/80 bg-clip-text text-transparent">
+                Abonnements
+              </h1>
+              <p className="payzoo-subtitle flex items-center gap-2">
+                <Brain className="w-4 h-4 text-muted-foreground" />
+                Gérez tous vos services en un coup d'œil avec l'IA
+              </p>
             </div>
-            <div className="flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-blue-500 animate-pulse" />
-              <span className="text-sm font-medium text-blue-500">Smart Management</span>
-            </div>
+            
+            {/* Modern CTA Button */}
+            <Button 
+              onClick={handleAddSubscription}
+              className="group relative bg-foreground hover:bg-foreground/90 text-background px-6 py-3 h-auto rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-foreground/20 border-0"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-background/20 rounded-lg flex items-center justify-center group-hover:rotate-90 transition-transform duration-300">
+                  <Plus className="w-4 h-4 text-background" />
+                </div>
+                <div className="text-left">
+                  <div className="font-semibold text-sm">Nouvel abonnement</div>
+                  <div className="text-xs opacity-80">Ajouter un service</div>
+                </div>
+                <ArrowUpRight className="w-4 h-4 text-background/70 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
+              </div>
+              
+              {/* Subtle glow effect */}
+              <div className="absolute inset-0 rounded-2xl bg-foreground/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 blur-xl"></div>
+            </Button>
           </div>
-          <h1 className="payzoo-page-title bg-gradient-to-r from-foreground via-foreground to-foreground/80 bg-clip-text text-transparent">
-            Abonnements
-          </h1>
-          <p className="payzoo-subtitle flex items-center gap-2">
-            <Brain className="w-4 h-4 text-muted-foreground" />
-            Gérez tous vos services en un coup d'œil avec l'IA
-          </p>
         </div>
 
         {/* Enhanced search and filters */}
