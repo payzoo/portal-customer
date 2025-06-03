@@ -27,7 +27,7 @@ export function SubscriptionsStats({ subscriptions, isLoaded }: SubscriptionsSta
   const totalServices = subscriptions.length;
 
   return (
-    <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+    <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
       <StatCard
         icon={DollarSign}
         title="Coût mensuel"
@@ -48,7 +48,7 @@ export function SubscriptionsStats({ subscriptions, isLoaded }: SubscriptionsSta
         icon={Activity}
         title="En essai"
         value={trialSubscriptions.toString()}
-        subtitle="Gratuits"
+        subtitle="Périodes d'essai"
         delay={300}
         isLoaded={isLoaded}
       />
