@@ -30,6 +30,37 @@ interface PaymentMethodCardProps {
   isLoaded?: boolean;
 }
 
+const typeInfoMap = {
+  visa: {
+    label: "Visa",
+    icon: CreditCard,
+    gradient: "from-blue-500 to-blue-600",
+    bgGradient: "from-blue-50 to-blue-100",
+    textColor: "text-blue-700",
+  },
+  mastercard: {
+    label: "Mastercard",
+    icon: CreditCard,
+    gradient: "from-red-500 to-red-600",
+    bgGradient: "from-red-50 to-red-100",
+    textColor: "text-red-700",
+  },
+  paypal: {
+    label: "PayPal",
+    icon: Shield,
+    gradient: "from-yellow-500 to-yellow-600",
+    bgGradient: "from-yellow-50 to-yellow-100",
+    textColor: "text-yellow-700",
+  },
+  other: {
+    label: "Autre",
+    icon: Smartphone,
+    gradient: "from-green-500 to-green-600",
+    bgGradient: "from-green-50 to-green-100",
+    textColor: "text-green-700",
+  }
+};
+
 export function PaymentMethodCard({ 
   paymentMethod, 
   index, 
@@ -38,52 +69,7 @@ export function PaymentMethodCard({
   onDelete,
   isLoaded = false 
 }: PaymentMethodCardProps) {
-  const getTypeInfo = (type: PaymentMethod["type"]) => {
-    switch (type) {
-      case "visa":
-        return {
-          label: "Visa",
-          icon: CreditCard,
-          gradient: "from-blue-500 to-blue-600",
-          bgGradient: "from-blue-50 to-blue-100",
-          textColor: "text-blue-700",
-        };
-      case "mastercard":
-        return {
-          label: "Mastercard",
-          icon: CreditCard,
-          gradient: "from-red-500 to-red-600",
-          bgGradient: "from-red-50 to-red-100",
-          textColor: "text-red-700",
-        };
-      case "paypal":
-        return {
-          label: "PayPal",
-          icon: Shield,
-          gradient: "from-yellow-500 to-yellow-600",
-          bgGradient: "from-yellow-50 to-yellow-100",
-          textColor: "text-yellow-700",
-        };
-      case "other":
-        return {
-          label: "Autre",
-          icon: Smartphone,
-          gradient: "from-green-500 to-green-600",
-          bgGradient: "from-green-50 to-green-100",
-          textColor: "text-green-700",
-        };
-      default:
-        return {
-          label: "Inconnu",
-          icon: CreditCard,
-          gradient: "from-gray-500 to-gray-600",
-          bgGradient: "from-gray-50 to-gray-100",
-          textColor: "text-gray-700",
-        };
-    }
-  };
-
-  const typeInfo = getTypeInfo(paymentMethod.type);
+  const typeInfo = typeInfoMap[paymentMethod.type] || typeInfoMap.other;
 
   return (
     <Card 
@@ -91,24 +77,26 @@ export function PaymentMethodCard({
         isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
       }`}
       style={{ animationDelay: `${index * 100}ms` }}
+      role="article"
+      aria-label={`Moyen de paiement ${typeInfo.label}`}
     >
-      <CardContent className="p-8">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-6">
-            <div className={`w-16 h-16 bg-gradient-to-br ${typeInfo.gradient} rounded-3xl flex items-center justify-center transition-transform duration-500 group-hover:scale-110 shadow-lg`}>
-              <typeInfo.icon className="w-8 h-8 text-white" />
+      <CardContent className="p-6 lg:p-8">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 sm:gap-6">
+          <div className="flex items-center gap-4 lg:gap-6 flex-1 min-w-0">
+            <div className={`w-12 h-12 lg:w-16 lg:h-16 bg-gradient-to-br ${typeInfo.gradient} rounded-2xl lg:rounded-3xl flex items-center justify-center transition-transform duration-500 group-hover:scale-110 shadow-lg flex-shrink-0`}>
+              <typeInfo.icon className="w-6 h-6 lg:w-8 lg:h-8 text-white" aria-hidden="true" />
             </div>
-            <div className="flex-1">
-              <div className="flex items-center gap-4 mb-3">
-                <h3 className="text-xl font-semibold text-gray-900 tracking-tight">{typeInfo.label}</h3>
+            <div className="flex-1 min-w-0">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mb-2 lg:mb-3">
+                <h3 className="text-lg lg:text-xl font-semibold text-gray-900 tracking-tight truncate">{typeInfo.label}</h3>
                 {paymentMethod.isDefault && (
-                  <Badge className="px-3 py-1 rounded-full text-xs bg-gradient-to-r from-yellow-400 to-yellow-500 text-white border-0 shadow-lg">
-                    <Star className="w-3 h-3 mr-1 fill-current" />
+                  <Badge className="px-3 py-1 rounded-full text-xs bg-gradient-to-r from-yellow-400 to-yellow-500 text-white border-0 shadow-lg self-start">
+                    <Star className="w-3 h-3 mr-1 fill-current" aria-hidden="true" />
                     Par défaut
                   </Badge>
                 )}
               </div>
-              <div className="text-lg font-medium text-gray-700 mb-2">
+              <div className="text-base lg:text-lg font-medium text-gray-700 mb-1 lg:mb-2 truncate">
                 {paymentMethod.accountNumber}
               </div>
               {paymentMethod.expiryDate && (
@@ -119,9 +107,9 @@ export function PaymentMethodCard({
             </div>
           </div>
           
-          <div className="flex items-center gap-3">
+          <div className="flex items-center justify-between sm:justify-end gap-3">
             <Badge 
-              className={`px-4 py-2 rounded-2xl text-sm bg-gradient-to-r ${typeInfo.bgGradient} ${typeInfo.textColor} border-0 transition-transform duration-300 group-hover:scale-105 shadow-md`}
+              className={`px-3 lg:px-4 py-1.5 lg:py-2 rounded-xl lg:rounded-2xl text-xs lg:text-sm bg-gradient-to-r ${typeInfo.bgGradient} ${typeInfo.textColor} border-0 transition-transform duration-300 group-hover:scale-105 shadow-md`}
             >
               {typeInfo.label}
             </Badge>
@@ -134,7 +122,7 @@ export function PaymentMethodCard({
                   e.stopPropagation();
                   onEdit(paymentMethod);
                 }}
-                className="w-10 h-10 rounded-2xl hover:bg-blue-100 hover:text-blue-600 transition-all duration-300"
+                className="w-9 h-9 lg:w-10 lg:h-10 rounded-xl lg:rounded-2xl hover:bg-blue-100 hover:text-blue-600 transition-all duration-300"
                 aria-label={`Modifier ${paymentMethod.type}`}
               >
                 <Edit className="w-4 h-4" />
@@ -144,7 +132,7 @@ export function PaymentMethodCard({
                   <Button 
                     variant="ghost" 
                     size="sm" 
-                    className="w-10 h-10 rounded-2xl hover:bg-gray-100 hover:text-gray-600 transition-all duration-300"
+                    className="w-9 h-9 lg:w-10 lg:h-10 rounded-xl lg:rounded-2xl hover:bg-gray-100 hover:text-gray-600 transition-all duration-300"
                     onClick={(e) => e.stopPropagation()}
                     aria-label={`Actions pour ${paymentMethod.type}`}
                   >
@@ -153,7 +141,7 @@ export function PaymentMethodCard({
                 </DropdownMenuTrigger>
                 <DropdownMenuContent 
                   align="end" 
-                  className="w-56 bg-white/95 backdrop-blur-md border-0 rounded-2xl shadow-2xl p-2"
+                  className="w-56 bg-white/95 backdrop-blur-md border-0 rounded-xl lg:rounded-2xl shadow-2xl p-2"
                 >
                   <DropdownMenuItem 
                     onClick={() => onEdit(paymentMethod)}
