@@ -1,17 +1,12 @@
 
-import { User, Shield, Bell, HelpCircle, LogOut, Globe, CheckCircle, AlertCircle, MapPin, CreditCard, Key, Smartphone, FileText, MessageCircle, Mail, Phone, Search, ChevronRight, Users, Lock, Eye, EyeOff, Brain, ArrowUpRight, Plus, Sparkles } from "lucide-react";
+import { User, Shield, Bell, HelpCircle, Globe, CheckCircle, AlertCircle, MapPin, CreditCard, Key, Smartphone, FileText, MessageCircle, Mail, Phone, Search, ChevronRight, Users, Brain } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { Separator } from "@/components/ui/separator";
-import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { useState, useEffect } from "react";
 
 export function Settings() {
-  const [pushNotifications, setPushNotifications] = useState(true);
-  const [emailNotifications, setEmailNotifications] = useState(true);
-  const [transactionAlerts, setTransactionAlerts] = useState(true);
   const [twoFactorEnabled, setTwoFactorEnabled] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoaded, setIsLoaded] = useState(false);
@@ -59,26 +54,32 @@ export function Settings() {
     {
       category: "Compte",
       items: [
-        { icon: User, title: "Profil", description: "Informations personnelles", action: "edit" },
-        { icon: Mail, title: "Email", description: currentUserData.email, action: "edit" },
-        { icon: Phone, title: "Téléphone", description: currentUserData.phone, action: "edit" },
+        { icon: User, title: "Profil", description: "Informations personnelles" },
+        { icon: Mail, title: "Email", description: currentUserData.email },
+        { icon: Phone, title: "Téléphone", description: currentUserData.phone },
       ]
     },
     {
       category: "Sécurité",
       items: [
-        { icon: Key, title: "Mot de passe", description: "Modifié il y a 3 mois", action: "change" },
-        { icon: Smartphone, title: "Authentification 2FA", description: twoFactorEnabled ? "Activée" : "Désactivée", action: "toggle", toggle: true },
-        { icon: Shield, title: "Sessions actives", description: "2 appareils connectés", action: "manage" },
+        { icon: Key, title: "Mot de passe", description: "Modifié il y a 3 mois" },
+        { icon: Smartphone, title: "Authentification 2FA", description: twoFactorEnabled ? "Activée" : "Désactivée", toggle: true },
+        { icon: Shield, title: "Sessions actives", description: "2 appareils connectés" },
       ]
     },
     {
       category: "Préférences",
       items: [
-        { icon: Globe, title: "Langue", description: "Français", action: "select" },
-        { icon: Bell, title: "Notifications", description: "Gérer les alertes", action: "manage" },
+        { icon: Globe, title: "Langue", description: "Français" },
+        { icon: Bell, title: "Notifications", description: "Gérer les alertes" },
       ]
     }
+  ];
+
+  const supportItems = [
+    { icon: HelpCircle, title: "Centre d'aide", description: "FAQ et guides détaillés" },
+    { icon: MessageCircle, title: "Chat en direct", description: "Support instantané 24/7" },
+    { icon: Users, title: "Communauté", description: "Forum et discussions" }
   ];
 
   const getStatusBadge = (status: string) => {
@@ -114,9 +115,14 @@ export function Settings() {
     )
   );
 
+  const filteredSupportItems = supportItems.filter(item =>
+    item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    item.description.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
-      {/* Floating geometric elements - consistent with other components */}
+      {/* Floating geometric elements */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-20 left-10 w-32 h-32 border border-border/20 rounded-3xl rotate-12 animate-[float_6s_ease-in-out_infinite]"></div>
         <div className="absolute bottom-32 right-16 w-24 h-24 border border-border/30 rounded-2xl -rotate-12 animate-[float_8s_ease-in-out_infinite] opacity-60" style={{ animationDelay: '2s' }}></div>
@@ -126,40 +132,29 @@ export function Settings() {
 
       <div className="payzoo-page-container relative z-10">
         
-        {/* Modern header section - consistent with other components */}
+        {/* Header section */}
         <div className={`mb-12 transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
-          <div className="flex items-start justify-between">
-            <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="p-2.5 bg-foreground rounded-xl shadow-sm">
-                  <User className="w-6 h-6 text-background" />
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 bg-purple-500 rounded-full animate-pulse"></div>
-                  <span className="text-sm font-medium text-purple-600">Smart Settings</span>
-                </div>
+          <div className="space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 bg-foreground rounded-xl shadow-sm">
+                <User className="w-6 h-6 text-background" />
               </div>
-              <div>
-                <h1 className="text-3xl font-bold text-foreground mb-2">Paramètres</h1>
-                <p className="text-muted-foreground flex items-center gap-2">
-                  <Brain className="w-4 h-4" />
-                  Gérez votre compte et personnalisez votre expérience
-                </p>
+              <div className="flex items-center gap-2">
+                <div className="w-1.5 h-1.5 bg-purple-500 rounded-full animate-pulse"></div>
+                <span className="text-sm font-medium text-purple-600">Smart Settings</span>
               </div>
             </div>
-            
-            {/* Minimal modern CTA */}
-            <Button 
-              className="group bg-foreground hover:bg-foreground/90 text-background px-5 py-2.5 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg border-0"
-            >
-              <Plus className="w-4 h-4 mr-2 group-hover:rotate-90 transition-transform duration-300" />
-              Ajouter
-              <ArrowUpRight className="w-4 h-4 ml-2 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
-            </Button>
+            <div>
+              <h1 className="text-3xl font-bold text-foreground mb-2">Paramètres</h1>
+              <p className="text-muted-foreground flex items-center gap-2">
+                <Brain className="w-4 h-4" />
+                Gérez votre compte et personnalisez votre expérience
+              </p>
+            </div>
           </div>
         </div>
 
-        {/* Search bar - consistent with other components */}
+        {/* Search bar */}
         <div className={`mb-8 transition-all duration-700 delay-100 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
           <div className="relative max-w-md">
             <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
@@ -175,7 +170,7 @@ export function Settings() {
 
         <div className="space-y-8">
           
-          {/* Enhanced Profile Card */}
+          {/* Profile Card */}
           <Card className={`group border-0 bg-card/50 backdrop-blur-sm hover:bg-card/80 hover:border-border/70 transition-all duration-500 hover:shadow-xl hover:-translate-y-1 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '200ms' }}>
             <CardContent className="p-8">
               <div className="flex items-center gap-6 mb-6">
@@ -204,7 +199,7 @@ export function Settings() {
             </CardContent>
           </Card>
 
-          {/* Enhanced KYC Section */}
+          {/* KYC Section */}
           <Card className={`border-0 bg-card/50 backdrop-blur-sm hover:bg-card/80 hover:border-border/70 transition-all duration-500 hover:shadow-xl ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '300ms' }}>
             <CardContent className="p-8">
               <div className="flex items-center justify-between mb-8">
@@ -256,7 +251,7 @@ export function Settings() {
             </CardContent>
           </Card>
 
-          {/* Enhanced Settings Sections */}
+          {/* Settings Sections */}
           {filteredCategories.map((category, categoryIndex) => (
             <Card key={category.category} className={`border-0 bg-card/50 backdrop-blur-sm hover:bg-card/80 hover:border-border/70 transition-all duration-500 hover:shadow-xl ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: `${400 + categoryIndex * 100}ms` }}>
               <CardContent className="p-8">
@@ -298,54 +293,33 @@ export function Settings() {
             </Card>
           ))}
 
-          {/* Enhanced Support Section */}
-          <Card className={`border-0 bg-card/50 backdrop-blur-sm hover:bg-card/80 hover:border-border/70 transition-all duration-500 hover:shadow-xl ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '700ms' }}>
-            <CardContent className="p-8">
-              <h3 className="text-xl font-light text-foreground mb-6 tracking-tight">
-                Support
-              </h3>
-              <div className="space-y-2">
-                {[
-                  { icon: HelpCircle, title: "Centre d'aide", desc: "FAQ et guides détaillés" },
-                  { icon: MessageCircle, title: "Chat en direct", desc: "Support instantané 24/7" },
-                  { icon: Users, title: "Communauté", desc: "Forum et discussions" }
-                ].map((item, index) => (
-                  <div 
-                    key={index}
-                    className="group flex items-center gap-4 py-4 px-6 hover:bg-background/50 rounded-2xl transition-all duration-300 cursor-pointer hover:shadow-sm hover:-translate-y-0.5"
-                  >
-                    <div className="w-12 h-12 bg-muted/50 rounded-2xl flex items-center justify-center group-hover:bg-muted group-hover:scale-110 transition-all duration-300">
-                      <item.icon className="w-5 h-5 text-foreground" />
+          {/* Support Section */}
+          {filteredSupportItems.length > 0 && (
+            <Card className={`border-0 bg-card/50 backdrop-blur-sm hover:bg-card/80 hover:border-border/70 transition-all duration-500 hover:shadow-xl ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '700ms' }}>
+              <CardContent className="p-8">
+                <h3 className="text-xl font-light text-foreground mb-6 tracking-tight">
+                  Support
+                </h3>
+                <div className="space-y-2">
+                  {filteredSupportItems.map((item, index) => (
+                    <div 
+                      key={index}
+                      className="group flex items-center gap-4 py-4 px-6 hover:bg-background/50 rounded-2xl transition-all duration-300 cursor-pointer hover:shadow-sm hover:-translate-y-0.5"
+                    >
+                      <div className="w-12 h-12 bg-muted/50 rounded-2xl flex items-center justify-center group-hover:bg-muted group-hover:scale-110 transition-all duration-300">
+                        <item.icon className="w-5 h-5 text-foreground" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="font-medium text-foreground group-hover:text-foreground/90 transition-colors duration-200">{item.title}</p>
+                        <p className="text-sm text-muted-foreground group-hover:text-muted-foreground/80 transition-colors duration-200">{item.description}</p>
+                      </div>
+                      <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground group-hover:translate-x-1 transition-all duration-200" />
                     </div>
-                    <div className="flex-1">
-                      <p className="font-medium text-foreground group-hover:text-foreground/90 transition-colors duration-200">{item.title}</p>
-                      <p className="text-sm text-muted-foreground group-hover:text-muted-foreground/80 transition-colors duration-200">{item.desc}</p>
-                    </div>
-                    <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground group-hover:translate-x-1 transition-all duration-200" />
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Enhanced Actions Section */}
-          <Card className={`border-0 bg-card/50 backdrop-blur-sm hover:bg-card/80 hover:border-border/70 transition-all duration-500 hover:shadow-xl ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '800ms' }}>
-            <CardContent className="p-8">
-              <h3 className="text-xl font-light text-foreground mb-6 tracking-tight">
-                Actions
-              </h3>
-              <div className="space-y-4">
-                <Button className="w-full justify-start h-12 bg-background/50 hover:bg-background text-foreground border border-border/50 rounded-2xl transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
-                  <LogOut className="w-5 h-5 mr-3" />
-                  <span className="font-medium">Se déconnecter</span>
-                </Button>
-                
-                <Button className="w-full justify-start h-12 bg-red-50/50 hover:bg-red-100/50 text-red-600 border border-red-200/50 hover:border-red-300/50 rounded-2xl transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
-                  <span className="font-medium">Supprimer le compte</span>
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          )}
         </div>
       </div>
     </div>
