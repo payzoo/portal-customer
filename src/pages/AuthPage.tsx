@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -173,7 +174,7 @@ const AuthPage = () => {
               <div className="space-y-8">
                 {/* Enhanced email input */}
                 <div className="relative">
-                  <div className="glass-card hover:glass-card rounded-2xl p-6 border border-gray-200/30 backdrop-blur-sm bg-background/60 transition-all duration-300 hover:bg-background/80 hover:border-gray-300/50">
+                  <div className="glass-card rounded-2xl p-6 border border-gray-300/50 backdrop-blur-sm bg-background/60">
                     <div className="relative flex items-center">
                       <div className="absolute left-4 z-10">
                         <Mail className="w-5 h-5 text-muted-foreground transition-colors duration-200" />
@@ -212,7 +213,7 @@ const AuthPage = () => {
               <div className="space-y-8 animate-fade-in">
                 {/* Enhanced email confirmation card */}
                 <div className="group cursor-pointer" onClick={handleConnection}>
-                  <div className="glass-card hover:glass-card rounded-2xl p-6 border border-gray-200/30 backdrop-blur-sm bg-background/60 transition-all duration-300 hover:bg-background/80 hover:border-gray-300/50 hover:shadow-lg hover:shadow-foreground/5">
+                  <div className="glass-card rounded-2xl p-6 border border-gray-300/50 backdrop-blur-sm bg-background/60 hover:shadow-lg hover:shadow-foreground/5">
                     <div className="flex items-center space-x-4">
                       <div className="w-14 h-14 bg-foreground rounded-2xl flex items-center justify-center text-background font-semibold text-xl flex-shrink-0 transition-transform duration-200 group-hover:scale-105">
                         {email.charAt(0).toUpperCase()}
