@@ -146,38 +146,32 @@ const SubscriptionDetails = () => {
             </Button>
             
             <div className="flex items-start justify-between">
-              <div className="space-y-4">
-                <div className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse"></div>
-                  <span className="text-sm font-medium text-blue-600">Smart Management</span>
+              <div className="flex items-center gap-6">
+                <div className={`relative w-16 h-16 bg-gradient-to-br ${subscription.color} rounded-2xl flex items-center justify-center shadow-lg hover:scale-105 transition-transform duration-300`}>
+                  <span className="font-bold text-white text-2xl">{subscription.logo}</span>
+                  <div className="absolute -top-1 -right-1 w-4 h-4 bg-emerald-500 rounded-full border-2 border-white shadow-md animate-pulse"></div>
                 </div>
-                <div className="flex items-center gap-6">
-                  <div className={`relative w-16 h-16 bg-gradient-to-br ${subscription.color} rounded-2xl flex items-center justify-center shadow-lg hover:scale-105 transition-transform duration-300`}>
-                    <span className="font-bold text-white text-2xl">{subscription.logo}</span>
-                    <div className="absolute -top-1 -right-1 w-4 h-4 bg-emerald-500 rounded-full border-2 border-white shadow-md animate-pulse"></div>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-4">
+                    <h1 className="text-3xl font-bold text-foreground">
+                      {subscription.name}
+                    </h1>
+                    <Badge className={`${getStatusColor(subscription.status)} px-3 py-1 text-sm font-medium rounded-full border`}>
+                      <div className="w-1.5 h-1.5 bg-current rounded-full mr-2 animate-pulse"></div>
+                      {getStatusLabel(subscription.status)}
+                    </Badge>
                   </div>
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-4">
-                      <h1 className="text-3xl font-bold text-foreground">
-                        {subscription.name}
-                      </h1>
-                      <Badge className={`${getStatusColor(subscription.status)} px-3 py-1 text-sm font-medium rounded-full border`}>
-                        <div className="w-1.5 h-1.5 bg-current rounded-full mr-2 animate-pulse"></div>
-                        {getStatusLabel(subscription.status)}
-                      </Badge>
+                  <div className="flex items-center gap-4">
+                    <p className="text-xl font-semibold text-foreground">{subscription.plan}</p>
+                    <div className="flex items-center gap-2 px-3 py-1 bg-muted rounded-full">
+                      <Star className="w-4 h-4 text-foreground" />
+                      <span className="text-sm font-medium text-foreground">{subscription.category}</span>
                     </div>
-                    <div className="flex items-center gap-4">
-                      <p className="text-xl font-semibold text-foreground">{subscription.plan}</p>
-                      <div className="flex items-center gap-2 px-3 py-1 bg-muted rounded-full">
-                        <Star className="w-4 h-4 text-foreground" />
-                        <span className="text-sm font-medium text-foreground">{subscription.category}</span>
-                      </div>
-                    </div>
-                    <p className="text-muted-foreground flex items-center gap-2">
-                      <Brain className="w-4 h-4" />
-                      {subscription.description}
-                    </p>
                   </div>
+                  <p className="text-muted-foreground flex items-center gap-2">
+                    <Brain className="w-4 h-4" />
+                    {subscription.description}
+                  </p>
                 </div>
               </div>
               
