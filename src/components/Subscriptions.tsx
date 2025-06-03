@@ -177,6 +177,15 @@ export function Subscriptions() {
     }
   };
 
+  const handleCardClick = (subscriptionId: number) => {
+    navigate(`/subscription/${subscriptionId}`);
+  };
+
+  const handleDropdownAction = (action: string, subscriptionId: number) => {
+    console.log(`Action ${action} pour l'abonnement ${subscriptionId}`);
+    // Ici vous pourrez ajouter la logique pour chaque action
+  };
+
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
       {/* Geometric floating elements */}
@@ -241,7 +250,7 @@ export function Subscriptions() {
                   <SelectValue />
                 </div>
               </SelectTrigger>
-              <SelectContent className="bg-background border border-border rounded-lg shadow-xl">
+              <SelectContent className="z-50 bg-background border border-border rounded-lg shadow-xl">
                 <SelectItem value="all">Tous</SelectItem>
                 <SelectItem value="active">Actifs</SelectItem>
                 <SelectItem value="paused">En pause</SelectItem>
@@ -363,7 +372,7 @@ export function Subscriptions() {
                   key={subscription.id} 
                   className="group border border-border hover:border-foreground/30 transition-all duration-300 hover:shadow-md cursor-pointer bg-background hover:-translate-y-0.5 animate-fade-in"
                   style={{ animationDelay: `${400 + index * 50}ms` }}
-                  onClick={() => navigate(`/subscription/${subscription.id}`)}
+                  onClick={() => handleCardClick(subscription.id)}
                 >
                   <CardContent className="p-4">
                     <div className="flex items-center justify-between">
@@ -444,26 +453,42 @@ export function Subscriptions() {
                               </DropdownMenuTrigger>
                               <DropdownMenuContent 
                                 align="end" 
-                                className="w-44 bg-background border border-border rounded-lg shadow-xl"
+                                className="w-44 z-50 bg-background border border-border rounded-lg shadow-xl"
+                                onClick={(e) => e.stopPropagation()}
                               >
-                                <DropdownMenuItem className="flex items-center gap-2 px-3 py-2 rounded">
+                                <DropdownMenuItem 
+                                  className="flex items-center gap-2 px-3 py-2 rounded cursor-pointer"
+                                  onClick={() => handleDropdownAction('edit', subscription.id)}
+                                >
                                   <Edit className="w-3 h-3" />
                                   Modifier
                                 </DropdownMenuItem>
-                                <DropdownMenuItem className="flex items-center gap-2 px-3 py-2 rounded">
+                                <DropdownMenuItem 
+                                  className="flex items-center gap-2 px-3 py-2 rounded cursor-pointer"
+                                  onClick={() => handleDropdownAction('duplicate', subscription.id)}
+                                >
                                   <Copy className="w-3 h-3" />
                                   Dupliquer
                                 </DropdownMenuItem>
-                                <DropdownMenuItem className="flex items-center gap-2 px-3 py-2 rounded">
+                                <DropdownMenuItem 
+                                  className="flex items-center gap-2 px-3 py-2 rounded cursor-pointer"
+                                  onClick={() => handleDropdownAction('renew', subscription.id)}
+                                >
                                   <RefreshCw className="w-3 h-3" />
                                   Renouveler
                                 </DropdownMenuItem>
                                 <DropdownMenuSeparator />
-                                <DropdownMenuItem className="flex items-center gap-2 px-3 py-2 text-muted-foreground rounded">
+                                <DropdownMenuItem 
+                                  className="flex items-center gap-2 px-3 py-2 text-muted-foreground rounded cursor-pointer"
+                                  onClick={() => handleDropdownAction('archive', subscription.id)}
+                                >
                                   <Archive className="w-3 h-3" />
                                   Archiver
                                 </DropdownMenuItem>
-                                <DropdownMenuItem className="flex items-center gap-2 px-3 py-2 text-red-500 rounded">
+                                <DropdownMenuItem 
+                                  className="flex items-center gap-2 px-3 py-2 text-red-500 rounded cursor-pointer"
+                                  onClick={() => handleDropdownAction('delete', subscription.id)}
+                                >
                                   <Trash2 className="w-3 h-3" />
                                   Supprimer
                                 </DropdownMenuItem>
