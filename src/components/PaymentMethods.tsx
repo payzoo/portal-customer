@@ -283,7 +283,7 @@ export function PaymentMethods() {
                   <CardContent className="relative p-6">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-4">
-                        <div className={`relative w-14 h-10 ${method.color} rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                        <div className="relative w-12 h-12 bg-black rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
                           <IconComponent className="w-6 h-6 text-white" />
                           <div className="absolute -top-1 -right-1">
                             <div className={`w-3 h-3 ${statusInfo.dotColor} rounded-full border-2 border-white shadow-sm`}></div>
