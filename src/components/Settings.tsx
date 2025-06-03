@@ -1,7 +1,7 @@
+
 import { User, Shield, Bell, HelpCircle, Globe, Key, Smartphone, FileText, MessageCircle, Search, ChevronRight, Users, Brain } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
 import { useState, useEffect } from "react";
 import { ProfileCard } from "@/components/settings/ProfileCard";
@@ -9,7 +9,6 @@ import { KYCSection } from "@/components/settings/KYCSection";
 import { SecurityModal } from "@/components/modals/SecurityModal";
 
 export function Settings() {
-  const [twoFactorEnabled, setTwoFactorEnabled] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoaded, setIsLoaded] = useState(false);
   const [isSecurityModalOpen, setIsSecurityModalOpen] = useState(false);
@@ -83,9 +82,8 @@ export function Settings() {
         { 
           icon: Smartphone, 
           title: "Authentification 2FA", 
-          description: twoFactorEnabled ? "Activée" : "Désactivée", 
-          toggle: true,
-          action: () => console.log("2FA settings")
+          description: "Configurer la double authentification",
+          action: () => setIsSecurityModalOpen(true)
         },
         { 
           icon: Shield, 
@@ -222,15 +220,7 @@ export function Settings() {
                           <p className="text-sm text-muted-foreground">{item.description}</p>
                         </div>
                       </div>
-                      <div className="flex items-center gap-3">
-                        {item.toggle && (
-                          <Switch 
-                            checked={item.title.includes('2FA') ? twoFactorEnabled : false} 
-                            onCheckedChange={item.title.includes('2FA') ? setTwoFactorEnabled : undefined}
-                          />
-                        )}
-                        <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground group-hover:translate-x-0.5 transition-all" />
-                      </div>
+                      <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground group-hover:translate-x-0.5 transition-all" />
                     </div>
                   ))}
                 </div>
