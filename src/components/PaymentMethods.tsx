@@ -1,4 +1,3 @@
-
 import { CreditCard, Plus, MoreVertical, Wallet, TrendingUp, TrendingDown, Eye, EyeOff, Settings, Edit, Trash2, Shield, Zap, Sparkles, ArrowUpRight, CheckCircle2, AlertCircle, Clock, DollarSign, Activity, Star, Target, Brain, Cpu } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -107,7 +106,7 @@ export function PaymentMethods() {
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse"></div>
-                  <span className="text-sm font-medium text-blue-600">Smart Management</span>
+                  <span className="text-sm font-medium text-blue-600">Smart Finance</span>
                 </div>
               </div>
               <div>
