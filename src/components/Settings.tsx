@@ -5,7 +5,6 @@ import { Input } from "@/components/ui/input";
 import { useState, useEffect } from "react";
 import { ProfileCard } from "@/components/settings/ProfileCard";
 import { KYCSection } from "@/components/settings/KYCSection";
-import { SecurityModal } from "@/components/modals/SecurityModal";
 import { EditProfileModal } from "@/components/modals/EditProfileModal";
 import { LanguagePreferencesModal } from "@/components/modals/LanguagePreferencesModal";
 import { NotificationsModal } from "@/components/modals/NotificationsModal";
@@ -13,11 +12,13 @@ import { PrivacyModal } from "@/components/modals/PrivacyModal";
 import { HelpCenterModal } from "@/components/modals/HelpCenterModal";
 import { LiveChatModal } from "@/components/modals/LiveChatModal";
 import { CommunityModal } from "@/components/modals/CommunityModal";
+import { ChangePasswordModal } from "@/components/modals/security/ChangePasswordModal";
+import { Setup2FAModal } from "@/components/modals/security/Setup2FAModal";
+import { ActiveSessionsModal } from "@/components/modals/security/ActiveSessionsModal";
 
 export function Settings() {
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoaded, setIsLoaded] = useState(false);
-  const [isSecurityModalOpen, setIsSecurityModalOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [isLanguageModalOpen, setIsLanguageModalOpen] = useState(false);
   const [isNotificationsModalOpen, setIsNotificationsModalOpen] = useState(false);
@@ -25,6 +26,9 @@ export function Settings() {
   const [isHelpCenterModalOpen, setIsHelpCenterModalOpen] = useState(false);
   const [isLiveChatModalOpen, setIsLiveChatModalOpen] = useState(false);
   const [isCommunityModalOpen, setIsCommunityModalOpen] = useState(false);
+  const [isChangePasswordModalOpen, setIsChangePasswordModalOpen] = useState(false);
+  const [is2FAModalOpen, setIs2FAModalOpen] = useState(false);
+  const [isActiveSessionsModalOpen, setIsActiveSessionsModalOpen] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -90,19 +94,19 @@ export function Settings() {
           icon: Key, 
           title: "Mot de passe", 
           description: "Modifié il y a 3 mois",
-          action: () => setIsSecurityModalOpen(true)
+          action: () => setIsChangePasswordModalOpen(true)
         },
         { 
           icon: Smartphone, 
           title: "Authentification 2FA", 
           description: "Configurer la double authentification",
-          action: () => setIsSecurityModalOpen(true)
+          action: () => setIs2FAModalOpen(true)
         },
         { 
           icon: Shield, 
           title: "Sessions actives", 
           description: "2 appareils connectés",
-          action: () => setIsSecurityModalOpen(true)
+          action: () => setIsActiveSessionsModalOpen(true)
         },
       ]
     },
@@ -244,11 +248,6 @@ export function Settings() {
       </div>
 
       {/* All Modals */}
-      <SecurityModal 
-        isOpen={isSecurityModalOpen} 
-        onClose={() => setIsSecurityModalOpen(false)} 
-      />
-
       <EditProfileModal
         isOpen={isProfileModalOpen}
         onClose={() => setIsProfileModalOpen(false)}
@@ -283,6 +282,25 @@ export function Settings() {
       <CommunityModal
         isOpen={isCommunityModalOpen}
         onClose={() => setIsCommunityModalOpen(false)}
+      />
+
+      {/* Security Modals - Direct access */}
+      <ChangePasswordModal
+        isOpen={isChangePasswordModalOpen}
+        onClose={() => setIsChangePasswordModalOpen(false)}
+        onBack={() => setIsChangePasswordModalOpen(false)}
+      />
+
+      <Setup2FAModal
+        isOpen={is2FAModalOpen}
+        onClose={() => setIs2FAModalOpen(false)}
+        onBack={() => setIs2FAModalOpen(false)}
+      />
+
+      <ActiveSessionsModal
+        isOpen={isActiveSessionsModalOpen}
+        onClose={() => setIsActiveSessionsModalOpen(false)}
+        onBack={() => setIsActiveSessionsModalOpen(false)}
       />
     </div>
   );
