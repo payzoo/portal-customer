@@ -199,8 +199,8 @@ export function Settings() {
             </CardContent>
           </Card>
 
-          {/* KYC Section */}
-          <Card className={`border-0 bg-card/50 backdrop-blur-sm hover:bg-card/80 hover:border-border/70 transition-all duration-500 hover:shadow-xl ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '300ms' }}>
+          {/* KYC Section - remove hover effects */}
+          <Card className={`border-0 bg-card/50 backdrop-blur-sm transition-all duration-500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '300ms' }}>
             <CardContent className="p-8">
               <div className="flex items-center justify-between mb-8">
                 <div>
@@ -222,7 +222,7 @@ export function Settings() {
               
               <div className="space-y-4">
                 {kycSettings.map((item, index) => (
-                  <div key={index} className="group flex items-center justify-between p-6 rounded-2xl border border-border/30 bg-background/50 hover:bg-background/80 hover:border-border/50 transition-all duration-300 cursor-pointer hover:shadow-md hover:-translate-y-0.5">
+                  <div key={index} className="group flex items-center justify-between p-6 rounded-2xl border border-border/30 bg-background/50 transition-all duration-300 cursor-pointer">
                     <div className="flex items-center gap-4">
                       <div className="w-12 h-12 rounded-2xl bg-muted/50 flex items-center justify-center group-hover:bg-muted group-hover:scale-110 transition-all duration-300">
                         <item.icon className="w-5 h-5 text-foreground" />
@@ -251,9 +251,9 @@ export function Settings() {
             </CardContent>
           </Card>
 
-          {/* Settings Sections */}
+          {/* Settings Sections - remove hover effects */}
           {filteredCategories.map((category, categoryIndex) => (
-            <Card key={category.category} className={`border-0 bg-card/50 backdrop-blur-sm hover:bg-card/80 hover:border-border/70 transition-all duration-500 hover:shadow-xl ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: `${400 + categoryIndex * 100}ms` }}>
+            <Card key={category.category} className={`border-0 bg-card/50 backdrop-blur-sm transition-all duration-500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: `${400 + categoryIndex * 100}ms` }}>
               <CardContent className="p-8">
                 <h3 className="text-xl font-light text-foreground mb-6 tracking-tight">
                   {category.category}
@@ -265,7 +265,7 @@ export function Settings() {
                   ).map((item, itemIndex) => (
                     <div 
                       key={itemIndex}
-                      className="group flex items-center justify-between py-4 px-6 hover:bg-background/50 rounded-2xl transition-all duration-300 cursor-pointer hover:shadow-sm hover:-translate-y-0.5"
+                      className="group flex items-center justify-between py-4 px-6 hover:bg-background/50 rounded-2xl transition-all duration-300 cursor-pointer"
                     >
                       <div className="flex items-center gap-4 flex-1">
                         <div className="w-12 h-12 rounded-2xl flex items-center justify-center bg-muted/50 group-hover:bg-muted group-hover:scale-110 transition-all duration-300">
@@ -293,9 +293,9 @@ export function Settings() {
             </Card>
           ))}
 
-          {/* Support Section */}
+          {/* Support Section - remove hover effects */}
           {filteredSupportItems.length > 0 && (
-            <Card className={`border-0 bg-card/50 backdrop-blur-sm hover:bg-card/80 hover:border-border/70 transition-all duration-500 hover:shadow-xl ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '700ms' }}>
+            <Card className={`border-0 bg-card/50 backdrop-blur-sm transition-all duration-500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '700ms' }}>
               <CardContent className="p-8">
                 <h3 className="text-xl font-light text-foreground mb-6 tracking-tight">
                   Support
@@ -304,7 +304,7 @@ export function Settings() {
                   {filteredSupportItems.map((item, index) => (
                     <div 
                       key={index}
-                      className="group flex items-center gap-4 py-4 px-6 hover:bg-background/50 rounded-2xl transition-all duration-300 cursor-pointer hover:shadow-sm hover:-translate-y-0.5"
+                      className="group flex items-center gap-4 py-4 px-6 hover:bg-background/50 rounded-2xl transition-all duration-300 cursor-pointer"
                     >
                       <div className="w-12 h-12 bg-muted/50 rounded-2xl flex items-center justify-center group-hover:bg-muted group-hover:scale-110 transition-all duration-300">
                         <item.icon className="w-5 h-5 text-foreground" />
