@@ -1,4 +1,3 @@
-
 import { TrendingUp, Send, Calendar, Target, Plus, Eye, EyeOff, PiggyBank, TrendingDown, Coffee, ShoppingBag, Car, Home, ArrowUpRight, Shield, Zap, Activity, Sparkles, Brain, Cpu, Stars } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -530,7 +529,7 @@ export function Dashboard() {
               </div>
             </div>
 
-            {/* Main CTA with enhanced futuristic design */}
+            {/* Main CTA with enhanced futuristic design - Fixed visibility */}
             <Card className={`border-0 bg-gradient-to-br from-foreground via-foreground/95 to-foreground/90 text-background relative overflow-hidden group transition-all duration-700 hover:shadow-2xl hover:shadow-foreground/20 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ animationDelay: '1200ms' }}>
               {/* Animated background effects */}
               <div className="absolute inset-0 opacity-20">
@@ -574,7 +573,7 @@ export function Dashboard() {
                   
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
-                      <span className="payzoo-body-sm font-semibold text-white flex items-center gap-2">
+                      <span className="payzoo-body-sm font-semibold text-white/95 flex items-center gap-2">
                         Optimisation IA
                         <div className="flex items-center gap-1">
                           <Cpu className="w-3 h-3 text-white/80 animate-pulse" />
@@ -610,9 +609,9 @@ export function Dashboard() {
                   </div>
                 </div>
                 
-                {/* Enhanced description */}
+                {/* Enhanced description with better visibility */}
                 <div className="mb-6">
-                  <p className="text-white/90 mb-3 payzoo-body-sm leading-relaxed">
+                  <p className="text-white/95 mb-3 payzoo-body-sm leading-relaxed font-medium">
                     Notre IA avancée analyse vos habitudes financières en temps réel pour optimiser automatiquement vos économies.
                   </p>
                   
