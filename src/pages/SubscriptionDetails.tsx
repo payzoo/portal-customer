@@ -145,7 +145,7 @@ const SubscriptionDetails = () => {
               Retour aux abonnements
             </Button>
             
-            <div className="flex items-start justify-between">
+            <div className="flex items-center justify-between">
               <div className="flex items-center gap-6">
                 <div className={`relative w-16 h-16 bg-gradient-to-br ${subscription.color} rounded-2xl flex items-center justify-center shadow-lg hover:scale-105 transition-transform duration-300`}>
                   <span className="font-bold text-white text-2xl">{subscription.logo}</span>
