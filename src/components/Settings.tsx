@@ -1,3 +1,4 @@
+
 import { User, Shield, Bell, HelpCircle, Globe, CheckCircle, AlertCircle, MapPin, CreditCard, Key, Smartphone, FileText, MessageCircle, Mail, Phone, Search, ChevronRight, Users, Brain } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -170,29 +171,33 @@ export function Settings() {
         <div className="space-y-8">
           
           {/* Profile Card */}
-          <Card className={`group border-0 bg-card/50 backdrop-blur-sm hover:bg-card/80 hover:border-border/70 transition-all duration-500 hover:shadow-xl hover:-translate-y-1 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '200ms' }}>
-            <CardContent className="p-8">
-              <div className="flex items-center gap-6 mb-6">
-                <div className="w-20 h-20 bg-gradient-to-br from-foreground to-foreground/80 rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl group-hover:scale-105 transition-all duration-300">
-                  <span className="text-background font-bold text-2xl">{currentUserData.avatar}</span>
+          <Card className={`group border-0 bg-card/30 backdrop-blur-sm hover:bg-card/50 transition-all duration-500 hover:shadow-lg hover:-translate-y-1 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '200ms' }}>
+            <CardContent className="p-6">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-16 h-16 bg-gradient-to-br from-foreground to-foreground/80 rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg group-hover:scale-105 transition-all duration-300">
+                  <span className="text-background font-semibold text-lg">{currentUserData.avatar}</span>
                 </div>
-                <div className="flex-1">
-                  <h3 className="text-2xl font-light text-foreground mb-2 tracking-tight">
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-xl font-medium text-foreground mb-2 tracking-tight truncate">
                     {currentUserData.firstName} {currentUserData.lastName}
                   </h3>
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-3 text-muted-foreground">
-                      <Mail className="w-4 h-4" />
-                      <span className="text-sm">{currentUserData.email}</span>
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2 text-muted-foreground text-sm">
+                      <Mail className="w-3.5 h-3.5 flex-shrink-0" />
+                      <span className="truncate">{currentUserData.email}</span>
                     </div>
-                    <div className="flex items-center gap-3 text-muted-foreground">
-                      <Phone className="w-4 h-4" />
-                      <span className="text-sm">{currentUserData.phone}</span>
+                    <div className="flex items-center gap-2 text-muted-foreground text-sm">
+                      <Phone className="w-3.5 h-3.5 flex-shrink-0" />
+                      <span>{currentUserData.phone}</span>
                     </div>
                   </div>
                 </div>
-                <Button className="bg-foreground/10 hover:bg-foreground hover:text-background text-foreground border-0 group-hover:bg-foreground group-hover:text-background transition-all duration-300">
-                  Modifier le profil
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  className="flex-shrink-0 hover:bg-foreground hover:text-background transition-all duration-300"
+                >
+                  Modifier
                 </Button>
               </div>
             </CardContent>
