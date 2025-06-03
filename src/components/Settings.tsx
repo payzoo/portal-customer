@@ -1,4 +1,3 @@
-
 import { User, Shield, Bell, HelpCircle, Globe, Key, Smartphone, FileText, MessageCircle, Search, ChevronRight, Users, Brain } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -7,11 +6,13 @@ import { useState, useEffect } from "react";
 import { ProfileCard } from "@/components/settings/ProfileCard";
 import { KYCSection } from "@/components/settings/KYCSection";
 import { SecurityModal } from "@/components/modals/SecurityModal";
+import { EditProfileModal } from "@/components/modals/EditProfileModal";
 
 export function Settings() {
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoaded, setIsLoaded] = useState(false);
   const [isSecurityModalOpen, setIsSecurityModalOpen] = useState(false);
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -60,7 +61,7 @@ export function Settings() {
           icon: User, 
           title: "Informations personnelles", 
           description: "Gérer vos données de profil",
-          action: () => console.log("Profile settings")
+          action: () => setIsProfileModalOpen(true)
         },
         { 
           icon: Globe, 
@@ -233,6 +234,12 @@ export function Settings() {
       <SecurityModal 
         isOpen={isSecurityModalOpen} 
         onClose={() => setIsSecurityModalOpen(false)} 
+      />
+
+      <EditProfileModal
+        isOpen={isProfileModalOpen}
+        onClose={() => setIsProfileModalOpen(false)}
+        currentData={currentUserData}
       />
     </div>
   );
