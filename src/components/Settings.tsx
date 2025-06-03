@@ -1,5 +1,4 @@
-
-import { User, Shield, Bell, HelpCircle, Globe, Key, Smartphone, FileText, MessageCircle, Search, ChevronRight, Users, Brain, Sparkles } from "lucide-react";
+import { User, Shield, Bell, HelpCircle, Globe, Key, Smartphone, FileText, MessageCircle, Search, ChevronRight, Users, Brain } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
@@ -150,8 +149,8 @@ export function Settings() {
   return (
     <div className="min-h-screen bg-background relative">
       {/* Minimal background decoration */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-30">
-        <div className="absolute top-20 right-10 w-32 h-32 border border-black/10 rounded-3xl rotate-12"></div>
+      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-20">
+        <div className="absolute top-20 right-10 w-32 h-32 border border-black/5 rounded-3xl rotate-12"></div>
         <div className="absolute bottom-32 left-16 w-24 h-24 border border-black/5 rounded-2xl -rotate-12"></div>
       </div>
 
@@ -185,7 +184,7 @@ export function Settings() {
           </div>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-6">
           
           {/* Profile Card */}
           <ProfileCard currentUserData={currentUserData} isLoaded={isLoaded} />
@@ -193,18 +192,18 @@ export function Settings() {
           {/* KYC Section */}
           <KYCSection kycSettings={kycSettings} isLoaded={isLoaded} />
 
-          {/* Settings Sections - Consolidated */}
+          {/* Settings Sections */}
           {filteredCategories.map((category, categoryIndex) => (
             <Card 
               key={category.category} 
-              className={`border-0 bg-card/50 backdrop-blur-sm shadow-sm transition-all duration-500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+              className={`border-0 bg-card/40 backdrop-blur-sm shadow-sm transition-all duration-500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
               style={animationDelay(categoryIndex + 2)}
             >
-              <CardContent className="p-5">
-                <h3 className="text-base font-semibold text-foreground mb-3 tracking-tight">
+              <CardContent className="p-6">
+                <h3 className="text-lg font-semibold text-foreground mb-4">
                   {category.category}
                 </h3>
-                <div className="space-y-0">
+                <div className="space-y-2">
                   {category.items.filter(item => 
                     item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                     item.description.toLowerCase().includes(searchTerm.toLowerCase())
@@ -212,23 +211,22 @@ export function Settings() {
                     <div 
                       key={itemIndex}
                       onClick={item.action}
-                      className="group flex items-center justify-between py-3 px-3 hover:bg-background/60 rounded-lg transition-all duration-200 cursor-pointer"
+                      className="group flex items-center justify-between p-4 hover:bg-background/60 rounded-xl transition-all duration-200 cursor-pointer"
                     >
-                      <div className="flex items-center gap-3 flex-1 min-w-0">
-                        <div className="w-9 h-9 bg-black rounded-lg flex items-center justify-center shadow-sm">
-                          <item.icon className="w-4 h-4 text-white" />
+                      <div className="flex items-center gap-4 flex-1 min-w-0">
+                        <div className="w-10 h-10 bg-black rounded-xl flex items-center justify-center">
+                          <item.icon className="w-5 h-5 text-white" />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="font-medium text-sm text-foreground truncate">{item.title}</p>
-                          <p className="text-xs text-muted-foreground truncate">{item.description}</p>
+                          <p className="font-medium text-foreground">{item.title}</p>
+                          <p className="text-sm text-muted-foreground">{item.description}</p>
                         </div>
                       </div>
-                      <div className="flex items-center gap-3 flex-shrink-0">
+                      <div className="flex items-center gap-3">
                         {item.toggle && (
                           <Switch 
                             checked={item.title.includes('2FA') ? twoFactorEnabled : false} 
                             onCheckedChange={item.title.includes('2FA') ? setTwoFactorEnabled : undefined}
-                            className="data-[state=checked]:bg-black"
                           />
                         )}
                         <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground group-hover:translate-x-0.5 transition-all" />
