@@ -24,43 +24,51 @@ export function AddressStats({ addresses, isLoaded }: AddressStatsProps) {
   const homeCount = addresses.filter(address => address.type === "home").length;
   const workCount = addresses.filter(address => address.type === "work").length;
 
+  const stats = [
+    {
+      icon: MapPin,
+      value: addresses.length,
+      label: "Total",
+      delay: 0,
+    },
+    {
+      icon: Star,
+      value: favoriteCount,
+      label: "Favoris",
+      delay: 100,
+    },
+    {
+      icon: Home,
+      value: homeCount,
+      label: "Domicile",
+      delay: 200,
+    },
+    {
+      icon: Building2,
+      value: workCount,
+      label: "Travail",
+      delay: 300,
+    },
+  ];
+
   return (
     <section 
-      className={`grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8 transition-all duration-500 delay-200 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+      className={`mb-12 transition-all duration-700 delay-200 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
       aria-label="Statistiques des adresses"
     >
-      <AddressStatCard
-        icon={MapPin}
-        value={addresses.length}
-        label="Total"
-        color="black"
-        delay={0}
-        isLoaded={isLoaded}
-      />
-      <AddressStatCard
-        icon={Star}
-        value={favoriteCount}
-        label="Favoris"
-        color="black"
-        delay={100}
-        isLoaded={isLoaded}
-      />
-      <AddressStatCard
-        icon={Home}
-        value={homeCount}
-        label="Domicile"
-        color="black"
-        delay={200}
-        isLoaded={isLoaded}
-      />
-      <AddressStatCard
-        icon={Building2}
-        value={workCount}
-        label="Travail"
-        color="black"
-        delay={300}
-        isLoaded={isLoaded}
-      />
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+        {stats.map((stat, index) => (
+          <AddressStatCard
+            key={stat.label}
+            icon={stat.icon}
+            value={stat.value}
+            label={stat.label}
+            color="black"
+            delay={stat.delay}
+            isLoaded={isLoaded}
+          />
+        ))}
+      </div>
     </section>
   );
 }

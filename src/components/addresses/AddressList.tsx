@@ -21,6 +21,7 @@ interface AddressListProps {
   onToggleFavorite: (address: Address) => void;
   onArchive: (address: Address) => void;
   onDelete: (address: Address) => void;
+  onAddAddress?: () => void;
   isLoaded: boolean;
 }
 
@@ -30,30 +31,39 @@ export function AddressList({
   onCopy, 
   onToggleFavorite, 
   onArchive, 
-  onDelete, 
+  onDelete,
+  onAddAddress,
   isLoaded 
 }: AddressListProps) {
   if (addresses.length === 0) {
-    return <AddressEmptyState isLoaded={isLoaded} />;
+    return <AddressEmptyState isLoaded={isLoaded} onAddAddress={onAddAddress} />;
   }
 
   return (
     <section 
-      className={`space-y-4 transition-all duration-500 delay-400 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+      className={`transition-all duration-700 delay-500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
       aria-label="Liste des adresses"
     >
-      {addresses.map((address, index) => (
-        <AddressCard
-          key={address.id}
-          address={address}
-          index={index}
-          onEdit={onEdit}
-          onCopy={onCopy}
-          onToggleFavorite={onToggleFavorite}
-          onArchive={onArchive}
-          onDelete={onDelete}
-        />
-      ))}
+      <div className="flex items-center justify-between mb-8">
+        <h2 className="text-2xl font-bold text-black tracking-tight">
+          Mes adresses ({addresses.length})
+        </h2>
+      </div>
+      
+      <div className="space-y-6">
+        {addresses.map((address, index) => (
+          <AddressCard
+            key={address.id}
+            address={address}
+            index={index}
+            onEdit={onEdit}
+            onCopy={onCopy}
+            onToggleFavorite={onToggleFavorite}
+            onArchive={onArchive}
+            onDelete={onDelete}
+          />
+        ))}
+      </div>
     </section>
   );
 }

@@ -26,7 +26,7 @@ export function Addresses() {
   const [addresses, setAddresses] = useState<Address[]>([
     {
       id: 1,
-      label: "Domicile",
+      label: "Domicile Principal",
       street: "123 Rue de la Paix",
       city: "Paris",
       zipCode: "75001",
@@ -37,7 +37,7 @@ export function Addresses() {
     },
     {
       id: 2,
-      label: "Bureau",
+      label: "Bureau Startup",
       street: "456 Avenue des Champs-Élysées",
       city: "Paris",
       zipCode: "75008",
@@ -48,7 +48,7 @@ export function Addresses() {
     },
     {
       id: 3,
-      label: "Autre Adresse",
+      label: "Résidence Secondaire",
       street: "789 Boulevard Saint-Germain",
       city: "Paris",
       zipCode: "75006",
@@ -60,7 +60,7 @@ export function Addresses() {
   ]);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoaded(true), 100);
+    const timer = setTimeout(() => setIsLoaded(true), 200);
     return () => clearTimeout(timer);
   }, []);
 
@@ -109,8 +109,8 @@ export function Addresses() {
   };
 
   return (
-    <main className="min-h-screen bg-white">
-      <div className="max-w-7xl mx-auto px-6 py-8">
+    <main className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
+      <div className="max-w-7xl mx-auto px-8 py-12">
         <AddressHeader
           onAddAddress={() => setIsAddModalOpen(true)}
           isLoaded={isLoaded}
@@ -136,6 +136,7 @@ export function Addresses() {
           onToggleFavorite={handleToggleFavorite}
           onArchive={handleArchive}
           onDelete={handleDelete}
+          onAddAddress={() => setIsAddModalOpen(true)}
           isLoaded={isLoaded}
         />
       </div>
