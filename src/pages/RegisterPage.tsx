@@ -154,20 +154,18 @@ const RegisterPage = () => {
     <div className="min-h-screen bg-background relative overflow-hidden">
       <RegisterHeader isLoaded={isLoaded} mousePosition={mousePosition} />
 
-      {/* Contenu principal */}
-      <div className="relative z-10 min-h-screen flex items-center justify-center p-4">
-        <div className={`w-full max-w-sm transform transition-all duration-700 ease-out ${
+      <main className="relative z-10 min-h-screen flex items-center justify-center p-4">
+        <div className={`w-full max-w-md transform transition-all duration-700 ease-out ${
           isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
         }`}>
 
-          {/* Formulaire d'inscription */}
-          <form onSubmit={(e) => { e.preventDefault(); handleRegister(); }} className="space-y-4">
+          <form onSubmit={(e) => { e.preventDefault(); handleRegister(); }} className="space-y-6" noValidate>
             <div className={`space-y-4 transform transition-all duration-500 ease-out ${
               isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
             }`} style={{ transitionDelay: '400ms' }}>
               
-              <div className="grid grid-cols-2 gap-3">
-                <div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
                   <FormField
                     id="firstName"
                     label="Prénom"
@@ -184,14 +182,14 @@ const RegisterPage = () => {
                     aria-describedby={errors.firstName ? "firstName-error" : undefined}
                   />
                   {errors.firstName && touchedFields.firstName && (
-                    <div id="firstName-error" className="flex items-center gap-1 mt-1 text-xs text-destructive" role="alert">
-                      <AlertCircle className="w-3 h-3" />
-                      {errors.firstName}
+                    <div id="firstName-error" className="flex items-center gap-1 text-xs text-destructive" role="alert">
+                      <AlertCircle className="w-3 h-3 flex-shrink-0" />
+                      <span>{errors.firstName}</span>
                     </div>
                   )}
                 </div>
 
-                <div>
+                <div className="space-y-1">
                   <FormField
                     id="lastName"
                     label="Nom"
@@ -208,15 +206,15 @@ const RegisterPage = () => {
                     aria-describedby={errors.lastName ? "lastName-error" : undefined}
                   />
                   {errors.lastName && touchedFields.lastName && (
-                    <div id="lastName-error" className="flex items-center gap-1 mt-1 text-xs text-destructive" role="alert">
-                      <AlertCircle className="w-3 h-3" />
-                      {errors.lastName}
+                    <div id="lastName-error" className="flex items-center gap-1 text-xs text-destructive" role="alert">
+                      <AlertCircle className="w-3 h-3 flex-shrink-0" />
+                      <span>{errors.lastName}</span>
                     </div>
                   )}
                 </div>
               </div>
 
-              <div>
+              <div className="space-y-1">
                 <FormField
                   id="email"
                   label="Adresse e-mail"
@@ -233,14 +231,14 @@ const RegisterPage = () => {
                   aria-describedby={errors.email ? "email-error" : undefined}
                 />
                 {errors.email && touchedFields.email && (
-                  <div id="email-error" className="flex items-center gap-1 mt-1 text-xs text-destructive" role="alert">
-                    <AlertCircle className="w-3 h-3" />
-                    {errors.email}
+                  <div id="email-error" className="flex items-center gap-1 text-xs text-destructive" role="alert">
+                    <AlertCircle className="w-3 h-3 flex-shrink-0" />
+                    <span>{errors.email}</span>
                   </div>
                 )}
               </div>
 
-              <div>
+              <div className="space-y-1">
                 <FormField
                   id="phone"
                   label="Numéro de téléphone"
@@ -260,15 +258,14 @@ const RegisterPage = () => {
                   aria-describedby={errors.phone ? "phone-error" : undefined}
                 />
                 {errors.phone && touchedFields.phone && (
-                  <div id="phone-error" className="flex items-center gap-1 mt-1 text-xs text-destructive" role="alert">
-                    <AlertCircle className="w-3 h-3" />
-                    {errors.phone}
+                  <div id="phone-error" className="flex items-center gap-1 text-xs text-destructive" role="alert">
+                    <AlertCircle className="w-3 h-3 flex-shrink-0" />
+                    <span>{errors.phone}</span>
                   </div>
                 )}
               </div>
 
-              {/* Conditions d'utilisation */}
-              <div className="py-3">
+              <div className="pt-2 pb-4">
                 <p className="text-xs text-muted-foreground text-center leading-relaxed">
                   En continuant, vous acceptez nos{" "}
                   <button 
@@ -289,12 +286,13 @@ const RegisterPage = () => {
                 </p>
               </div>
 
-              {/* Bouton d'inscription */}
               <Button
                 type="submit"
                 disabled={!isFormValid || isSubmitting}
-                className={`w-full h-12 bg-foreground text-background font-medium rounded-xl transition-all duration-200 hover:bg-foreground/90 active:scale-[0.98] group ${
-                  !isFormValid || isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-md'
+                className={`w-full h-12 bg-foreground text-background font-medium rounded-xl transition-all duration-200 group ${
+                  isFormValid && !isSubmitting 
+                    ? 'hover:bg-foreground/90 hover:shadow-md active:scale-[0.98]' 
+                    : 'opacity-50 cursor-not-allowed'
                 }`}
                 aria-label="Créer mon compte Payzoo"
               >
@@ -313,10 +311,9 @@ const RegisterPage = () => {
             </div>
           </form>
 
-          {/* Footer */}
           <RegisterFooter isLoaded={isLoaded} onLoginRedirect={handleLoginRedirect} />
         </div>
-      </div>
+      </main>
     </div>
   );
 };
