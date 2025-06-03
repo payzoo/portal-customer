@@ -84,8 +84,7 @@ export function Addresses() {
       address.label.toLowerCase().includes(searchTerm.toLowerCase()) ||
       address.street.toLowerCase().includes(searchTerm.toLowerCase()) ||
       address.city.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesType =
-      filterType === "all" || address.type === filterType;
+    const matchesType = filterType === "all" || address.type === filterType;
     return matchesSearch && matchesType;
   });
 
@@ -151,19 +150,18 @@ export function Addresses() {
   };
 
   return (
-    <div className="min-h-screen bg-background relative overflow-hidden">
-      {/* Floating geometric elements */}
+    <main className="min-h-screen bg-background">
+      {/* Floating geometric elements - simplified */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-20 left-10 w-32 h-32 border border-border/20 rounded-3xl rotate-12 animate-[float_6s_ease-in-out_infinite]"></div>
-        <div className="absolute bottom-32 right-16 w-24 h-24 border border-border/30 rounded-2xl -rotate-12 animate-[float_8s_ease-in-out_infinite] opacity-60" style={{ animationDelay: '2s' }}></div>
-        <div className="absolute top-1/2 left-1/4 w-16 h-16 border border-border/25 rounded-xl rotate-45 animate-[float_7s_ease-in-out_infinite]" style={{ animationDelay: '4s' }}></div>
-        <div className="absolute top-32 right-1/3 w-20 h-20 border border-border/20 rounded-full animate-[float_9s_ease-in-out_infinite] opacity-40" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute top-20 left-10 w-32 h-32 border border-border/20 rounded-3xl rotate-12 animate-[float_6s_ease-in-out_infinite]" />
+        <div className="absolute bottom-32 right-16 w-24 h-24 border border-border/30 rounded-2xl -rotate-12 animate-[float_8s_ease-in-out_infinite_2s]" />
+        <div className="absolute top-1/2 left-1/4 w-16 h-16 border border-border/25 rounded-xl rotate-45 animate-[float_7s_ease-in-out_infinite_4s]" />
+        <div className="absolute top-32 right-1/3 w-20 h-20 border border-border/20 rounded-full animate-[float_9s_ease-in-out_infinite_1s] opacity-40" />
       </div>
 
       <div className="payzoo-page-container relative z-10">
-        
-        {/* Modern header section - identical to other pages */}
-        <div className={`mb-12 transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+        {/* Header section */}
+        <header className={`mb-12 transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
           <div className="flex items-start justify-between">
             <div className="space-y-4">
               <div className="flex items-center gap-3">
@@ -171,119 +169,109 @@ export function Addresses() {
                   <MapPin className="w-6 h-6 text-background" />
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
+                  <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
                   <span className="text-sm font-medium text-green-600">Smart Location</span>
                 </div>
               </div>
               <div>
-                <h1 className="text-3xl font-bold text-foreground mb-2">Adresses</h1>
-                <p className="text-muted-foreground flex items-center gap-2">
+                <h1 className="payzoo-page-title">Adresses</h1>
+                <p className="payzoo-subtitle flex items-center gap-2">
                   <Brain className="w-4 h-4" />
                   Gérez vos adresses en toute simplicité
                 </p>
               </div>
             </div>
             
-            {/* Minimal modern CTA */}
-            <Button 
-              className="group bg-foreground hover:bg-foreground/90 text-background px-5 py-2.5 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg border-0"
-            >
-              <Plus className="w-4 h-4 mr-2 group-hover:rotate-90 transition-transform duration-300" />
+            <Button className="payzoo-btn-primary group">
+              <Plus className="w-4 h-4 group-hover:rotate-90 transition-transform duration-300" />
               Ajouter
-              <ArrowUpRight className="w-4 h-4 ml-2 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
+              <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
             </Button>
           </div>
-        </div>
+        </header>
 
-        {/* Enhanced metrics cards */}
-        <div className={`grid grid-cols-1 md:grid-cols-4 gap-6 mb-12 transition-all duration-700 delay-200 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
-          <Card className="group bg-card/50 backdrop-blur-sm border-border/50 hover:bg-card/80 hover:border-foreground/20 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-            <CardContent className="p-6">
+        {/* Metrics cards */}
+        <section className={`payzoo-grid-4 mb-12 transition-all duration-700 delay-200 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+          <Card className="payzoo-card-interactive">
+            <CardContent className="payzoo-card-compact">
               <div className="flex items-center justify-between mb-4">
-                <div className="p-3 bg-blue-500/10 rounded-xl group-hover:bg-blue-500/20 transition-colors duration-300">
+                <div className="p-3 bg-blue-500/10 rounded-xl">
                   <MapPin className="w-6 h-6 text-blue-600" />
                 </div>
                 <Sparkles className="w-4 h-4 text-blue-500/60 animate-pulse" />
               </div>
-              <div>
-                <div className="text-2xl font-bold text-foreground mb-1">
-                  {addresses.length}
-                </div>
-                <div className="text-sm text-muted-foreground font-medium">Total</div>
+              <div className="text-2xl font-bold text-foreground mb-1">
+                {addresses.length}
               </div>
+              <div className="payzoo-caption">Total</div>
             </CardContent>
           </Card>
 
-          <Card className="group bg-card/50 backdrop-blur-sm border-border/50 hover:bg-card/80 hover:border-foreground/20 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-            <CardContent className="p-6">
+          <Card className="payzoo-card-interactive">
+            <CardContent className="payzoo-card-compact">
               <div className="flex items-center justify-between mb-4">
-                <div className="p-3 bg-yellow-500/10 rounded-xl group-hover:bg-yellow-500/20 transition-colors duration-300">
+                <div className="p-3 bg-yellow-500/10 rounded-xl">
                   <Star className="w-6 h-6 text-yellow-600" />
                 </div>
                 <Sparkles className="w-4 h-4 text-yellow-500/60 animate-pulse" style={{ animationDelay: '0.5s' }} />
               </div>
-              <div>
-                <div className="text-2xl font-bold text-foreground mb-1">
-                  {favoriteCount}
-                </div>
-                <div className="text-sm text-muted-foreground font-medium">Favoris</div>
+              <div className="text-2xl font-bold text-foreground mb-1">
+                {favoriteCount}
               </div>
+              <div className="payzoo-caption">Favoris</div>
             </CardContent>
           </Card>
 
-          <Card className="group bg-card/50 backdrop-blur-sm border-border/50 hover:bg-card/80 hover:border-foreground/20 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-            <CardContent className="p-6">
+          <Card className="payzoo-card-interactive">
+            <CardContent className="payzoo-card-compact">
               <div className="flex items-center justify-between mb-4">
-                <div className="p-3 bg-green-500/10 rounded-xl group-hover:bg-green-500/20 transition-colors duration-300">
+                <div className="p-3 bg-green-500/10 rounded-xl">
                   <Home className="w-6 h-6 text-green-600" />
                 </div>
                 <Sparkles className="w-4 h-4 text-green-500/60 animate-pulse" style={{ animationDelay: '1s' }} />
               </div>
-              <div>
-                <div className="text-2xl font-bold text-foreground mb-1">
-                  {homeCount}
-                </div>
-                <div className="text-sm text-muted-foreground font-medium">Domicile</div>
+              <div className="text-2xl font-bold text-foreground mb-1">
+                {homeCount}
               </div>
+              <div className="payzoo-caption">Domicile</div>
             </CardContent>
           </Card>
 
-          <Card className="group bg-card/50 backdrop-blur-sm border-border/50 hover:bg-card/80 hover:border-foreground/20 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-            <CardContent className="p-6">
+          <Card className="payzoo-card-interactive">
+            <CardContent className="payzoo-card-compact">
               <div className="flex items-center justify-between mb-4">
-                <div className="p-3 bg-purple-500/10 rounded-xl group-hover:bg-purple-500/20 transition-colors duration-300">
+                <div className="p-3 bg-purple-500/10 rounded-xl">
                   <Building2 className="w-6 h-6 text-purple-600" />
                 </div>
                 <Sparkles className="w-4 h-4 text-purple-500/60 animate-pulse" style={{ animationDelay: '1.5s' }} />
               </div>
-              <div>
-                <div className="text-2xl font-bold text-foreground mb-1">
-                  {workCount}
-                </div>
-                <div className="text-sm text-muted-foreground font-medium">Travail</div>
+              <div className="text-2xl font-bold text-foreground mb-1">
+                {workCount}
               </div>
+              <div className="payzoo-caption">Travail</div>
             </CardContent>
           </Card>
-        </div>
+        </section>
 
-        {/* Improved search and filters with uniform height */}
-        <div className={`mb-8 transition-all duration-700 delay-300 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+        {/* Search and filters */}
+        <section className={`mb-8 transition-all duration-700 delay-300 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
           <div className="flex gap-4">
-            <div className="relative flex-1">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
+            <div className="payzoo-input-container flex-1">
+              <Search className="payzoo-input-icon" />
               <input
                 type="text"
                 placeholder="Rechercher une adresse..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full h-12 pl-12 pr-4 bg-card/50 backdrop-blur-sm border border-border/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-foreground/20 focus:border-foreground/50 transition-all duration-300 text-foreground placeholder:text-muted-foreground"
+                className="payzoo-input-with-icon"
+                aria-label="Rechercher une adresse"
               />
             </div>
             <Select value={filterType} onValueChange={setFilterType}>
               <SelectTrigger className="w-48 h-12 bg-card/50 backdrop-blur-sm border border-border/50 rounded-xl focus:ring-2 focus:ring-foreground/20 focus:border-foreground/50 transition-all duration-300">
-                <SelectValue placeholder="Type" />
+                <SelectValue placeholder="Type d'adresse" />
               </SelectTrigger>
-              <SelectContent className="bg-card/95 backdrop-blur-md border border-border/50 rounded-xl shadow-xl animate-in slide-in-from-top-2 duration-200">
+              <SelectContent className="bg-card/95 backdrop-blur-md border border-border/50 rounded-xl shadow-xl">
                 <SelectItem value="all">Tous types</SelectItem>
                 <SelectItem value="home">Domicile</SelectItem>
                 <SelectItem value="work">Travail</SelectItem>
@@ -291,18 +279,18 @@ export function Addresses() {
               </SelectContent>
             </Select>
           </div>
-        </div>
+        </section>
 
-        {/* Enhanced addresses list */}
-        <div className={`space-y-4 transition-all duration-700 delay-400 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+        {/* Addresses list */}
+        <section className={`space-y-4 transition-all duration-700 delay-400 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
           {filteredAddresses.length === 0 ? (
-            <Card className="bg-card/50 backdrop-blur-sm border-border/50">
+            <Card className="payzoo-card">
               <CardContent className="p-12 text-center">
                 <div className="w-16 h-16 bg-muted/20 rounded-xl flex items-center justify-center mx-auto mb-6">
                   <Search className="w-8 h-8 text-muted-foreground/60" />
                 </div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">Aucun résultat</h3>
-                <p className="text-muted-foreground">
+                <h3 className="payzoo-subsection-title mb-3">Aucun résultat</h3>
+                <p className="payzoo-subtitle">
                   Aucune adresse ne correspond à vos critères.
                 </p>
               </CardContent>
@@ -314,18 +302,18 @@ export function Addresses() {
               return (
                 <Card 
                   key={address.id} 
-                  className="group bg-card/50 backdrop-blur-sm border-border/50 hover:bg-card/80 hover:border-foreground/20 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 cursor-pointer"
+                  className="payzoo-card-interactive"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
-                  <CardContent className="p-6">
+                  <CardContent className="payzoo-card-compact">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-6">
-                        <div className={`w-12 h-12 ${typeInfo.color} rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+                        <div className={`w-12 h-12 ${typeInfo.color} rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110`}>
                           <typeInfo.icon className="w-6 h-6 text-white" />
                         </div>
                         <div className="flex-1">
                           <div className="flex items-center gap-4 mb-2">
-                            <h3 className="text-lg font-semibold text-foreground group-hover:text-foreground/90 transition-colors duration-300">{address.label}</h3>
+                            <h3 className="payzoo-subsection-title">{address.label}</h3>
                             {address.isDefault && (
                               <Badge className="px-3 py-1 rounded-full text-xs bg-foreground/10 text-foreground border-0">
                                 Par défaut
@@ -335,10 +323,10 @@ export function Addresses() {
                               <Star className="w-4 h-4 text-yellow-500 fill-current animate-pulse" />
                             )}
                           </div>
-                          <div className="text-foreground/80 mb-1 font-medium">
+                          <div className="payzoo-body mb-1">
                             {address.street}, {address.city}
                           </div>
-                          <div className="text-muted-foreground text-sm">
+                          <div className="payzoo-body-sm text-muted-foreground">
                             {address.zipCode} • {address.country}
                           </div>
                         </div>
@@ -346,7 +334,7 @@ export function Addresses() {
                       
                       <div className="flex items-center gap-4">
                         <Badge 
-                          className={`px-4 py-2 rounded-full text-sm ${typeInfo.bgColor} ${typeInfo.textColor} border-0 group-hover:scale-105 transition-transform duration-300`}
+                          className={`px-4 py-2 rounded-full text-sm ${typeInfo.bgColor} ${typeInfo.textColor} border-0 transition-transform duration-300 group-hover:scale-105`}
                         >
                           {typeInfo.label}
                         </Badge>
@@ -359,37 +347,39 @@ export function Addresses() {
                               e.stopPropagation();
                               handleEdit(address);
                             }}
-                            className="w-9 h-9 p-0 rounded-lg hover:bg-muted/50 transition-colors duration-300"
+                            className="payzoo-btn-icon"
+                            aria-label={`Modifier ${address.label}`}
                           >
-                            <Edit className="w-4 h-4 text-muted-foreground" />
+                            <Edit className="w-4 h-4" />
                           </Button>
                           <DropdownMenu>
                             <DropdownMenuTrigger asChild>
                               <Button 
                                 variant="ghost" 
                                 size="sm" 
-                                className="w-9 h-9 p-0 rounded-lg hover:bg-muted/50 transition-colors duration-300"
+                                className="payzoo-btn-icon"
                                 onClick={(e) => e.stopPropagation()}
+                                aria-label={`Actions pour ${address.label}`}
                               >
-                                <MoreVertical className="w-4 h-4 text-muted-foreground" />
+                                <MoreVertical className="w-4 h-4" />
                               </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent 
                               align="end" 
-                              className="w-48 bg-card/95 backdrop-blur-md border border-border/50 rounded-xl shadow-xl animate-in slide-in-from-top-2 duration-200"
+                              className="w-48 bg-card/95 backdrop-blur-md border border-border/50 rounded-xl shadow-xl"
                             >
                               <DropdownMenuItem 
                                 onClick={() => handleEdit(address)}
                                 className="flex items-center gap-3 px-4 py-3 hover:bg-muted/50 rounded-lg transition-colors duration-200"
                               >
-                                <Edit className="w-4 h-4 text-muted-foreground" />
+                                <Edit className="w-4 h-4" />
                                 <span>Modifier</span>
                               </DropdownMenuItem>
                               <DropdownMenuItem 
                                 onClick={() => handleCopy(address)}
                                 className="flex items-center gap-3 px-4 py-3 hover:bg-muted/50 rounded-lg transition-colors duration-200"
                               >
-                                <Copy className="w-4 h-4 text-muted-foreground" />
+                                <Copy className="w-4 h-4" />
                                 <span>Copier</span>
                               </DropdownMenuItem>
                               <DropdownMenuItem 
@@ -424,8 +414,8 @@ export function Addresses() {
               );
             })
           )}
-        </div>
+        </section>
       </div>
-    </div>
+    </main>
   );
 }
