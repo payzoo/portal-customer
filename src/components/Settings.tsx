@@ -1,3 +1,4 @@
+
 import { User, Shield, Bell, HelpCircle, Globe, Key, Smartphone, FileText, MessageCircle, Search, ChevronRight, Users, Brain, Sparkles } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -148,26 +149,26 @@ export function Settings() {
   );
 
   return (
-    <div className="min-h-screen bg-background relative overflow-hidden">
-      {/* Startup background elements */}
+    <div className="min-h-screen bg-background">
+      {/* Background decorations */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-20 left-10 w-32 h-32 border border-blue-200/20 rounded-3xl rotate-12 animate-[float_6s_ease-in-out_infinite]"></div>
-        <div className="absolute bottom-32 right-16 w-24 h-24 border border-purple-200/30 rounded-2xl -rotate-12 animate-[float_8s_ease-in-out_infinite] opacity-60" style={{ animationDelay: '2s' }}></div>
-        <div className="absolute top-1/2 left-1/4 w-16 h-16 border border-blue-300/25 rounded-xl rotate-45 animate-[float_7s_ease-in-out_infinite]" style={{ animationDelay: '4s' }}></div>
+        <div className="absolute top-20 left-10 w-32 h-32 border border-blue-200/20 rounded-3xl rotate-12 animate-pulse"></div>
+        <div className="absolute bottom-32 right-16 w-24 h-24 border border-purple-200/30 rounded-2xl -rotate-12 animate-pulse opacity-60"></div>
+        <div className="absolute top-1/2 left-1/4 w-16 h-16 border border-blue-300/25 rounded-xl rotate-45 animate-pulse"></div>
       </div>
 
       <div className="payzoo-page-container relative z-10">
         
-        {/* Header section with startup vibe */}
-        <div className={`mb-8 transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+        {/* Header section */}
+        <div className={`mb-8 transition-all duration-500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               <div className="p-2.5 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl shadow-lg">
                 <User className="w-6 h-6 text-white" />
               </div>
               <div className="flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-black" />
-                <span className="text-sm font-medium text-black">Smart Settings</span>
+                <Sparkles className="w-4 h-4 text-foreground" />
+                <span className="text-sm font-medium text-foreground">Smart Settings</span>
               </div>
             </div>
             <div>
@@ -181,7 +182,7 @@ export function Settings() {
         </div>
 
         {/* Search bar */}
-        <div className={`mb-6 transition-all duration-700 delay-100 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+        <div className={`mb-6 transition-all duration-500 delay-100 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
           <div className="relative max-w-md">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
             <Input
@@ -189,7 +190,7 @@ export function Settings() {
               placeholder="Rechercher dans les paramètres..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10 h-11 bg-card/50 backdrop-blur-sm border-border/50 focus:border-blue-500/50 transition-all duration-300"
+              className="pl-10 h-11 bg-card/80 backdrop-blur-sm border-border/50 focus:border-blue-500/50 transition-colors"
             />
           </div>
         </div>
@@ -204,12 +205,15 @@ export function Settings() {
 
           {/* Settings Sections */}
           {filteredCategories.map((category, categoryIndex) => (
-            <Card key={category.category} className={`border-0 bg-card/50 backdrop-blur-sm transition-all duration-500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: `${400 + categoryIndex * 100}ms` }}>
+            <Card 
+              key={category.category} 
+              className={`border-0 bg-card/80 backdrop-blur-sm shadow-sm transition-all duration-500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+            >
               <CardContent className="p-6">
-                <h3 className="text-lg font-semibold text-foreground mb-4 tracking-tight">
+                <h3 className="text-lg font-semibold text-foreground mb-4">
                   {category.category}
                 </h3>
-                <div className="space-y-2">
+                <div className="space-y-1">
                   {category.items.filter(item => 
                     item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                     item.description.toLowerCase().includes(searchTerm.toLowerCase())
@@ -217,15 +221,15 @@ export function Settings() {
                     <div 
                       key={itemIndex}
                       onClick={item.action}
-                      className="group flex items-center justify-between py-3 px-4 hover:bg-background/50 rounded-xl transition-all duration-300 cursor-pointer"
+                      className="group flex items-center justify-between py-3 px-4 hover:bg-background/80 rounded-lg transition-all duration-200 cursor-pointer"
                     >
                       <div className="flex items-center gap-3 flex-1">
-                        <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-muted/50 group-hover:bg-muted/80 group-hover:scale-105 transition-all duration-300">
+                        <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-muted/50 group-hover:bg-muted transition-colors">
                           <item.icon className="w-4 h-4 text-foreground" />
                         </div>
                         <div className="flex-1">
-                          <p className="font-medium text-sm text-foreground group-hover:text-foreground/90 transition-colors duration-200">{item.title}</p>
-                          <p className="text-xs text-muted-foreground group-hover:text-muted-foreground/80 transition-colors duration-200">{item.description}</p>
+                          <p className="font-medium text-sm text-foreground">{item.title}</p>
+                          <p className="text-xs text-muted-foreground">{item.description}</p>
                         </div>
                       </div>
                       <div className="flex items-center gap-3">
@@ -233,10 +237,10 @@ export function Settings() {
                           <Switch 
                             checked={item.title.includes('2FA') ? twoFactorEnabled : false} 
                             onCheckedChange={item.title.includes('2FA') ? setTwoFactorEnabled : undefined}
-                            className="data-[state=checked]:bg-gradient-to-r data-[state=checked]:from-blue-600 data-[state=checked]:to-purple-600 transition-all duration-200"
+                            className="data-[state=checked]:bg-blue-600"
                           />
                         )}
-                        <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground group-hover:translate-x-1 transition-all duration-200" />
+                        <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground group-hover:translate-x-1 transition-all" />
                       </div>
                     </div>
                   ))}
@@ -247,26 +251,26 @@ export function Settings() {
 
           {/* Support Section */}
           {filteredSupportItems.length > 0 && (
-            <Card className={`border-0 bg-card/50 backdrop-blur-sm transition-all duration-500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '700ms' }}>
+            <Card className={`border-0 bg-card/80 backdrop-blur-sm shadow-sm transition-all duration-500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
               <CardContent className="p-6">
-                <h3 className="text-lg font-semibold text-foreground mb-4 tracking-tight">
+                <h3 className="text-lg font-semibold text-foreground mb-4">
                   Support
                 </h3>
-                <div className="space-y-2">
+                <div className="space-y-1">
                   {filteredSupportItems.map((item, index) => (
                     <div 
                       key={index}
                       onClick={item.action}
-                      className="group flex items-center gap-3 py-3 px-4 hover:bg-background/50 rounded-xl transition-all duration-300 cursor-pointer"
+                      className="group flex items-center gap-3 py-3 px-4 hover:bg-background/80 rounded-lg transition-all duration-200 cursor-pointer"
                     >
-                      <div className="w-10 h-10 bg-muted/50 rounded-xl flex items-center justify-center group-hover:bg-muted/80 group-hover:scale-105 transition-all duration-300">
+                      <div className="w-10 h-10 bg-muted/50 rounded-lg flex items-center justify-center group-hover:bg-muted transition-colors">
                         <item.icon className="w-4 h-4 text-foreground" />
                       </div>
                       <div className="flex-1">
-                        <p className="font-medium text-sm text-foreground group-hover:text-foreground/90 transition-colors duration-200">{item.title}</p>
-                        <p className="text-xs text-muted-foreground group-hover:text-muted-foreground/80 transition-colors duration-200">{item.description}</p>
+                        <p className="font-medium text-sm text-foreground">{item.title}</p>
+                        <p className="text-xs text-muted-foreground">{item.description}</p>
                       </div>
-                      <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground group-hover:translate-x-1 transition-all duration-200" />
+                      <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground group-hover:translate-x-1 transition-all" />
                     </div>
                   ))}
                 </div>
