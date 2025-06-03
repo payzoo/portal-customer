@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -154,18 +153,18 @@ const RegisterPage = () => {
     <div className="min-h-screen bg-background relative overflow-hidden">
       <RegisterHeader isLoaded={isLoaded} mousePosition={mousePosition} />
 
-      <main className="relative z-10 min-h-screen flex items-center justify-center p-4">
-        <div className={`w-full max-w-md transform transition-all duration-700 ease-out ${
+      <main className="relative z-10 min-h-screen flex items-center justify-center p-6">
+        <div className={`w-full max-w-md transform transition-all duration-1000 ease-out ${
           isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
         }`}>
 
           <form onSubmit={(e) => { e.preventDefault(); handleRegister(); }} className="space-y-6" noValidate>
-            <div className={`space-y-4 transform transition-all duration-500 ease-out ${
+            <div className={`space-y-6 transform transition-all duration-500 ease-out ${
               isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
             }`} style={{ transitionDelay: '400ms' }}>
               
               <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-1">
+                <div className="space-y-2">
                   <FormField
                     id="firstName"
                     label="Prénom"
@@ -182,14 +181,14 @@ const RegisterPage = () => {
                     aria-describedby={errors.firstName ? "firstName-error" : undefined}
                   />
                   {errors.firstName && touchedFields.firstName && (
-                    <div id="firstName-error" className="flex items-center gap-1 text-xs text-destructive" role="alert">
-                      <AlertCircle className="w-3 h-3 flex-shrink-0" />
+                    <div id="firstName-error" className="flex items-center gap-2 text-xs text-destructive" role="alert">
+                      <AlertCircle className="w-3 h-3 shrink-0" />
                       <span>{errors.firstName}</span>
                     </div>
                   )}
                 </div>
 
-                <div className="space-y-1">
+                <div className="space-y-2">
                   <FormField
                     id="lastName"
                     label="Nom"
@@ -206,15 +205,15 @@ const RegisterPage = () => {
                     aria-describedby={errors.lastName ? "lastName-error" : undefined}
                   />
                   {errors.lastName && touchedFields.lastName && (
-                    <div id="lastName-error" className="flex items-center gap-1 text-xs text-destructive" role="alert">
-                      <AlertCircle className="w-3 h-3 flex-shrink-0" />
+                    <div id="lastName-error" className="flex items-center gap-2 text-xs text-destructive" role="alert">
+                      <AlertCircle className="w-3 h-3 shrink-0" />
                       <span>{errors.lastName}</span>
                     </div>
                   )}
                 </div>
               </div>
 
-              <div className="space-y-1">
+              <div className="space-y-2">
                 <FormField
                   id="email"
                   label="Adresse e-mail"
@@ -231,14 +230,14 @@ const RegisterPage = () => {
                   aria-describedby={errors.email ? "email-error" : undefined}
                 />
                 {errors.email && touchedFields.email && (
-                  <div id="email-error" className="flex items-center gap-1 text-xs text-destructive" role="alert">
-                    <AlertCircle className="w-3 h-3 flex-shrink-0" />
+                  <div id="email-error" className="flex items-center gap-2 text-xs text-destructive" role="alert">
+                    <AlertCircle className="w-3 h-3 shrink-0" />
                     <span>{errors.email}</span>
                   </div>
                 )}
               </div>
 
-              <div className="space-y-1">
+              <div className="space-y-2">
                 <FormField
                   id="phone"
                   label="Numéro de téléphone"
@@ -258,14 +257,14 @@ const RegisterPage = () => {
                   aria-describedby={errors.phone ? "phone-error" : undefined}
                 />
                 {errors.phone && touchedFields.phone && (
-                  <div id="phone-error" className="flex items-center gap-1 text-xs text-destructive" role="alert">
-                    <AlertCircle className="w-3 h-3 flex-shrink-0" />
+                  <div id="phone-error" className="flex items-center gap-2 text-xs text-destructive" role="alert">
+                    <AlertCircle className="w-3 h-3 shrink-0" />
                     <span>{errors.phone}</span>
                   </div>
                 )}
               </div>
 
-              <div className="pt-2 pb-4">
+              <div className="pt-4 pb-6">
                 <p className="text-xs text-muted-foreground text-center leading-relaxed">
                   En continuant, vous acceptez nos{" "}
                   <button 

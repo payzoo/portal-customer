@@ -60,22 +60,33 @@ const FormField = ({
     </Label>
     <div className="relative">
       {isPhone ? (
-        <div className="flex border border-input rounded-xl overflow-hidden bg-background">
+        <div className="flex border border-input rounded-xl overflow-hidden bg-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2 transition-all duration-200">
           <Select value={countryCode} onValueChange={setCountryCode} disabled={disabled}>
-            <SelectTrigger className="w-20 h-12 border-0 bg-transparent focus:ring-0 rounded-none">
-              <SelectValue />
+            <SelectTrigger className="w-24 h-12 border-0 bg-transparent focus:ring-0 rounded-none shrink-0">
+              <SelectValue>
+                <div className="flex items-center space-x-1.5">
+                  <span className="text-sm">
+                    {countries.find(c => c.code === countryCode)?.flag || "🇫🇷"}
+                  </span>
+                  <span className="text-sm font-medium">
+                    {countryCode || "+33"}
+                  </span>
+                </div>
+              </SelectValue>
             </SelectTrigger>
-            <SelectContent className="bg-background border border-input">
+            <SelectContent className="bg-background border border-input shadow-lg">
               {countries.map((country) => (
                 <SelectItem key={`${country.code}-${country.country}`} value={country.code}>
-                  <div className="flex items-center space-x-2">
-                    <span>{country.flag}</span>
-                    <span className="text-sm">{country.code}</span>
+                  <div className="flex items-center space-x-2 w-full">
+                    <span className="text-base">{country.flag}</span>
+                    <span className="text-sm font-medium">{country.code}</span>
+                    <span className="text-xs text-muted-foreground">{country.name}</span>
                   </div>
                 </SelectItem>
               ))}
             </SelectContent>
           </Select>
+          <div className="w-px bg-input"></div>
           <div className="flex-1 relative">
             <Icon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
             <Input
@@ -89,9 +100,9 @@ const FormField = ({
               disabled={disabled}
               required={required}
               aria-describedby={ariaDescribedBy}
-              className="h-12 pl-10 pr-10 border-0 bg-transparent focus:ring-0 focus:border-0 rounded-none"
+              className="h-12 pl-10 pr-10 border-0 bg-transparent focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 rounded-none"
             />
-            {isValid && (
+            {isValid && value && (
               <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
                 <div className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
                   <Check className="w-3 h-3 text-white" />
@@ -102,7 +113,7 @@ const FormField = ({
         </div>
       ) : (
         <div className="relative">
-          <Icon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+          <Icon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4 z-10" />
           <Input
             id={id}
             type={type}
@@ -114,10 +125,10 @@ const FormField = ({
             disabled={disabled}
             required={required}
             aria-describedby={ariaDescribedBy}
-            className="h-12 pl-10 pr-10 border-input rounded-xl bg-background"
+            className="h-12 pl-10 pr-10 border-input rounded-xl bg-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-all duration-200"
           />
-          {isValid && (
-            <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+          {isValid && value && (
+            <div className="absolute right-3 top-1/2 transform -translate-y-1/2 z-10">
               <div className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
                 <Check className="w-3 h-3 text-white" />
               </div>
