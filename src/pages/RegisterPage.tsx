@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -157,8 +158,6 @@ const RegisterPage = () => {
         <div className={`w-full max-w-md transform transition-all duration-1000 ease-out ${
           isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
         }`}>
-
-          <RegisterHeader isLoaded={isLoaded} mousePosition={mousePosition} />
 
           <form onSubmit={(e) => { e.preventDefault(); handleRegister(); }} className="space-y-6" noValidate>
             <fieldset className={`space-y-6 transform transition-all duration-500 ease-out ${
