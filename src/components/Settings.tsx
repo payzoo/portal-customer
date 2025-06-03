@@ -7,12 +7,24 @@ import { ProfileCard } from "@/components/settings/ProfileCard";
 import { KYCSection } from "@/components/settings/KYCSection";
 import { SecurityModal } from "@/components/modals/SecurityModal";
 import { EditProfileModal } from "@/components/modals/EditProfileModal";
+import { LanguagePreferencesModal } from "@/components/modals/LanguagePreferencesModal";
+import { NotificationsModal } from "@/components/modals/NotificationsModal";
+import { PrivacyModal } from "@/components/modals/PrivacyModal";
+import { HelpCenterModal } from "@/components/modals/HelpCenterModal";
+import { LiveChatModal } from "@/components/modals/LiveChatModal";
+import { CommunityModal } from "@/components/modals/CommunityModal";
 
 export function Settings() {
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoaded, setIsLoaded] = useState(false);
   const [isSecurityModalOpen, setIsSecurityModalOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+  const [isLanguageModalOpen, setIsLanguageModalOpen] = useState(false);
+  const [isNotificationsModalOpen, setIsNotificationsModalOpen] = useState(false);
+  const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false);
+  const [isHelpCenterModalOpen, setIsHelpCenterModalOpen] = useState(false);
+  const [isLiveChatModalOpen, setIsLiveChatModalOpen] = useState(false);
+  const [isCommunityModalOpen, setIsCommunityModalOpen] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -67,7 +79,7 @@ export function Settings() {
           icon: Globe, 
           title: "Préférences de langue", 
           description: "Français (France)",
-          action: () => console.log("Language settings")
+          action: () => setIsLanguageModalOpen(true)
         },
       ]
     },
@@ -101,13 +113,13 @@ export function Settings() {
           icon: Bell, 
           title: "Notifications", 
           description: "Gérer les alertes et communications",
-          action: () => console.log("Notification settings")
+          action: () => setIsNotificationsModalOpen(true)
         },
         { 
           icon: FileText, 
           title: "Confidentialité", 
           description: "Paramètres de confidentialité",
-          action: () => console.log("Privacy settings")
+          action: () => setIsPrivacyModalOpen(true)
         },
       ]
     },
@@ -118,19 +130,19 @@ export function Settings() {
           icon: HelpCircle, 
           title: "Centre d'aide", 
           description: "FAQ et guides détaillés",
-          action: () => console.log("Help center")
+          action: () => setIsHelpCenterModalOpen(true)
         },
         { 
           icon: MessageCircle, 
           title: "Chat en direct", 
           description: "Support instantané 24/7",
-          action: () => console.log("Live chat")
+          action: () => setIsLiveChatModalOpen(true)
         },
         { 
           icon: Users, 
           title: "Communauté", 
           description: "Forum et discussions",
-          action: () => console.log("Community")
+          action: () => setIsCommunityModalOpen(true)
         }
       ]
     }
@@ -231,6 +243,7 @@ export function Settings() {
         </div>
       </div>
 
+      {/* All Modals */}
       <SecurityModal 
         isOpen={isSecurityModalOpen} 
         onClose={() => setIsSecurityModalOpen(false)} 
@@ -240,6 +253,36 @@ export function Settings() {
         isOpen={isProfileModalOpen}
         onClose={() => setIsProfileModalOpen(false)}
         currentData={currentUserData}
+      />
+
+      <LanguagePreferencesModal
+        isOpen={isLanguageModalOpen}
+        onClose={() => setIsLanguageModalOpen(false)}
+      />
+
+      <NotificationsModal
+        isOpen={isNotificationsModalOpen}
+        onClose={() => setIsNotificationsModalOpen(false)}
+      />
+
+      <PrivacyModal
+        isOpen={isPrivacyModalOpen}
+        onClose={() => setIsPrivacyModalOpen(false)}
+      />
+
+      <HelpCenterModal
+        isOpen={isHelpCenterModalOpen}
+        onClose={() => setIsHelpCenterModalOpen(false)}
+      />
+
+      <LiveChatModal
+        isOpen={isLiveChatModalOpen}
+        onClose={() => setIsLiveChatModalOpen(false)}
+      />
+
+      <CommunityModal
+        isOpen={isCommunityModalOpen}
+        onClose={() => setIsCommunityModalOpen(false)}
       />
     </div>
   );
