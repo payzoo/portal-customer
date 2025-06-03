@@ -1,4 +1,3 @@
-
 import { Building2, Plus, Clock, TrendingUp, TrendingDown, CreditCard, Calendar, MoreVertical, Search, Filter, ArrowUpRight, CheckCircle2, Pause, AlertCircle, Eye, EyeOff, BarChart3, DollarSign, Activity, Settings, Edit, Trash2, Copy, Archive, RefreshCw, Sparkles, Zap, Brain, Cpu, Stars, Target } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -7,7 +6,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { AddSubscriptionCard } from "./AddSubscriptionCard";
 
 export function Subscriptions() {
   const navigate = useNavigate();
@@ -178,10 +176,6 @@ export function Subscriptions() {
     }
   };
 
-  const handleAddSubscription = () => {
-    console.log('Ajouter un nouvel abonnement');
-  };
-
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
       {/* Geometric floating elements */}
@@ -218,7 +212,6 @@ export function Subscriptions() {
             
             {/* Minimal modern CTA */}
             <Button 
-              onClick={handleAddSubscription}
               className="group bg-foreground hover:bg-foreground/90 text-background px-5 py-2.5 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg border-0"
             >
               <Plus className="w-4 h-4 mr-2 group-hover:rotate-90 transition-transform duration-300" />
@@ -228,7 +221,7 @@ export function Subscriptions() {
           </div>
         </div>
 
-        {/* Enhanced search and filters */}
+        {/* Enhanced search and filters with matching heights */}
         <div className={`mb-10 transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '100ms' }}>
           <div className="flex gap-4">
             <div className="relative flex-1 max-w-md group">
@@ -238,11 +231,11 @@ export function Subscriptions() {
                 placeholder="Rechercher..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 bg-background border border-border rounded-xl focus:border-foreground focus:outline-none transition-all duration-300 text-foreground placeholder:text-muted-foreground hover:border-muted-foreground"
+                className="w-full h-11 pl-10 pr-4 bg-background border border-border rounded-xl focus:border-foreground focus:outline-none transition-all duration-300 text-foreground placeholder:text-muted-foreground hover:border-muted-foreground"
               />
             </div>
             <Select value={filterStatus} onValueChange={setFilterStatus}>
-              <SelectTrigger className="w-40 bg-background border border-border rounded-xl py-3 focus:border-foreground transition-all duration-300">
+              <SelectTrigger className="w-40 h-11 bg-background border border-border rounded-xl focus:border-foreground transition-all duration-300">
                 <div className="flex items-center gap-2">
                   <Filter className="w-4 h-4" />
                   <SelectValue />
@@ -352,7 +345,7 @@ export function Subscriptions() {
         </div>
 
         {/* Subscription list */}
-        <div className={`space-y-4 mb-12 transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '400ms' }}>
+        <div className={`space-y-4 transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '400ms' }}>
           {filteredSubscriptions.length === 0 ? (
             <div className="py-20 text-center">
               <div className="w-16 h-16 bg-muted rounded-2xl flex items-center justify-center mx-auto mb-4">
@@ -485,11 +478,6 @@ export function Subscriptions() {
               );
             })
           )}
-        </div>
-
-        {/* Add subscription card */}
-        <div className={`transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ animationDelay: '500ms' }}>
-          <AddSubscriptionCard />
         </div>
       </div>
     </div>
