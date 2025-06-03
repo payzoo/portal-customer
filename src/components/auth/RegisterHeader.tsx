@@ -9,7 +9,6 @@ interface RegisterHeaderProps {
 const RegisterHeader = ({ isLoaded, mousePosition }: RegisterHeaderProps) => {
   return (
     <>
-      {/* Background animé simplifié */}
       <div className="absolute inset-0 pointer-events-none">
         <div 
           className="absolute w-24 h-24 border border-border/10 rounded-full animate-float"
@@ -40,7 +39,6 @@ const RegisterHeader = ({ isLoaded, mousePosition }: RegisterHeaderProps) => {
         ></div>
       </div>
 
-      {/* Header simplifié */}
       <div className="text-center mb-8">
         <div className={`transform transition-all duration-500 ease-out ${
           isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'

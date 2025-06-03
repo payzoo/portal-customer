@@ -12,14 +12,12 @@ const Index = () => {
   const location = useLocation();
   const [activeSection, setActiveSection] = useState("dashboard");
 
-  // Check if we're returning from subscription details
   useEffect(() => {
     if (location.state?.activeSection) {
       setActiveSection(location.state.activeSection);
     }
   }, [location.state]);
 
-  // Update page title based on active section
   useEffect(() => {
     const titles = {
       dashboard: "Activité - Payzoo",

@@ -13,20 +13,17 @@ const Header = ({ isLoaded }: HeaderProps) => {
         isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
       }`} style={{ transitionDelay: '200ms' }}>
         
-        {/* Logo avec effet startup */}
         <div className="relative mb-6">
           <h1 className="text-3xl font-light text-foreground tracking-tight bg-gradient-to-r from-foreground via-foreground to-blue-600 bg-clip-text">
             Payzoo
             <Sparkles className="inline-block ml-2 w-5 h-5 text-blue-500 animate-pulse" />
           </h1>
           
-          {/* Badge startup */}
           <div className="mt-3">
             <StartupBadge isLoaded={isLoaded} />
           </div>
         </div>
 
-        {/* Section d'en-tête avec style tech */}
         <div className="mb-4">
           <p className="text-xs uppercase tracking-wider font-medium text-muted-foreground mb-2 bg-gradient-to-r from-muted-foreground to-blue-600 bg-clip-text">
             Connexion

@@ -47,20 +47,16 @@ const AuthPage = () => {
 
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
-      {/* Background elements avec startup vibe */}
       <AnimatedBackground />
       <StartupElements isLoaded={isLoaded} />
 
-      {/* Main content */}
       <div className="relative z-10 min-h-screen flex items-center justify-center p-6">
         <div className={`w-full max-w-md transform transition-all duration-1000 ease-out ${
           isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
         }`}>
           
-          {/* Header with startup elements */}
           <Header isLoaded={isLoaded} />
 
-          {/* Form section */}
           {!showEmailTag ? (
             <EmailInput
               email={email}
@@ -80,7 +76,6 @@ const AuthPage = () => {
             />
           )}
 
-          {/* Footer with startup messaging */}
           <Footer onRegisterRedirect={handleRegisterRedirect} isLoaded={isLoaded} />
         </div>
       </div>

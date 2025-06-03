@@ -44,7 +44,6 @@ const EmailInput = ({
       isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
     }`} style={{ transitionDelay: '400ms' }}>
       
-      {/* Champ email amélioré */}
       <div className="space-y-2">
         <label className="text-sm font-medium text-foreground">
           Adresse email
@@ -70,7 +69,6 @@ const EmailInput = ({
         </div>
       </div>
       
-      {/* Bouton continuer cohérent */}
       <Button
         onClick={onContinue}
         disabled={!isEmailValid}

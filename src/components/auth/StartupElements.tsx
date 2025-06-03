@@ -25,10 +25,8 @@ const StartupElements = ({ isLoaded }: StartupElementsProps) => {
 
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
-      {/* Gradient subtil tech */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-50/30 via-transparent to-purple-50/20" />
       
-      {/* Icônes tech flottantes */}
       {elements.map((element, index) => {
         const Icon = element.icon;
         return (
@@ -50,7 +48,6 @@ const StartupElements = ({ isLoaded }: StartupElementsProps) => {
         );
       })}
 
-      {/* Lignes de connexion subtiles */}
       <div className="absolute inset-0">
         <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
           <defs>

@@ -15,7 +15,6 @@ const EmailConfirmation = ({ email, onConnection, onRemoveEmail, isLoaded }: Ema
       isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
     }`} style={{ transitionDelay: '400ms' }}>
       
-      {/* Carte de confirmation email améliorée */}
       <div className="group cursor-pointer" onClick={onConnection}>
         <div className="border border-input rounded-xl p-4 bg-background hover:border-foreground/20 transition-all duration-200 hover:shadow-sm">
           <div className="flex items-center space-x-3">
@@ -44,7 +43,6 @@ const EmailConfirmation = ({ email, onConnection, onRemoveEmail, isLoaded }: Ema
         </div>
       </div>
 
-      {/* Bouton de connexion cohérent */}
       <Button
         onClick={onConnection}
         className="w-full h-12 bg-foreground text-background font-medium rounded-xl transition-all duration-200 hover:bg-foreground/90 active:scale-[0.98] group"
